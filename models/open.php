@@ -14,6 +14,19 @@ if (!$db_li->set_charset("utf8")) {
     exit();
 } 
 
+$host = "localhost";
+$db = "electro_count";
+$charset = "utf8";
+$user = "root";
+$pass = "1234";
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$opt = array(
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+);
+$pdo = new PDO($dsn, $user, $pass, $opt);
+
+
 
  $keys1 = 'CoUnTeRs';
    session_start();
