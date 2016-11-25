@@ -1,13 +1,13 @@
 $(function(){
     var objEditUser = { 
-		objUser : $('#user_edit'),
-		objPassword: $('#pass_edit'),
-		objConfirmPassword: $('#pass_repeat_edit'),
-		objUserFamily: $('#family_edit'),
-		objUserName: $('#name_edit'),
-		objId: $('#edit_user_id')
+		objUser : 	  		$( '#user_edit' ),
+		objPassword:		$( '#pass_edit' ),
+		objConfirmPassword: $( '#pass_repeat_edit' ),
+		objUserFamily: 		$( '#family_edit' ),
+		objUserName: 		$( '#name_edit' ),
+		objId: 				$( '#edit_user_id' )
 	};
-	json_get_user( $('#right') );
+	json_get_user( $( '#right' ) );
 	user_form_add = $( "#user_div_add" ).dialog({
 					title: "Добавление пользователя",
 					autoOpen: false,
@@ -20,9 +20,9 @@ $(function(){
 							text: 'Ok',
 							click : function ( obj_form ){
 								var obj = { 
-									objTarget:  $('#right'),
+									objTarget:  $( '#right' ),
 									actionsCmd: ADD_USER_ACTIONS,
-									__proto__: obj_form
+									__proto__: 	obj_form
 								};
 								user_form_actions( obj );
 							}
@@ -58,9 +58,9 @@ $(function(){
 								text: 'Ok',
 								click : function (obj_form){
 									var obj = { 
-										objTarget:  $('#right'),
+										objTarget:  $( '#right' ),
 										actionsCmd: EDIT_USER_ACTIONS,
-										__proto__: obj_form
+										__proto__:	 obj_form
 									};
 									user_form_actions(obj);
 								}
@@ -115,8 +115,8 @@ $(function(){
 	});
 
 	$('#right').on('click','.counter_str_odd',function( event ) {
-		var edit_user_id = $(this).attr('id');
-		objEditUser.param = {'id': edit_user_id.slice(3)};
+		var edit_user_id = $( this).attr('id');
+		objEditUser.param = {'id': edit_user_id.slice( 3 )};
 		l_form_edit_user( objEditUser )
 		user_form_edit.dialog( "open" );
 	});
