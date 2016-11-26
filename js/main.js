@@ -10,7 +10,7 @@ const ADD_COUNTER_BTN_NAME = 'ok_f', EDIT_COUNTER_BTN_NAME = 'edit_f';
  * @param {number} find_id Значение id объекта по которому  осуществляется поиск.
  * @return {number} Возвращает index когда arr[..].id = find_id.
  */
-let find_arr_id = (arr, find_id) => {
+let find_arr_id = ( arr, find_id ) => {
 	var ret = -1;
 	for (var i = 0; i < arr.length; i++) if (arr[i].id == find_id) {ret = i; break;}
 	return ret;
@@ -51,11 +51,12 @@ let getUrlVars = () => {
 }
 
 
-let get_counter = (obj, url, data = 1, actions = SELECTED_ACTIONS, couner_value = 0) => {
+let get_counter = ( obj, url, data = 1, actions = SELECTED_ACTIONS, couner_value = 0 ) => {
 	obj.prop('disabled', true);
 	obj.html('<option>загрузка...</option>');
 	$.getJSON(url, {data: data})
- 	.done((result) => {
+ 	.done((result, a, b) => {
+		 console.log(result, a, b);
 		if (result.type == 'success') {
 			var options = '';
 			$(result.data).each(function() { options += '<option value="' + $(this).attr('id') + '">' + $(this).attr('name') + '</option>';	});
@@ -64,7 +65,10 @@ let get_counter = (obj, url, data = 1, actions = SELECTED_ACTIONS, couner_value 
 			if (actions == EDIT_ACTIONS) obj.find('[value="' + couner_value + '"]').prop("selected", true);
 		} else alert('error');
 	})
-	.fail(() => alert('Error'));
+	.fail((a, b, c) =>{
+		// alert('Error');
+		console.log(a, b, c);
+	});
 }	
 
 let get_substation = ( {objSubstation, objCounter, url_substation, url_counter}, 
@@ -88,7 +92,7 @@ let get_substation = ( {objSubstation, objCounter, url_substation, url_counter},
 	.fail(() => alert( 'Error' ));
 }
 
-let create_cmd = (base_link, params)  => {
+let create_cmd = ( base_link, params )  => {
 	var count = 0;
 	var cmd = base_link;
 	for (let key in params) {
@@ -99,7 +103,7 @@ let create_cmd = (base_link, params)  => {
 	return cmd;
 }
 	
-let print_table = (counter)  => {
+let print_table = ( counter )  => {
 	var st = '';
 	var count = 0 , class_e;
 	for (let key in counter) {
@@ -116,7 +120,7 @@ let print_table = (counter)  => {
 	return st;
 }
 
-let print_menu = (menu) => {
+let print_menu = ( menu ) => {
 	var st = '';
 	for(let i = 0; i < menu.length; i++)
 		st += `	<li>
@@ -125,7 +129,7 @@ let print_menu = (menu) => {
 	return st;
 }
 
-let json_get_table = (objTarget, cmd_arr) => {
+let json_get_table = ( objTarget, cmd_arr ) => {
 	$.ajax({dataType: 'json', type: 'get', url: 'models/json/filter_value.php',  data: cmd_arr})
 	 .done(( result ) => {
 		if (result.success) {
@@ -178,7 +182,7 @@ let print_table_user = ( user_all ) => {
  
  * @return {string} row_add возвращает строку введенных данных.
  */
-let print_add_record = ({ name_lot, name_substation, name_counter, date, time, value, id}) => {
+let print_add_record = ( {name_lot, name_substation, name_counter, date, time, value, id} ) => {
 	var row_add = `
 			<div class="col_lots">${name_lot}</div>
 			<div class="col_substation">${name_substation}</div> 
@@ -268,7 +272,7 @@ let edit_form_actions = ( obj_form ) => {
 	.fail(() => alert('Error'));	
 }
 
-let add_form_actions = ({form, objLot, objSubstation, objCounter, objBtnOk, objBtnEdit, objListRec, btnPress, gl_add_counts, edit_arr}) =>{
+let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, objBtnEdit, objListRec, btnPress, gl_add_counts, edit_arr} ) =>{
 	var lot = objLot.val();
 	var substation = objSubstation.val();
 	var counts = objCounter.val();
