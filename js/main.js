@@ -55,7 +55,8 @@ let get_counter = ( obj, url, data = 1, actions = SELECTED_ACTIONS, couner_value
 	obj.prop('disabled', true);
 	obj.html('<option>загрузка...</option>');
 	$.getJSON(url, {data: data})
- 	.done((result) => {
+ 	.done((result, a, b) => {
+		 console.log(result, a, b);
 		if (result.type == 'success') {
 			var options = '';
 			$(result.data).each(function() { options += '<option value="' + $(this).attr('id') + '">' + $(this).attr('name') + '</option>';	});
@@ -64,7 +65,10 @@ let get_counter = ( obj, url, data = 1, actions = SELECTED_ACTIONS, couner_value
 			if (actions == EDIT_ACTIONS) obj.find('[value="' + couner_value + '"]').prop("selected", true);
 		} else alert('error');
 	})
-	.fail(() => alert('Error'));
+	.fail((a, b, c) =>{
+		// alert('Error');
+		console.log(a, b, c);
+	});
 }	
 
 let get_substation = ( {objSubstation, objCounter, url_substation, url_counter}, 
