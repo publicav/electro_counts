@@ -9,7 +9,6 @@ foreach ($_GET as $key => $value) {
     $get_prog[$key] = $value;
 }    
 
-
 if (isset($get_prog['data'])) $substation = (int)$get_prog['data']; else
 {
     header("HTTP/1.1 400 Bad Request", true, 400);    
