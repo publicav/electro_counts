@@ -28,8 +28,7 @@ $sq = "SELECT m.id_a AS id_a, m.id_menu AS id_menu, m.name AS name, m.url AS url
         while ($row = $res->fetch_assoc()) {
             for($i=0; $i < SizeOf($priv); $i++)
             {
-                if (($row['id_menu'] == $priv[$i]['id_menu']) AND ($priv[$i]['visibly'] == 1)) 
-                {
+                if (($row['id_menu'] == $priv[$i]['id_menu']) AND ($priv[$i]['visibly'] == 1)) {
                    $row['checked'] = 'checked="checked"'; break;
                 }    
             }
