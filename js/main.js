@@ -56,19 +56,14 @@ let get_counter = ( obj, url, data = 1, actions = SELECTED_ACTIONS, couner_value
 	obj.html('<option>загрузка...</option>');
 	$.getJSON(url, {data: data})
  	.done((result, a, b) => {
-		 console.log(result, a, b);
-		if (result.type == 'success') {
 			var options = '';
-			$(result.data).each(function() { options += '<option value="' + $(this).attr('id') + '">' + $(this).attr('name') + '</option>';	});
-			obj.html(options);
-			obj.prop('disabled', false);
-			if (actions == EDIT_ACTIONS) obj.find('[value="' + couner_value + '"]').prop("selected", true);
-		} else alert('error');
+			$( result.data ).each(function() { options += '<option value="' + $( this ).attr('id') + '">' + $( this ).attr('name') + '</option>';	});
+			obj.html( options );
+			obj.prop( 'disabled', false );
+			if ( actions == EDIT_ACTIONS ) obj.find('[value="' + couner_value + '"]').prop( "selected", true );
 	})
-	.fail((a, b, c) =>{
-		// alert('Error');
-		console.log(a, b, c);
-	});
+	.fail((result, b, c) => alert(result.error));
+//	console.log(a, b, c);
 }	
 
 let get_substation = ( {objSubstation, objCounter, url_substation, url_counter}, 
@@ -77,7 +72,6 @@ let get_substation = ( {objSubstation, objCounter, url_substation, url_counter},
 	objSubstation.html('<option>загрузка...</option>');
 	$.getJSON(url_substation, {data: data})
 	.done((result) => { 
-		if (result.type == 'success') {
 			var options = '';
 			$(result.data).each(function() { options += '<option value="' + $(this).attr('id') + '">' + $(this).attr('name') + '</option>';	});
 			objSubstation.html(options);
@@ -87,9 +81,8 @@ let get_substation = ( {objSubstation, objCounter, url_substation, url_counter},
 				objSubstation.find('[value="' + value + '"]').prop("selected", true);				
 				get_counter(objCounter, url_counter, value, 2, value_counter);
 			}
-		} else alert( 'Error' );
 	})
-	.fail(() => alert( 'Error' ));
+	.fail(( result ) => alert(result.error));
 }
 
 let create_cmd = ( base_link, params )  => {
@@ -196,16 +189,14 @@ let print_add_record = ( {name_lot, name_substation, name_counter, date, time, v
 
 let json_get_user = ( objTarget ) => {
 	$.ajax({dataType: 'json', type: 'get', url: 'models/json/get_user.php'})
-	 .done((result) => {
-		if (result.success == true) {
+	 .done(( result ) => {
 			var data = result.data;
-			$(objTarget).html( print_table_user( data ) );
-			$(objTarget).prepend( add_user_btn() );
-		} else  alert(result.error);
+			$( objTarget ).html( print_table_user( data ) );
+			$( objTarget ).prepend( add_user_btn() );
 	})
-	.fail(() => alert('Error'));
+	.fail(( result ) => alert(result.error));
 
-	let add_user_btn = () => {
+	function add_user_btn() {
 		let st = `	<div id="add_user_btn">
 						<div class="btn-ico"><img src="img/web/add_user.png" width="32" height="32" alt="add_user"></div>
 						<div class="btn-text">Добавить пользователя</div>
