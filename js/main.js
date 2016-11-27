@@ -79,10 +79,10 @@ let get_substation = ( {objSubstation, objCounter, url_substation, url_counter},
 			if (actions == SELECTED_ACTIONS) get_counter(objCounter, url_counter, objSubstation.val());
 			if (actions == EDIT_ACTIONS) {
 				objSubstation.find('[value="' + value + '"]').prop("selected", true);				
-				get_counter(objCounter, url_counter, value, 2, value_counter);
+				get_counter( objCounter, url_counter, value, EDIT_ACTIONS, value_counter );
 			}
 	})
-	.fail(( result ) => alert(result.error));
+	.fail(( result, b, c ) => alert(result.error));
 }
 
 let create_cmd = ( base_link, params )  => {
@@ -194,7 +194,7 @@ let json_get_user = ( objTarget ) => {
 			$( objTarget ).html( print_table_user( data ) );
 			$( objTarget ).prepend( add_user_btn() );
 	})
-	.fail(( result ) => alert(result.error));
+	.fail(( result, b, c ) => alert(result.error));
 
 	function add_user_btn() {
 		let st = `	<div id="add_user_btn">
