@@ -2,6 +2,7 @@
 const SELECTED_ACTIONS = 1, EDIT_ACTIONS = 2; 
 const ADD_USER_ACTIONS = 1, EDIT_USER_ACTIONS = 2; 
 const ADD_COUNTER_BTN_NAME = 'ok_f', EDIT_COUNTER_BTN_NAME = 'edit_f';
+const BASENAME = window.location.pathname.slice( 1 );
 
 /**
  * Возвращает индекс массива объектов. 
@@ -40,16 +41,13 @@ let getUrlVars = () => {
     var vars = {} , hash;
 	if (location.search) {
 		var hashes = (location.search.substr(1)).split('&');
-		console.log(hashes);
 		for(var i = 0; i < hashes.length; i++) {
 			hash = hashes[i].split('=');
-			console.log(hashes);
 			vars[hash[0]] = hash[1];
 		}
 	}
     return vars;
 }
-
 
 let get_counter = ( obj, url, data = 1, actions = SELECTED_ACTIONS, couner_value = 0 ) => {
 	obj.prop('disabled', true);
@@ -101,7 +99,7 @@ let print_table = ( counter )  => {
 	var count = 0 , class_e;
 	for (let key in counter) {
 		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';			
-		st += `	<div id="id_${counter[key].id}" class="${class_e}" title="Редактировать параметры <br/> Ввод - <b>${counter[key].name_user}</b>">
+		st += `	<div id="id_${counter[key].id}" class="${class_e}" title="Ввод - <b>${counter[key].name_user}</b>">
 				<div class="col_lots">${counter[key].lot}</div>
 				<div class="col_substation">${counter[key].substation}</div>
 				<div class="col_counts">${counter[key].counter}</div>

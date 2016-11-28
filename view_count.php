@@ -70,7 +70,7 @@ if ($sid == 0) {
 } else {
     $menu_json = include_h("models/json/menu_registration.json");
 //    $menu_left_json = include_h("models/json/menu_left.json");
-    include("models/edit_count_d.php");
+    include("models/view_count_d.php");
     include("views/view_count_v.php");
 }
 exit();

@@ -4,8 +4,12 @@ include_once("../config.php");
 include_once("../funclib.php");
 
 $st_sql = '';
-$url_search_action = "edit_count.php";
 $st_page = '';
+
+
+$path_parts = pathinfo( $_SERVER["HTTP_REFERER"] );
+$url = $path_parts['filename'];
+
 $counter = array();
 foreach ($_GET as $key => $value) 
 {
@@ -14,6 +18,10 @@ foreach ($_GET as $key => $value)
 	
 	$get_prog[$key] = $value;
 }    
+
+//$url_search_action = "edit_count.php";
+$url_search_action = $url . '.php';
+
 	
 if(isset($get_prog['st'])) 
 {
@@ -140,7 +148,7 @@ $type['success'] = true;
 $type['id_error'] = 0;
 $type['data'] = $counter;
 $type['navigator'] = $navigator;
-$type['st'] = $st;
+$type['url'] = $url;
 echo json_encode($type);
    7
 ?>

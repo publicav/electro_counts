@@ -1,14 +1,14 @@
 $(function() {
 	var cmd_arr	= {};
 	cmd_arr = getUrlVars();
-	var base_link = 'edit_count.php';	
+	var base_link = BASENAME;	
 	var objFiltred = {
 		objSubstation: $('#substation'),
 		objCounter: $('#counter'),
 		url_substation: 'models/json/get_substation_filtred.php',
 		url_counter: 'models/json/get_counter_filtred.php'
 	};	
-	console.log(cmd_arr);
+	
 	json_get_table($('#right'), cmd_arr);
 	$.datepicker.setDefaults(
 		$.extend($.datepicker.regional["ru"])
