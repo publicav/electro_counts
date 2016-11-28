@@ -817,6 +817,7 @@ background-color:#FFF8DC;
 .counter_str_even{
 	margin: 2px 0px 2px 20px;
 	height:40px;
+/*	line-height: 40px;*/
 	float: left;
 	background-color: #FFF8DC;
 	cursor: pointer;
