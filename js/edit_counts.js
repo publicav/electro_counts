@@ -82,22 +82,6 @@ $(function() {
 		edit_form.dialog( "open" );
 	});
 
-	$('#right').on('click','a',function( event ) {
-		// console.log(event.target.search);
-		var param = event.target.search;
-		if (param != '') {
-			var stArr = (param.substr(1)).split('&');
-			for(var i=0; i < stArr.length; i++) {
-				st =  stArr[i].split('=');       // массив param будет содержать
-				if (st[0] == 'st' ) {
-					if (st[1] != 0) cmd_arr.st = st[1]; else delete cmd_arr.st;
-				}	
-			}			
-		}
-		event.preventDefault();
-		json_get_table($('#right'), cmd_arr);
-	});
-
 	$( document ).tooltip({ content: function() { return this.getAttribute("title") } });				
 	
 });

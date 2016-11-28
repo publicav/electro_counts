@@ -147,5 +147,19 @@ $(function() {
 	if (!$('#dt1_en').prop('checked')) $( "#dt1" ).datepicker('disable');
 	if (!$('#dt2_en').prop('checked')) $( "#dt2" ).datepicker('disable');
 
-	
+	$('#right').on('click','a',function( event ) {
+		event.preventDefault();
+		// console.log(event.target.search);
+		var param = event.target.search;
+		if (param != '') {
+			var stArr = (param.substr(1)).split('&');
+			for(var i=0; i < stArr.length; i++) {
+				st =  stArr[i].split('=');       // массив param будет содержать
+				if (st[0] == 'st' ) {
+					if (st[1] != 0) cmd_arr.st = st[1]; else delete cmd_arr.st;
+				}	
+			}			
+		}
+		json_get_table($('#right'), cmd_arr);
+	});	
 });
