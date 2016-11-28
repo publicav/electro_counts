@@ -82,6 +82,6 @@ $(function() {
 		edit_form.dialog( "open" );
 	});
 
-	$( document ).tooltip({ content: function() { return this.getAttribute("title") } });				
+					
 	
 });
