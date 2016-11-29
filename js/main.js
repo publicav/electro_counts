@@ -2,7 +2,10 @@
 const SELECTED_ACTIONS = 1, EDIT_ACTIONS = 2; 
 const ADD_USER_ACTIONS = 1, EDIT_USER_ACTIONS = 2; 
 const ADD_COUNTER_BTN_NAME = 'ok_f', EDIT_COUNTER_BTN_NAME = 'edit_f';
-const BASENAME = window.location.pathname.slice( 1 );
+//const BASENAME = window.location.pathname.slice( 1 );
+var parseBASENAME = window.location.pathname.slice( 1 ).split( '/' );
+const BASENAME = parseBASENAME[parseBASENAME.length-1];
+console.log(BASENAME);
 
 /**
  * Возвращает индекс массива объектов. 

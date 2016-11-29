@@ -17,8 +17,18 @@ foreach ($_POST as $key => $value)
 	
 $name_lot = validator_input_sql('lots', $get_prog['lot']);
 $name_substation = validator_input_sql('substation', $get_prog['substation']);
-$name_count = validator_input_sql('count', $get_prog['counter']);
-$id_users = $sid;
+//$name_count = validator_input_sql('count', $get_prog['counter']);
+$id_users = $sid;   // Регистрация
+
+    $sq  = "SELECT n_counter, name FROM  count  WHERE (id = " . $get_prog['counter'] . ");";
+    if ($res = $db_li->query($sq)) {
+        while ($row = $res->fetch_assoc()) {
+            $name_count = $row['name'];
+			$N_counter = $row['n_counter'];				
+        }
+        $res->free();
+    }
+
 
 if (!isset($name_lot)) { 
 	echo exit_error(false, 2, 'Error input select lots');
@@ -52,6 +62,24 @@ if ($date_create == '') {
 	exit();
 }
 if ($get_prog['actions'] == 'add'){
+
+    $sq  = "SELECT id FROM  counter_v  
+			WHERE (n_counter = '" . $N_counter . "') AND (id_counter = '" . $get_prog['counter'] . "') AND
+				  (date_create = '" . $date_create . "');";
+			$sqsel = $sq;
+    if ($res = $db_li->query($sq)) {
+        while ($row = $res->fetch_assoc()) {
+            $id_dupl = $row['id'];
+        }
+        $res->free();
+    }
+	
+	if (isset($id_dupl)) {
+		echo exit_error(false, 2, 'Error, Дублирующая запись');	
+		exit();
+	}
+	
+	
 	$sq = "INSERT INTO counter_v (n_counter, id_counter, id_users, value,  date_create) 
 			VALUES ('" . $N_counter . "' ,'" . $get_prog['counter'] . "', '" . $id_users . "', '" . $get_prog['counter_val'] . "','" .  $date_create ."');";
 
@@ -84,7 +112,7 @@ $data = Array("id" => $id_add, "lot" => $get_prog['lot'], "substation" => $get_p
 								"value" => $get_prog['counter_val']);
 $type['success'] = true;
 $type['id_error'] = 0;
-$type['error'] = $sid;
+$type['error'] = $sqsel;
 $type['data'] = $data;
 echo json_encode($type);
 ?>
