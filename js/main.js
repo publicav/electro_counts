@@ -378,14 +378,14 @@ let registration = ( form ) => {
 				mainfile += '</ul>';	
 				$('#menu').html( mainfile );
 			})
-			.fail(() => alert('Error'));
+			.fail((result) => alert('Error'));
 			
 			$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_left.php' })
 			.done((result_menu) => {
 						var menu =  result_menu;
 						$( '#left' ).html( `<div id="menu_left" class="left-box"><ol>${print_menu( menu )}</ol></div>` );
 			})
-			.fail(() => alert('Error'));
+			.fail((result) => alert(result.error));
 		} else alert(result.error);
 	})
 	.fail(() => alert('Error'));
