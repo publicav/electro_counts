@@ -1,6 +1,6 @@
 $(function() {
-	var cmd_arr	= {};
-	cmd_arr = getUrlVars();
+//	var cmd_arr	= {};
+//	cmd_arr = getUrlVars();
 	var base_link = BASENAME;	
 	var objFiltred = {
 		objSubstation: $('#substation'),

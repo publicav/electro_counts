@@ -1,3 +1,14 @@
+let getUrlVars = () => {
+    var vars = {} , hash;
+	if (location.search) {
+		var hashes = (location.search.substr(1)).split('&');
+		for(var i = 0; i < hashes.length; i++) {
+			hash = hashes[i].split('=');
+			vars[hash[0]] = hash[1];
+		}
+	}
+    return vars;
+}
 
 const SELECTED_ACTIONS = 1, EDIT_ACTIONS = 2; 
 const ADD_USER_ACTIONS = 1, EDIT_USER_ACTIONS = 2; 
@@ -5,7 +16,10 @@ const ADD_COUNTER_BTN_NAME = 'ok_f', EDIT_COUNTER_BTN_NAME = 'edit_f';
 //const BASENAME = window.location.pathname.slice( 1 );
 var parseBASENAME = window.location.pathname.slice( 1 ).split( '/' );
 const BASENAME = parseBASENAME[parseBASENAME.length-1];
-console.log(BASENAME);
+
+var cmd_arr	= {};
+cmd_arr = getUrlVars();
+console.log(cmd_arr);
 
 /**
  * Возвращает индекс массива объектов. 
@@ -40,17 +54,6 @@ let cmdLineParsing = ( param ) => {
 	return retSt;
 }
 
-let getUrlVars = () => {
-    var vars = {} , hash;
-	if (location.search) {
-		var hashes = (location.search.substr(1)).split('&');
-		for(var i = 0; i < hashes.length; i++) {
-			hash = hashes[i].split('=');
-			vars[hash[0]] = hash[1];
-		}
-	}
-    return vars;
-}
 
 let get_counter = ( obj, url, data = 1, actions = SELECTED_ACTIONS, couner_value = 0 ) => {
 	obj.prop('disabled', true);

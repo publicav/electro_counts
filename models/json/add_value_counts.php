@@ -52,7 +52,7 @@ if ($get_prog['counter_val'] == '') {
 	exit();
 }
 
-str_replace(',', '.', $get_prog['counter_val']);
+$get_prog['counter_val'] = str_replace(',', '.', $get_prog['counter_val']);
 // это у нас на тот случай, если введена хрень
 $get_prog['counter_val'] = floatval($get_prog['counter_val']);
 
