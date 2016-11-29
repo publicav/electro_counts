@@ -30,7 +30,7 @@
 </div>
 
 <div id="right"> 
-	<div id="help">
+	<div id="help1">
 		<p>Для работы с программой нужно установить ниже представленные браузеры.</p>
 		<p><b>x32</b></p>
 		<p><a href="prog/MozillaFirefox32OfflineInstaller.exe" title="Mozila Firefox">Mozilla Firefox</a></p>
