@@ -1133,3 +1133,10 @@ text-decoration:none;
  margin:10px;
  padding:10px;
  }
+
+ #product {
+	 font: 16px Arial;
+	 font-weight: bold;
+	 text-align: center;
+	 margin-top: 25px;
+ }
