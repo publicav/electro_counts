@@ -10,5 +10,5 @@
  $config['META_K'] = 'Учёт электроэнергии, kkc.dmkd.dp.ua';
  $config['LEN_PASS'] = 2;
  $config['RING'] = 1;
-
+ $config['VERSION'] = '1.01';
 ?>
