@@ -367,27 +367,24 @@ let registration = ( form ) => {
 	
 	$.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
 	.done((result) => {
-
-		if (result.success == true) {
-			$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_registration.json' })
-			 .done((result_menu) => {
-				var menu =  result_menu.menu;
-				var mainfile = `<ul>${print_menu( menu )}`;
-				if (result.id != 0) mainfile += `<div class="user"><div class="title_user">Вы зашли как:</div>${result.name} ${result.family}</div>`;
-				mainfile += '</ul>';	
-				$('#menu').html( mainfile );
-			})
-			.fail((result) => alert('Error'));
-			
-			$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_left.php' })
-			.done((result_menu) => {
-						var menu =  result_menu;
-						$( '#left' ).html( `<div id="menu_left" class="left-box"><ol>${print_menu( menu )}</ol></div>` );
-			})
-			.fail((result) => alert(result.error));
-		} else alert(result.error);
+		$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_registration.json' })
+		 .done((result_menu) => {
+			var menu =  result_menu.menu;
+			var mainfile = `<ul>${print_menu( menu )}`;
+			if (result.id != 0) mainfile += `<div class="user"><div class="title_user">Вы зашли как:</div>${result.name} ${result.family}</div>`;
+			mainfile += '</ul>';	
+			$('#menu').html( mainfile );
+		})
+		.fail(( result ) => alert('Error'));
+		
+		$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_left.php' })
+		.done((result_menu) => {
+			var menu =  result_menu;
+			$( '#left' ).html( `<div id="menu_left" class="left-box"><ol>${print_menu( menu )}</ol></div>` );
+		})
+		.fail(( result ) => alert(result.error));
 	})
-	.fail(() => alert('Error'));
+	.fail(( result ) => alert(result.error));
 }
 
 
