@@ -18,19 +18,19 @@ $(function(){
 
 	get_substation(objSelected, $('#lot').val());	
 	
-	$('#lot').change(function () {
+	$( '#lot' ).change(function () {
 		let lot = $( this ).val();
 		get_substation( objSelected, lot );	
 		$('#counter_val').val('');
 	});
 
-	$('#substation').change(function () {
+	$( '#substation' ).change(function () {
 		let substation = $( this ).val();
 		let div_counter = $( '#counter' );			
 		get_counter( div_counter, 'models/json/get_counter.php', substation );	
 		$('#counter_val').val('');
 	});
-	$('#counter').change(function () {
+	$( '#counter' ).change(function () {
 		$('#counter_val').val('');
 	});
 	
