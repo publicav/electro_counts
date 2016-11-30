@@ -13,8 +13,7 @@ let getUrlVars = () => {
 const SELECTED_ACTIONS = 1, EDIT_ACTIONS = 2; 
 const ADD_USER_ACTIONS = 1, EDIT_USER_ACTIONS = 2; 
 const ADD_COUNTER_BTN_NAME = 'ok_f', EDIT_COUNTER_BTN_NAME = 'edit_f';
-//const BASENAME = window.location.pathname.slice( 1 );
-var parseBASENAME = window.location.pathname.slice( 1 ).split( '/' );
+const parseBASENAME = window.location.pathname.slice( 1 ).split( '/' );
 const BASENAME = parseBASENAME[parseBASENAME.length-1];
 
 var cmd_arr	= {};
@@ -368,45 +367,42 @@ let registration = ( form ) => {
 	
 	$.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
 	.done((result) => {
-
-		if (result.success == true) {
-			$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_registration.json' })
-			 .done((result_menu) => {
-				var menu =  result_menu.menu;
-				var mainfile = `<ul>${print_menu( menu )}`;
-				if (result.id != 0) mainfile += `<div class="user"><div class="title_user">Вы зашли как:</div>${result.name} ${result.family}</div>`;
-				mainfile += '</ul>';	
-				$('#menu').html( mainfile );
-			})
-			.fail(() => alert('Error'));
-			
-			$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_left.php' })
-			.done((result_menu) => {
-						var menu =  result_menu;
-						$( '#left' ).html( `<div id="menu_left" class="left-box"><ol>${print_menu( menu )}</ol></div>` );
-			})
-			.fail(() => alert('Error'));
-		} else alert(result.error);
+		$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_registration.json' })
+		 .done((result_menu) => {
+			var menu =  result_menu.menu;
+			var mainfile = `<ul>${print_menu( menu )}`;
+			if (result.id != 0) mainfile += `<div class="user"><div class="title_user">Вы зашли как:</div>${result.name} ${result.family}</div>`;
+			mainfile += '</ul>';	
+			$('#menu').html( mainfile );
+		})
+		.fail(( result ) => alert('Error'));
+		
+		$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_left.php' })
+		.done((result_menu) => {
+			var menu =  result_menu;
+			$( '#left' ).html( `<div id="menu_left" class="left-box"><ol>${print_menu( menu )}</ol></div>` );
+		})
+		.fail(( result ) => alert(result.error));
 	})
-	.fail(() => alert('Error'));
+	.fail(( result ) => alert(result.error));
 }
 
 
 let edit_privilege = () => {
-	var m_data = {'id_user': $('#edit_user_id').val()}		
+	var m_data = { 'id_user': $('#edit_user_id').val() }		
 	$.ajax({ dataType: 'json', type: 'post', data: m_data, url: 'models/json/menu_left_priv.php' })
-	.done((result_menu) => {
-				var menu_v =  result_menu;
-				var mainfile = '<ol>';
-				for(let i = 0; i < menu_v.length; i++)
-					mainfile += `	<li>${menu_v[i].name}
-										<input id="check_${menu_v[i].id_a}" class="privilege_checkbox" type="checkbox" ${menu_v[i].checked}/>
-									</li>`;
-				mainfile += '</ol>';	
-				$('#user_form_privelege').html( mainfile );
+	.done(( result_menu ) => {
+			var menu_v =  result_menu;
+			var mainfile = '<ol>';
+			for( let i = 0; i < menu_v.length; i++ )
+				mainfile += `<li>${menu_v[i].name}
+								<input id="check_${menu_v[i].id_a}" class="privilege_checkbox" type="checkbox" ${menu_v[i].checked}/>
+							</li>`;
+			mainfile += '</ol>';	
+			$( '#user_form_privelege' ).html( mainfile );
 
 	})
-	.fail(() => alert('Error'));
+	.fail(( result ) => alert( result.error ));
 }
 
 let privilege_user_form_actions = ( obj_form ) => {
