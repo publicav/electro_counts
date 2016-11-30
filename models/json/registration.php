@@ -7,22 +7,26 @@ mb_internal_encoding('UTF-8');
 
 if (isset($_POST['username'])) $username = $_POST['username'];
 else {
-    echo exit_error(false, 1, 'Ошибка данных');
-    exit();
+	header("HTTP/1.1 400 Bad Request", true, 400);
+	print exit_error( false, 3, 'Ошибка данных' );
+	exit();
 };
 
 if (isset($_POST['password'])) $password = $_POST['password'];
 else {
-    echo exit_error(false, 1, 'Ошибка данных');
-    exit();
+        header("HTTP/1.1 400 Bad Request", true, 400);
+        print exit_error( false, 3, 'Ошибка данных' );
+        exit();
 };
 
 $md5 = sha1(md5(md5($password).$keys1.$username));
-$sq = "SELECT id, users, name, family FROM users WHERE (users = '$username') AND (password = '" . $md5 . "')";
+$sq = "SELECT id, users, name, family FROM users WHERE (users = ?) AND (password = ?)";
 $msg = 'зарегистрирован';
 
-    if ($res = $db_li->query($sq)) {
-        while ($row = $res->fetch_assoc()) {
+
+    $res = $pdo->prepare( $sq );
+    if ( $res->execute( [$username, $md5] )) {
+        while ($row = $res->fetch()) {
             $id = $row['id'];
             $users = $row['users'];
             $type['success'] = true;
@@ -33,9 +37,9 @@ $msg = 'зарегистрирован';
             $_SESSION['sid']= $id; //      session_start(); вызывается в open.php
         }
 		if (isset($type)) echo json_encode($type); else  echo exit_error(false, 1, 'Ошибка регистрации'); 
-        $res->free();
     } else {
-		echo exit_error(false, 3, 'Error mysql');
+        header("HTTP/1.1 400 Bad Request", true, 400);
+        print exit_error( false, 3, $res->errorInfo() );
         exit();
     }
 ?>
