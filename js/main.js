@@ -13,8 +13,7 @@ let getUrlVars = () => {
 const SELECTED_ACTIONS = 1, EDIT_ACTIONS = 2; 
 const ADD_USER_ACTIONS = 1, EDIT_USER_ACTIONS = 2; 
 const ADD_COUNTER_BTN_NAME = 'ok_f', EDIT_COUNTER_BTN_NAME = 'edit_f';
-//const BASENAME = window.location.pathname.slice( 1 );
-var parseBASENAME = window.location.pathname.slice( 1 ).split( '/' );
+const parseBASENAME = window.location.pathname.slice( 1 ).split( '/' );
 const BASENAME = parseBASENAME[parseBASENAME.length-1];
 
 var cmd_arr	= {};
@@ -393,20 +392,20 @@ let registration = ( form ) => {
 
 
 let edit_privilege = () => {
-	var m_data = {'id_user': $('#edit_user_id').val()}		
+	var m_data = { 'id_user': $('#edit_user_id').val() }		
 	$.ajax({ dataType: 'json', type: 'post', data: m_data, url: 'models/json/menu_left_priv.php' })
-	.done((result_menu) => {
-				var menu_v =  result_menu;
-				var mainfile = '<ol>';
-				for(let i = 0; i < menu_v.length; i++)
-					mainfile += `	<li>${menu_v[i].name}
-										<input id="check_${menu_v[i].id_a}" class="privilege_checkbox" type="checkbox" ${menu_v[i].checked}/>
-									</li>`;
-				mainfile += '</ol>';	
-				$('#user_form_privelege').html( mainfile );
+	.done(( result_menu ) => {
+			var menu_v =  result_menu;
+			var mainfile = '<ol>';
+			for( let i = 0; i < menu_v.length; i++ )
+				mainfile += `<li>${menu_v[i].name}
+								<input id="check_${menu_v[i].id_a}" class="privilege_checkbox" type="checkbox" ${menu_v[i].checked}/>
+							</li>`;
+			mainfile += '</ol>';	
+			$( '#user_form_privelege' ).html( mainfile );
 
 	})
-	.fail(() => alert('Error'));
+	.fail(( result ) => alert( result.error ));
 }
 
 let privilege_user_form_actions = ( obj_form ) => {
