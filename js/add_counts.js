@@ -5,6 +5,7 @@ $(function(){
 		objLot: 	  	 $( '#lot' ),
 		objSubstation:	 $( '#substation' ),
  		objCounter:   	 $( '#counter' ),
+ 		objCounterLastVal: $( '#counter_last_val' ),
 		url_substation: 'models/json/get_substation.php',
 		url_counter:    'models/json/get_counter.php'
 	};	
@@ -17,11 +18,19 @@ $(function(){
 	$('#time_airing_begin').mask('H9:M9');
 
 	get_substation(objSelected, $('#lot').val());	
+
+	let counter = 1;
+	objSelected.param = {'counter': counter};
+	get_last_val( objSelected );
 	
 	$( '#lot' ).change(function () {
 		let lot = $( this ).val();
 		get_substation( objSelected, lot );	
 		$('#counter_val').val('');
+		let counter = $( this ).val();
+		objSelected.param = {'counter': counter};
+		get_last_val( objSelected );
+		
 	});
 
 	$( '#substation' ).change(function () {
@@ -29,14 +38,21 @@ $(function(){
 		let div_counter = $( '#counter' );			
 		get_counter( div_counter, 'models/json/get_counter.php', substation );	
 		$('#counter_val').val('');
+		let counter = $( this ).val();
+		objSelected.param = {'counter': counter};
+		get_last_val( objSelected );
+		
 	});
 	$( '#counter' ).change(function () {
-		$('#counter_val').val('');
+		$('#counter_val').val( '' );
+		let counter = $( this ).val();
+		objSelected.param = {'counter': counter};
+		get_last_val( objSelected );
 	});
 	
 
 		$('#list_counts').on('click','a',function( event ) {
-				var arr_id = $(this).attr('id');
+				var arr_id = $( this ).attr('id');
 				var index = find_arr_id( edit_arr,arr_id );
 				var lot_value = edit_arr[index].lot;
 				var substation_value = edit_arr[index].substation;

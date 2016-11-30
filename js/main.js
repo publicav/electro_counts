@@ -88,6 +88,18 @@ let get_substation = ( {objSubstation, objCounter, url_substation, url_counter},
 	.fail(( result, b, c ) => alert(result.error));
 }
 
+let get_last_val = ( { objCounterLastVal, param } ) => {
+	$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: param})
+	 .done((result) => {
+		if (result.success) {
+			var data = result.data;
+			objCounterLastVal.val( data.value );	
+		}
+		else alert(result.error);
+	})
+	.fail(() => alert('Error'));
+}
+
 let create_cmd = ( base_link, params )  => {
 	var count = 0;
 	var cmd = base_link;
