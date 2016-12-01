@@ -65,8 +65,7 @@ $(function() {
 			delete cmd_arr.st;
 			delete cmd_arr.id_counter;
 		}	
-		var div_filtrCounter = $('#counter');			
-		get_counter(div_filtrCounter, 'models/json/get_counter_filtred.php', substation);
+		get_counter(objFiltred, substation);
 		json_get_table($('#right'), cmd_arr);
 		history.pushState(null, null, create_cmd(base_link, cmd_arr));
 						

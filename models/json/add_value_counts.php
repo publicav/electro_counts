@@ -112,7 +112,7 @@ $data = Array("id" => $id_add, "lot" => $get_prog['lot'], "substation" => $get_p
 								"value" => $get_prog['counter_val']);
 $type['success'] = true;
 $type['id_error'] = 0;
-$type['error'] = $sqsel;
+$type['error'] = '';
 $type['data'] = $data;
 echo json_encode($type);
 ?>

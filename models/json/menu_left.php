@@ -36,7 +36,13 @@ if ( $sid > 0 ) {
 		print exit_error( false, 3, $res->errorInfo() );
 		exit();
 	}
-       
 }
+if ( !isset($menu_left_m) ) {
+	header("HTTP/1.1 400 Bad Request", true, 400);
+	print exit_error( false, 3, 'Меню отсутствует' );
+	exit();
+	
+}		
+
     print json_encode($menu_left_m);
 ?>

@@ -53,23 +53,45 @@ let cmdLineParsing = ( param ) => {
 	return retSt;
 }
 
+let get_last_val = ( {objCounterLastVal, counter } ) => {
+	$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: param})
+	 .done(( result ) => {
+			var data = result.data;
+			objCounterLastVal.val( data.value );	
+	})
+	.fail(( result ) => alert(result.error));
+}
 
-let get_counter = ( obj, url, data = 1, actions = SELECTED_ACTIONS, couner_value = 0 ) => {
-	obj.prop('disabled', true);
-	obj.html('<option>загрузка...</option>');
-	$.getJSON(url, {data: data})
- 	.done((result, a, b) => {
+
+let get_counter = ( { objCounter, objCounterLastVal = {}, url_counter, actions = SELECTED_ACTIONS, couner_value = 0  }, data = 1, last_val = () =>{}) => {
+	objCounter.prop('disabled', true);
+	objCounter.html('<option>загрузка...</option>');
+	$.getJSON( url_counter, { data: data } )
+ 	.done(( result, a, b ) => {
 			var options = '';
 			$( result.data ).each(function() { options += '<option value="' + $( this ).attr('id') + '">' + $( this ).attr('name') + '</option>';	});
-			obj.html( options );
-			obj.prop( 'disabled', false );
-			if ( actions == EDIT_ACTIONS ) obj.find('[value="' + couner_value + '"]').prop( "selected", true );
+			objCounter.html( options );
+			objCounter.prop( 'disabled', false );
+			if ( actions == EDIT_ACTIONS ) objCounter.find('[value="' + couner_value + '"]').prop( "selected", true );
 	})
-	.fail((result, b, c) => alert(result.error));
+	.then((result) => {
+		var counter;
+		if (Object.keys(objCounterLastVal).length != 0) {
+			if ( actions == SELECTED_ACTIONS ) counter = result.data[0].id;
+			if ( actions == EDIT_ACTIONS ) counter = couner_value;
+			$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: { 'counter': counter } } )
+			 .done(( result ) => {
+					var data = result.data;
+					objCounterLastVal.val( data.value );	
+			})
+			.fail(( result ) => alert(result.error));
+		}
+	})	
+	.fail(( result, b, c ) => alert( result.error ));
 //	console.log(a, b, c);
 }	
 
-let get_substation = ( {objSubstation, objCounter, url_substation, url_counter}, 
+let get_substation = ( {objSubstation, objCounter, objCounterLastVal = {}, url_substation, url_counter}, 
 			      data = 1, actions = SELECTED_ACTIONS, value = 0, value_counter = 0 ) => {
 	objSubstation.prop('disabled', true);
 	objSubstation.html('<option>загрузка...</option>');
@@ -79,14 +101,15 @@ let get_substation = ( {objSubstation, objCounter, url_substation, url_counter},
 			$(result.data).each(function() { options += '<option value="' + $(this).attr('id') + '">' + $(this).attr('name') + '</option>';	});
 			objSubstation.html(options);
 			objSubstation.prop('disabled', false);
-			if (actions == SELECTED_ACTIONS) get_counter(objCounter, url_counter, objSubstation.val());
+			if (actions == SELECTED_ACTIONS) get_counter( { objCounter, objCounterLastVal, url_counter}, result.data[0].id );
 			if (actions == EDIT_ACTIONS) {
 				objSubstation.find('[value="' + value + '"]').prop("selected", true);				
-				get_counter( objCounter, url_counter, value, EDIT_ACTIONS, value_counter );
+				get_counter( { objCounter, url_counter, EDIT_ACTIONS, value_counter}, value );
 			}
 	})
 	.fail(( result, b, c ) => alert(result.error));
 }
+
 
 let create_cmd = ( base_link, params )  => {
 	var count = 0;
@@ -382,9 +405,12 @@ let registration = ( form ) => {
 			var menu =  result_menu;
 			$( '#left' ).html( `<div id="menu_left" class="left-box"><ol>${print_menu( menu )}</ol></div>` );
 		})
-		.fail(( result ) => alert(result.error));
+		.fail(( result ) => {
+			console.log(result);
+			//alert(result.responseJSON.error);
+		});
 	})
-	.fail(( result ) => alert(result.error));
+	.fail(( result ) => alert(result.responseJSON.error));
 }
 
 
