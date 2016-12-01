@@ -54,9 +54,6 @@ let cmdLineParsing = ( param ) => {
 }
 
 let get_last_val = ( {objCounterLastVal, counter } ) => {
-//	console.log(objCounterLastVal);
-//	console.log('counter = ',counter);
-//	param = {'counter': counter};
 	$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: param})
 	 .done(( result ) => {
 			var data = result.data;
@@ -79,20 +76,16 @@ let get_counter = ( { objCounter, objCounterLastVal = {}, url_counter, actions =
 	})
 	.then((result) => {
 		var counter;
-		if ( actions == SELECTED_ACTIONS ) counter = result.data[0].id;
-		if ( actions == EDIT_ACTIONS ) counter = couner_value;
-		param = {'counter': counter};
-		console.log( objCounterLastVal );
 		if (Object.keys(objCounterLastVal).length != 0) {
-
-			$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: param})
+			if ( actions == SELECTED_ACTIONS ) counter = result.data[0].id;
+			if ( actions == EDIT_ACTIONS ) counter = couner_value;
+			$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: { 'counter': counter } } )
 			 .done(( result ) => {
 					var data = result.data;
 					objCounterLastVal.val( data.value );	
 			})
 			.fail(( result ) => alert(result.error));
 		}
-
 	})	
 	.fail(( result, b, c ) => alert( result.error ));
 //	console.log(a, b, c);

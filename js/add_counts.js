@@ -19,32 +19,18 @@ $(function(){
 
 	get_substation(objSelected, $('#lot').val());	
 
-//	objSelected.param = {'counter': 1};
-	//get_last_val( objSelected );
-	
 	$( '#lot' ).change(function () {
 		let lot = $( this ).val();
 		get_substation( objSelected, lot );	
 		$('#counter_val').val('');
 		let counter = objSelected.objCounter.val();
 		objSelected.param = {'counter': counter};
-//		get_last_val( objSelected );
-		
 	});
 
 	$( '#substation' ).change(function () {
 		let substation = $( this ).val();
-		let div_counter = $( '#counter' );			
-
-		let counter = div_counter.val();
-//		objSelected.last_val = function (){ console.log('Testing');}
-		console.log( objSelected );
-		//objSelected.param = {'counter': counter};
 		get_counter( objSelected, substation);	
-
 		$('#counter_val').val('');
-//		get_last_val( objSelected );
-		
 	});
 	$( '#counter' ).change(function () {
 		$('#counter_val').val( '' );
