@@ -19,28 +19,31 @@ $(function(){
 
 	get_substation(objSelected, $('#lot').val());	
 
-	let counter = 1;
-	objSelected.param = {'counter': counter};
-	get_last_val( objSelected );
+//	objSelected.param = {'counter': 1};
+	//get_last_val( objSelected );
 	
 	$( '#lot' ).change(function () {
 		let lot = $( this ).val();
 		get_substation( objSelected, lot );	
 		$('#counter_val').val('');
-		let counter = $( this ).val();
+		let counter = objSelected.objCounter.val();
 		objSelected.param = {'counter': counter};
-		get_last_val( objSelected );
+//		get_last_val( objSelected );
 		
 	});
 
 	$( '#substation' ).change(function () {
 		let substation = $( this ).val();
 		let div_counter = $( '#counter' );			
-		get_counter( div_counter, 'models/json/get_counter.php', substation );	
+
+		let counter = div_counter.val();
+//		objSelected.last_val = function (){ console.log('Testing');}
+		console.log( objSelected );
+		//objSelected.param = {'counter': counter};
+		get_counter( objSelected, substation);	
+
 		$('#counter_val').val('');
-		let counter = $( this ).val();
-		objSelected.param = {'counter': counter};
-		get_last_val( objSelected );
+//		get_last_val( objSelected );
 		
 	});
 	$( '#counter' ).change(function () {
@@ -60,7 +63,7 @@ $(function(){
 				
 				$('#lot').find('[value="' + lot_value + '"]').prop("selected", true );		
 				
-				get_substation( objSelected, lot_value, 2, substation_value, couner_value );
+				get_substation( objSelected, lot_value, EDIT_ACTIONS, substation_value, couner_value );
 				
 				$('#date_airing_begin').val( edit_arr[index].date );		
 				$('#time_airing_begin').val( edit_arr[index].time );	

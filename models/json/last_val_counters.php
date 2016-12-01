@@ -42,7 +42,7 @@ $res = $pdo->prepare( $sq );
     print exit_error( false, 3, $res->errorInfo() );
     exit();
 }
- 
+if  ( !isset($value1) ) $value1['value'] = 0;
 $result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$value1);
 print json_encode($result);
 ?>

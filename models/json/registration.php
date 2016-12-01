@@ -36,7 +36,12 @@ $msg = 'зарегистрирован';
             $type['message'] = $users . ' ' . $msg;
             $_SESSION['sid']= $id; //      session_start(); вызывается в open.php
         }
-		if (isset($type)) echo json_encode($type); else  echo exit_error(false, 1, 'Ошибка регистрации'); 
+		if (isset($type)) echo json_encode($type); 
+		else { 
+			header("HTTP/1.1 400 Bad Request", true, 400);		
+			echo exit_error(false, 1, 'Ошибка регистрации'); 
+			exit();
+		}	
     } else {
         header("HTTP/1.1 400 Bad Request", true, 400);
         print exit_error( false, 3, $res->errorInfo() );

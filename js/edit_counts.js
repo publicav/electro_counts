@@ -28,8 +28,7 @@ $(function() {
 
 	$('#substation_edit').change(function () {
 		var substation = $(this).val();
-		var div_counter = $('#counter_edit');			
-		get_counter(div_counter, 'models/json/get_counter.php', substation);	
+		get_counter( objSelected, substation);	
 	});
 
 	edit_form = $( "#edit_counter" ).dialog({
