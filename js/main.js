@@ -123,8 +123,15 @@ let create_cmd = ( base_link, params )  => {
 }
 	
 let print_table = ( counter )  => {
-	var st = '';
 	var count = 0 , class_e;
+	var st = `	<div class="title_table_counter">
+					<div class="title_lots">Участок</div>
+					<div class="title_substation">Подстанция</div>
+					<div class="title_counts">Ячейка</div>
+					<div class="title_date">Дата</div>
+					<div class="title_date">Значение</div>
+				</div>`; 
+	
 	for (let key in counter) {
 		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';			
 		st += `	<div id="id_${counter[key].id}" class="${class_e}" title="Ввод - <b>${counter[key].name_user}</b>">
@@ -169,18 +176,18 @@ let json_get_table = ( objTarget, cmd_arr ) => {
  */
 let print_table_user = ( user_all ) => {
 	var count = 0, class_e;
-	var st = `	<div class="title_table_user">
+	var st = `<div class="title_table_user">
 				<div class="title_user">Пользователь</div>
 				<div class="title_family">Фамилия</div>
 				<div class="title_name">Имя</div>
-				</div>`; 
+			  </div>`; 
 	for (let key in user_all) {
 		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';			
-		st += `	<div id="id_${user_all[key].id}" class="${class_e}"  title="Редактировать параметры пользователя">
+		st += `<div id="id_${user_all[key].id}" class="${class_e}"  title="Редактировать параметры пользователя">
 				<div class="col_user">${user_all[key].users}</div>
 				<div class="col_family">${user_all[key].family}</div>
 				<div class="col_name">${user_all[key].name}</div>
-				</div>`; 
+			   </div>`; 
 		count++;
 		
 	}

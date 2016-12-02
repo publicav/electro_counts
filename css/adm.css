@@ -309,7 +309,7 @@ box-shadow:3px 3px 3px #999;
 	display:  block;
 	line-height: 34px;
 	text-align: -webkit-match-parent;
-	padding: 0 14px 0 14px;	  
+	padding: 0px 14px 0 14px;	  
   }
   #menu  ul .user .title_user{
 	float: left;  
@@ -335,7 +335,6 @@ box-shadow:3px 3px 3px #999;
 	border-right-style: solid;
 	border-right-color: rgb(103, 103, 103);
 	padding: 0 14px 0 14px;
-/*  list-style-image:url(../img/sha.png);*/
   }
   
 
@@ -767,10 +766,11 @@ background-color:#FFF8DC;
 
 
 .title_table_user{
-	margin: 2px 0px 2px 20px;
-	height:40px;
+	margin: 2px 0px 4px 20px;
+	height:35px;
 	float: left;
-	background-color: #363636;
+	color: #000;
+	background-image:url(../img/web/table-header-2.png);		
 	width:685px;
 	font: 18px Tahoma;
 }
@@ -779,28 +779,66 @@ background-color:#FFF8DC;
 	width:170px;
 	display:block;
 	float: left;
-	padding: 11px 0px 5px 15px;
+	padding: 7px 0px 0px 15px;
 	font: 20px Tahoma;
-	color: #FFF;
 }
 .title_table_user .title_family{
 	width:170px;
 	display:block;
 	float: left;
-	padding: 10px 0px 5px 15px;
+	padding: 7px 0px 0px 15px;
 	font: 20px Tahoma;
-	color: #FFF;
 }
 .title_table_user .title_name{
 	width:170px;
 	display:block;
 	float: left;
-	padding: 10px 0px 5px 15px;
+	padding: 7px 0px 0px 15px;
 	font: 20px Tahoma;
-	color: #FFF;
+	}
+
+
+.title_table_counter{
+	margin: 30px 0px 4px 20px;
+	height:35px;
+	float: left;
+	color: #000;
+	background-image:url(../img/web/table-header-2.png);		
+	width:685px;
+	font: 17px Tahoma;
+}
+.title_table_counter .title_lots{
+	width:145px;
+	display:block;
+	float: left;
+	padding: 7px 0px 0px 15px;
+}
+.title_table_counter .title_substation{
+	width:125px;
+	display:block;
+	float: left;
+	padding: 7px 0px 0px 0px;
+}
+.title_table_counter .title_counts{
+	width:145px;
+	display:block;
+	float: left;
+	padding: 7px 0px 0px 0px;
+}
+.title_table_counter .title_date{
+	width:125px;
+	display:block;
+	float: left;
+	padding: 7px 0px 0px 0px;
+}
+.title_table_counter .title_value{
+	width:100px;
+	display:block;
+	float: left;
+	padding: 7px 0px 0px 0px;
 }
 
-
+	
 .counter_str_odd{
 	margin: 2px 0px 2px 20px;
 	height:40px;
