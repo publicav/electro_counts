@@ -38,8 +38,14 @@ $(function(){
 		objSelected.param = {'counter': counter};
 		get_last_val( objSelected );
 	});
+	$( '#counter_val' ).keyup(function () {
+		let counterVal = $( this ).val();
+		let counterLastVal = $( '#counter_last_val' ).val();
+		if ( String(counterVal.length)  > 1 ) var dtVal =  counterVal - counterLastVal
+			console.log('This - > ', counterVal, typeof(counterVal), dtVal );
+		
+	});
 	
-
 		$('#list_counts').on('click','a',function( event ) {
 				var arr_id = $( this ).attr('id');
 				var index = find_arr_id( edit_arr,arr_id );
