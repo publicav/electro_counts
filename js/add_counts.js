@@ -75,6 +75,13 @@ $(function(){
 			}
 		} else 	$('#counter_last_val').removeClass('good_cell').removeClass('bad_cell').addClass('norm_cell');
 	});
+	$( '#counter_val' ).keyup(function () {
+		let counterVal = $( this ).val();
+		let counterLastVal = $( '#counter_last_val' ).val();
+		if ( String(counterVal.length)  > 1 ) var dtVal =  counterVal - counterLastVal
+			console.log('This - > ', counterVal, typeof(counterVal), dtVal );
+		
+	});
 	
 		$('#list_counts').on('click','a',function( event ) {
 				var arr_id = $( this ).attr('id');
