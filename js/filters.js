@@ -17,12 +17,12 @@ $(function() {
 	// Востанавливаем значения фильтров если была перезагрузка страницы через F5 или обновить
 	if (('id_lot' in cmd_arr) && ('id_sub' in cmd_arr) && ('id_counter' in cmd_arr))	{
 		   $('#lot [value="' + cmd_arr.id_lot + '"]').prop("selected", true);
-		   get_substation(objFiltred, cmd_arr.id_lot, 2, cmd_arr.id_sub, cmd_arr.id_counter);
+		   get_substation(objFiltred, cmd_arr.id_lot, EDIT_ACTIONS, cmd_arr.id_sub, cmd_arr.id_counter);
 		   
 	} else {
 		if (('id_lot' in cmd_arr) && ('id_sub' in cmd_arr))	{
 			   $('#lot [value="' + cmd_arr.id_lot + '"]').prop("selected", true);
-			   get_substation(objFiltred, cmd_arr.id_lot, 2, cmd_arr.id_sub);
+			   get_substation(objFiltred, cmd_arr.id_lot, EDIT_ACTIONS, cmd_arr.id_sub);
 		} else {
 			if ('id_lot' in cmd_arr)	{
 				 $('#lot [value="' + cmd_arr.id_lot + '"]').prop("selected", true);

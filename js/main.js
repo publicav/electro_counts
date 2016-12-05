@@ -63,7 +63,7 @@ let get_last_val = ( {objCounterLastVal, counter } ) => {
 }
 
 
-let get_counter = ( { objCounter, objCounterLastVal = {}, url_counter, actions = SELECTED_ACTIONS, couner_value = 0  }, data = 1, last_val = () =>{}) => {
+let get_counter = ( { objCounter, objCounterLastVal = {}, url_counter, actions = SELECTED_ACTIONS, couner_value = 0, editCounter = 0 }, data = 1, last_val = () =>{}) => {
 	objCounter.prop('disabled', true);
 	objCounter.html('<option>загрузка...</option>');
 	$.getJSON( url_counter, { data: data } )
@@ -77,34 +77,36 @@ let get_counter = ( { objCounter, objCounterLastVal = {}, url_counter, actions =
 	.then((result) => {
 		var counter;
 		if (Object.keys(objCounterLastVal).length != 0) {
-			if ( actions == SELECTED_ACTIONS ) counter = result.data[0].id;
-			if ( actions == EDIT_ACTIONS ) counter = couner_value;
-			$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: { 'counter': counter } } )
-			 .done(( result ) => {
-					var data = result.data;
-					objCounterLastVal.val( data.value );	
-			})
-			.fail(( result ) => alert(result.error));
+			if ( editCounter == 0 ) {
+				if ( actions == SELECTED_ACTIONS ) counter = result.data[0].id;
+				if ( actions == EDIT_ACTIONS ) counter = couner_value;
+				$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: { 'counter': counter } } )
+				 .done(( result ) => {
+						var data = result.data;
+						objCounterLastVal.val( data.value );	
+				})
+				.fail(( result ) => alert(result.error));
+			}
 		}
 	})	
 	.fail(( result, b, c ) => alert( result.error ));
 //	console.log(a, b, c);
 }	
 
-let get_substation = ( {objSubstation, objCounter, objCounterLastVal = {}, url_substation, url_counter}, 
-			      data = 1, actions = SELECTED_ACTIONS, value = 0, value_counter = 0 ) => {
+let get_substation = ( {objSubstation, objCounter, objCounterLastVal = {}, url_substation, url_counter, editCounter = 0}, 
+			      data = 1, actions = SELECTED_ACTIONS, value = 0, couner_value = 0 ) => {
 	objSubstation.prop('disabled', true);
 	objSubstation.html('<option>загрузка...</option>');
 	$.getJSON(url_substation, {data: data})
 	.done((result) => { 
 			var options = '';
 			$(result.data).each(function() { options += '<option value="' + $(this).attr('id') + '">' + $(this).attr('name') + '</option>';	});
-			objSubstation.html(options);
+			objSubstation.html( options );
 			objSubstation.prop('disabled', false);
 			if (actions == SELECTED_ACTIONS) get_counter( { objCounter, objCounterLastVal, url_counter}, result.data[0].id );
 			if (actions == EDIT_ACTIONS) {
 				objSubstation.find('[value="' + value + '"]').prop("selected", true);				
-				get_counter( { objCounter, url_counter, EDIT_ACTIONS, value_counter}, value );
+				get_counter( { objCounter, objCounterLastVal, url_counter, actions, EDIT_ACTIONS, couner_value}, value );
 			}
 	})
 	.fail(( result, b, c ) => alert(result.error));

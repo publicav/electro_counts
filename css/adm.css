@@ -639,11 +639,25 @@ background-color:#FFF8DC;
     width:180px;
 }
 
+#counter_last_val{
+	font-weight: bold;
+	background:#FFEB9C;
+}
 .input_form{
 	font:16px verdana,sans-serif;
 	padding: 5px 0px 5px 0px;
 	width:350px;
 }
+.good_cell{
+	background:#C6EFCE;
+}
+.bad_cell{
+	background:#FFC7CE;
+}
+.norm_cell{
+	background:#FFFFF;	
+}
+
 .input_selected{
 	font:16px verdana,sans-serif;
 	padding: 5px 0px 5px 0px;
@@ -780,21 +794,18 @@ background-color:#FFF8DC;
 	display:block;
 	float: left;
 	padding: 7px 0px 0px 15px;
-	font: 20px Tahoma;
 }
 .title_table_user .title_family{
 	width:170px;
 	display:block;
 	float: left;
 	padding: 7px 0px 0px 15px;
-	font: 20px Tahoma;
 }
 .title_table_user .title_name{
 	width:170px;
 	display:block;
 	float: left;
 	padding: 7px 0px 0px 15px;
-	font: 20px Tahoma;
 	}
 
 

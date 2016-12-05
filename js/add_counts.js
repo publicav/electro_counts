@@ -7,7 +7,8 @@ $(function(){
  		objCounter:   	 $( '#counter' ),
  		objCounterLastVal: $( '#counter_last_val' ),
 		url_substation: 'models/json/get_substation.php',
-		url_counter:    'models/json/get_counter.php'
+		url_counter:    'models/json/get_counter.php',
+		editCounter:	0
 	};	
 	
 	$( '#date_airing_begin' ).datepicker( {changeYear: true, dateFormat: 'dd-mm-yy'} );
@@ -16,7 +17,7 @@ $(function(){
 	$.mask.definitions['M']='[012345]';
 	$.mask.definitions['F']='[0-9.]+';
 	$('#time_airing_begin').mask('H9:M9');
-
+    console.log( objSelected );
 	get_substation(objSelected, $('#lot').val());	
 
 	$( '#lot' ).change(function () {
@@ -36,16 +37,55 @@ $(function(){
 		$('#counter_val').val( '' );
 		let counter = $( this ).val();
 		objSelected.param = {'counter': counter};
-		get_last_val( objSelected );
+		if ( objSelected.editCounter == 0 ) get_last_val( objSelected );
 	});
 	
-
+	 $('#counter_val').keydown(function(event) {
+        // Разрешаем: backspace, delete, tab и escape
+        if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || 
+             // Разрешаем: Ctrl+A
+            (event.keyCode == 65 && event.ctrlKey === true) || (event.keyCode == 188) || (event.keyCode == 190) ||
+			(event.keyCode == 116 && event.ctrlKey === true) ||  (event.keyCode == 110) ||
+             // Разрешаем: home, end, влево, вправо
+            (event.keyCode >= 35 && event.keyCode <= 39)) {
+                 // Ничего не делаем
+                 return;
+        }
+        else {
+            // Обеждаемся, что это цифра, и останавливаем событие keypress
+            if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+                event.preventDefault(); 
+            }   
+        }
+    });
+	
+	$( '#counter_val' ).keyup(function () {
+		let counterVal = $( this ).val();
+		let counterLastVal = $( '#counter_last_val' ).val();
+		if ( objSelected.editCounter == 0  ) {	
+			if ( String(counterVal.length)  > 0 ) {
+				counterVal = counterVal.replace( ',', '.' );
+				var dtVal =  +counterVal - +counterLastVal;
+				if ( dtVal > 0 ) {
+					$( this ).removeClass('bad_cell').addClass('good_cell');
+				} else {
+					$( this ).removeClass('good_cell').addClass('bad_cell');
+				}	
+				console.log('This - > ', counterVal, typeof(counterVal), dtVal );
+			}
+		} else 	$('#counter_last_val').removeClass('good_cell').removeClass('bad_cell').addClass('norm_cell');
+	});
+	
 		$('#list_counts').on('click','a',function( event ) {
 				var arr_id = $( this ).attr('id');
 				var index = find_arr_id( edit_arr,arr_id );
 				var lot_value = edit_arr[index].lot;
 				var substation_value = edit_arr[index].substation;
 				var couner_value = edit_arr[index].counter;
+				objSelected.editCounter = 1;
+				$( '#counter_last_val' ).val('');
+				$('#counter_val').removeClass('good_cell').removeClass('bad_cell').addClass('norm_cell');;
+			
 				
 				$('#lot').find('[value="' + lot_value + '"]').prop("selected", true );		
 				
@@ -83,7 +123,9 @@ $(function(){
 				edit_arr,
 				__proto__:	 objSelected
 			}
+			
 			add_form_actions( obj );
+			objSelected.editCounter = 0;
 			
 	  });
 	
