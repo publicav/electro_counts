@@ -2,6 +2,7 @@
 include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
+include_once("lib.php");
 
 $st_sql = '';
 $st_page = '';
@@ -121,8 +122,8 @@ $st_navigator = cmd_page_navigator($date_b, $date_e);
     break;
     case 4:
 		if ($st != '') $st_sql = ' AND ' . $st; 
-		$sq =  "SELECT main.id,  DATE_FORMAT(main.date_create, '%d-%m-%y %H:%i' ) AS date1,  main.value AS value,
-				UNIX_TIMESTAMP(main.date_create) /60  AS date_second
+		$sq =  "SELECT main.id,  DATE_FORMAT(main.date_create, '%d-%m-%Y %H:%i:%s' ) AS date1,  main.value AS value,
+				UNIX_TIMESTAMP(main.date_create)  AS date_second, main.date_create AS dt1
 				FROM counter_v AS main
 				WHERE (main.id_counter = :id_counter) 
 				ORDER by date_create;"; 
@@ -136,12 +137,38 @@ $st_navigator = cmd_page_navigator($date_b, $date_e);
   }
 
 $timeNew = 0;
+$timeEnd =0;
 $valueNew =0; 
 $diffTime =0; 
 $diffMinuteVal = 0;
 $date1 = 0;
+$rateBefore = 0;
+$rateAfter = 0;
+$count = 0;
+$dayN = 0;
+$rare = 0;
 
 echo '<table class="primer">';
+	$st ="<tr>
+				<th>Дата и время</th>
+				
+				<th>Время между нач. дня и замером</th>
+				<th>Расход между нач. \n\r  дня и замером</th>
+				
+				<th>Время между конц. дня и замерами </th>
+				<th>Расход между конц. дня и замером</th>
+				
+				<th>Время между замерами в минутах</th>
+				
+
+				<th>Значение счётчика</th>
+				<th>Расход в мин. за заданный период</th>
+				<th>День</th>
+				<th>Расход </th>
+				
+			</tr>
+	";
+echo $st;
 $res = $pdo->prepare( $sq );
 $param = array( 'id_counter' => $id_counter );
 
@@ -150,21 +177,53 @@ $param = array( 'id_counter' => $id_counter );
     while ($row = $res->fetch()) {
         $keyId = 'c'.$row['id'];
         $counter[$keyId] = $row;
-		if ( $timeNew != 0 ) {
-			$diffTime  = round( $row['date_second'] ) - $timeNew;
+		if ( $timeNew > 0 ) {
+			$dt2 = $row['dt1'];
+			$dtMinuteEnd = new divisionDay( $dt2 );
+			$dayN = date("d", strtotime($dt1));
+			$rBEnd = $dtMinuteEnd->minuteBefore;
+			$rAEnd = $dtMinuteEnd->minuteAfter;
+
+			$timeEnd = $row['date_second'];
+			$diffTime  =  ( $timeEnd - $timeNew ) / 60;
 			$diffValue = ( $row['value'] - $valueNew ) * 12000;
 			
-			 // if ( ($diffMinTime > 0) AND ($diffValue > 0)  ) 	
-				 $diffMinuteVal =	$diffValue / $diffTime;
+			$diffMinuteVal = $diffValue / $diffTime;
+			if ( $count > 0 ) $rateAfter = $diffMinuteVal * $rANew;
+			$rare = $rateBefore + $rateAfter;
+			$rateBefore = $diffMinuteVal * $rBEnd ;
+			
+			$count++;
 		}	
-		$timeNew = round( $row['date_second'] );
+		$timeNew = $row['date_second'];
 		$valueNew =  $row['value'] ;
 		$date1 = $row['date1'];
+		$dt1 = $row['dt1'];
+
+		//  $dayN = date("d", strtotime($dt1));
+		// $monthN = date("m", strtotime($dt1));
+		// $YearN = date("Y", strtotime($dt1));
+
+		$dtMinuteNew = new divisionDay( $dt1 );
+		$rBNew = $dtMinuteNew->minuteBefore;
+		$rANew = $dtMinuteNew->minuteAfter;
+
 		$st ="<tr>
-					<td>$diffTime</td>
+
 					<td>$date1</td>
+
+					<td>$rBNew</td>
+					<td>$rateBefore</td>
+					
+					<td>$rANew</td>
+					<td>$rateAfter</td>
+					
+					<td>$diffTime</td>
+										
 					<td>$valueNew</td>
 					<td>$diffMinuteVal</td>
+					<td>$dayN</td>
+					<td>$rare</td>
 					
 			  </tr>
 		";
@@ -188,11 +247,22 @@ $type['url'] = $url;
 ?>
 <style>
 .primer{
-	margin:  3px 5px 3px 5px;
+	margin:  3px 5px 3px 0px;
 	border: 1px;
+	border-collapse: collapse;
 }
-.primer td {
+.primer th  {
+	height: 100px;
+	width:170px; 
 	padding: 3px 10px 3px 10px;
+	border: 1px solid black;
+	text-align: center;
+}
+
+.primer td  {
+	padding: 3px 10px 3px 10px;
+	border: 1px solid black;
+	text-align: right;
 }
 </style>
 
