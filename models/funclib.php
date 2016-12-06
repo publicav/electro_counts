@@ -286,6 +286,4 @@ function json_menu2array($menu_json)
 	}
 	return $menu_arr; 
 }
-
-
 ?>

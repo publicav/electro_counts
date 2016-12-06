@@ -1,6 +1,5 @@
 <?php
- $config['PAGE_COUNTER'] = 20;
- $config['VIDEO_ANIME'] = 30;
+ $config['PAGE_COUNTER'] = 34;
  $config['LANG'] = 1;
  $config['ACCESSABLY'] = 1;
  $config['TEMP_DIR'] = 'img/temp';
@@ -10,5 +9,5 @@
  $config['META_K'] = 'Учёт электроэнергии, kkc.dmkd.dp.ua';
  $config['LEN_PASS'] = 2;
  $config['RING'] = 1;
- $config['VERSION'] = '1.01';
+ $config['VERSION'] = '1.01.3';
 ?>

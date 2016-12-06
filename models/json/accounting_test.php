@@ -21,7 +21,7 @@ foreach ($_GET as $key => $value)
 }    
 	$get_prog['id_lot'] = 1;
 	$get_prog['id_sub'] = 1;
-	$get_prog['id_counter'] = 2;
+	$get_prog['id_counter'] = 1;
 
 //$url_search_action = "edit_count.php";
 $url_search_action = $url . '.php';
@@ -73,33 +73,6 @@ if(isset($get_prog['date_e']))
 } else $date_e = '';
 $st = range_time_day($date_b, $date_e);
 $st_navigator = cmd_page_navigator($date_b, $date_e);
-
-
-$sq  = "SELECT c.id, c.n_counter FROM  count AS c WHERE (c.id = :id);";
-$res = $pdo->prepare( $sq );
-$param = array( 'id' => $id_counter );
-
- if ($res->execute( $param )) {
-    while ($row = $res->fetch()) $counts_count = $row;
-} else {
-    header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo() );
-    exit();
-}
-
-$sq  = "SELECT x.koef  FROM	xchange AS x WHERE (x.id_counter = :id) AND (x.n_counter = :n_counter);";
-$res = $pdo->prepare( $sq );
-
-
- if ($res->execute( $counts_count )) {
-    while ($row = $res->fetch()) $koefPower = $row;
-} else {
-    header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo() );
-    exit();
-}
-
-// print_r($koefPower['koef']);
 
 
   switch($select){
@@ -175,14 +148,34 @@ $count = 0;
 $day = 0;
 $rare = 0;
 $period = 0;
-$round = 3;
 
+echo '<table class="primer">';
+	$st ="<tr>
+				<th>Дата и время</th>
+				
+				<th>Время между нач. дня и замером</th>
+				<th>Расход между нач. \n\r  дня и замером</th>
+				
+				<th>Время между конц. дня и замерами </th>
+				<th>Расход между конц. дня и замером</th>
+				
+				<th>Время между замерами в минутах</th>
+				
+
+				<th>Значение счётчика</th>
+				<th>Расход в мин. за заданный период</th>
+				
+			</tr>
+	";
+echo $st;
 $res = $pdo->prepare( $sq );
 $param = array( 'id_counter' => $id_counter );
 
+
  if ($res->execute( $param ) ) {
     while ($row = $res->fetch()) {
-
+        $keyId = 'c'.$row['id'];
+    //    $counter[$keyId] = $row;
 		if ( $timeNew > 0 ) {
 			$dt2 = $row['dt1'];
 			$dtMinuteEnd = new divisionDay( $dt2 );
@@ -192,31 +185,58 @@ $param = array( 'id_counter' => $id_counter );
 			
 			$timeEnd = $row['date_second'];
 			$diffTime  =  ( $timeEnd - $timeNew ) / 60;
-			$diffValue = ( $row['value'] - $valueNew ) * $koefPower['koef'];
+			$diffValue = ( $row['value'] - $valueNew ) * 12000;
 			
 			$diffMinuteVal = $diffValue / $diffTime;
 			
 			if ( $count > 0 ) {
 				$rateAfter = $diffMinuteVal * $rANew;
 				$rare = $rateBefore + $rateAfter;
-				$counter[] = array('date' => $day, 'rare' => round( $rare, $round) );
+				$counter[] = array('date' => $day, 'rare' => $rare);
 			}	
-
 			if ( $diffTime > 1440 ) {
 				$periodObj = new periodDay($dt2, $dt1, $diffMinuteVal);
-				foreach( $periodObj->day as $colum ) $counter[] = $colum;
-			} 
+				foreach( $periodObj->day as $colum ) {
+					$counter[] = $colum;
+				}
+			} else $period = 0;
 			$rateBefore = $diffMinuteVal * $rBEnd ;
+			
 			$count++;
 		}	
 		$timeNew = $row['date_second'];
 		$valueNew =  $row['value'] ;
+		$date1 = $row['date1'];
 		$dt1 = $row['dt1'];
+
+		//  $dayN = date("d", strtotime($dt1));
+		// $monthN = date("m", strtotime($dt1));
+		// $YearN = date("Y", strtotime($dt1));
 
 		$dtMinuteNew = new divisionDay( $dt1 );
 		$rBNew = $dtMinuteNew->minuteBefore;
 		$rANew = $dtMinuteNew->minuteAfter;
 	
+		$st ="<tr>
+
+					<td>$date1</td>
+
+					<td>$rBNew</td>
+					<td>$rateBefore</td>
+					
+					<td>$rANew</td>
+					<td>$rateAfter</td>
+					
+					<td>$diffTime</td>
+										
+					<td>$valueNew</td>
+					<td>$diffMinuteVal</td>
+
+					
+			  </tr>
+		";
+		echo $st;
+//		echo ' Diff -> ' . $diffTime . ' dValue = ' . $diffMinuteVal .  ' ' . $valueNew . "<br/>";	
 	}	
  } else {
     header("HTTP/1.1 400 Bad Request", true, 400);
@@ -224,10 +244,10 @@ $param = array( 'id_counter' => $id_counter );
     exit();
  }
 
-  
+echo "</table>";  
 ?>    
 
-<table class="primer">
+'<table class="primer">
 	<tr>
 		<th>Дата</th>
 		<th>Расход </th>
