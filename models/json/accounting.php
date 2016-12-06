@@ -145,8 +145,9 @@ $date1 = 0;
 $rateBefore = 0;
 $rateAfter = 0;
 $count = 0;
-$dayN = 0;
+$day = 0;
 $rare = 0;
+$period = 0;
 
 echo '<table class="primer">';
 	$st ="<tr>
@@ -163,8 +164,6 @@ echo '<table class="primer">';
 
 				<th>Значение счётчика</th>
 				<th>Расход в мин. за заданный период</th>
-				<th>День</th>
-				<th>Расход </th>
 				
 			</tr>
 	";
@@ -176,21 +175,34 @@ $param = array( 'id_counter' => $id_counter );
  if ($res->execute( $param ) ) {
     while ($row = $res->fetch()) {
         $keyId = 'c'.$row['id'];
-        $counter[$keyId] = $row;
+    //    $counter[$keyId] = $row;
 		if ( $timeNew > 0 ) {
 			$dt2 = $row['dt1'];
 			$dtMinuteEnd = new divisionDay( $dt2 );
-			$dayN = date("d", strtotime($dt1));
 			$rBEnd = $dtMinuteEnd->minuteBefore;
 			$rAEnd = $dtMinuteEnd->minuteAfter;
-
+			$day = date("d-m-Y", strtotime($dt1));
+			
 			$timeEnd = $row['date_second'];
 			$diffTime  =  ( $timeEnd - $timeNew ) / 60;
 			$diffValue = ( $row['value'] - $valueNew ) * 12000;
 			
 			$diffMinuteVal = $diffValue / $diffTime;
-			if ( $count > 0 ) $rateAfter = $diffMinuteVal * $rANew;
-			$rare = $rateBefore + $rateAfter;
+			
+			if ( $count > 0 ) {
+				$rateAfter = $diffMinuteVal * $rANew;
+				$rare = $rateBefore + $rateAfter;
+				$counter[] = array('date' => $day, 'rare' => $rare);
+			}	
+			if ( $diffTime > 1440 ) {
+				$periodObj = new periodDay($dt2, $dt1, $diffMinuteVal);
+				foreach( $periodObj->day as $colum ) {
+					$counter[] = $colum;
+				}
+				// $period = '1  ' . print_r($periodObj->day, true);
+			} else $period = 0;
+			
+			// $rare = $rateBefore + $rateAfter;
 			$rateBefore = $diffMinuteVal * $rBEnd ;
 			
 			$count++;
@@ -207,7 +219,7 @@ $param = array( 'id_counter' => $id_counter );
 		$dtMinuteNew = new divisionDay( $dt1 );
 		$rBNew = $dtMinuteNew->minuteBefore;
 		$rANew = $dtMinuteNew->minuteAfter;
-
+	
 		$st ="<tr>
 
 					<td>$date1</td>
@@ -222,8 +234,7 @@ $param = array( 'id_counter' => $id_counter );
 										
 					<td>$valueNew</td>
 					<td>$diffMinuteVal</td>
-					<td>$dayN</td>
-					<td>$rare</td>
+
 					
 			  </tr>
 		";
@@ -237,7 +248,23 @@ $param = array( 'id_counter' => $id_counter );
  }
 
 echo "</table>";  
-    
+?>    
+
+'<table class="primer">
+	<tr>
+		<th>Дата</th>
+		<th>Расход </th>
+	</tr>
+<?foreach($counter as $colum): ?>
+	<tr>
+		<td><?=$colum['date']?></td>
+		<td><?=$colum['rare']?></td>
+	</tr>
+<?endforeach;?>
+</table>
+<?php
+
+
 $type['success'] = true;
 $type['id_error'] = 0;
 $type['data'] = $counter;
@@ -252,7 +279,7 @@ $type['url'] = $url;
 	border-collapse: collapse;
 }
 .primer th  {
-	height: 100px;
+	height: 70	px;
 	width:170px; 
 	padding: 3px 10px 3px 10px;
 	border: 1px solid black;
