@@ -75,6 +75,9 @@ $(function() {
 		cmd_arr.id_lot = $('#lot').val();
 		cmd_arr.id_sub = $('#substation').val();
 		cmd_arr.id_counter = $(this).val();
+		if (cmd_arr.id_counter == 0 ) {
+			delete cmd_arr.id_counter;			
+		}
 		json_get_table($('#right'), cmd_arr);
 		history.pushState(null, null, create_cmd(base_link, cmd_arr));
 	});

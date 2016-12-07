@@ -78,8 +78,9 @@ let get_counter = ( { objCounter, objCounterLastVal = {}, url_counter, actions =
 		var counter;
 		if (Object.keys(objCounterLastVal).length != 0) {
 			if ( editCounter == 0 ) {
+				// console.log( result.data[0].id ,actions, couner_value );
 				if ( actions == SELECTED_ACTIONS ) counter = result.data[0].id;
-				if ( actions == EDIT_ACTIONS ) counter = couner_value;
+				if ( actions == EDIT_ACTIONS ) 	if (couner_value == 0 ) counter = result.data[0].id; else counter = couner_value;
 				$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: { 'counter': counter } } )
 				 .done(( result ) => {
 						var data = result.data;
