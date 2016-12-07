@@ -148,6 +148,30 @@ let print_table = ( counter )  => {
 	return st;
 }
 
+let print_t_calc = ( counter )  => {
+	var count = 0 , class_e;
+	var st = `	<div class="title_table_counter">
+					<div class="title_date"></div>
+					<div class="title_counts">Ячейка</div>
+					<div class="title_date">Дата</div>
+					<div class="title_date">Значение</div>
+				</div>`; 
+	
+	for (let key in counter) {
+		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';	
+		if ( counter[key].rare < 0 ) class_e = 'counter_str_err';	
+		st += `	<div class="${class_e}" title="Расчёт">
+					<div class="col_date"></div>		
+					<div class="col_counts">${counter[key].name_counter}</div>
+					<div class="col_date">${counter[key].date}</div>
+					<div class="col_value">${counter[key].rare}</div>
+				</div>`; 
+		count++;
+	}
+	return st;
+}
+
+
 let print_menu = ( menu ) => {
 	var st = '';
 	for(let i = 0; i < menu.length; i++)
@@ -163,6 +187,19 @@ let json_get_table = ( objTarget, cmd_arr ) => {
 		if (result.success) {
 			var data = result.data;
 			objTarget.html( print_table( data ) );
+			objTarget.append( result.navigator );
+			history.pushState( null, null, create_cmd( '', cmd_arr ) );
+		} else  alert( result.error );
+	 })
+	 .fail(() => alert( 'Error' ));		
+}
+
+let json_get_t_calc = ( objTarget, cmd_arr ) => {
+	$.ajax({dataType: 'json', type: 'get', url: 'models/json/accounting.php',  data: cmd_arr})
+	 .done(( result ) => {
+		if (result.success) {
+			var data = result.data;
+			objTarget.html( print_t_calc( data ) );
 			objTarget.append( result.navigator );
 			history.pushState( null, null, create_cmd( '', cmd_arr ) );
 		} else  alert( result.error );

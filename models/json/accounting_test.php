@@ -21,7 +21,7 @@ foreach ($_GET as $key => $value)
 }    
 	$get_prog['id_lot'] = 1;
 	$get_prog['id_sub'] = 1;
-	$get_prog['id_counter'] = 1;
+	$get_prog['id_counter'] = 20;
 
 //$url_search_action = "edit_count.php";
 $url_search_action = $url . '.php';
@@ -185,7 +185,7 @@ $param = array( 'id_counter' => $id_counter );
 			
 			$timeEnd = $row['date_second'];
 			$diffTime  =  ( $timeEnd - $timeNew ) / 60;
-			$diffValue = ( $row['value'] - $valueNew ) * 12000;
+			$diffValue = ( $row['value'] - $valueNew ) * 1;
 			
 			$diffMinuteVal = $diffValue / $diffTime;
 			
@@ -196,12 +196,10 @@ $param = array( 'id_counter' => $id_counter );
 			}	
 			if ( $diffTime > 1440 ) {
 				$periodObj = new periodDay($dt2, $dt1, $diffMinuteVal);
-				foreach( $periodObj->day as $colum ) {
-					$counter[] = $colum;
-				}
+				foreach( $periodObj->day as $colum ) $counter[] = $colum;
 			} else $period = 0;
-			$rateBefore = $diffMinuteVal * $rBEnd ;
 			
+			$rateBefore = $diffMinuteVal * $rBEnd ;
 			$count++;
 		}	
 		$timeNew = $row['date_second'];

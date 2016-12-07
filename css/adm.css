@@ -849,6 +849,20 @@ background-color:#FFF8DC;
 	padding: 7px 0px 0px 0px;
 }
 
+.counter_str_err{
+	margin: 2px 0px 2px 20px;
+	height:40px;
+	float: left;
+	background-color: #FF69B4;
+	cursor: pointer;
+	width:685px;
+}
+
+
+.counter_str_err:hover{
+	background-color: #D1EEEE;
+}
+
 	
 .counter_str_odd{
 	margin: 2px 0px 2px 20px;
@@ -859,9 +873,11 @@ background-color:#FFF8DC;
 	width:685px;
 }
 
+
 .counter_str_odd:hover{
 	background-color: #D1EEEE;
 }
+
 
 .counter_str_even{
 	margin: 2px 0px 2px 20px;

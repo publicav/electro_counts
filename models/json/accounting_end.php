@@ -21,7 +21,7 @@ foreach ($_GET as $key => $value)
 }    
 	$get_prog['id_lot'] = 1;
 	$get_prog['id_sub'] = 1;
-	$get_prog['id_counter'] = 2;
+	$get_prog['id_counter'] = 19;
 
 //$url_search_action = "edit_count.php";
 $url_search_action = $url . '.php';
