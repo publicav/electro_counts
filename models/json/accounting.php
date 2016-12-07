@@ -219,7 +219,7 @@ $param = array( 'id_counter' => $id_counter );
 			$day = date("d-m-Y", strtotime( $dt1 ));
 			
 			$timeEnd = $row['date_second'];
-			$diffTime  =  ( $timeEnd - $timeNew ) / 60;
+			$diffTime  =  round ( ( $timeEnd - $timeNew ) / 60 );
 			$diffValue = ( $row['value'] - $valueNew ) * $koefPowerCount;
 			$diffMinuteVal = $diffValue / $diffTime;
 			

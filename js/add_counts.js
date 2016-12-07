@@ -66,7 +66,7 @@ $(function(){
 			if ( String(counterVal.length)  > 0 ) {
 				counterVal = counterVal.replace( ',', '.' );
 				var dtVal =  +counterVal - +counterLastVal;
-				if ( dtVal > 0 ) {
+				if ( dtVal >= 0 ) {
 					$( this ).removeClass('bad_cell').addClass('good_cell');
 				} else {
 					$( this ).removeClass('good_cell').addClass('bad_cell');

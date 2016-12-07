@@ -53,7 +53,7 @@ let cmdLineParsing = ( param ) => {
 	return retSt;
 }
 
-let get_last_val = ( {objCounterLastVal, counter } ) => {
+let get_last_val = ( {objCounterLastVal, param } ) => {
 	$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: param})
 	 .done(( result ) => {
 			var data = result.data;
