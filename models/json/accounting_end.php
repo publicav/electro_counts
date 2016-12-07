@@ -162,7 +162,7 @@ $res = $pdo->prepare( $sq );
     break;
     default:
   }
-$firstLoop = 0;
+
 $timeNew = 0;
 $timeEnd =0;
 $valueNew =0; 
@@ -176,40 +176,47 @@ $day = 0;
 $rare = 0;
 $period = 0;
 $round = 3;
-$koefPowerCount = $koefPower['koef'];
 
 $res = $pdo->prepare( $sq );
 $param = array( 'id_counter' => $id_counter );
 
  if ($res->execute( $param ) ) {
     while ($row = $res->fetch()) {
-		if ( $firstLoop > 0 ) {
+
+		if ( $timeNew > 0 ) {
 			$dt2 = $row['dt1'];
 			$dtMinuteEnd = new divisionDay( $dt2 );
-			$day = date("d-m-Y", strtotime( $dt1 ));
+			$rBEnd = $dtMinuteEnd->minuteBefore;
+			$rAEnd = $dtMinuteEnd->minuteAfter;
+			$day = date("d-m-Y", strtotime($dt1));
 			
 			$timeEnd = $row['date_second'];
 			$diffTime  =  ( $timeEnd - $timeNew ) / 60;
-			$diffValue = ( $row['value'] - $valueNew ) * $koefPowerCount;
+			$diffValue = ( $row['value'] - $valueNew ) * $koefPower['koef'];
+			
 			$diffMinuteVal = $diffValue / $diffTime;
 			
 			if ( $count > 0 ) {
-				$rateAfter = $diffMinuteVal * $dtMinuteNew->minuteAfter;
+				$rateAfter = $diffMinuteVal * $rANew;
 				$rare = $rateBefore + $rateAfter;
 				$counter[] = array('date' => $day, 'rare' => round( $rare, $round) );
 			}	
+
 			if ( $diffTime > 1440 ) {
 				$periodObj = new periodDay($dt2, $dt1, $diffMinuteVal);
 				foreach( $periodObj->day as $colum ) $counter[] = $colum;
 			} 
-			$rateBefore = $diffMinuteVal * $dtMinuteEnd->minuteBefore ;
+			$rateBefore = $diffMinuteVal * $rBEnd ;
 			$count++;
 		}	
 		$timeNew = $row['date_second'];
 		$valueNew =  $row['value'] ;
 		$dt1 = $row['dt1'];
+
 		$dtMinuteNew = new divisionDay( $dt1 );
-		$firstLoop = 1;
+		$rBNew = $dtMinuteNew->minuteBefore;
+		$rANew = $dtMinuteNew->minuteAfter;
+	
 	}	
  } else {
     header("HTTP/1.1 400 Bad Request", true, 400);
@@ -217,17 +224,50 @@ $param = array( 'id_counter' => $id_counter );
     exit();
  }
 
-if (!isset($counter)) {
-    header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, 'Данные отсутствуют' );
-    exit();
-}
+  
+?>    
+
+<table class="primer">
+	<tr>
+		<th>Дата</th>
+		<th>Расход </th>
+	</tr>
+<?foreach($counter as $colum): ?>
+	<tr>
+		<td><?=$colum['date']?></td>
+		<td><?=$colum['rare']?></td>
+	</tr>
+<?endforeach;?>
+</table>
+<?php
+
+
 $type['success'] = true;
 $type['id_error'] = 0;
 $type['data'] = $counter;
 //$type['navigator'] = $navigator;
 $type['url'] = $url;
-echo json_encode($type);
+//echo json_encode($type);
 ?>
+<style>
+.primer{
+	margin:  3px 5px 3px 0px;
+	border: 1px;
+	border-collapse: collapse;
+}
+.primer th  {
+	height: 70	px;
+	width:170px; 
+	padding: 3px 10px 3px 10px;
+	border: 1px solid black;
+	text-align: center;
+}
+
+.primer td  {
+	padding: 3px 10px 3px 10px;
+	border: 1px solid black;
+	text-align: right;
+}
+</style>
 
 	
