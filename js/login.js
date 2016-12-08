@@ -1,7 +1,9 @@
 $(function(){
 	$( '#loginform' ).submit(function( event ){
 		event.preventDefault();
-		registration( this );
+		console.log(this);
+		var me = this;
+		registration( me );
 		login_form.dialog( "close" );
 	});
 

@@ -11,6 +11,26 @@ $(function(){
 		editCounter:	0
 	};	
 	
+
+	if (('id_lot' in cmd_arr) && ('id_sub' in cmd_arr) && ('id_counter' in cmd_arr))	{
+		   $('#lot [value="' + cmd_arr.id_lot + '"]').prop("selected", true);
+		   get_substation(objSelected, cmd_arr.id_lot, EDIT_ACTIONS, cmd_arr.id_sub, cmd_arr.id_counter);
+		   
+	} else {
+		if (('id_lot' in cmd_arr) && ('id_sub' in cmd_arr))	{
+			   $('#lot [value="' + cmd_arr.id_lot + '"]').prop("selected", true);
+			   get_substation(objSelected, cmd_arr.id_lot, EDIT_ACTIONS, cmd_arr.id_sub);
+		} else {
+			if ('id_lot' in cmd_arr)	{
+				 $('#lot [value="' + cmd_arr.id_lot + '"]').prop("selected", true);
+				 get_substation(objSelected, cmd_arr.id_lot);					 
+			} else {
+				get_substation(objSelected, $('#lot').val());
+			}	  
+		}
+	}			
+console.log('cmd array ->',cmd_arr);
+
 	$( '#date_airing_begin' ).datepicker( {changeYear: true, dateFormat: 'dd-mm-yy'} );
 	
 	$.mask.definitions['H']='[012]';
@@ -18,7 +38,7 @@ $(function(){
 	$.mask.definitions['F']='[0-9.]+';
 	$('#time_airing_begin').mask('H9:M9');
     console.log( objSelected );
-	get_substation(objSelected, $('#lot').val());	
+//	get_substation(objSelected, $('#lot').val());	
 
 	$( '#lot' ).change(function () {
 		let lot = $( this ).val();
@@ -66,7 +86,7 @@ $(function(){
 			if ( String(counterVal.length)  > 0 ) {
 				counterVal = counterVal.replace( ',', '.' );
 				var dtVal =  +counterVal - +counterLastVal;
-				if ( dtVal > 0 ) {
+				if ( dtVal >= 0 ) {
 					$( this ).removeClass('bad_cell').addClass('good_cell');
 				} else {
 					$( this ).removeClass('good_cell').addClass('bad_cell');

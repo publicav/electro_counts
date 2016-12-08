@@ -21,7 +21,7 @@ foreach ($_GET as $key => $value)
 }    
 	$get_prog['id_lot'] = 1;
 	$get_prog['id_sub'] = 1;
-	$get_prog['id_counter'] = 2;
+	$get_prog['id_counter'] = 19;
 
 //$url_search_action = "edit_count.php";
 $url_search_action = $url . '.php';
@@ -176,6 +176,7 @@ $day = 0;
 $rare = 0;
 $period = 0;
 $round = 3;
+$name_counter = 'Test';
 
 $res = $pdo->prepare( $sq );
 $param = array( 'id_counter' => $id_counter );
@@ -199,11 +200,11 @@ $param = array( 'id_counter' => $id_counter );
 			if ( $count > 0 ) {
 				$rateAfter = $diffMinuteVal * $rANew;
 				$rare = $rateBefore + $rateAfter;
-				$counter[] = array('date' => $day, 'rare' => round( $rare, $round) );
+				$counter[] = array('name_counter' => $name_counter, 'date' => $day, 'rare' => round( $rare, $round) );
 			}	
 
 			if ( $diffTime > 1440 ) {
-				$periodObj = new periodDay($dt2, $dt1, $diffMinuteVal);
+				$periodObj = new periodDay($dt2, $dt1, $diffMinuteVal, $name_counter);
 				foreach( $periodObj->day as $colum ) $counter[] = $colum;
 			} 
 			$rateBefore = $diffMinuteVal * $rBEnd ;

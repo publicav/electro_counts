@@ -6,7 +6,7 @@ include_once("lib.php");
 
 $st_sql = '';
 $st_page = '';
-
+$name_counter = '';
 
 $path_parts = pathinfo( $_SERVER["HTTP_REFERER"] );
 $url = $path_parts['filename'];
@@ -19,9 +19,9 @@ foreach ($_GET as $key => $value)
 	
 	$get_prog[$key] = $value;
 }    
-	$get_prog['id_lot'] = 1;
-	$get_prog['id_sub'] = 1;
-	$get_prog['id_counter'] = 2;
+	// $get_prog['id_lot'] = 1;
+	// $get_prog['id_sub'] = 1;
+	// $get_prog['id_counter'] = 2;
 
 //$url_search_action = "edit_count.php";
 $url_search_action = $url . '.php';
@@ -33,6 +33,7 @@ if(isset($get_prog['st']))
 	$put_js['st'] = $position_in;
 	$select=1;
 } else {$position_in=0;$select=1;}
+
 // print_r($get_prog['st']);
 if(isset($get_prog['id_lot'])) 
 {
@@ -51,13 +52,25 @@ if(isset($get_prog['id_sub']) and ($select == 2))
 	if ($id_sub == 0) $select=2;
 } else $id_sub = 0;
 
-if(isset($get_prog['id_counter']) and ($select == 3)) 
+if(isset($get_prog['id_counter'])) 
 {
 	$id_counter = intval($get_prog['id_counter']);
 	$put_js['id_counter'] = $id_counter;		
 	$select=4;
 	if ($id_counter == 0) $select=3;
 } else $id_counter = 0;
+
+
+
+if(!isset($get_prog['id_counter'])) 
+{
+	$type['success'] = true;
+	$type['id_error'] = 0;
+	$type['data'] = [];
+	echo json_encode($type);
+	exit();
+}
+
 
 if(isset($get_prog['date_b'])) 
 {
@@ -75,7 +88,7 @@ $st = range_time_day($date_b, $date_e);
 $st_navigator = cmd_page_navigator($date_b, $date_e);
 
 
-$sq  = "SELECT c.id, c.n_counter FROM  count AS c WHERE (c.id = :id);";
+$sq  = "SELECT c.id, c.n_counter, c.name FROM  count AS c WHERE (c.id = :id);";
 $res = $pdo->prepare( $sq );
 $param = array( 'id' => $id_counter );
 
@@ -85,6 +98,14 @@ $param = array( 'id' => $id_counter );
     header("HTTP/1.1 400 Bad Request", true, 400);
     print exit_error( false, 3, $res->errorInfo() );
     exit();
+}
+if (!isset($counts_count)) {
+    header("HTTP/1.1 400 Bad Request", true, 400);
+    print exit_error( false, 3, $res->errorInfo() );
+    exit();
+} else {
+	$name_counter = $counts_count['name'];
+	unset( $counts_count['name'] );
 }
 
 $sq  = "SELECT x.koef  FROM	xchange AS x WHERE (x.id_counter = :id) AND (x.n_counter = :n_counter);";
@@ -162,6 +183,15 @@ $res = $pdo->prepare( $sq );
     break;
     default:
   }
+  
+  if ($sq == '') {
+		$type['success'] = true;
+		$type['id_error'] = 0;
+		$type['data'] = [];
+		echo json_encode($type);
+		exit();
+  }
+  
 $firstLoop = 0;
 $timeNew = 0;
 $timeEnd =0;
@@ -189,17 +219,17 @@ $param = array( 'id_counter' => $id_counter );
 			$day = date("d-m-Y", strtotime( $dt1 ));
 			
 			$timeEnd = $row['date_second'];
-			$diffTime  =  ( $timeEnd - $timeNew ) / 60;
+			$diffTime  =  round ( ( $timeEnd - $timeNew ) / 60 );
 			$diffValue = ( $row['value'] - $valueNew ) * $koefPowerCount;
 			$diffMinuteVal = $diffValue / $diffTime;
 			
 			if ( $count > 0 ) {
 				$rateAfter = $diffMinuteVal * $dtMinuteNew->minuteAfter;
 				$rare = $rateBefore + $rateAfter;
-				$counter[] = array('date' => $day, 'rare' => round( $rare, $round) );
+				$counter[] = array('name_counter' => $name_counter, 'date' => $day, 'rare' => round( $rare, $round) );
 			}	
 			if ( $diffTime > 1440 ) {
-				$periodObj = new periodDay($dt2, $dt1, $diffMinuteVal);
+				$periodObj = new periodDay($dt2, $dt1, $diffMinuteVal, $name_counter );
 				foreach( $periodObj->day as $colum ) $counter[] = $colum;
 			} 
 			$rateBefore = $diffMinuteVal * $dtMinuteEnd->minuteBefore ;
@@ -217,16 +247,18 @@ $param = array( 'id_counter' => $id_counter );
     exit();
  }
 
-if (!isset($counter)) {
-    header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, 'Данные отсутствуют' );
-    exit();
-}
+// if (!isset($counter)) {
+    // header("HTTP/1.1 400 Bad Request", true, 400);
+    // print exit_error( false, 3, 'Данные отсутствуют' );
+    // exit();
+// }
+
+
 $type['success'] = true;
 $type['id_error'] = 0;
 $type['data'] = $counter;
 //$type['navigator'] = $navigator;
-$type['url'] = $url;
+$type['url'] = $koefPowerCount;
 echo json_encode($type);
 ?>
 
