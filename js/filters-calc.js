@@ -9,7 +9,7 @@ $(function() {
 		url_counter: 'models/json/get_counter_filtred.php'
 	};	
 	
-	json_get_table($('#right'), cmd_arr);
+	json_get_t_calc($('#right'), cmd_arr);
 	$.datepicker.setDefaults(
 		$.extend($.datepicker.regional["ru"])
 	);
@@ -45,7 +45,7 @@ $(function() {
 		}
 		
 		get_substation(objFiltred, lot);
-		json_get_table($('#right'), cmd_arr);
+		json_get_t_calc($('#right'), cmd_arr);
 		history.pushState(null, null, create_cmd(base_link, cmd_arr));
 						
 	});
@@ -66,7 +66,7 @@ $(function() {
 			delete cmd_arr.id_counter;
 		}	
 		get_counter(objFiltred, substation);
-		json_get_table($('#right'), cmd_arr);
+		json_get_t_calc($('#right'), cmd_arr);
 		history.pushState(null, null, create_cmd(base_link, cmd_arr));
 						
 	});
@@ -78,7 +78,7 @@ $(function() {
 		if (cmd_arr.id_counter == 0 ) {
 			delete cmd_arr.id_counter;			
 		}
-		json_get_table($('#right'), cmd_arr);
+		json_get_t_calc($('#right'), cmd_arr);
 		history.pushState(null, null, create_cmd(base_link, cmd_arr));
 	});
 
@@ -94,7 +94,7 @@ $(function() {
 
 				$( "#dt1" ).datepicker('enable');
 				cmd_arr.date_b = $("#dt1").datepicker().val();
-				json_get_table($('#right'), cmd_arr);
+				json_get_t_calc($('#right'), cmd_arr);
 				history.pushState(null, null, create_cmd(base_link, cmd_arr));
 				
 			} else { 
@@ -109,7 +109,7 @@ $(function() {
 				$( "#dt1" ).datepicker('disable');					
 				$( "#dt2" ).datepicker('disable');					
 				
-				json_get_table($('#right'), cmd_arr);
+				json_get_t_calc($('#right'), cmd_arr);
 				history.pushState(null, null, create_cmd(base_link, cmd_arr));
 			}
 
@@ -119,7 +119,7 @@ $(function() {
 
 				$( "#dt2" ).datepicker('enable');
 				cmd_arr.date_e = $("#dt2").datepicker().val();
-				json_get_table($('#right'), cmd_arr);
+				json_get_t_calc($('#right'), cmd_arr);
 				history.pushState(null, null, create_cmd(base_link, cmd_arr));
 				
 			} else { 
@@ -127,7 +127,7 @@ $(function() {
 				delete cmd_arr.st;
 
 				$( "#dt2" ).datepicker('disable');					
-				json_get_table($('#right'), cmd_arr);
+				json_get_t_calc($('#right'), cmd_arr);
 				history.pushState(null, null, create_cmd(base_link, cmd_arr));
 			}
 	});
@@ -135,14 +135,14 @@ $(function() {
 	$( "#dt1" ).datepicker({changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
 		onSelect: function(dateText, inst) {
 			cmd_arr.date_b = dateText;
-			json_get_table($('#right'), cmd_arr);
+			json_get_t_calc($('#right'), cmd_arr);
 		}
 	});
 
 	$( "#dt2" ).datepicker({changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
 		onSelect: function(dateText, inst) {
 			cmd_arr.date_e = dateText;
-			json_get_table($('#right'), cmd_arr);
+			json_get_t_calc($('#right'), cmd_arr);
 		}
 	});
 
@@ -162,7 +162,7 @@ $(function() {
 				}	
 			}			
 		}
-		json_get_table($('#right'), cmd_arr);
+		json_get_t_calc($('#right'), cmd_arr);
 	});	
 	$( document ).tooltip({ content: function() { return this.getAttribute("title") } });
 });

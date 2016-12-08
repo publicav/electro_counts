@@ -23,7 +23,7 @@ class periodDay {
     public $round = 3; 
 	private  $j = 1;
     
-	function __construct( $dt1, $dt2, $diffMinuteVal ) {
+	function __construct( $dt1, $dt2, $diffMinuteVal, $name_counter ) {
 		$this->datetime1 = new DateTime( $dt1 );
         $this->datetime2 = new DateTime( $dt2 );
         $this->interval = $this->datetime1->diff( $this->datetime2 );
@@ -32,7 +32,7 @@ class periodDay {
 		while ( $this->j == 1) {
 			$this->datetime2->add(new DateInterval('P1D'));			
 			if ( $this->datetime2->format('d') == $this->dt1 ) break;
-			$this->day[] = array('date' => $this->datetime2->format('d-m-Y'), 'rare' =>  round( ($diffMinuteVal * 1400), $this->round) );
+			$this->day[] = array('name_counter' => $name_counter, 'date' => $this->datetime2->format('d-m-Y'), 'rare' =>  round( ($diffMinuteVal * 1400), $this->round) );
 		}
 	}   
 }
