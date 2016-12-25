@@ -2,7 +2,9 @@
 include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
-include_once("lib.php");
+// include_once("lib.php");
+include_once 'date/DivisionDay.php';
+include_once 'date/PeriodDay.php';
 
 $st_sql = '';
 $st_page = '';
@@ -211,41 +213,42 @@ $koefPowerCount = $koefPower['koef'];
 $res = $pdo->prepare( $sq );
 $param = array( 'id_counter' => $id_counter );
 
- if ($res->execute( $param ) ) {
-    while ($row = $res->fetch()) {
-		if ( $firstLoop > 0 ) {
-			$dt2 = $row['dt1'];
-			$dtMinuteEnd = new divisionDay( $dt2 );
-			$day = date("d-m-Y", strtotime( $dt1 ));
-			
-			$timeEnd = $row['date_second'];
-			$diffTime  =  round ( ( $timeEnd - $timeNew ) / 60 );
-			$diffValue = ( $row['value'] - $valueNew ) * $koefPowerCount;
-			$diffMinuteVal = $diffValue / $diffTime;
-			
-			if ( $count > 0 ) {
-				$rateAfter = $diffMinuteVal * $dtMinuteNew->minuteAfter;
-				$rare = $rateBefore + $rateAfter;
-				$counter[] = array('name_counter' => $name_counter, 'date' => $day, 'rare' => round( $rare, $round) );
-			}	
-			if ( $diffTime > 1440 ) {
-				$periodObj = new periodDay($dt2, $dt1, $diffMinuteVal, $name_counter );
-				foreach( $periodObj->day as $colum ) $counter[] = $colum;
-			} 
-			$rateBefore = $diffMinuteVal * $dtMinuteEnd->minuteBefore ;
-			$count++;
-		}	
-		$timeNew = $row['date_second'];
-		$valueNew =  $row['value'] ;
-		$dt1 = $row['dt1'];
-		$dtMinuteNew = new divisionDay( $dt1 );
-		$firstLoop = 1;
-	}	
- } else {
-    header("HTTP/1.1 400 Bad Request", true, 400);
+if (!$res->execute( $param )) {
+	header("HTTP/1.1 400 Bad Request", true, 400);
     print exit_error( false, 3, $res->errorInfo() );
     exit();
- }
+}
+use date\DivisionDay as dDay;
+use date\PeriodDay as dPeriod;
+while ($row = $res->fetch()) {
+	if ( $firstLoop > 0 ) {
+		$dt2 = $row['dt1'];
+		$dtMinuteEnd = new dDay\DivisionDay( $dt2 );
+		$day = date("d-m-Y", strtotime( $dt1 ));
+		
+		$timeEnd = $row['date_second'];
+		$diffTime  =  round ( ( $timeEnd - $timeNew ) / 60 );
+		$diffValue = ( $row['value'] - $valueNew ) * $koefPowerCount;
+		$diffMinuteVal = $diffValue / $diffTime;
+		
+		if ( $count > 0 ) {
+			$rateAfter = $diffMinuteVal * $dtMinuteNew->minuteAfter;
+			$rare = $rateBefore + $rateAfter;
+			$counter[] = array('name_counter' => $name_counter, 'date' => $day, 'rare' => round( $rare, $round) );
+		}	
+		if ( $diffTime > 1440 ) {
+			$periodObj = new dPeriod\PeriodDay ($dt2, $dt1, $diffMinuteVal, $name_counter );
+			foreach( $periodObj->day as $colum ) $counter[] = $colum;
+		} 
+		$rateBefore = $diffMinuteVal * $dtMinuteEnd->minuteBefore ;
+		$count++;
+	}	
+	$timeNew = $row['date_second'];
+	$valueNew =  $row['value'] ;
+	$dt1 = $row['dt1'];
+	$dtMinuteNew = new dDay\DivisionDay ( $dt1 );
+	$firstLoop = 1;
+}	
 
 // if (!isset($counter)) {
     // header("HTTP/1.1 400 Bad Request", true, 400);
