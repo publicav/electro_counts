@@ -2,6 +2,7 @@
 include_once("models/config.php");
 include_once("models/open.php");
 include_once("models/json/lots.php");
+
 ?>
 <!DOCTYPE html>
 <html> 
@@ -15,7 +16,8 @@ include_once("models/json/lots.php");
 <link rel="stylesheet" href="css/adm.css">
 <script src="js/jquery.maskedinput.min.js"></script>
 <script src="js/add_counts.js"></script>
-
+<script>
+</script>
 <body> 
 <div id="wrap_myupload">
     <form id="add_value_counts_form" name="add_value_form" method="post" action="models/json/add_value_counts.php">     

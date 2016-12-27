@@ -82,7 +82,7 @@ $st_navigator = cmd_page_navigator($date_b, $date_e);
 				FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
 				WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND 
 					  (sub.lots = lot.id) AND (main.id_users = users.id)  $st_sql
-				ORDER by date1
+				ORDER by date_create
 				LIMIT $position_in, " . $config['PAGE_COUNTER'] .";"; 
 		$page_out = Page($position_in, "SELECT main.id FROM counter_v AS main $st_page;");
 		$navigator = navigator($url_search_action, $page_out, $st_navigator);
@@ -95,7 +95,7 @@ $st_navigator = cmd_page_navigator($date_b, $date_e);
 				FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
 				WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND 
 						(sub.lots = lot.id) AND (main.id_users = users.id) AND (lot.id = " . $id_lot . ") $st_sql
-				ORDER by date1
+				ORDER by date_create
 				LIMIT $position_in, " . $config['PAGE_COUNTER'] .";"; 
 		$page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
 									   WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ") $st_sql;");
@@ -110,7 +110,7 @@ $st_navigator = cmd_page_navigator($date_b, $date_e);
 				FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
 				WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND
 					  (main.id_users = users.id) AND	(lot.id = " . $id_lot . ") AND (sub.id = " . $id_sub . ") $st_sql
-				ORDER by date1
+				ORDER by date_create
 				LIMIT $position_in, " . $config['PAGE_COUNTER'] .";"; 
 		$page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
 									   WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ")  AND (sub.id = " . $id_sub . ") $st_sql;");
@@ -123,7 +123,7 @@ $st_navigator = cmd_page_navigator($date_b, $date_e);
 				FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
 				WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND 
 					  (main.id_users = users.id)  AND (lot.id = " . $id_lot . ") AND (cnt.id = " . $id_counter . ") $st_sql
-				ORDER by date1
+				ORDER by date_create
 				LIMIT $position_in, " . $config['PAGE_COUNTER'] .";"; 
 		$page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
 									   WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ")  AND (sub.id = " . $id_sub . ") AND (cnt.id = " . $id_counter . ") $st_sql;");
@@ -150,7 +150,7 @@ $type['data'] = $counter;
 $type['navigator'] = $navigator;
 $type['url'] = $url;
 echo json_encode($type);
-   7
+
 ?>
 
 	
