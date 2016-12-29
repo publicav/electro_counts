@@ -21,12 +21,12 @@ if (isset($get_prog['data'])) $lot = (int)$get_prog['data']; else
 $sq  = "SELECT s.id, s.name FROM  substation AS s WHERE (s.lots = ?);";
 $res = $pdo->prepare( $sq );
  if ($res->execute( [$lot] )) {
-    while ($row = $res->fetch()) $counts_substation[] = $row;
-} else {
+	$counts_substation = $res->fetchAll(); 
+ } else {
     header("HTTP/1.1 400 Bad Request", true, 400);
     print exit_error( false, 3, $res->errorInfo() );
     exit();
-}
+ }
 
 $result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$counts_substation);
 print json_encode($result);

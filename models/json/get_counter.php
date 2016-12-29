@@ -18,8 +18,9 @@ if (isset($get_prog['data'])) $substation = (int)$get_prog['data']; else
 
 $sq  = "SELECT c.id, c.name FROM  count AS c WHERE (c.substations = ?);";
 $res = $pdo->prepare( $sq );
- if ($res->execute( [$substation] )) {
-    while ($row = $res->fetch()) $counts_count[] = $row;
+ if ($res->execute( [$substation] )) { 
+	$counts_count = $res->fetchAll();
+    // while ($row = $res->fetch()) $counts_count[] = $row;
 } else {
     header("HTTP/1.1 400 Bad Request", true, 400);
     print exit_error( false, 3, $res->errorInfo() );
