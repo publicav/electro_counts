@@ -1,19 +1,19 @@
 <?php
-    include_once("../open.php");
-    include_once("../config.php");
-    include_once("../funclib.php");
+include_once("../open.php");
+include_once("../config.php");
+// include_once("../funclib.php");
 
-    foreach ($_GET as $key => $value) 
-    {
-      $key = filter_var($key, FILTER_SANITIZE_STRING);
-      $value = filter_var($value, FILTER_SANITIZE_STRING);
-	  $get_prog[$key] = $value;
-    }    
-	
-	if(isset($get_prog['id'])) {
-        $id = intval($get_prog['id']);
-		$select=1;
-    } else {$id = 0; $select = 1;}
+foreach ($_GET as $key => $value) 
+{
+  $key = filter_var($key, FILTER_SANITIZE_STRING);
+  $value = filter_var($value, FILTER_SANITIZE_STRING);
+  $get_prog[$key] = $value;
+}    
+
+if(isset($get_prog['id'])) {
+	$id = intval($get_prog['id']);
+	$select=1;
+} else {$id = 0; $select = 1;}
 
 switch($select){
 case 1:
