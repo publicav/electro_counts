@@ -282,16 +282,14 @@ let l_form_edit_value = ( {objLot, objSubstation, objCounter, objDate, objTime, 
 							 objId, url_substation, url_counter, param} ) => {
 	$.ajax({dataType: 'json', type: 'get', url: 'models/json/edit_form_value.php', data: param })
 	 .done((result) => {
-			var data = result.data;
-			console.dir(data)
-			var obj = {	objSubstation, 	objCounter, url_substation, url_counter	};	
-			objLot.find('[value="' + data.lot_id + '"]').prop("selected", true);
-			get_substation(obj, data.lot_id, 2, data.sub_id, data.counter_id);
-			objDate.val(data.date1);
-			objTime.val(data.time1);	
-			objValEdit.val(data.value);	
-			objId.val(data.id);	
-		
+		var data = result.data;
+		var obj = {	objSubstation, 	objCounter, url_substation, url_counter	};	
+		objLot.find('[value="' + data.lot_id + '"]').prop("selected", true);
+		get_substation(obj, data.lot_id, 2, data.sub_id, data.counter_id);
+		objDate.val(data.date1);
+		objTime.val(data.time1);	
+		objValEdit.val(data.value);	
+		objId.val(data.id);	
 	})
 	.fail((result) => alert(result.error));
 }
@@ -299,18 +297,15 @@ let l_form_edit_value = ( {objLot, objSubstation, objCounter, objDate, objTime, 
 let l_form_edit_user = ( {objUser, objPassword, objConfirmPassword, objUserFamily, objUserName, objId, param } ) => {
 	$.ajax({dataType: 'json', type: 'get', url: 'models/json/edit_form_user.php', data: param})
 	 .done((result) => {
-		if (result.success) {
-			var data = result.data;
-			objUser.val(data.users);	
-			objPassword.val('');
-			objConfirmPassword.val('');	
-			objUserFamily.val(data.family);	
-			objUserName.val(data.name);	
-			objId.val(data.id);	
-		}
-		else alert(result.error);
+		var data = result.data;
+		objUser.val(data.users);	
+		objPassword.val('');
+		objConfirmPassword.val('');	
+		objUserFamily.val(data.family);	
+		objUserName.val(data.name);	
+		objId.val(data.id);	
 	})
-	.fail(() => alert('Error'));
+	.fail(() => alert(result.error));
 }
 
 let edit_form_actions = ( obj_form ) => {
