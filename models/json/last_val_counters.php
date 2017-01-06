@@ -39,10 +39,10 @@ $res = $pdo->prepare( $sq );
     while ($row = $res->fetch()) $value1 = $row;
 } else {
     header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo() );
+    print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
 if  ( !isset($value1) ) $value1['value'] = '';
-$result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$value1);
+$result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$value1 );
 print json_encode($result);
 ?>

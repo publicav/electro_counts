@@ -24,7 +24,7 @@ $res = $pdo->prepare( $sq );
     while ($row = $res->fetch()) $counts_substation[] = $row;
 } else {
     header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo() );
+    print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
  

@@ -93,12 +93,12 @@ $param = array( 'id' => $id_counter );
     while ($row = $res->fetch()) $counts_count = $row;
 } else {
     header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo() );
+    print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
 if (!isset($counts_count)) {
     header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo() );
+    print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 } else {
 	$name_counter = $counts_count['name'];
@@ -113,7 +113,7 @@ $res = $pdo->prepare( $sq );
     while ($row = $res->fetch()) $koefPower[$row['n_counter']] = $row['koef'];
 } else {
     header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo() );
+    print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
 
@@ -210,7 +210,7 @@ $param = array( 'id_counter' => $id_counter );
 
 if (!$res->execute( $param )) {
 	header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo() );
+    print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
 use date\DivisionDay as dDay;

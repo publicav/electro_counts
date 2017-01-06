@@ -1,7 +1,7 @@
 <?php
 include_once("../open.php");
 include_once("../config.php");
-// include_once("../funclib.php");
+include_once("../funclib.php");
 
 foreach ($_GET as $key => $value) 
 {
@@ -33,7 +33,7 @@ $res = $pdo->prepare( $sq );
     while ($row = $res->fetch()) $editCounter = $row;
 } else {
     header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo() );
+    print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
 
