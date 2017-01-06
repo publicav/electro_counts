@@ -17,32 +17,33 @@ if (isset($get_prog['counter'])) $counter = (int)$get_prog['counter']; else
     exit();
 } 
 
-$sq  = "SELECT n_counter, name FROM  count  WHERE (id = " . $get_prog['counter'] . ");";
-if ($res = $db_li->query($sq)) {
-    while ($row = $res->fetch_assoc()) {
-        $N_counter = $row['n_counter'];				
-    }
-    $res->free();
+$sq  = "SELECT n_counter FROM  count  WHERE (id = :id);";
+
+$param = array( 'id' => $get_prog['counter'] );	
+
+$res = $pdo->prepare( $sq );
+ if ($res->execute( $param )) {
+	 $N_counter = $res->fetchAll();
 } else {
-       header("HTTP/1.1 400 Bad Request", true, 400);    
-    echo exit_error(false, 1, 'Error № counter ');
+    header("HTTP/1.1 400 Bad Request", true, 400);
+    print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
 
-
 $sq  = "SELECT main.value FROM  counter_v AS main 
-        WHERE (main.n_counter = ?) AND (main.id_counter = ?)
+        WHERE (main.n_counter = :n_counter) AND (main.id_counter = :id_counter)
         ORDER BY date_create DESC LIMIT 1
         ;";
+$param = array( 'n_counter' => $N_counter[0]['n_counter'], 'id_counter' => $get_prog['counter']	);	
 $res = $pdo->prepare( $sq );
- if ($res->execute( [ $N_counter, $get_prog['counter'] ] )) {
-    while ($row = $res->fetch()) $value1 = $row;
+ if ($res->execute( $param )) {
+	 $value1 = $res->fetchAll();
 } else {
     header("HTTP/1.1 400 Bad Request", true, 400);
     print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
 if  ( !isset($value1) ) $value1['value'] = '';
-$result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$value1 );
+$result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$value1[0], 'counter' => $N_counter[0] );
 print json_encode($result);
 ?>
