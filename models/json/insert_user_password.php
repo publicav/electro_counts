@@ -49,8 +49,8 @@ if  ($action == 'add') {
 			VALUES (:users, :password, :name, :family, :ring);";
 			
 	$msg = 'Пользователь ' . $get_prog['name_add'] .  ' добавлен'; 
-	$param = array('users' => $get_prog['user_edit'],  'password' => $md5, 'name' => $get_prog['name_edit'],
-				   'family' => $get_prog['family_edit'], 'ring' => $config['id']
+	$param = array('users' => $get_prog['user_add'],  'password' => $md5, 'name' => $get_prog['name_add'],
+				   'family' => $get_prog['family_add'], 'ring' => $config['RING']
 			 );
 	
 	

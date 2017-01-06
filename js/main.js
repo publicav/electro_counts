@@ -406,7 +406,7 @@ let user_form_actions = ( obj_form ) => {
 			json_get_user( obj_form.objTarget );
 		} else  alert(result.error);
 	})
-	.fail(() => alert('Error'));	
+	.fail((result) => alert(result.success));	
 }
 
 let unregistration = () => {
