@@ -54,13 +54,8 @@ if ($res = $db_li->query($sq)) {
     $res->free();
 }
    	
-$sq = "SELECT name, family FROM users WHERE (id='" . $sid . "');";
-if ($res = $db_li->query($sq)) {
-    while ($row = $res->fetch_assoc()) {
-        $user = $row;              
-    }
-    $res->free();
-}
+$name = new GetUser( $pdo, $sid );
+$user = $name->user;
 	
 ?>
 

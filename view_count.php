@@ -4,6 +4,7 @@ include_once("models/open.php");
 include_once("models/config.php");
 include_once("models/funclib.php");
 include_once('models/json_e.php');
+include_once('models/json/pdo/GetUser.php');
 
 foreach ($_GET as $key => $value) 
 {

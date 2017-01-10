@@ -43,13 +43,8 @@ $sq = "SELECT m.title, m.meta_k, m.meta_d FROM adm_main_struct AS m WHERE (m.nam
         }	
     }
 
-$sq = "SELECT name, family FROM users WHERE (id='" . $sid . "');";
-if ($res = $db_li->query($sq)) {
-    while ($row = $res->fetch_assoc()) {
-        $user = $row;              
-    }
-    $res->free();
-}
+$name = new GetUser( $pdo, $sid );
+$user = $name->user;
 	
 $sq = "SELECT id, users, name, family FROM users WHERE  (ring > 0) ORDER BY id DESC;";
 if ($res = $db_li->query($sq)) {
