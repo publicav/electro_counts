@@ -325,9 +325,9 @@ let edit_form_actions = ( obj_form ) => {
 			var data = result.data;
 			workForm.dialog( "close" );
 			json_get_table(obj_form.objTarget, obj_form.cmd);
-		} else  alert(result.error);
+		} else  alert( result.error );
 	})
-	.fail(() => alert('Error'));	
+	.fail((result) => alert( result.error ));	
 }
 
 let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, objBtnEdit, objListRec, btnPress, gl_add_counts, edit_arr} ) =>{
@@ -358,7 +358,7 @@ let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, obj
 		}
 		else  alert( result.error );
 	})
-	.fail(() => alert( "Error" ));
+	.fail((result) => alert( result.error ));
 
 	let ok_btn = ( data, row_add ) => {
 			if (gl_add_counts <= 10) {

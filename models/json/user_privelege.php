@@ -44,7 +44,6 @@ if ($res->execute( $param )) {
 
 if (!empty($id_privelege)) {
     for($i = 0; $i < SizeOf($privelege); $i++) {
-        // $id = $id_privelege[$i]['id'];
         $sq = "UPDATE tables_priv SET visibly = :visibly WHERE ( id = :id );";
 		$param = array ( 'id' => $id_privelege[$i]['id'], 'visibly' => $privelege[$i]['visibly']); 
 		$res = $pdo->prepare( $sq );
