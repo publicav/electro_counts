@@ -93,7 +93,7 @@ if ($get_prog['actions'] == 'add'){
 		   VALUES (:n_counter , :id_counter, :id_users, :value, :date_create);";
 
 	$param = array ('n_counter' => $N_counter, 'id_counter' => $get_prog['counter'], 'id_users' => $id_users, 
-			'value' => $get_prog['counter_val'], 'date_create' => $date_create, 'id' => $get_prog['edit_id'] ); 
+			'value' => $get_prog['counter_val'], 'date_create' => $date_create ); 
 			
 	$res = $pdo->prepare( $sq );
 	if (!$res->execute( $param )) {
