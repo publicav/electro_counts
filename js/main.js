@@ -192,7 +192,7 @@ let json_get_table = ( objTarget, cmd_arr ) => {
 			history.pushState( null, null, create_cmd( '', cmd_arr ) );
 		} else  alert( result.error );
 	 })
-	 .fail(() => alert( 'Error' ));		
+	 .fail(() => alert( result.error ));		
 }
 
 let json_get_t_calc = ( objTarget, cmd_arr ) => {
