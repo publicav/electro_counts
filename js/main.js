@@ -492,11 +492,8 @@ let privilege_user_form_actions = ( obj_form ) => {
 	};
 	$.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
 	.done((result) => {
-			if (result.success) {
-				var data = result;
-			} else  alert(result.error);
 	})
-	.fail(() => alert('Error'));
+	.fail((result) => alert(result.error));
 	workForm.dialog( "close" );
 }
 
