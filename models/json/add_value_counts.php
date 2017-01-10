@@ -96,7 +96,7 @@ if ($get_prog['actions'] == 'add'){
 			'value' => $get_prog['counter_val'], 'date_create' => $date_create, 'id' => $get_prog['edit_id'] ); 
 			
 	$res = $pdo->prepare( $sq );
-	if (!$res->execute()) {
+	if (!$res->execute( $param )) {
 		header("HTTP/1.1 400 Bad Request", true, 400);
 		print exit_error( false, 3, $res->errorInfo()[2] );
 		exit();
@@ -112,7 +112,7 @@ if ($get_prog['actions'] == 'edit'){
 					'value' => $get_prog['counter_val'], 'date_create' => $date_create, 'id' => $get_prog['edit_id'] ); 
 			
 	$res = $pdo->prepare( $sq );
-	if (!$res->execute()) {
+	if (!$res->execute( $param )) {
 		header("HTTP/1.1 400 Bad Request", true, 400);
 		print exit_error( false, 3, $res->errorInfo()[2] );
 		exit();
