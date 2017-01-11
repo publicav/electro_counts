@@ -32,8 +32,10 @@
 	include("base/edit_form.php"); 
 ?>
 <div id="left">
-	<?php 	include("base/menu_left.php"); 
-			if ($visibly == 1) {	include("base/filtr_lot.php");} ?>
+<?php 	
+	include("base/menu_left.php"); 
+	if ($visibly == 1) {	include("base/filtr_lot.php");} 
+?>
 		
 </div>
 

@@ -3,8 +3,7 @@ $st_sql = '';
 $st_page ='';
 $menu_m = json_menu2array($menu_json);
 	
-if ($sid>0)
-{
+if ( $sid > 0) {
     $sq = "SELECT id_menu, visibly FROM tables_priv WHERE (id_users = $sid)";
         if ($res = $db_li->query($sq)) {
             while ($row = $res->fetch_assoc()) {
@@ -28,30 +27,21 @@ if ($sid>0)
         }
 }
 
-$sq = "SELECT m.title, m.meta_k, m.meta_d FROM adm_main_struct AS m WHERE (m.name='".$Full_Page_Name."') AND (id_lang = ".$config['LANG'].");"; 
-    if ($res = $db_li->query($sq)) {
-        while ($row = $res->fetch_assoc()) {
-            $conf_h[] = $row;              
-        }
-        $res->free();
-    }
-    
-for($i=0;$i<SizeOf($conf_h);$i++) 
-{
-    foreach ($conf_h[$i] as $key => $value) 
-    {
-        $head = str_replace(':'.$key.':', $value , $head);
-    }	
-}
+$currentPage = new GetNamePage( $pdo, $Full_Page_Name, $config['LANG'] );
+$head = $currentPage->get_head( $head );
     
 $sq  = "SELECT l.id, l.name FROM  lots AS l;";
 $lots[] = Array('id' => '0','name' => 'Все участки');
 
-if ($res = $db_li->query($sq)) {
-    while ($row = $res->fetch_assoc()) {
-        $lots[] = $row;
-    }
-    $res->free();
+$res = $pdo->prepare( $sq );
+if ($res->execute( $param )) {
+	while ($row = $res->fetch()) {
+		$lots[] = $row;
+	}
+} else {
+	header("HTTP/1.1 400 Bad Request", true, 400);
+	print exit_error( false, 3, $res->errorInfo()[2] );
+	exit();
 }
    	
  $name = new GetUser( $pdo, $sid );

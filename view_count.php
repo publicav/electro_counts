@@ -5,6 +5,8 @@ include_once("models/config.php");
 include_once("models/funclib.php");
 include_once('models/json_e.php');
 include_once('models/json/pdo/GetUser.php');
+include_once('models/json/pdo/GetNamePage.php');
+include_once('models/json/pdo/Privelege.php');
 
 foreach ($_GET as $key => $value) 
 {

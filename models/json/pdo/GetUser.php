@@ -1,5 +1,5 @@
 ﻿<?php
-// namespace models\json\pdo\GetUser;
+// namespace json\pdo\GetUser;
 class GetUser { 
     public $user;
     private $id, $sq, $param;
