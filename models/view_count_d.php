@@ -16,7 +16,7 @@ $sq  = "SELECT l.id, l.name FROM  lots AS l;";
 $lots[] = Array('id' => '0','name' => 'Все участки');
 
 $res = $pdo->prepare( $sq );
-if ($res->execute( $param )) {
+if ($res->execute()) {
 	while ($row = $res->fetch()) {
 		$lots[] = $row;
 	}

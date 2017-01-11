@@ -5,6 +5,7 @@ class Privelege {
     private $res, $priv;
 	private $i, $row;
 	private $menu_left;
+	private $visibly = 0;
     function __construct( $pdo, $id ) {
 
 		$this->sq = "SELECT id_menu, visibly FROM tables_priv WHERE (id_users = :id )";
@@ -35,6 +36,12 @@ class Privelege {
 			exit();
 		}
 		return $this->menu_left;
+	}
+	function GetVisiblyFilter( $Page_Name ) {
+		for( $this->i = 0; $this->i < SizeOf( $this->menu_left ); $this->i++ ) {
+			 if ($this->menu_left[$this->i]['id_a'] == $Page_Name) $this->visibly = 1;
+		}
+		return  $this->visibly;
 	}
 }
 ?>

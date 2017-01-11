@@ -65,6 +65,7 @@ $st_navigator = cmd_page_navigator($date_b, $date_e);
 $url_search_action =  "edit_count.php";
 $Full_Page_Name  = 'edit_count';
 $visibly = 0;
+
 $head=include_h("views/head.tpl");
 if ($sid == 0) {
     $menu_json = include_h("models/json/menu.json");

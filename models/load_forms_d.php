@@ -14,7 +14,7 @@ $user = $name->user;
 	
 $sq = "SELECT id, users, name, family FROM users WHERE  (ring > 0) ORDER BY id DESC;";
 $res = $pdo->prepare( $sq );
-if ($res->execute( $param )) {
+if ($res->execute()) {
 	$user_all = $res->fetchAll(); 
 } else {
 	header("HTTP/1.1 400 Bad Request", true, 400);
