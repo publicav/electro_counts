@@ -44,7 +44,7 @@
 </div>
 
 
-<div id="test"><?php print_r($sq); ?></div>
+<div id="test"></div>
 <?php
 //  include_once('base/footer.php');
 ?>

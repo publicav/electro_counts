@@ -7,6 +7,7 @@ include_once('models/json_e.php');
 include_once('models/json/pdo/GetUser.php');
 include_once('models/json/pdo/GetNamePage.php');
 include_once('models/json/pdo/Privelege.php');
+include_once('models/json/pdo/Lots.php');
 
 foreach ($_GET as $key => $value) 
 {
