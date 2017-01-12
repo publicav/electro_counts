@@ -8,7 +8,6 @@ if ( $sid > 0 ) {
 
 	$name = new GetUser( $pdo, $sid );
 	$user = $name->user;
-	
 }
 
  $currentPage = new GetNamePage( $pdo, $Full_Page_Name, $config['LANG'] );

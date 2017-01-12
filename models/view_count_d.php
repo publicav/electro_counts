@@ -7,6 +7,8 @@ if ( $sid > 0 ) {
 	$menuLeft = new Privelege( $pdo, $sid);
 	$menu_left_m = $menuLeft->get_menu_left( $pdo );
 
+	$name = new GetUser( $pdo, $sid );
+	$user = $name->user;
 }
 
 $currentPage = new GetNamePage( $pdo, $Full_Page_Name, $config['LANG'] );
@@ -25,10 +27,6 @@ if ($res->execute()) {
 	print exit_error( false, 3, $res->errorInfo()[2] );
 	exit();
 }
-   	
-$name = new GetUser( $pdo, $sid );
-$user = $name->user;
-	
 ?>
 
 	

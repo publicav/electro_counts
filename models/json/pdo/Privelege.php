@@ -32,7 +32,7 @@ class Privelege {
 			}
 		} else {
 			header("HTTP/1.1 400 Bad Request", true, 400);
-			print exit_error( false, 3, $this->res->errorInfo()[2] );
+			print  $this->res->errorInfo()[2];
 			exit();
 		}
 		return $this->menu_left;

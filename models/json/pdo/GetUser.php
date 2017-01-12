@@ -3,19 +3,23 @@
 class GetUser { 
     public $user;
     private $id, $sq, $param;
-    private $user_a;
+    private $user_a, $res;
     function __construct( $pdo, $id ) {
         $this->id = $id;
         $this->sq = "SELECT name, family FROM users WHERE (id= :id );"; 
         $param = array ('id' => $this->id ); 
-        $res = $pdo->prepare( $this->sq );
-        if ($res->execute( $param )) {
-        $this->user_a = $res->fetchAll();
+        $this->res = $pdo->prepare( $this->sq );
+        if ($this->res->execute( $param )) {
+			$this->user_a = $this->res->fetchAll();
         } else {
             header("HTTP/1.1 400 Bad Request", true, 400);
-            print exit_error( false, 3, $res->errorInfo()[2] );
+            print  $this->res->errorInfo()[2];
             exit();
         }
-        $this->user = $this->user_a[0];
+        if ( !empty( $this->user_a ) ) $this->user = $this->user_a[0];
     }   
-}?>
+	function GetUser() {
+		return $this->user;
+	}
+}
+?>
