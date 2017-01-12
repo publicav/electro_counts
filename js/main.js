@@ -192,7 +192,7 @@ let json_get_table = ( objTarget, cmd_arr ) => {
 			history.pushState( null, null, create_cmd( '', cmd_arr ) );
 		} else  alert( result.error );
 	 })
-	 .fail(() => alert( 'Error' ));		
+	 .fail(() => alert( result.error ));		
 }
 
 let json_get_t_calc = ( objTarget, cmd_arr ) => {
@@ -282,36 +282,30 @@ let l_form_edit_value = ( {objLot, objSubstation, objCounter, objDate, objTime, 
 							 objId, url_substation, url_counter, param} ) => {
 	$.ajax({dataType: 'json', type: 'get', url: 'models/json/edit_form_value.php', data: param })
 	 .done((result) => {
-		if (result.success) {
-			var data = result.data;
-			var obj = {	objSubstation, 	objCounter, url_substation, url_counter	};	
-			objLot.find('[value="' + data.lot_id + '"]').prop("selected", true);
-			get_substation(obj, data.lot_id, 2, data.sub_id, data.counter_id);
-			objDate.val(data.date1);
-			objTime.val(data.time1);	
-			objValEdit.val(data.value);	
-			objId.val(data.id);	
-		} else  alert(result.error);
+		var data = result.data;
+		var obj = {	objSubstation, 	objCounter, url_substation, url_counter	};	
+		objLot.find('[value="' + data.lot_id + '"]').prop("selected", true);
+		get_substation(obj, data.lot_id, 2, data.sub_id, data.counter_id);
+		objDate.val(data.date1);
+		objTime.val(data.time1);	
+		objValEdit.val(data.value);	
+		objId.val(data.id);	
 	})
-	.fail(() => alert('Error'));
-	
+	.fail((result) => alert(result.error));
 }
 
 let l_form_edit_user = ( {objUser, objPassword, objConfirmPassword, objUserFamily, objUserName, objId, param } ) => {
 	$.ajax({dataType: 'json', type: 'get', url: 'models/json/edit_form_user.php', data: param})
 	 .done((result) => {
-		if (result.success) {
-			var data = result.data;
-			objUser.val(data.users);	
-			objPassword.val('');
-			objConfirmPassword.val('');	
-			objUserFamily.val(data.family);	
-			objUserName.val(data.name);	
-			objId.val(data.id);	
-		}
-		else alert(result.error);
+		var data = result.data;
+		objUser.val(data.users);	
+		objPassword.val('');
+		objConfirmPassword.val('');	
+		objUserFamily.val(data.family);	
+		objUserName.val(data.name);	
+		objId.val(data.id);	
 	})
-	.fail(() => alert('Error'));
+	.fail(() => alert(result.error));
 }
 
 let edit_form_actions = ( obj_form ) => {
@@ -331,9 +325,9 @@ let edit_form_actions = ( obj_form ) => {
 			var data = result.data;
 			workForm.dialog( "close" );
 			json_get_table(obj_form.objTarget, obj_form.cmd);
-		} else  alert(result.error);
+		} else  alert( result.error );
 	})
-	.fail(() => alert('Error'));	
+	.fail((result) => alert( result.error ));	
 }
 
 let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, objBtnEdit, objListRec, btnPress, gl_add_counts, edit_arr} ) =>{
@@ -364,7 +358,7 @@ let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, obj
 		}
 		else  alert( result.error );
 	})
-	.fail(() => alert( "Error" ));
+	.fail((result) => alert( result.error ));
 
 	let ok_btn = ( data, row_add ) => {
 			if (gl_add_counts <= 10) {
@@ -412,7 +406,7 @@ let user_form_actions = ( obj_form ) => {
 			json_get_user( obj_form.objTarget );
 		} else  alert(result.error);
 	})
-	.fail(() => alert('Error'));	
+	.fail((result) => alert(result.success));	
 }
 
 let unregistration = () => {
@@ -498,11 +492,8 @@ let privilege_user_form_actions = ( obj_form ) => {
 	};
 	$.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
 	.done((result) => {
-			if (result.success) {
-				var data = result;
-			} else  alert(result.error);
 	})
-	.fail(() => alert('Error'));
+	.fail((result) => alert(result.error));
 	workForm.dialog( "close" );
 }
 

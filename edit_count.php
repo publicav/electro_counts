@@ -4,6 +4,11 @@ include_once("models/open.php");
 include_once("models/config.php");
 include_once("models/funclib.php");
 include_once('models/json_e.php');
+include_once('models/json/pdo/GetUser.php');
+include_once('models/json/pdo/GetNamePage.php');
+include_once('models/json/pdo/Privelege.php');
+include_once('models/json/pdo/Lots.php');
+
 
 foreach ($_GET as $key => $value) 
 {
@@ -62,6 +67,7 @@ $st_navigator = cmd_page_navigator($date_b, $date_e);
 $url_search_action =  "edit_count.php";
 $Full_Page_Name  = 'edit_count';
 $visibly = 0;
+
 $head=include_h("views/head.tpl");
 if ($sid == 0) {
     $menu_json = include_h("models/json/menu.json");

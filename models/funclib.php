@@ -98,22 +98,30 @@ function range_time_day($date_b, $date_e)
 function Page($position,$sq)
 {
    global $config;
-   global $db_li;
+   // global $db_li;
+   global $pdo;
 
 //Определяем количество записей в базе данных
    // echo $sq;
 
-   if ($res = $db_li->query($sq)) {
-        /* определение числа рядов в выборке */
-       $total = $res->num_rows;
-   }
+   // if ($res = $db_li->query( $sq )) {
+        // /* определение числа рядов в выборке */
+       // $total = $res->num_rows;
+   // }
+
+   $res = $pdo->prepare( $sq );
+	if ( $res->execute() ) {
+		$total = $res->rowCount();	
+	}
+   
    $c_page = $config['PAGE_COUNTER'];
-   if ($position<0) $position=0; 
-   if($position>$total) $position=(intval($total / $c_page) * $c_page); 
+   if ( $position < 0 ) $position = 0; 
+   if( $position > $total ) $position = ( intval( $total / $c_page ) * $c_page ); 
 
 
-   $page_arr['total']=$total;
-   $page_arr['position']=$position;
+   $page_arr['total'] = $total;
+   $page_arr['position'] = $position;
+  
    return $page_arr;
 }
 
@@ -226,29 +234,46 @@ function datetime_sql($dt_b, $time){
 	return $date_create;
 }
 
-function validator_input_sql($name_table, $id){
-	global $db_li;
+function validator_input_sql( $name_table, $id ){
+	// global $db_li;
+	global $pdo;
 	
-    $sq  = "SELECT name FROM  " . $name_table .  "  WHERE (id = " . $id . ");";
-    if ($res = $db_li->query($sq)) {
-        while ($row = $res->fetch_assoc()) {
-            $name_result = $row['name'];              
-        }
-        $res->free();
-    }
+    $sq  = "SELECT name FROM  $name_table WHERE ( id = :id );";
+	$param = array ( 'id' => $id ); 
+	$res = $pdo->prepare( $sq );
+	if ($res->execute( $param )) {
+		while ($row = $res->fetch()) {
+            $name_result = $row['name'];
+		}
+	}
+	
+    // if ($res = $db_li->query($sq)) {
+        // while ($row = $res->fetch_assoc()) {
+            // $name_result = $row['name'];              
+        // }
+        // $res->free();
+    // }
 	return $name_result;
 }
 
 function validator_user($user){
-	global $db_li;
+	// global $db_li;
+	global $pdo;
+    $sq  = "SELECT id FROM users  WHERE ( users = :user );";
+	$param = array ( 'user' => $user ); 
+	$res = $pdo->prepare( $sq );
+	if ($res->execute( $param )) {
+		while ( $row = $res->fetch() ) {
+            $id = $row['id'];
+		}
+	}
 	
-    $sq  = "SELECT id FROM users  WHERE (users = '" . $user . "');";
-    if ($res = $db_li->query($sq)) {
-        while ($row = $res->fetch_assoc()) {
-            $id = $row['id'];              
-        }
-        $res->free();
-    }
+    // if ($res = $db_li->query($sq)) {
+        // while ($row = $res->fetch_assoc()) {
+            // $id = $row['id'];              
+        // }
+        // $res->free();
+    // }
 	return $id;
 }
 

@@ -20,15 +20,21 @@ $name_substation = validator_input_sql('substation', $get_prog['substation']);
 //$name_count = validator_input_sql('count', $get_prog['counter']);
 $id_users = $sid;   // Регистрация
 
-    $sq  = "SELECT n_counter, name FROM  count  WHERE (id = " . $get_prog['counter'] . ");";
-    if ($res = $db_li->query($sq)) {
-        while ($row = $res->fetch_assoc()) {
-            $name_count = $row['name'];
-			$N_counter = $row['n_counter'];				
-        }
-        $res->free();
-    }
+$sq  = "SELECT n_counter, name FROM  count  WHERE (id = :id );";
+$param = array ('id' => $get_prog['counter'] ); 
+$res = $pdo->prepare( $sq );
+if ($res->execute( $param )) {
+	$infoCount = $res->fetchAll(); 
+} else {
+	header("HTTP/1.1 400 Bad Request", true, 400);
+	print exit_error( false, 3, $res->errorInfo()[2] );
+	exit();
+}
 
+if ( !empty($infoCount) ) {
+	$name_count = $infoCount[0]['name'];
+	$N_counter = $infoCount[0]['n_counter'];				
+}
 
 if (!isset($name_lot)) { 
 	echo exit_error(false, 2, 'Error input select lots');
@@ -64,46 +70,54 @@ if ($date_create == '') {
 if ($get_prog['actions'] == 'add'){
 
     $sq  = "SELECT id FROM  counter_v  
-			WHERE (n_counter = '" . $N_counter . "') AND (id_counter = '" . $get_prog['counter'] . "') AND
-				  (date_create = '" . $date_create . "');";
-			$sqsel = $sq;
-    if ($res = $db_li->query($sq)) {
-        while ($row = $res->fetch_assoc()) {
+			WHERE (n_counter = :n_counter) AND (id_counter = :id_counter) AND (date_create = :date_create);";
+				  
+	$param = array ('n_counter' => $N_counter, 'id_counter' => $get_prog['counter'], 'date_create' => $date_create ); 
+	$res = $pdo->prepare( $sq );
+	if ($res->execute( $param )) {
+		while ($row = $res->fetch()) {
             $id_dupl = $row['id'];
-        }
-        $res->free();
-    }
-	
+		}
+	} else {
+		header("HTTP/1.1 400 Bad Request", true, 400);
+		print exit_error( false, 3, $res->errorInfo()[2] );
+		exit();
+	}
+			
 	if (isset($id_dupl)) {
 		echo exit_error(false, 2, 'Error, Дублирующая запись');	
 		exit();
 	}
 	
-	
 	$sq = "INSERT INTO counter_v (n_counter, id_counter, id_users, value,  date_create) 
-			VALUES ('" . $N_counter . "' ,'" . $get_prog['counter'] . "', '" . $id_users . "', '" . $get_prog['counter_val'] . "','" .  $date_create ."');";
+		   VALUES (:n_counter , :id_counter, :id_users, :value, :date_create);";
 
-    if ($res = $db_li->query($sq)) {
-       
-    } else {
-		echo exit_error(false, 3,  $db_li->error);
+	$param = array ('n_counter' => $N_counter, 'id_counter' => $get_prog['counter'], 'id_users' => $id_users, 
+			'value' => $get_prog['counter_val'], 'date_create' => $date_create ); 
+			
+	$res = $pdo->prepare( $sq );
+	if (!$res->execute( $param )) {
+		header("HTTP/1.1 400 Bad Request", true, 400);
+		print exit_error( false, 3, $res->errorInfo()[2] );
 		exit();
-	}	
-	 $id_add = $db_li->insert_id;
+	}
+	$id_add = $pdo->lastInsertId();
 }
 if ($get_prog['actions'] == 'edit'){
 	$sq = "UPDATE counter_v  
-			SET n_counter = '" . $N_counter . "' ,id_counter='" . $get_prog['counter'] . "',id_users = '" . $id_users . "', value = '" . $get_prog['counter_val'] . "', date_create = '" . $date_create . "', date_create = ' " . $date_create . "'
-			WHERE (id = '" . $get_prog['edit_id'] . "');";
+		   SET n_counter = :n_counter, id_counter = :id_counter, id_users = :id_users, value = :value , date_create = :date_create
+		   WHERE (id = :id );";
 
-    if ($res = $db_li->query($sq)) {
-       
-    } else {
-		echo exit_error(false, 3, $db_li->error);
+	$param = array ('n_counter' => $N_counter, 'id_counter' => $get_prog['counter'], 'id_users' => $id_users, 
+					'value' => $get_prog['counter_val'], 'date_create' => $date_create, 'id' => $get_prog['edit_id'] ); 
+			
+	$res = $pdo->prepare( $sq );
+	if (!$res->execute( $param )) {
+		header("HTTP/1.1 400 Bad Request", true, 400);
+		print exit_error( false, 3, $res->errorInfo()[2] );
 		exit();
-	}	
-
-		$id_add = $get_prog['edit_id'];
+	}
+	$id_add = $get_prog['edit_id'];
 }
 	
 $data = Array("id" => $id_add, "lot" => $get_prog['lot'], "substation" => $get_prog['substation'], "counter" => $get_prog['counter'],
