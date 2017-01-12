@@ -383,7 +383,7 @@ let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, obj
 	
 let user_form_actions = ( obj_form ) => {
 	var form, workForm, actions;
-	if ( obj_form.actionsCmd == ADD_USER_ACTIONS) {
+	if ( obj_form.actionsCmd == ADD_USER_ACTIONS ) {
 		form = obj_form.view.user_form_add_submit;
 		workForm = obj_form.view.user_form_add;		
 		actions = '&actions=add';
