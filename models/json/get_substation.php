@@ -2,8 +2,8 @@
 include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
-include_once("../regv.php");
-include_once "pdo/Substation.php";
+include_once "Autoload.php";
+// include_once "pdo/Substation.php";
 
 foreach ($_GET as $key => $value) {
     $key = filter_var($key, FILTER_SANITIZE_STRING);

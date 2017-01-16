@@ -43,7 +43,7 @@ $res = $pdo->prepare( $sq );
     print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
-if  ( !isset($value1) ) $value1['value'] = '';
-$result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$value1[0], 'counter' => $N_counter[0] );
+if  ( !empty( $value1 ) ) $retVal = $value1[0]; else  $retVal = '';
+$result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$retVal, 'counter' => $N_counter[0] );
 print json_encode($result);
 ?>
