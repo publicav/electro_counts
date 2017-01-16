@@ -2,7 +2,8 @@
 include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
-// include_once("lib.php");
+
+// include_once "Autoload.php";
 include_once 'date/DivisionDay.php';
 include_once 'date/PeriodDay.php';
 
