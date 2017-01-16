@@ -4,9 +4,7 @@ include_once("models/open.php");
 include_once("models/config.php");
 include_once("models/funclib.php");
 include_once('models/json_e.php');
-include_once('models/json/pdo/GetUser.php');
-include_once('models/json/pdo/GetNamePage.php');
-include_once('models/json/pdo/Privelege.php');
+include_once('models/json/Autoload.php');
 
 $Full_Page_Name  = 'add_user';
 $visibly = 0;

@@ -4,16 +4,11 @@ include_once("models/open.php");
 include_once("models/config.php");
 include_once("models/funclib.php");
 include_once('models/json_e.php');
-include_once('models/json/pdo/GetUser.php');
-include_once('models/json/pdo/GetNamePage.php');
-include_once('models/json/pdo/Privelege.php');
-include_once('models/json/pdo/Lots.php');
+include_once('models/json/Autoload.php');
 
-foreach ($_GET as $key => $value) 
-{
+foreach ($_GET as $key => $value) {
     $key = filter_var($key, FILTER_SANITIZE_STRING);
     $value = filter_var($value, FILTER_SANITIZE_STRING);
-
     $get_prog[$key] = $value;
 }
 
