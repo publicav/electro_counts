@@ -1,5 +1,4 @@
 ﻿<?php
-// namespace json\pdo\GetUser;
 class Substation { 
     private  $sq, $param;
     private $res, $substation;
@@ -8,7 +7,6 @@ class Substation {
 	private $visibly = 0;
 	private $substationFilter;
     function __construct( $pdo, $lot ) {
-
 		$this->sq = "SELECT s.id, s.name FROM  substation AS s WHERE ( s.lots = :lot );";
 		$this->param = array ( 'lot' => $lot ); 
 		$this->res = $pdo->prepare( $this->sq );

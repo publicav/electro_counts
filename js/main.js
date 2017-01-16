@@ -110,7 +110,7 @@ let get_substation = ( {objSubstation, objCounter, objCounterLastVal = {}, url_s
 				get_counter( { objCounter, objCounterLastVal, url_counter, actions, EDIT_ACTIONS, couner_value}, value );
 			}
 	})
-	.fail(( result, b, c ) => alert(result.error));
+	.fail(( result, b, c ) => alert('test' + result.error));
 }
 
 
