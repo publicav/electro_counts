@@ -63,18 +63,20 @@ if(!isset($get_prog['id_counter'])) {
 }
 
 
-if(isset($get_prog['date_b'])) 
-{
+if(isset($get_prog['date_b'])) {
 	$date_b = $get_prog['date_b'];
 	$put_js['date_b'] = $date_b;		
 } else $date_b = '';
 
 
-if(isset($get_prog['date_e'])) 
-{
+if(isset($get_prog['date_e'])) {
 	$date_e = $get_prog['date_e'];
 	$put_js['date_e'] = $date_e;		
 } else $date_e = '';
+$dateSql = new rangeDateSql('2017-01-04', '');
+$dateArray = array ('date_b' => $dateSql->getDate1(),'date_e' => $dateSql->getDate2(), 
+					'interval'=> $dateSql->getSQL( 'date_create' ) );
+$rangeSql = $dateSql->getSQL( 'date_create' );
 $st = range_time_day($date_b, $date_e);
 $st_navigator = cmd_page_navigator($date_b, $date_e);
 
@@ -160,11 +162,12 @@ $res = $pdo->prepare( $sq );
 		// $navigator = navigator($url_search_action,$page_out,'&id_lot=' . $id_lot . '&id_sub=' . $id_sub . $st_navigator);
     break;
     case 4:
-		if ($st != '') $st_sql = ' AND ' . $st; 
+		// if ($st != '') 
+		$rangeSql = ' AND ' . $rangeSql; 
 		$sq =  "SELECT main.id,  DATE_FORMAT(main.date_create, '%d-%m-%Y %H:%i:%s' ) AS date1,  main.value AS value,
 				UNIX_TIMESTAMP(main.date_create)  AS date_second, main.date_create AS dt1, main.n_counter
 				FROM counter_v AS main
-				WHERE (main.id_counter = :id_counter) 
+				WHERE (main.id_counter = :id_counter) $rangeSql
 				ORDER by date_create;"; 
 		// $page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
 									   // WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ")  AND (sub.id = " . $id_sub . ") AND (cnt.id = " . $id_counter . ") $st_sql;");
@@ -250,7 +253,7 @@ $type['success'] = true;
 $type['id_error'] = 0;
 $type['data'] = $counter;
 //$type['navigator'] = $navigator;
-$type['url'] = $koefPower[1];
+$type['date'] = $dateArray;
 echo json_encode($type);
 ?>
 
