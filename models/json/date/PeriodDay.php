@@ -1,5 +1,5 @@
 <?php
-namespace date\PeriodDay;
+// namespace date\PeriodDay;
 class PeriodDay {
     private $dt1, $dt2;
     public $interval;

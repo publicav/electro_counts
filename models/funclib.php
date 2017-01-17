@@ -1,6 +1,5 @@
 <?php
-function include_h($file)
-{
+function include_h($file) {
  $file_name=$file; 
  $fh = fopen($file_name, "r"); 
  $res=fread($fh,filesize($file_name)); 
@@ -8,51 +7,38 @@ function include_h($file)
  return $res;
 }
                                 
-function create_sql($action,$table,$data)
-{
-    if ($action == 'add') 
-    {
+function create_sql($action, $table, $data) {
+    if ($action == 'add') {
         $insert =  "INSERT INTO $table (";
         $values = "VALUES (";
         $fields = '';
         $vars = '';
-        foreach ($data as $key => $value) 
-        {
-            if($key!='id')
-            {
+        foreach ($data as $key => $value) {
+            if($key!='id') {
                 $fields .= $key . ',';
                 $vars .= "'" . $value . "'" .  ",";
             }
-            
         }	
-        
         $fields = substr($fields, 0, strlen($fields)-1);
         $vars = substr($vars, 0, strlen($vars)-1);
-        
-       $res =  $insert . $fields . ") ". $values . $vars . ")";
+        $res =  $insert . $fields . ") ". $values . $vars . ")";
     };
     
-    if ($action == 'edit') 
-    {
+    if ($action == 'edit') {
         $update = "UPDATE $table ";
         $set = "SET "; 
         $vars = '';
-        foreach ($data as $key => $value) 
-        {
-            if($key!='id')
-            {
+        foreach ($data as $key => $value) {
+            if($key!='id')             {
                 $vars .=  $key . " = '" . $value . "'" .  ",";
-            }
-            else
-            {
+            } else {
                 $where = " WHERE (id = " . $value . ")";
             }
-            
         }	
         $vars = substr($vars, 0, strlen($vars)-1) . ' ';
         $res =  $update . $set . $vars . $where;
     };
- return $res;
+	return $res;
 }
 
 
@@ -79,14 +65,8 @@ function range_time_day($date_b, $date_e)
 	$r_time = " (date_create >= '') AND (date_create <= '')";
 	$on_b = preg_match("([0-9]{4}-[0-9]{2}-[0-9]{2})",$date_b,$dt_b);
 	$on_e = preg_match("([0-9]{4}-[0-9]{2}-[0-9]{2})",$date_e,$dt_e);
-	// echo "</br>";
-	// print_r('test = ' . $date_b . ' ' . $dt_b . ' ' . $on_b);
-	// echo "</br>";
-	// print_r('test = ' . $date_e . ' ' . $dt_e . ' ' . $on_e);
-	// echo "</br>";
 	
-	if ($on_b&&$on_e) 
-	{
+	if ($on_b && $on_e) {
 		$begin_dt = $dt_b[0] . " 00:00:00";
 		$end_dt = $dt_e[0] . " 23:59:59";
 		$r_time = " (date_create >= '" . $begin_dt . "') AND (date_create <= '" . $end_dt . "')";
@@ -125,9 +105,7 @@ function Page($position,$sq)
    return $page_arr;
 }
 
-function navigator($fl,$page_arr,$dop)
-{
-
+function navigator($fl,$page_arr,$dop) {
     global $config;
     $pervpage = '';
     $page1left = '';
@@ -219,7 +197,6 @@ function exit_error($success, $id_error, $error){
 }
 
 function datetime_sql($dt_b, $time){
-
 	$on_day = preg_match("([0-9]{2})",$dt_b,$day_b);
 	$on_mt = preg_match("(-[0-9]{2})",$dt_b,$mt_b);
 	$on_yr = preg_match("([0-9]{4})",$dt_b,$yr_b);

@@ -3,8 +3,7 @@ mb_internal_encoding('UTF-8');
 include_once("models/open.php");
 include_once("models/config.php");
 include_once("models/funclib.php");
-include_once('models/json_e.php');
-include_once('models/json/Autoload.php');
+include_once "models/json/Autoload.php";
 
 foreach ($_GET as $key => $value) {
     $key = filter_var($key, FILTER_SANITIZE_STRING);
@@ -63,7 +62,6 @@ if ($sid == 0) {
     include("views/blank_v.php");
 } else {
     $menu_json = include_h("models/json/menu_registration.json");
-//    $menu_left_json = include_h("models/json/menu_left.json");
     include("models/edit_count_d.php");
     include("views/edit_count_v.php");
 }

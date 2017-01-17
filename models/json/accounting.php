@@ -3,9 +3,9 @@ include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
 
-// include_once "Autoload.php";
-include_once 'date/DivisionDay.php';
-include_once 'date/PeriodDay.php';
+include_once "Autoload.php";
+// include_once 'date/DivisionDay.php';
+// include_once 'date/PeriodDay.php';
 
 $st_sql = '';
 $st_page = '';
@@ -15,26 +15,22 @@ $path_parts = pathinfo( $_SERVER["HTTP_REFERER"] );
 $url = $path_parts['filename'];
 
 $counter = array();
-foreach ($_GET as $key => $value) 
-{
+foreach ($_GET as $key => $value) {
 	$key = filter_var($key, FILTER_SANITIZE_STRING);
 	$value = filter_var($value, FILTER_SANITIZE_STRING);
-	
 	$get_prog[$key] = $value;
 }    
 $url_search_action = $url . '.php';
 
 	
-if(isset($get_prog['st'])) 
-{
+if(isset($get_prog['st'])) {
 	$position_in = intval($get_prog['st']);
 	$put_js['st'] = $position_in;
 	$select=1;
 } else {$position_in=0;$select=1;}
 
 // print_r($get_prog['st']);
-if(isset($get_prog['id_lot'])) 
-{
+if(isset($get_prog['id_lot'])) {
 	$id_lot = intval($get_prog['id_lot']);
 	$put_js['id_lot'] = $id_lot;
 
@@ -42,16 +38,14 @@ if(isset($get_prog['id_lot']))
 	if ($id_lot == 0) $select=1;
 } else $id_lot = 0;
 
-if(isset($get_prog['id_sub']) and ($select == 2)) 
-{
+if(isset($get_prog['id_sub']) and ($select == 2)) {
 	$id_sub = intval($get_prog['id_sub']);
 	$put_js['id_sub'] = $id_sub;
 	$select=3;
 	if ($id_sub == 0) $select=2;
 } else $id_sub = 0;
 
-if(isset($get_prog['id_counter'])) 
-{
+if(isset($get_prog['id_counter'])) {
 	$id_counter = intval($get_prog['id_counter']);
 	$put_js['id_counter'] = $id_counter;		
 	$select=4;
@@ -60,8 +54,7 @@ if(isset($get_prog['id_counter']))
 
 
 
-if(!isset($get_prog['id_counter'])) 
-{
+if(!isset($get_prog['id_counter'])) {
 	$type['success'] = true;
 	$type['id_error'] = 0;
 	$type['data'] = [];
@@ -214,12 +207,12 @@ if (!$res->execute( $param )) {
     print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
-use date\DivisionDay as dDay;
-use date\PeriodDay as dPeriod;
+// use date\DivisionDay as dDay;
+// use date\PeriodDay as dPeriod;
 while ($row = $res->fetch()) {
 	if ( $firstLoop > 0 ) {
 		$dt2 = $row['dt1'];
-		$dtMinuteEnd = new dDay\DivisionDay( $dt2 );
+		$dtMinuteEnd = new DivisionDay( $dt2 );
 		$day = date("d-m-Y", strtotime( $dt1 ));
 		
 		$timeEnd = $row['date_second'];
@@ -233,7 +226,7 @@ while ($row = $res->fetch()) {
 			$counter[] = array('name_counter' => $name_counter, 'date' => $day, 'rare' => round( $rare, $round) );
 		}	
 		if ( $diffTime > 1440 ) {
-			$periodObj = new dPeriod\PeriodDay ($dt2, $dt1, $diffMinuteVal, $name_counter );
+			$periodObj = new PeriodDay ($dt2, $dt1, $diffMinuteVal, $name_counter );
 			foreach( $periodObj->day as $colum ) $counter[] = $colum;
 		} 
 		$rateBefore = $diffMinuteVal * $dtMinuteEnd->minuteBefore ;
@@ -242,7 +235,7 @@ while ($row = $res->fetch()) {
 	$timeNew = $row['date_second'];
 	$valueNew =  $row['value'] ;
 	$dt1 = $row['dt1'];
-	$dtMinuteNew = new dDay\DivisionDay ( $dt1 );
+	$dtMinuteNew = new DivisionDay ( $dt1 );
 	$firstLoop = 1;
 }	
 
