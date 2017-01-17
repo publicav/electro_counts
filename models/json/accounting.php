@@ -73,12 +73,14 @@ if(isset($get_prog['date_e'])) {
 	$date_e = $get_prog['date_e'];
 	$put_js['date_e'] = $date_e;		
 } else $date_e = '';
+
 $dateSql = new rangeDateSql('2017-01-04', '');
 $dateArray = array ('date_b' => $dateSql->getDate1(),'date_e' => $dateSql->getDate2(), 
 					'interval'=> $dateSql->getSQL( 'date_create' ) );
 $rangeSql = $dateSql->getSQL( 'date_create' );
-$st = range_time_day($date_b, $date_e);
-$st_navigator = cmd_page_navigator($date_b, $date_e);
+
+// $st = range_time_day($date_b, $date_e);
+// $st_navigator = cmd_page_navigator($date_b, $date_e);
 
 
 $sq  = "SELECT c.id, c.n_counter, c.name FROM  count AS c WHERE (c.id = :id);";
@@ -254,6 +256,8 @@ $type['id_error'] = 0;
 $type['data'] = $counter;
 //$type['navigator'] = $navigator;
 $type['date'] = $dateArray;
+$type['sql'] = $sq;
+
 echo json_encode($type);
 ?>
 
