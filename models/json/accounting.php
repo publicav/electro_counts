@@ -2,10 +2,7 @@
 include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
-
 include_once "Autoload.php";
-// include_once 'date/DivisionDay.php';
-// include_once 'date/PeriodDay.php';
 
 $st_sql = '';
 $st_page = '';
@@ -79,6 +76,8 @@ $dateArray = array ('date_b' => $dateSql->getDate1(),'date_e' => $dateSql->getDa
 					'interval'=> $dateSql->getSQL( 'date_create' ) );
 $rangeSql = $dateSql->getSQL( 'date_create' );
 
+ 
+ 
 // $st = range_time_day($date_b, $date_e);
 // $st_navigator = cmd_page_navigator($date_b, $date_e);
 
@@ -171,6 +170,8 @@ $res = $pdo->prepare( $sq );
 				FROM counter_v AS main
 				WHERE (main.id_counter = :id_counter) $rangeSql
 				ORDER by date_create;"; 
+		$navigationcalc = new NavigationCalc;
+		$navigator = $navigationcalc->getNavigator();
 		// $page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
 									   // WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ")  AND (sub.id = " . $id_sub . ") AND (cnt.id = " . $id_counter . ") $st_sql;");
 		// $navigator = navigator($url_search_action,$page_out,'&id_lot=' . $id_lot . '&id_sub=' . $id_sub . '&id_counter=' . $id_counter . $st_navigator);
@@ -254,7 +255,7 @@ while ($row = $res->fetch()) {
 $type['success'] = true;
 $type['id_error'] = 0;
 $type['data'] = $counter;
-//$type['navigator'] = $navigator;
+$type['navigator'] = $navigator;
 $type['date'] = $dateArray;
 $type['sql'] = $sq;
 
