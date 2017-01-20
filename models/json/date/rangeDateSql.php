@@ -41,7 +41,7 @@ class rangeDateSql {
 		return $this->numberDay;
 	}
 	public function getSQL( $fieldSqlName ) {
-		return  " ($fieldSqlName >= '" . $this->getDate1() . "') AND ($fieldSqlName <= '" . $this->getDate2() . "')";
+		return  " ($fieldSqlName >= '" . $this->getDate1() . " 00:00:00') AND ($fieldSqlName <= '" . $this->getDate2() . " 23:59:59')";
 	}
 	
 	

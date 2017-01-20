@@ -10,6 +10,7 @@ $name_counter = '';
 
 $path_parts = pathinfo( $_SERVER["HTTP_REFERER"] );
 $url = $path_parts['filename'];
+$url_search_action = $url . '.php';
 
 $counter = array();
 foreach ($_GET as $key => $value) {
@@ -17,8 +18,6 @@ foreach ($_GET as $key => $value) {
 	$value = filter_var($value, FILTER_SANITIZE_STRING);
 	$get_prog[$key] = $value;
 }    
-$url_search_action = $url . '.php';
-
 	
 if(isset($get_prog['st'])) {
 	$position_in = intval($get_prog['st']);
@@ -62,7 +61,7 @@ if(!isset($get_prog['id_counter'])) {
 
 if(isset($get_prog['date_b'])) {
 	$date_b = $get_prog['date_b'];
-	$put_js['date_b'] = $date_b;		
+//	$put_js['date_b'] = $date_b;		
 } else $date_b = '';
 
 
@@ -71,7 +70,8 @@ if(isset($get_prog['date_e'])) {
 	$put_js['date_e'] = $date_e;		
 } else $date_e = '';
 
-$dateSql = new rangeDateSql('2017-01-04', '');
+//$get_prog['date_b'] = '2017-01-01';
+$dateSql = new rangeDateSql($get_prog['date_b'], '');
 $dateArray = array ('date_b' => $dateSql->getDate1(),'date_e' => $dateSql->getDate2(), 
 					'interval'=> $dateSql->getSQL( 'date_create' ) );
 $rangeSql = $dateSql->getSQL( 'date_create' );
@@ -170,7 +170,7 @@ $res = $pdo->prepare( $sq );
 				FROM counter_v AS main
 				WHERE (main.id_counter = :id_counter) $rangeSql
 				ORDER by date_create;"; 
-		$navigationcalc = new NavigationCalc;
+		$navigationcalc = new NavigationCalc( $url_search_action, $get_prog['date_b'], $put_js );
 		$navigator = $navigationcalc->getNavigator();
 		// $page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
 									   // WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ")  AND (sub.id = " . $id_sub . ") AND (cnt.id = " . $id_counter . ") $st_sql;");

@@ -32,7 +32,7 @@
 ?>
 <div id="left">
 	<?php 	include("base/menu_left.php"); 
-				include("base/filtr_lot.php"); ?>
+				include("base/filtr_calc.php"); ?>
 		
 </div>
 

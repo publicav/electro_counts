@@ -9,6 +9,7 @@ $st_page = '';
 
 $path_parts = pathinfo( $_SERVER["HTTP_REFERER"] );
 $url = $path_parts['filename'];
+$url_search_action = $url . '.php';
 
 $counter = array();
 foreach ($_GET as $key => $value) 
@@ -20,7 +21,6 @@ foreach ($_GET as $key => $value)
 }    
 
 //$url_search_action = "edit_count.php";
-$url_search_action = $url . '.php';
 
 	
 if(isset($get_prog['st'])) {

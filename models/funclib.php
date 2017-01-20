@@ -105,7 +105,7 @@ function Page($position,$sq)
    return $page_arr;
 }
 
-function navigator($fl,$page_arr,$dop) {
+function navigator($fl, $page_arr, $dop) {
     global $config;
     $pervpage = '';
     $page1left = '';
@@ -140,7 +140,7 @@ function navigator($fl,$page_arr,$dop) {
    $pgr2 = $pg + 2;
    $pgr3 = $pg + 3;
    
-   if ($total>$c_page) $tek_page = "<span class='pagecurrent'>$pg</span>";
+   if ($total > $c_page) $tek_page = "<span class='pagecurrent'>$pg</span>";
    
    $sp="<span class='pagelink'>";
 
