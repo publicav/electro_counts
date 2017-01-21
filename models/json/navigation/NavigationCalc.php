@@ -16,10 +16,12 @@ class NavigationCalc {
 						['Ноябрь',	'Нбр', '11'],
 						['Декабрь',	'Дек', '12']
 						];	
-	protected $fileAction, $dt, $param = '';
+	protected $classHTMLDefault = ['navigator', 'pagelink', 'pagecurrent'];
+	protected $classHTMLActiv = ['', '', ''];
+	protected $fileAction, $dt, $dtMonth, $param = '';
 	private $nav;
 	protected $url, $colum, $link;
-	protected $dtPrevYear, $dtNextYear;
+	protected $dtPrevYear, $dtNextYear, $fullDate;
 	protected $key, $value;
 
 	
@@ -35,22 +37,27 @@ class NavigationCalc {
 	}
 	public function getNavigator() {
    // if ($total>$c_page) $tek_page = "<span class='pagecurrent'>$pg</span>";
-		$this->setUrl( $this->getDTPrevYear(), '01', '01');
+		$this->setFullDate( $this->getDTPrevYear(), '01', '01' );
 		$this->setLink( $this->getUrl(), $this->getDTPrevYear(), $this->getDTPrevYear() );
 
-		$this->nav = '<div class="navigator">
+		$this->nav = '<div class="' . $this->getClassHTMLMain() . '">
 						<p>
-							<span class="pagelink">' . $this->getLink() . '</span>';
+							<span class="'. $this->getClassHTMLPageLink() . '">' . $this->getLink() . "</span>";
 		foreach( $this->month as $this->colum ) {
-			$this->setUrl( $this->getDTYear(), $this->getMonthNumber(), $this->getDTDay());
+			$this->setFullDate( $this->getDTYear(), $this->getMonthNumber(), $this->getDTDay() );
+			$this->dtMonth = new DateTime ( $this->getFullDate() );
 			$this->setLink( $this->getUrl(), $this->getTitleMonthFull(), $this->getMonthShort() );
-			$this->nav .= '<span class="pagelink">' . $this->getLink() . '</span>';
+			if ($this->dt != $this->dtMonth) {
+				$this->nav .= '<span class="'. $this->getClassHTMLPageLink() . '">' . $this->getLink() . '</span>';
+			} else {
+				$this->nav .= '<span class="' . $this->getClassHTMLPageCurrent() . '">' . $this->getMonthShort() . '</span>';
+			}
 
 		}	
-		$this->setUrl( $this->getDTNextYear(), '01', '01');
+		$this->setFullDate( $this->getDTNextYear(), '01', '01' );
 		$this->setLink( $this->getUrl(), $this->getDTNextYear(), $this->getDTNextYear() );
 		$this->nav .= '
-							<span class="pagelink">' . $this->getLink() . '</span>
+							<span class="'. $this->getClassHTMLPageLink() . '">' . $this->getLink() . '</span>
 						</p>
 					 </div>';
 		return $this->nav;
@@ -82,14 +89,8 @@ class NavigationCalc {
 	protected function getParam(){
 		return $this->param;
 	}
-	protected function setUrl ( $year, $motht, $day){
-		$this->url  =  './' . $this->getFileAction() . '?';
-		$this->url .=  self::DATE_B . $year . self::SEPAR_DATE . $motht . self::SEPAR_DATE . $day;  
-		$this->url .=  $this-> getParam();
-		
-	}
 	protected function getUrl(){
-		return $this->url;
+		return './' . $this->getFileAction() . '?' . self::DATE_B . $this->getFullDate() . $this-> getParam();
 	}
 	private function getTitleMonthFull(){
 		return $this->colum[0];
@@ -100,12 +101,41 @@ class NavigationCalc {
 	private function getMonthNumber(){
 		return $this->colum[2];
 	}
+	protected function setFullDate( $year, $motht, $day ){
+		$this->fullDate =  $year . self::SEPAR_DATE . $motht . self::SEPAR_DATE . $day;
+	}
+	protected function getFullDate(){
+		return $this->fullDate;
+	}
 	protected function setLink($url, $title, $text){
 		$this->link = '<a href="' . $url . '" title="' . $title  . '">' .$text . '</a>';
 	}
 	protected function getLink(){
 		return $this->link;
 	}
+	protected function getClassHTMLMain(){
+		if ( empty( $classHTMLActiv) ) {
+			return $this->classHTMLDefault[0];
+		} else {
+			return $this->classHTMLActiv[0];
+		}
+	}
+	protected function getClassHTMLPageLink(){
+		if ( empty( $classHTMLActiv) ) {
+			return $this->classHTMLDefault[1];
+		} else {
+			return $this->classHTMLActiv[1];
+		}
+	}
+	protected function getClassHTMLPageCurrent(){
+		if ( empty( $classHTMLActiv) ) {
+			return $this->classHTMLDefault[2];
+		} else {
+			return $this->classHTMLActiv[2];
+		}
+	}
+	
+
 }
 
 ?>

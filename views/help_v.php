@@ -41,7 +41,7 @@
 		<p><a href="prog/MozillaFirefox64OfflineInstaller.exe" title="Mozila Firefox">Mozilla Firefox x64</a></p>
 		<p><a href="prog/GoogleChrome64OfflineInstaller.exe" title="Google Chrome">Google Chrome x64</a></p>
 	<div>
-	<div id="product">Учёт электоэнергии  2016  ver. <?php echo $config['VERSION']; ?></div>
+	<div id="product">Учёт электоэнергии  2016-<?=date('Y')?>  ver. <?php echo $config['VERSION']; ?></div>
 </div>
 
 

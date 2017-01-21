@@ -69,9 +69,12 @@ if(isset($get_prog['date_e'])) {
 	$date_e = $get_prog['date_e'];
 	$put_js['date_e'] = $date_e;		
 } else $date_e = '';
+// if(!empty($get_prog['date_b'])) {
 
-//$get_prog['date_b'] = '2017-01-01';
-$dateSql = new rangeDateSql($get_prog['date_b'], '');
+// }
+
+
+$dateSql = new rangeDateSql( $date_b, '');
 $dateArray = array ('date_b' => $dateSql->getDate1(),'date_e' => $dateSql->getDate2(), 
 					'interval'=> $dateSql->getSQL( 'date_create' ) );
 $rangeSql = $dateSql->getSQL( 'date_create' );
@@ -170,7 +173,7 @@ $res = $pdo->prepare( $sq );
 				FROM counter_v AS main
 				WHERE (main.id_counter = :id_counter) $rangeSql
 				ORDER by date_create;"; 
-		$navigationcalc = new NavigationCalc( $url_search_action, $get_prog['date_b'], $put_js );
+		$navigationcalc = new NavigationCalc( $url_search_action, $date_b, $put_js );
 		$navigator = $navigationcalc->getNavigator();
 		// $page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
 									   // WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ")  AND (sub.id = " . $id_sub . ") AND (cnt.id = " . $id_counter . ") $st_sql;");
@@ -256,8 +259,8 @@ $type['success'] = true;
 $type['id_error'] = 0;
 $type['data'] = $counter;
 $type['navigator'] = $navigator;
-$type['date'] = $dateArray;
-$type['sql'] = $sq;
+// $type['date'] = $dateArray;
+// $type['sql'] = $sq;
 
 echo json_encode($type);
 ?>
