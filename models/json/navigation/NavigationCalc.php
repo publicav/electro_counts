@@ -1,5 +1,5 @@
 <?php
-// namespace date\rangeDateSql;
+namespace navigation;
 class NavigationCalc {
 	const DATE_B = 'date_b=';
 	const SEPAR_DATE = '-';
@@ -47,7 +47,7 @@ class NavigationCalc {
 							<span class="'. $this->getClassHTMLPageLink() . '">' . $this->getLink() . "</span>";
 		foreach( $this->month as $this->colum ) {
 			$this->setFullDate( $this->getDTYear(), $this->getMonthNumber(), $this->getDTDay() );
-			$this->dtMonth = new DateTime ( $this->getFullDate() );
+			$this->dtMonth = new \DateTime ( $this->getFullDate() );
 			$this->setLink( $this->getUrl(), $this->getTitleMonthFull(), $this->getMonthShort() );
 			if ($this->dt != $this->dtMonth) {
 				$this->nav .= '<span class="'. $this->getClassHTMLPageLink() . '">' . $this->getLink() . '</span>';

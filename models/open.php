@@ -37,7 +37,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . 'models/json/date');
 
 set_include_path(get_include_path() . PATH_SEPARATOR . 'pdo');
 set_include_path(get_include_path() . PATH_SEPARATOR . 'date');
-set_include_path(get_include_path() . PATH_SEPARATOR . 'navigation');
+
 
 // echo get_include_path();
    

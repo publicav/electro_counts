@@ -3,7 +3,7 @@ include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
 include_once "Autoload.php";
-
+ 
 $st_sql = '';
 $st_page = '';
 $name_counter = '';
@@ -74,7 +74,7 @@ if(isset($get_prog['date_e'])) {
 // }
 
 
-$dateSql = new rangeDateSql( $date_b, '');
+$dateSql = new date\rangeDateSql( $date_b, '');
 $dateArray = array ('date_b' => $dateSql->getDate1(),'date_e' => $dateSql->getDate2(), 
 					'interval'=> $dateSql->getSQL( 'date_create' ) );
 $rangeSql = $dateSql->getSQL( 'date_create' );
@@ -173,7 +173,7 @@ $res = $pdo->prepare( $sq );
 				FROM counter_v AS main
 				WHERE (main.id_counter = :id_counter) $rangeSql
 				ORDER by date_create;"; 
-		$navigationcalc = new NavigationCalc( $url_search_action, $date_b, $put_js );
+		$navigationcalc = new \navigation\NavigationCalc( $url_search_action, $date_b, $put_js );
 		$navigationcalc->classHTML = ['navigator', 'pagelink', 'pagecurrent'];
 		$navigator = $navigationcalc->getNavigator();
 		// $page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
