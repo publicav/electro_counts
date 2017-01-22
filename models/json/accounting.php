@@ -174,6 +174,7 @@ $res = $pdo->prepare( $sq );
 				WHERE (main.id_counter = :id_counter) $rangeSql
 				ORDER by date_create;"; 
 		$navigationcalc = new NavigationCalc( $url_search_action, $date_b, $put_js );
+		$navigationcalc->classHTML = ['navigator', 'pagelink', 'pagecurrent'];
 		$navigator = $navigationcalc->getNavigator();
 		// $page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
 									   // WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ")  AND (sub.id = " . $id_sub . ") AND (cnt.id = " . $id_counter . ") $st_sql;");

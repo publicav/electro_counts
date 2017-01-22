@@ -17,7 +17,6 @@ class NavigationCalc {
 						['Декабрь',	'Дек', '12']
 						];	
 	protected $classHTMLDefault = ['navigator', 'pagelink', 'pagecurrent'];
-	protected $classHTMLActiv = ['', '', ''];
 	protected $fileAction, $dt, $dtMonth, $param = '';
 	private $nav;
 	protected $url, $colum, $link;
@@ -34,6 +33,9 @@ class NavigationCalc {
 		
         $this->dtPrevYear->sub(new \DateInterval('P1Y'));
         $this->dtNextYear->add(new \DateInterval('P1Y'));
+	}
+	public function __set( $key, $value ){
+		if ( $key == 'classHTML') $this->classHTMLDefault = $value;
 	}
 	public function getNavigator() {
    // if ($total>$c_page) $tek_page = "<span class='pagecurrent'>$pg</span>";
@@ -114,25 +116,13 @@ class NavigationCalc {
 		return $this->link;
 	}
 	protected function getClassHTMLMain(){
-		if ( empty( $classHTMLActiv) ) {
-			return $this->classHTMLDefault[0];
-		} else {
-			return $this->classHTMLActiv[0];
-		}
+		return $this->classHTMLDefault[0];
 	}
 	protected function getClassHTMLPageLink(){
-		if ( empty( $classHTMLActiv) ) {
-			return $this->classHTMLDefault[1];
-		} else {
-			return $this->classHTMLActiv[1];
-		}
+		return $this->classHTMLDefault[1];
 	}
 	protected function getClassHTMLPageCurrent(){
-		if ( empty( $classHTMLActiv) ) {
-			return $this->classHTMLDefault[2];
-		} else {
-			return $this->classHTMLActiv[2];
-		}
+		return $this->classHTMLDefault[2];
 	}
 	
 
