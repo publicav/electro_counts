@@ -2,18 +2,21 @@
 include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
-include_once("../regv.php");
+include_once "Autoload.php";
 
 $url = $_SERVER['REQUEST_URI'];
 	
 $N_counter = 1;  		// Важный параметр пока не работает номер счётчика в ячейке !!!! убрать когда всё заработает
+
+	$filter = new \filter\FilterInput( $_POST );
+	$get_prog = $filter->getInputAll();
 	
-foreach ($_POST as $key => $value) 
-{
-      $key = filter_var($key, FILTER_SANITIZE_STRING);
-      $value = filter_var($value, FILTER_SANITIZE_STRING);
-	$get_prog[$key] = $value;
-}    
+// foreach ($_POST as $key => $value) 
+// {
+//       $key = filter_var($key, FILTER_SANITIZE_STRING);
+//       $value = filter_var($value, FILTER_SANITIZE_STRING);
+// 	$get_prog[$key] = $value;
+// }    
 	
 $name_lot = validator_input_sql('lots', $get_prog['lot']);
 $name_substation = validator_input_sql('substation', $get_prog['substation']);

@@ -10,13 +10,10 @@ $st_page = '';
 
 
 $counter = array();
-foreach ($_GET as $key => $value) 
-{
-	$key = filter_var($key, FILTER_SANITIZE_STRING);
-	$value = filter_var($value, FILTER_SANITIZE_STRING);
-	
-	$get_prog[$key] = $value;
-}    
+
+	$filter = new \filter\FilterInput( $_GET );
+	$get_prog = $filter->getInputAll();
+
 	$get_prog['id_lot'] = 1;
 	$get_prog['id_sub'] = 1;
 	$get_prog['id_counter'] = 1;

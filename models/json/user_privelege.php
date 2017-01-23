@@ -4,17 +4,17 @@ include_once("../open.php");
 include_once("../config.php");
 include_once("../json_e.php");
 include_once("../funclib.php");
+include_once "Autoload.php";
+
+
+$filter = new \filter\FilterInput( $_POST );
+$get_prog = $filter->getInputAll();
+
 
 $fields = '';
 $vars = '';
 $privelege_var = '';
 
-foreach ($_POST as $key => $value) 
-{
-	$key = filter_var($key, FILTER_SANITIZE_STRING);
-	$value = filter_var($value, FILTER_SANITIZE_STRING);
-	$get_prog[$key] = $value;
-}    
 $dataCheck = explode(",", $get_prog['data']);
 
 $sq = "SELECT m.id_a AS id_a, m.id_menu AS id_menu, m.name AS name, m.url AS url FROM menu_left AS m;"; 

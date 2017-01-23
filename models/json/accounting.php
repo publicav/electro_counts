@@ -13,19 +13,10 @@ $url = $path_parts['filename'];
 $url_search_action = $url . '.php';
 
 $counter = array();
-foreach ($_GET as $key => $value) {
-	$key = filter_var($key, FILTER_SANITIZE_STRING);
-	$value = filter_var($value, FILTER_SANITIZE_STRING);
-	$get_prog[$key] = $value;
-}    
-	
-if(isset($get_prog['st'])) {
-	$position_in = intval($get_prog['st']);
-	$put_js['st'] = $position_in;
-	$select=1;
-} else {$position_in=0;$select=1;}
 
-// print_r($get_prog['st']);
+	$filter = new \filter\FilterInput( $_GET );
+	$get_prog = $filter->getInputAll();
+	
 if(isset($get_prog['id_lot'])) {
 	$id_lot = intval($get_prog['id_lot']);
 	$put_js['id_lot'] = $id_lot;
@@ -67,7 +58,7 @@ if(isset($get_prog['date_b'])) {
 
 if(isset($get_prog['date_e'])) {
 	$date_e = $get_prog['date_e'];
-	$put_js['date_e'] = $date_e;		
+	// $put_js['date_e'] = $date_e;		
 } else $date_e = '';
 // if(!empty($get_prog['date_b'])) {
 
@@ -75,41 +66,37 @@ if(isset($get_prog['date_e'])) {
 
 
 $dateSql = new date\rangeDateSql( $date_b, '');
-$dateArray = array ('date_b' => $dateSql->getDate1(),'date_e' => $dateSql->getDate2(), 
-					'interval'=> $dateSql->getSQL( 'date_create' ) );
 $rangeSql = $dateSql->getSQL( 'date_create' );
 
- 
- 
-// $st = range_time_day($date_b, $date_e);
-// $st_navigator = cmd_page_navigator($date_b, $date_e);
-
+$getCount = new pdo\getCounts($pdo, ['id' => $id_counter] );
+$test = $getCount->getCountAll();
+var_dump($test);
 
 $sq  = "SELECT c.id, c.n_counter, c.name FROM  count AS c WHERE (c.id = :id);";
 $res = $pdo->prepare( $sq );
-$param = array( 'id' => $id_counter );
+$param = ['id' => $id_counter] ;
 
- if ($res->execute( $param )) {
-    while ($row = $res->fetch()) $counts_count = $row;
-} else {
+ if (!$res->execute( $param )) {
     header("HTTP/1.1 400 Bad Request", true, 400);
     print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
-if (!isset($counts_count)) {
+$counts_count = $res->fetchAll();
+
+if (empty( $counts_count )) {
     header("HTTP/1.1 400 Bad Request", true, 400);
     print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 } else {
-	$name_counter = $counts_count['name'];
-	unset( $counts_count['name'] );
+	$name_counter = $counts_count[0]['name'];
+	unset( $counts_count[0]['name'] );
 }
 
 $sq  = "SELECT x.koef, x.n_counter  FROM	xchange AS x WHERE (x.id_counter = :id) AND (x.n_counter = :n_counter);";
 $res = $pdo->prepare( $sq );
 
 
- if ($res->execute( $counts_count )) {
+ if ($res->execute( $counts_count[0] )) {
     while ($row = $res->fetch()) $koefPower[$row['n_counter']] = $row['koef'];
 } else {
     header("HTTP/1.1 400 Bad Request", true, 400);
@@ -120,7 +107,7 @@ $res = $pdo->prepare( $sq );
 // print_r($koefPower['koef']);
 
 
-  switch($select){
+  switch( $select ){
     case 1:
 		if ($st != '') {
 			$st_sql = ' AND ' . $st; 
@@ -166,8 +153,7 @@ $res = $pdo->prepare( $sq );
 		// $navigator = navigator($url_search_action,$page_out,'&id_lot=' . $id_lot . '&id_sub=' . $id_sub . $st_navigator);
     break;
     case 4:
-		// if ($st != '') 
-		$rangeSql = ' AND ' . $rangeSql; 
+		$rangeSql = ' AND ' . $rangeSql;
 		$sq =  "SELECT main.id,  DATE_FORMAT(main.date_create, '%d-%m-%Y %H:%i:%s' ) AS date1,  main.value AS value,
 				UNIX_TIMESTAMP(main.date_create)  AS date_second, main.date_create AS dt1, main.n_counter
 				FROM counter_v AS main
@@ -176,11 +162,7 @@ $res = $pdo->prepare( $sq );
 		$navigationcalc = new \navigation\NavigationCalc( $url_search_action, $date_b, $put_js );
 		$navigationcalc->classHTML = ['navigator', 'pagelink', 'pagecurrent'];
 		$navigator = $navigationcalc->getNavigator();
-		// $page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
-									   // WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ")  AND (sub.id = " . $id_sub . ") AND (cnt.id = " . $id_counter . ") $st_sql;");
-		// $navigator = navigator($url_search_action,$page_out,'&id_lot=' . $id_lot . '&id_sub=' . $id_sub . '&id_counter=' . $id_counter . $st_navigator);
-		// print_r($sq);
-	
+
     break;
     default:
   }
@@ -207,7 +189,6 @@ $day = 0;
 $rare = 0;
 $period = 0;
 $round = 3;
-// $koefPowerCount = $koefPower['koef'];
 
 $res = $pdo->prepare( $sq );
 $param = array( 'id_counter' => $id_counter );
@@ -217,8 +198,6 @@ if (!$res->execute( $param )) {
     print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
-// use date\DivisionDay as dDay;
-// use date\PeriodDay as dPeriod;
 while ($row = $res->fetch()) {
 	if ( $firstLoop > 0 ) {
 		$dt2 = $row['dt1'];
@@ -260,8 +239,6 @@ $type['success'] = true;
 $type['id_error'] = 0;
 $type['data'] = $counter;
 $type['navigator'] = $navigator;
-// $type['date'] = $dateArray;
-// $type['sql'] = $sq;
 
 echo json_encode($type);
 ?>

@@ -2,6 +2,7 @@
 include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
+include_once "Autoload.php";
 
 $st_sql = '';
 $st_page = '';
@@ -12,15 +13,9 @@ $url = $path_parts['filename'];
 $url_search_action = $url . '.php';
 
 $counter = array();
-foreach ($_GET as $key => $value) 
-{
-	$key = filter_var($key, FILTER_SANITIZE_STRING);
-	$value = filter_var($value, FILTER_SANITIZE_STRING);
-	
-	$get_prog[$key] = $value;
-}    
 
-//$url_search_action = "edit_count.php";
+$filter = new \filter\FilterInput( $_GET );
+$get_prog = $filter->getInputAll();
 
 	
 if(isset($get_prog['st'])) {

@@ -1,20 +1,16 @@
 <?php
 include_once("../open.php");
 include_once("../config.php");
-include_once("../json_e.php");
 include_once("../funclib.php");
+include_once "Autoload.php";
 
 mb_internal_encoding('UTF-8'); 
     
 if (isset($_POST['actions'])) $action = $_POST['actions']; 
 if (isset($_POST['table'])) $table = $_POST['table']; 
 	
-foreach ($_POST as $key => $value) 
-{
-	$key = filter_var($key, FILTER_SANITIZE_STRING);
-	$value = filter_var($value, FILTER_SANITIZE_STRING);
-	$get_prog[$key] = $value;
-}    
+$filter = new \filter\FilterInput( $_POST );
+$get_prog = $filter->getInputAll();
 
 if  ($action == 'add') {
 	if ((strlen($get_prog['user_add']) <=  3) OR (strlen($get_prog['user_add']) >  11)) { 

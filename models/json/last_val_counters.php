@@ -2,13 +2,12 @@
 include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
+include_once "Autoload.php";
 
 $N_counter = 1;
-foreach ($_POST as $key => $value) {
-    $key = filter_var($key, FILTER_SANITIZE_STRING);
-    $value = filter_var($value, FILTER_SANITIZE_STRING);
-    $get_prog[$key] = $value;
-}    
+
+$filter = new \filter\FilterInput( $_GET );
+$get_prog = $filter->getInputAll();
 
 if (isset($get_prog['counter'])) $counter = (int)$get_prog['counter']; else
 {
