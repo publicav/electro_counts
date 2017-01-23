@@ -1,4 +1,5 @@
-﻿<?php
+<?php
+namespace pdo;
 class Substation { 
     private  $sq, $param;
     private $res, $substation;

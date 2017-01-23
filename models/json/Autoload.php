@@ -2,7 +2,7 @@
 function myAutoload($classname) {
     $filename = str_replace('\\', '/', $classname);
     $filename = $filename . ".php";
-  echo $filename . '<br/>';
+//  echo $filename . '<br/>';
     include_once($filename);
     
 }

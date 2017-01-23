@@ -14,8 +14,8 @@ $url_search_action = $url . '.php';
 
 $counter = array();
 
-	$filter = new \filter\FilterInput( $_GET );
-	$get_prog = $filter->getInputAll();
+$filter = new \filter\FilterInput( $_GET );
+$get_prog = $filter->getInputAll();
 	
 if(isset($get_prog['id_lot'])) {
 	$id_lot = intval($get_prog['id_lot']);
@@ -60,120 +60,35 @@ if(isset($get_prog['date_e'])) {
 	$date_e = $get_prog['date_e'];
 	// $put_js['date_e'] = $date_e;		
 } else $date_e = '';
-// if(!empty($get_prog['date_b'])) {
 
-// }
 
+$getCount = new pdo\getCounts($pdo, ['id' => $id_counter] );
+//$counts_count = $getCount->getCountId(0);
+$name_counter = $getCount->getName(0);
+
+$koefP = new pdo\GetKoefPower( $pdo, $getCount->getCountId(0) );
+$koefPower = $koefP->getKoefPowerAll();
 
 $dateSql = new date\rangeDateSql( $date_b, '');
 $rangeSql = $dateSql->getSQL( 'date_create' );
 
-$getCount = new pdo\getCounts($pdo, ['id' => $id_counter] );
-$test = $getCount->getCountAll();
-var_dump($test);
+	$rangeSql = ' AND ' . $rangeSql;
+	$sq =  "SELECT main.id,  DATE_FORMAT(main.date_create, '%d-%m-%Y %H:%i:%s' ) AS date1,  main.value AS value,
+			UNIX_TIMESTAMP(main.date_create)  AS date_second, main.date_create AS dt1, main.n_counter
+			FROM counter_v AS main
+			WHERE (main.id_counter = :id_counter) $rangeSql
+			ORDER by date_create;";
+	$navigationcalc = new \navigation\NavigationCalc( $url_search_action, $date_b, $put_js );
+	$navigationcalc->classHTML = ['navigator', 'pagelink', 'pagecurrent'];
+	$navigator = $navigationcalc->getNavigator();
 
-$sq  = "SELECT c.id, c.n_counter, c.name FROM  count AS c WHERE (c.id = :id);";
-$res = $pdo->prepare( $sq );
-$param = ['id' => $id_counter] ;
-
- if (!$res->execute( $param )) {
-    header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo()[2] );
-    exit();
-}
-$counts_count = $res->fetchAll();
-
-if (empty( $counts_count )) {
-    header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo()[2] );
-    exit();
-} else {
-	$name_counter = $counts_count[0]['name'];
-	unset( $counts_count[0]['name'] );
-}
-
-$sq  = "SELECT x.koef, x.n_counter  FROM	xchange AS x WHERE (x.id_counter = :id) AND (x.n_counter = :n_counter);";
-$res = $pdo->prepare( $sq );
-
-
- if ($res->execute( $counts_count[0] )) {
-    while ($row = $res->fetch()) $koefPower[$row['n_counter']] = $row['koef'];
-} else {
-    header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo()[2] );
-    exit();
-}
-
-// print_r($koefPower['koef']);
-
-
-  switch( $select ){
-    case 1:
-		if ($st != '') {
-			$st_sql = ' AND ' . $st; 
-			$st_page = 'WHERE ' . $st; 
-		}	
-		// $sq =  "SELECT cnt.name AS counter, DATE_FORMAT(main.date_create, '%d-%m-%y %H:%i' ) AS date1, main.value AS value,
-					   // sub.name AS substation, lot.name AS lot
-				// FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
-				// WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND 
-					  // (sub.lots = lot.id)  $st_sql
-				// ORDER by date1
-				// LIMIT $position_in, " . $config['PAGE_COUNTER'] .";"; 
-		// $page_out = Page($position_in, "SELECT main.id FROM counter_v AS main $st_page;");
-		// $navigator = navigator($url_search_action, $page_out, $st_navigator);
-		// print_r($sq);
-    break;
-    case 2:
-		if ($st != '') $st_sql = ' AND ' . $st; 
-		// $sq =  "SELECT main.id, cnt.name AS counter, DATE_FORMAT(main.date_create, '%d-%m-%y %H:%i' ) AS date1, main.value AS value,
-					   // sub.name AS substation, lot.name AS lot, concat( users.name, ' ', users.family) AS name_user
-				// FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
-				// WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND 
-						// (sub.lots = lot.id) AND (main.id_users = users.id) AND (lot.id = " . $id_lot . ") $st_sql
-				// ORDER by date1
-				// LIMIT $position_in, " . $config['PAGE_COUNTER'] .";"; 
-		// $page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
-									   // WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ") $st_sql;");
-		// $navigator = navigator($url_search_action,$page_out,'&id_lot=' . $id_lot . $st_navigator);
-		// print_r($sq);
-	
-    break;
-    case 3:
-		if ($st != '') $st_sql = ' AND ' . $st; 
-		// $sq =  "SELECT main.id, cnt.name AS counter, DATE_FORMAT(main.date_create, '%d-%m-%y %H:%i' ) AS date1, main.value AS value,
-					   // sub.name AS substation, lot.name AS lot, concat( users.name, ' ', users.family) AS name_user
-				// FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
-				// WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND
-					  // (main.id_users = users.id) AND	(lot.id = " . $id_lot . ") AND (sub.id = " . $id_sub . ") $st_sql
-				// ORDER by date1
-				// LIMIT $position_in, " . $config['PAGE_COUNTER'] .";"; 
-		// $page_out = Page($position_in,"SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
-									   // WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ")  AND (sub.id = " . $id_sub . ") $st_sql;");
-		// $navigator = navigator($url_search_action,$page_out,'&id_lot=' . $id_lot . '&id_sub=' . $id_sub . $st_navigator);
-    break;
-    case 4:
-		$rangeSql = ' AND ' . $rangeSql;
-		$sq =  "SELECT main.id,  DATE_FORMAT(main.date_create, '%d-%m-%Y %H:%i:%s' ) AS date1,  main.value AS value,
-				UNIX_TIMESTAMP(main.date_create)  AS date_second, main.date_create AS dt1, main.n_counter
-				FROM counter_v AS main
-				WHERE (main.id_counter = :id_counter) $rangeSql
-				ORDER by date_create;"; 
-		$navigationcalc = new \navigation\NavigationCalc( $url_search_action, $date_b, $put_js );
-		$navigationcalc->classHTML = ['navigator', 'pagelink', 'pagecurrent'];
-		$navigator = $navigationcalc->getNavigator();
-
-    break;
-    default:
-  }
-  
-  if ($sq == '') {
-		$type['success'] = true;
-		$type['id_error'] = 0;
-		$type['data'] = [];
-		echo json_encode($type);
-		exit();
-  }
+//  if ($sq == '') {
+//		$type['success'] = true;
+//		$type['id_error'] = 0;
+//		$type['data'] = [];
+//		echo json_encode($type);
+//		exit();
+//  }
   
 $firstLoop = 0;
 $timeNew = 0;

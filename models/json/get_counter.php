@@ -15,7 +15,7 @@ if (isset($get_prog['data'])) $substation = (int)$get_prog['data']; else
     exit();
 }
 
-$counterFilter = new Counter( $pdo, $substation );
+$counterFilter = new pdo\Counter( $pdo, $substation );
 $counts_count = $counterFilter->GetCounter();
 
 $result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$counts_count);

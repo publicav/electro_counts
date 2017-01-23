@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // namespace json\pdo\GetUser;
 class Privelege { 
     private  $sq, $param;

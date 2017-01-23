@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // namespace select;
 class GetUser { 
     public $user;

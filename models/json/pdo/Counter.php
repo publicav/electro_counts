@@ -1,6 +1,7 @@
-﻿<?php
-// namespace json\pdo\GetUser;
-class Counter { 
+<?php
+namespace pdo;
+class Counter {
+
     private  $sq, $param;
     private $res, $counter;
 	private $i, $row;

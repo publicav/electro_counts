@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // namespace json\pdo\GetUser;
 class GetNamePage { 
     private  $sq, $param;

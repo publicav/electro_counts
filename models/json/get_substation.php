@@ -14,7 +14,7 @@ else {
     exit();
 } 
 
-$substationFilter = new Substation( $pdo, $lot );
+$substationFilter = new pdo\Substation( $pdo, $lot );
 $counts_substation = $substationFilter->GetSubstation();
 
 $result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$counts_substation);

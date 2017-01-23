@@ -35,7 +35,7 @@ $pdo = new PDO($dsn, $user, $pass, $opt);
 set_include_path('models/json/pdo');
 set_include_path(get_include_path() . PATH_SEPARATOR . 'models/json/date');
 
-set_include_path(get_include_path() . PATH_SEPARATOR . 'pdo');
+//set_include_path(get_include_path() . PATH_SEPARATOR . 'pdo');
 set_include_path(get_include_path() . PATH_SEPARATOR . 'date');
 
 

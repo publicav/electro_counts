@@ -6,7 +6,7 @@
  * Time: 14:17
  */
 
-// namespace select;
+ namespace pdo;
 
 
 class getCounts {
@@ -14,27 +14,31 @@ class getCounts {
     private  $sq, $param;
     private $res, $counts_count;
     private $visibly = 0;
-    private $name_counter, $colum;
-    function __construct( $pdo, $param ) {
+    private $name_counter;
+
+    /**
+     * getCounts constructor.
+     * @param $pdo
+     * @param $param
+     */
+    function __construct($pdo, $param ) {
 
         $this->sq = "SELECT c.id, c.n_counter, c.name FROM  count AS c WHERE (c.id = :id);";
-        $this->param = $param;
         $this->res = $pdo->prepare( $this->sq );
-        if (!$this->res->execute( $this->param )) {
+        if (!$this->res->execute( $param )) {
             header("HTTP/1.1 400 Bad Request", true, 400);
             print exit_error( false, 3, $this->res->errorInfo()[2] );
             exit();
         }
         $this->counts_count = $this->res->fetchAll();
-        if (empty( $counts_count )) {
+        if (empty( $this->counts_count )) {
             header("HTTP/1.1 400 Bad Request", true, 400);
             print exit_error( false, 3, $this->res->errorInfo()[2] );
             exit();
         } else {
-            foreach ( $this->name_counter as $this->colum) {
-                $this->name_counter[] = $this->colum['name'];
-                unset( $this->colum['name'] );
-
+            for ( $i = 0; $i < count( $this->counts_count ); $i++) {
+                $this->name_counter[] = $this->counts_count[$i]['name'];
+                unset ( $this->counts_count[$i]['name'] );
             }
         }
 
