@@ -43,12 +43,26 @@ class getCounts {
         }
 
     }
+
+    /**
+     * @return mixed
+     */
     public function getCountAll() {
         return $this->counts_count;
     }
-    public function getCountId( $id ) {
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getCountId($id ) {
         return $this->counts_count[ $id ];
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getName ( $id ){
         return $this->name_counter[ $id ];
     }

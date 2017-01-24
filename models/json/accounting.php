@@ -67,7 +67,7 @@ $getCount = new pdo\getCounts($pdo, ['id' => $id_counter] );
 $name_counter = $getCount->getName(0);
 
 $koefP = new pdo\GetKoefPower( $pdo, $getCount->getCountId(0) );
-$koefPower = $koefP->getKoefPowerAll();
+$koefPower = $koefP->getKoefPowerId();
 
 $dateSql = new date\rangeDateSql( $date_b, '');
 $rangeSql = $dateSql->getSQL( 'date_create' );

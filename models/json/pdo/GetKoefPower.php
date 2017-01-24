@@ -14,8 +14,12 @@ class GetKoefPower
     private  $sq, $param;
     private $res, $koefPower;
     private $visibly = 0;
-    private $name_counter;
 
+    /**
+     * GetKoefPower constructor.
+     * @param $pdo
+     * @param $param
+     */
     function __construct($pdo, $param ) {
 
         $this->sq = "SELECT x.koef, x.n_counter  FROM	xchange AS x WHERE (x.id_counter = :id) AND (x.n_counter = :n_counter);";
@@ -35,7 +39,12 @@ class GetKoefPower
         }
 
     }
-    public function getKoefPowerAll(){
+
+    /**
+     * koefPower для одной ячейки за всё время
+     * @return array
+     */
+    public function getKoefPowerId(){
         return $this->koefPower;
     }
 
