@@ -1,12 +1,18 @@
 <?php
-// namespace json\pdo\GetUser;
+namespace pdo;
 class Privelege { 
     private  $sq, $param;
     private $res, $priv;
 	private $i, $row;
 	private $menu_left;
 	private $visibly = 0;
-    function __construct( $pdo, $id ) {
+
+    /**
+     * Privelege constructor.
+     * @param $pdo
+     * @param $id
+     */
+    function __construct($pdo, $id ) {
 
 		$this->sq = "SELECT id_menu, visibly FROM tables_priv WHERE (id_users = :id )";
 		$this->param = array ( 'id' => $id ); 
@@ -19,7 +25,12 @@ class Privelege {
 			exit();
 		}
     }
-	function get_menu_left( $pdo ) {
+
+    /**
+     * @param $pdo
+     * @return mixed
+     */
+    function get_menu_left($pdo ) {
 		$this->sq = "SELECT m.id_a AS id_a, m.id_menu AS id_menu,  m.name AS name, m.url AS url FROM menu_left AS m WHERE (visibility = 1);"; 
 		$this->res = $pdo->prepare( $this->sq );
 		if ($this->res->execute()) {
@@ -37,7 +48,12 @@ class Privelege {
 		}
 		return $this->menu_left;
 	}
-	function GetVisiblyFilter( $Page_Name ) {
+
+    /**
+     * @param $Page_Name
+     * @return int
+     */
+    function GetVisiblyFilter($Page_Name ) {
 		for( $this->i = 0; $this->i < SizeOf( $this->menu_left ); $this->i++ ) {
 			 if ($this->menu_left[$this->i]['id_a'] == $Page_Name) $this->visibly = 1;
 		}

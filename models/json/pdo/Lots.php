@@ -1,5 +1,5 @@
 <?php
-// namespace json\pdo\GetUser;
+namespace pdo;
 class Lots { 
     private  $sq, $param;
     private $res, $lots;
@@ -7,7 +7,12 @@ class Lots {
 	private $menu_left;
 	private $visibly = 0;
 	private $lotsFilter;
-    function __construct( $pdo ) {
+
+    /**
+     * Lots constructor.
+     * @param $pdo
+     */
+    function __construct($pdo ) {
 
 		$this->sq = "SELECT l.id, l.name FROM  lots AS l;";
 		// $this->param = array ( 'id' => $id ); 
@@ -20,10 +25,18 @@ class Lots {
 			exit();
 		}
     }
-	function GetLots() {
+
+    /**
+     * @return mixed
+     */
+    function GetLots() {
 		return $this->lots;
 	}
-	function GetLotsFilter() {
+
+    /**
+     * @return array
+     */
+    function GetLotsFilter() {
 		$lotsFilter[] = array('id' => '0','name' => 'Все участки');
 		return  array_merge( $lotsFilter, $this->lots );
 	}

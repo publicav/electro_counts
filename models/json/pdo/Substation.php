@@ -7,7 +7,13 @@ class Substation {
 	private $menu_left;
 	private $visibly = 0;
 	private $substationFilter;
-    function __construct( $pdo, $lot ) {
+
+    /**
+     * Substation constructor.
+     * @param $pdo
+     * @param $lot
+     */
+    function __construct($pdo, $lot ) {
 		$this->sq = "SELECT s.id, s.name FROM  substation AS s WHERE ( s.lots = :lot );";
 		$this->param = array ( 'lot' => $lot ); 
 		$this->res = $pdo->prepare( $this->sq );
@@ -19,10 +25,18 @@ class Substation {
 			exit();
 		}
     }
-	function GetSubstation() {
+
+    /**
+     * @return mixed
+     */
+    function GetSubstation() {
 		return $this->substation;
 	}
-	function GetSubstationFilter() {
+
+    /**
+     * @return array
+     */
+    function GetSubstationFilter() {
 		$substationFilter[] = array('id' => '0','name' => 'Все подстанции');
 		return  array_merge( $substationFilter, $this->substation);
 	}

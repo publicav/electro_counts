@@ -11,9 +11,8 @@
 
 class getCounts {
 
-    private  $sq, $param;
+    private  $sq;
     private $res, $counts_count;
-    private $visibly = 0;
     private $name_counter;
 
     /**
@@ -45,7 +44,7 @@ class getCounts {
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getCountAll() {
         return $this->counts_count;
@@ -61,7 +60,7 @@ class getCounts {
 
     /**
      * @param $id
-     * @return mixed
+     * @return String
      */
     public function getName ( $id ){
         return $this->name_counter[ $id ];

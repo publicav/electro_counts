@@ -4,7 +4,7 @@
 	for($i=0;$i<SizeOf($lots);$i++) 
 	{
 			$mainfile .= '<option value="' . $lots[$i][id] . '">' .
-								$lots[$i][name] . '
+								$lots[$i]['name'] . '
 						  </option>
 			';
 	}

@@ -1,10 +1,18 @@
 <?php
-// namespace json\pdo\GetUser;
+namespace pdo;
+
 class GetNamePage { 
     private  $sq, $param;
     private $res, $conf_h, $head;
 	private $i, $key, $value;
-    function __construct( $pdo, $pageName, $langvige ) {
+
+    /**
+     * GetNamePage constructor.
+     * @param $pdo
+     * @param $pageName
+     * @param $langvige
+     */
+    function __construct($pdo, $pageName, $langvige ) {
 
 		$this->sq = "SELECT m.title, m.meta_k, m.meta_d FROM adm_main_struct AS m WHERE (m.name = :page_name) AND (id_lang = :id_lang);";
 		$this->param = array ('page_name' => $pageName, 'id_lang' => $langvige ); 
@@ -17,7 +25,12 @@ class GetNamePage {
 			exit();
 		}
     }
-	function get_head( $head ) {
+
+    /**
+     * @param $head
+     * @return mixed
+     */
+    function get_head($head ) {
 		$this->head = $head;
 		for($this->i = 0; $this->i < SizeOf( $this->conf_h ); $this->i++) {
 			foreach ($this->conf_h[ $this->i ] as $this->key => $this->value) {

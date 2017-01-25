@@ -1,10 +1,10 @@
 <?php
-mb_internal_encoding('UTF-8'); 
-
+mb_internal_encoding('UTF-8');
+include_once "models/json/AutoloadBase.php";
 include_once("models/open.php");
 include_once("models/config.php");
 include_once("models/funclib.php");
-include_once "models/json/Autoload.php";
+
 	
 	$Full_Page_Name  = 'help';
 	$head=include_h("views/head.tpl");

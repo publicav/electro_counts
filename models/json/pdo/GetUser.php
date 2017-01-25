@@ -1,10 +1,16 @@
 <?php
-// namespace select;
+namespace pdo;
 class GetUser { 
     public $user;
     private $id, $sq, $param;
     private $user_a, $res;
-    function __construct( $pdo, $id ) {
+
+    /**
+     * GetUser constructor.
+     * @param $pdo
+     * @param $id
+     */
+    function __construct($pdo, $id ) {
         $this->id = $id;
         $this->sq = "SELECT name, family FROM users WHERE (id= :id );"; 
         $param = array ('id' => $this->id ); 
@@ -17,8 +23,12 @@ class GetUser {
             exit();
         }
         if ( !empty( $this->user_a ) ) $this->user = $this->user_a[0];
-    }   
-	function GetUser() {
+    }
+
+    /**
+     * @return mixed
+     */
+    function GetUser() {
 		return $this->user;
 	}
 }
