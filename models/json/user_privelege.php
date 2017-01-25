@@ -1,15 +1,13 @@
 <?php
 mb_internal_encoding('UTF-8');
+include_once "Autoload.php";
 include_once("../open.php");
 include_once("../config.php");
 include_once("../json_e.php");
 include_once("../funclib.php");
-include_once "Autoload.php";
-
 
 $filter = new \filter\FilterInput( $_POST );
 $get_prog = $filter->getInputAll();
-
 
 $fields = '';
 $vars = '';

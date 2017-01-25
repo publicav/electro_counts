@@ -1,4 +1,6 @@
 <?php
+include_once "models/json/AutoloadBase.php";
+
 include_once("models/config.php");
 include_once("models/open.php");
 include_once('models/json/pdo/Lots.php');

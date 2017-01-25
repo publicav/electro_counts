@@ -1,12 +1,13 @@
 <?php
+include_once "Autoload.php";
 include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
-include_once "Autoload.php";
+
 
 $N_counter = 1;
 
-$filter = new \filter\FilterInput( $_GET );
+$filter = new \filter\FilterInput( $_POST );
 $get_prog = $filter->getInputAll();
 
 if (isset($get_prog['counter'])) $counter = (int)$get_prog['counter']; else

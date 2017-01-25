@@ -1,8 +1,9 @@
 <?php
+include_once "Autoload.php";
 include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
-include_once "Autoload.php";
+
  
 $st_sql = '';
 $st_page = '';
@@ -116,7 +117,7 @@ if (!$res->execute( $param )) {
 while ($row = $res->fetch()) {
 	if ( $firstLoop > 0 ) {
 		$dt2 = $row['dt1'];
-		$dtMinuteEnd = new DivisionDay( $dt2 );
+		$dtMinuteEnd = new date\DivisionDay( $dt2 );
 		$day = date("d-m-Y", strtotime( $dt1 ));
 		
 		$timeEnd = $row['date_second'];
@@ -130,7 +131,7 @@ while ($row = $res->fetch()) {
 			$counter[] = array('name_counter' => $name_counter, 'date' => $day, 'rare' => round( $rare, $round) );
 		}	
 		if ( $diffTime > 1440 ) {
-			$periodObj = new PeriodDay ($dt2, $dt1, $diffMinuteVal, $name_counter );
+			$periodObj = new date\PeriodDay ($dt2, $dt1, $diffMinuteVal, $name_counter );
 			foreach( $periodObj->day as $colum ) $counter[] = $colum;
 		} 
 		$rateBefore = $diffMinuteVal * $dtMinuteEnd->minuteBefore ;
@@ -139,7 +140,7 @@ while ($row = $res->fetch()) {
 	$timeNew = $row['date_second'];
 	$valueNew =  $row['value'] ;
 	$dt1 = $row['dt1'];
-	$dtMinuteNew = new DivisionDay ( $dt1 );
+	$dtMinuteNew = new date\DivisionDay ( $dt1 );
 	$firstLoop = 1;
 }	
 

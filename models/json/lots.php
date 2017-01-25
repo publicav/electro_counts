@@ -1,4 +1,4 @@
 <?php
-$lotsFilter = new Lots( $pdo );
+$lotsFilter = new pdo\Lots( $pdo );
 $lots = $lotsFilter->GetLots();
 ?>

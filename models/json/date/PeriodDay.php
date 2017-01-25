@@ -1,12 +1,19 @@
 <?php
-// namespace date\PeriodDay;
+namespace date;
 class PeriodDay {
     private $dt1, $dt2;
     public $interval;
     public $day = [];
-    public $round = 3; 
-    
-	function __construct( $dt1, $dt2, $diffMinuteVal, $name_counter ) {
+    public $round = 3;
+
+    /**
+     * PeriodDay constructor.
+     * @param $dt1
+     * @param $dt2
+     * @param $diffMinuteVal
+     * @param $name_counter
+     */
+    function __construct($dt1, $dt2, $diffMinuteVal, $name_counter ) {
 		$this->datetime1 = new \DateTime( $dt1 );
         $this->datetime2 = new \DateTime( $dt2 );
         $this->dt1 = $this->datetime1->format('d');  

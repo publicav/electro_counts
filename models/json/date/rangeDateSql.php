@@ -3,9 +3,14 @@ namespace date;
 class rangeDateSql {
     private $dt1, $dt2;
     public $interval;
-    private $year, $month, $day;	
-    
-	function __construct( $dt1, $dt2 ) {
+    private $year, $month, $day;
+
+    /**
+     * rangeDateSql constructor.
+     * @param $dt1
+     * @param $dt2
+     */
+    function __construct($dt1, $dt2 ) {
 		// if ($dt1 == '') $date_e = $date_b;
 		// if ($dt2 == '') $date_b = $date_e;
 

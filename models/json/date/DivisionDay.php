@@ -1,12 +1,16 @@
 <?php
-// namespace date\DivisionDay;
+namespace date;
 class DivisionDay { 
     public $minuteBefore = 0 ;
     public $minuteAfter = 0;
     private $dt1, $dt2;
     private $interval;
-  
-    function __construct( $dt1 ) {
+
+    /**
+     * DivisionDay constructor.
+     * @param $dt1
+     */
+    function __construct($dt1 ) {
         $this->dt2 = date("Y-m-d", strtotime( $dt1 )) . ' 00:00:00';
 		$this->datetime1 = new \DateTime( $dt1 );
         $this->datetime2 = new \DateTime( $this->dt2 );
