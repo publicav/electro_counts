@@ -1,0 +1,17 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: user
+ * Date: 25.01.2017
+ * Time: 18:44
+ */
+return [
+    'model' => 'models',
+    'view' => 'views',
+    'modelFileLatest' => '_d',
+    'viewFileLatest' => '_v',
+    'viewblank' => 'blank',
+    'modelExtension' => 'php',
+    'viewExtension' => 'php'
+
+];

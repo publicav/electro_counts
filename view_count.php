@@ -1,7 +1,8 @@
 <?php
 mb_internal_encoding('UTF-8');
-include_once "models/json/AutoloadBase.php";
+
 try {
+    include_once "models/json/AutoloadBase.php";
     include_once("models/open.php");
     include_once("models/config.php");
     include_once("models/funclib.php");
@@ -55,21 +56,24 @@ try {
     $st = range_time_day($date_b, $date_e);
     $st_navigator = cmd_page_navigator($date_b, $date_e);
 
-    $url_search_action = "view_count.php";
-    $Full_Page_Name = 'view_count';
+//    $url_search_action = "view_count.php";
+
     $visibly = 0;
+    $route = navigation\Route::init();
+    $Full_Page_Name = $route->getFileName();
+
     $head = include_h("views/head.tpl");
 
     if ($sid == 0) {
         $menu_json = include_h("models/json/menu.json");
-        include("models/edit_count_d.php");
-        include("views/blank_v.php");
+        include_once $route->getModelPath();
+        include_once $route->getBlankViewPath();
     } else {
         $menu_json = include_h("models/json/menu_registration.json");
-        include("models/view_count_d.php");
-        include("views/view_count_v.php");
+        include_once $route->getModelPath();
+        include_once $route->getViewPath();
     }
-}catch(Exception $e){
+}catch(\Exception $e){
     echo $e->getMessage();
 }
 ?>

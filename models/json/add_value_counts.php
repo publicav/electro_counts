@@ -12,12 +12,6 @@ $N_counter = 1;  		// Важный параметр пока не работае
 	$filter = new \filter\FilterInput( $_POST );
 	$get_prog = $filter->getInputAll();
 	
-// foreach ($_POST as $key => $value) 
-// {
-//       $key = filter_var($key, FILTER_SANITIZE_STRING);
-//       $value = filter_var($value, FILTER_SANITIZE_STRING);
-// 	$get_prog[$key] = $value;
-// }    
 	
 $name_lot = validator_input_sql('lots', $get_prog['lot']);
 $name_substation = validator_input_sql('substation', $get_prog['substation']);
