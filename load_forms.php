@@ -7,7 +7,6 @@ try {
     include_once("models/funclib.php");
 
     $visibly = 0;
-
     $route = navigation\Route::init();
     $Full_Page_Name = $route->getFileName();
     $head = include_h($route->getHeadPath());
@@ -24,4 +23,3 @@ try {
 }catch(\Exception $e){
     die( $e->getMessage() );
 }
-?>

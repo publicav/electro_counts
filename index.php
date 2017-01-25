@@ -19,9 +19,6 @@ try {
         include_once $route->getModelPath();
         include_once $route->getViewPath();
     }
-//    var_dump($route->getModelPath(), $route->getViewPath(), $route->getBlankViewPath());
-
 }catch(\Exception $e){
     die( $e->getMessage() );
 }
-?>

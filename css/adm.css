@@ -552,7 +552,7 @@ background-color:#FFF8DC;
  .pagelink,.pagelinklast,.pagecurrent
 {
  font:14px Tahoma;;
- background:#edeeee;
+ background-color:#edeeee;
  border:1px solid #4f5a60;
  padding:3px 7px;
  margin:4px;
@@ -565,7 +565,7 @@ background-color:#FFF8DC;
 
 .pagecurrent
 {
- background:#e0e3f1;
+ background-color:#e0e3f1;
 }
 
 .navigator 
@@ -641,7 +641,7 @@ background-color:#FFF8DC;
 
 #counter_last_val{
 	font-weight: bold;
-	background:#FFEB9C;
+	background-color:#FFEB9C;
 }
 .input_form{
 	font:16px verdana,sans-serif;
@@ -649,13 +649,13 @@ background-color:#FFF8DC;
 	width:350px;
 }
 .good_cell{
-	background:#C6EFCE;
+	background-color:#C6EFCE;
 }
 .bad_cell{
-	background:#FFC7CE;
+	background-color:#FFC7CE;
 }
 .norm_cell{
-	background:#FFFFF;	
+	background-color: #FFF;
 }
 
 .input_selected{

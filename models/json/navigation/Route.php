@@ -13,6 +13,11 @@ class Route{
     protected static $_link = null;
     protected $_config;
     protected $_pathinfo, $_filename;
+
+    /**
+     * Route constructor.
+     * @throws \Exception
+     */
     public function __construct(){
         if( !file_exists(__DIR__  . "/../../../config/route.conf.php") ) {
             throw new \Exception('Route file  not found! ' . __DIR__  . "/../../config/route.conf.php");
@@ -22,12 +27,19 @@ class Route{
         $this->_filename = $this->_pathinfo['filename'];
     }
 
+    /**
+     * @return Route|null
+     */
     public static function init(){
         if ( is_null( self::$_link ) ){
             self::$_link = new self();
         }
         return self::$_link;
     }
+
+    /**
+     * @return string
+     */
     public function getModelPath(){
         $pathModels = $this->_config['model'] .  '/' . $this->_filename . $this->_config['modelFileLatest'] . '.' .
                       $this->_config['modelExtension'];
@@ -37,6 +49,10 @@ class Route{
 
         return $pathModels;
     }
+
+    /**
+     * @return string
+     */
     public function getViewPath(){
         $pathViews = $this->_config['view'] .  '/' . $this->_filename . $this->_config['viewFileLatest'] . '.' .
                      $this->_config['viewExtension'];
@@ -46,8 +62,12 @@ class Route{
 
         return $pathViews;
     }
+
+    /**
+     * @return string
+     */
     public function getBlankViewPath(){
-        $pathBlankViews = $this->_config['view'] .  '/' . $this->_config['viewblank'] . $this->_config['viewFileLatest'] . '.' .
+        $pathBlankViews = $this->_config['view'] .  '/' . $this->_config['viewBlank'] . $this->_config['viewFileLatest'] . '.' .
             $this->_config['viewExtension'];
             if( !file_exists( $pathBlankViews ) ) {
                 throw new Exception('File not found!' . $pathBlankViews, '404');
@@ -55,20 +75,40 @@ class Route{
 
         return $pathBlankViews;
     }
+
+    /**
+     * @return mixed
+     */
     public function getFileName(){
         return $this->_filename;
     }
+
+    /**
+     * @return string
+     */
     public function getFullFileName(){
         return $this->_filename . $this->_config['modelExtension'];
     }
+
+    /**
+     * @return string
+     */
     public function getHeadPath(){
         return $this->_config['view'] .  '/' . $this->_config['headFile'];
     }
+
+    /**
+     * @return string
+     */
     public function getMenuRegPath(){
          $pathMenu = $this->_config['menuPath'] .  '/' . $this->_config['menuFileReg']  . '.' .
             $this->_config['menuRegExtension'];
          return $pathMenu;
     }
+
+    /**
+     * @return string
+     */
     public function getMenuUnRegPath(){
         $pathMenu = $this->_config['menuPath'] .  '/' . $this->_config['menuFileUnReg']  . '.' .
             $this->_config['menuUnRegExtension'];

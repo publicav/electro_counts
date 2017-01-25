@@ -10,7 +10,7 @@ return [
     'view' => 'views',
     'modelFileLatest' => '_d',
     'viewFileLatest' => '_v',
-    'viewblank' => 'blank',
+    'viewBlank' => 'blank',
     'modelExtension' => 'php',
     'viewExtension' => 'php',
     'headFile' => 'head.tpl',

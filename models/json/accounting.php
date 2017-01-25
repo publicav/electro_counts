@@ -157,6 +157,6 @@ $type['data'] = $counter;
 $type['navigator'] = $navigator;
 
 echo json_encode($type);
-?>
+
 
 	
