@@ -64,5 +64,15 @@ class Route{
     public function getHeadPath(){
         return $this->_config['view'] .  '/' . $this->_config['headFile'];
     }
+    public function getMenuRegPath(){
+         $pathMenu = $this->_config['menuPath'] .  '/' . $this->_config['menuFileReg']  . '.' .
+            $this->_config['menuRegExtension'];
+         return $pathMenu;
+    }
+    public function getMenuUnRegPath(){
+        $pathMenu = $this->_config['menuPath'] .  '/' . $this->_config['menuFileUnReg']  . '.' .
+            $this->_config['menuUnRegExtension'];
+        return $pathMenu;
+    }
 
 }

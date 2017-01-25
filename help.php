@@ -1,6 +1,5 @@
 <?php
 mb_internal_encoding('UTF-8');
-
 try {
     include_once "models/json/AutoloadBase.php";
     include_once("models/open.php");
@@ -12,11 +11,11 @@ try {
     $head = include_h($route->getHeadPath());
 
     if ($sid == 0) {
-        $menu_json = include_h("models/json/menu.json");
+        $menu_json = include_h( $route->getMenuUnRegPath() );
         include_once $route->getModelPath();
         include_once $route->getBlankViewPath();
     } else {
-        $menu_json = include_h("models/json/menu_registration.json");
+        $menu_json = include_h( $route->getMenuRegPath() );
         include_once $route->getModelPath();
         include_once $route->getViewPath();
     }

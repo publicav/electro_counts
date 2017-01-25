@@ -13,6 +13,12 @@ return [
     'viewblank' => 'blank',
     'modelExtension' => 'php',
     'viewExtension' => 'php',
-    'headFile' => 'head.tpl'
+    'headFile' => 'head.tpl',
+    'menuFileReg' => 'menu_registration',
+    'menuFileUnReg' => 'menu',
+    'menuPath' => 'models/json',
+    'menuRegExtension' => 'json',
+    'menuUnRegExtension' => 'json'
+
 
 ];
