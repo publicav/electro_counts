@@ -10,7 +10,7 @@ try {
 
     $route = navigation\Route::init();
     $Full_Page_Name = $route->getFileName();
-    $head = include_h("views/head.tpl");
+    $head = include_h($route->getHeadPath());
 
     if ($sid == 0) {
         $menu_json = include_h("models/json/menu.json");

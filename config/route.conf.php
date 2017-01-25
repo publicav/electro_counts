@@ -12,6 +12,7 @@ return [
     'viewFileLatest' => '_v',
     'viewblank' => 'blank',
     'modelExtension' => 'php',
-    'viewExtension' => 'php'
+    'viewExtension' => 'php',
+    'headFile' => 'head.tpl'
 
 ];

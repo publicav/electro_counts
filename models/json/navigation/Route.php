@@ -61,5 +61,8 @@ class Route{
     public function getFullFileName(){
         return $this->_filename . $this->_config['modelExtension'];
     }
+    public function getHeadPath(){
+        return $this->_config['view'] .  '/' . $this->_config['headFile'];
+    }
 
 }
