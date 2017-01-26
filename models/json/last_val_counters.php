@@ -4,7 +4,6 @@ include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
 
-
 $N_counter = 1;
 
 $filter = new \filter\FilterInput( $_POST );

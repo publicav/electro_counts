@@ -12,6 +12,5 @@ $head = $currentPage->get_head( $head );
  
 $lotsFilter = new pdo\Lots( $pdo );
 $lots = $lotsFilter->GetLotsFilter();
-?>
 
 	

@@ -4,12 +4,8 @@ include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
 
-	
-foreach ($_GET as $key => $value) {
-    $key = filter_var($key, FILTER_SANITIZE_STRING);
-    $value = filter_var($value, FILTER_SANITIZE_STRING);
-    $get_prog[$key] = $value;
-}    
+$filter = new \filter\FilterInput( $_GET );
+$get_prog = $filter->getInputAll();
 
 if (isset($get_prog['data'])) $substation = (int)$get_prog['data']; else
 {

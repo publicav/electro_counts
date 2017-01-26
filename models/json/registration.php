@@ -1,9 +1,8 @@
 <?php
+include_once "Autoload.php";
 include_once("../open.php");
-include_once("../json_e.php");
+include_once("../config.php");
 include_once("../funclib.php");
-
-mb_internal_encoding('UTF-8');
 
 if (isset($_POST['username'])) $username = $_POST['username'];
 else {

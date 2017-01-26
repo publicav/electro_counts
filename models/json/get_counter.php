@@ -4,8 +4,6 @@ include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
 
-
-
 $filter = new \filter\FilterInput( $_GET );
 $get_prog = $filter->getInputAll();
 

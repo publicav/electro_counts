@@ -4,7 +4,7 @@ include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
 
-$user_all = array();
+$user_all = [];
 
 $sq = "SELECT id, users, name, family FROM users WHERE  (ring > 0) ORDER BY id DESC;";
 

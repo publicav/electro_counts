@@ -1,7 +1,17 @@
 <?php
 function myAutoload($classname) {
     $filename = str_replace('\\', '/', $classname);
-    $filename = $filename . ".php";
+    $path = $_SERVER['SCRIPT_FILENAME'];
+//    var_dump($path);
+    $path = str_replace('\\', '/', $path);
+    $path = explode('/', $path);
+    $folder = array_pop($path);
+    $folder = array_pop($path);
+    if($folder == 'json') {
+        $filename = $filename . ".php";
+    } else {
+        $filename = 'models/json/' .  $filename . ".php";
+    }
     if( !file_exists( $filename ) ){
         echo "Class $classname not found!";
         exit();
