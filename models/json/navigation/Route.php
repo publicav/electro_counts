@@ -50,27 +50,31 @@ class Route{
         return $pathModels;
     }
 
+
     /**
      * @return string
+     * @throws \Exception
      */
     public function getViewPath(){
         $pathViews = $this->_config['view'] .  '/' . $this->_filename . $this->_config['viewFileLatest'] . '.' .
                      $this->_config['viewExtension'];
         if( !file_exists( $pathViews ) ) {
-            throw new Exception('File not found!' . $pathViews, '404');
+            throw new \Exception('File not found!' . $pathViews, '404');
         }
 
         return $pathViews;
     }
 
+
     /**
      * @return string
+     * @throws \Exception
      */
     public function getBlankViewPath(){
         $pathBlankViews = $this->_config['view'] .  '/' . $this->_config['viewBlank'] . $this->_config['viewFileLatest'] . '.' .
             $this->_config['viewExtension'];
             if( !file_exists( $pathBlankViews ) ) {
-                throw new Exception('File not found!' . $pathBlankViews, '404');
+                throw new \Exception('File not found!' . $pathBlankViews, '404');
             }
 
         return $pathBlankViews;
@@ -113,6 +117,23 @@ class Route{
         $pathMenu = $this->_config['menuPath'] .  '/' . $this->_config['menuFileUnReg']  . '.' .
             $this->_config['menuUnRegExtension'];
         return $pathMenu;
+    }
+
+    public function getLayout( $name ){
+        $pathLayot = $this->_config['layout'] .  '/' . $name . '.' . $this->_config['layoutExtension'];
+        if( !file_exists( $pathLayot ) ) {
+            throw new \Exception('File not found! - ' . $pathLayot, '404');
+        }
+
+        return $pathLayot;
+    }
+    public function getJson( $name ){
+        $pathLayot = $this->_config['json'] .  '/' . $name . '.' . $this->_config['jsonExtension'];
+        if( !file_exists( $pathLayot ) ) {
+            throw new \Exception('File not found! - ' . $pathLayot, '404');
+        }
+
+        return $pathLayot;
     }
 
 }

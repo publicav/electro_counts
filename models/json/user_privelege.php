@@ -23,7 +23,7 @@ if ($res->execute()) {
 	print exit_error( false, 3, $res->errorInfo()[2] );
 	exit();
 }
-for($i = 0; $i < SizeOf($menu_left_m); $i++) {
+for($i = 0; $i < SizeOf( $menu_left_m ); $i++) {
     $privelege[] = array('id_users' => $get_prog['id_user']  , 'id_menu' => $menu_left_m[$i]['id_menu'], 'visibly' => $dataCheck[$i]);
 }
 

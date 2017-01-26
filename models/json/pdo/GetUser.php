@@ -26,10 +26,9 @@ class GetUser {
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     function GetUser() {
 		return $this->user;
 	}
 }
-?>
