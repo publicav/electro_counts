@@ -1,26 +1,16 @@
 <ul>
 <?php
-	$mainfile = '';
-	for($i=0;$i<SizeOf($menu_m);$i++) 
-	{
-		// if ($menu_m[$i]['tek'] == 1) 
-		// {
-		// 	$mainfile .= '<li class="act">
-		// 						<a id="' . $menu_m[$i]['id_a'] . '"href="' . $menu_m[$i]['url'] . '">' . $menu_m[$i]['name'] . '</a>
-		// 				  </li>
-		// 	';
-		// }
-		// else 
-		{
-			$mainfile .= '<li>
-								<a id="' . $menu_m[$i]['id_a'] . '" href="' . $menu_m[$i]['url'] . '">' . $menu_m[$i]['name'] . '</a>
+
+	$content = '';
+	for($i=0; $i < SizeOf($this->_mainMenu); $i++){
+            $content .= '<li>
+								<a id="' . $this->_mainMenu[$i]->id_a . '" href="' . $this->_mainMenu[$i]->url . '">' . $this->_mainMenu[$i]->name . '</a>
 						  </li>
 			';
-		}
 	}
 	
-	if ($sid != 0) $mainfile .= '<div class="user"><div class="title_user">Вы зашли как:</div>' . $user['name'] . ' ' . $user['family'] .  '</div>';
-	echo $mainfile;
+	if ( !is_null($this->_auth ) ) $content .= '<div class="user"><div class="title_user">Вы зашли как:</div>' . $this->_user['name'] . ' ' . $this->_user['family'] .  '</div>';
+	echo $content;
 ?>
 
 </ul>

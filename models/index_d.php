@@ -1,14 +1,27 @@
 <?php
-$menu_m = json_menu2array( $menu_json );
-if ( $sid > 0 ) {
+$currentPage = new pdo\GetNamePage( $pdo, $route->getFileName(), $config['LANG'] );
+$view = new base\View();
+$view->setLayout( $route->getLayout('main') );
+$view->setTitle( $currentPage->getTitle() );
+$view->setMetaD( $currentPage->getMetaD() );
+$view->setMetaK( $currentPage->getMetaK() );
+
+
+if ( $sid != 0 ) {
 	$menuLeft = new pdo\Privelege( $pdo, $sid);
-	$menu_left_m = $menuLeft->get_menu_left( $pdo );
+	$user = new pdo\GetUser( $pdo, $sid );
+	$mainMenu =new base\mainMenu($route->getJson('menu_registration'));
 
-	$name = new pdo\GetUser( $pdo, $sid );
-	$user = $name->user;
+	$view->setLeftMenu( $menuLeft->getMenuLeft( $pdo ) );
+	$view->setAuth( $sid );
+	$view->setUser( $user->GetUser() );
+    $view->setMainMenu( $mainMenu->getMenu() );
+    $view->render( $route->getViewPath(), '');
+} else {
+    $mainMenu =new base\mainMenu($route->getJson('menu'));
+
+    $view->setAuth( null );
+    $view->setMainMenu( $mainMenu->getMenu() );
+    $view->render( $route->getBlankViewPath(), '');
 }
-$currentPage = new pdo\GetNamePage( $pdo, $Full_Page_Name, $config['LANG'] );
-$head = $currentPage->get_head( $head );
-?>
 
-	

@@ -7,7 +7,11 @@
  */
 return [
     'model' => 'models',
-    'view' => 'views',
+    'view' => 'views/template',
+    'layout' => 'views/layout',
+    'layoutExtension' => 'php',
+    'jsonExtension' => 'json',
+    'json' => 'models/json',
     'modelFileLatest' => '_d',
     'viewFileLatest' => '_v',
     'viewBlank' => 'blank',
