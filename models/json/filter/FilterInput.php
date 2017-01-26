@@ -9,15 +9,30 @@ class FilterInput {
             $this->resultArr[$key] = $value;
         }    
     }
+
+    /**
+     * @return mixed
+     */
     public function getInputAll(){
         return $this->resultArr;
     }
+
+    /**
+     * @param $key
+     * @return null
+     */
     public function __get( $key ) {
        if ( isset( $this->resultArr[$key] ) ) {
            return $this->resultArr[$key];
        }
        return null;
 
+    }
+    public function getInt($key){
+        if ( isset( $this->resultArr[$key] ) ) {
+            return intval( $this->resultArr[$key] );
+        }
+        return null;
     }
     
 }

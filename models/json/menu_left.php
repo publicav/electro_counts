@@ -9,11 +9,4 @@ if ( $sid > 0 ) {
 	$menu_left_m = $menuLeft->get_menu_left( $pdo );
 }
 
-if ( !isset($menu_left_m) ) {
-	header("HTTP/1.1 400 Bad Request", true, 400);
-	print exit_error( false, 3, 'Меню отсутствует' );
-	exit();
-}
-
-echo json_encode($menu_left_m);
-?>
+echo json_encode( $menu_left_m );

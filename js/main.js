@@ -298,6 +298,7 @@ let l_form_edit_user = ( {objUser, objPassword, objConfirmPassword, objUserFamil
 	$.ajax({dataType: 'json', type: 'get', url: 'models/json/edit_form_user.php', data: param})
 	 .done((result) => {
 		var data = result.data;
+		if( data == null) return;
 		objUser.val(data.users);	
 		objPassword.val('');
 		objConfirmPassword.val('');	

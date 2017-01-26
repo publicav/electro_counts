@@ -6,30 +6,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cbab2b43-cdfb-4772-ac79-f2c43acb965b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/add_value.php" afterPath="$PROJECT_DIR$/add_value.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/calc_count.php" afterPath="$PROJECT_DIR$/calc_count.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/edit_count.php" afterPath="$PROJECT_DIR$/edit_count.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/load_forms.php" afterPath="$PROJECT_DIR$/load_forms.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/Autoload.php" afterPath="$PROJECT_DIR$/models/json/Autoload.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/main_err1" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/edit_form_user.php" afterPath="$PROJECT_DIR$/models/json/edit_form_user.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/edit_form_value.php" afterPath="$PROJECT_DIR$/models/json/edit_form_value.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/filter_value.php" afterPath="$PROJECT_DIR$/models/json/filter_value.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/filter/FilterInput.php" afterPath="$PROJECT_DIR$/models/json/filter/FilterInput.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/get_counter.php" afterPath="$PROJECT_DIR$/models/json/get_counter.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/get_counter_filtred.php" afterPath="$PROJECT_DIR$/models/json/get_counter_filtred.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/get_substation.php" afterPath="$PROJECT_DIR$/models/json/get_substation.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/get_substation_filtred.php" afterPath="$PROJECT_DIR$/models/json/get_substation_filtred.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/get_user.php" afterPath="$PROJECT_DIR$/models/json/get_user.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/insert_user_password.php" afterPath="$PROJECT_DIR$/models/json/insert_user_password.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/last_val_counters.php" afterPath="$PROJECT_DIR$/models/json/last_val_counters.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/login.php" afterPath="$PROJECT_DIR$/models/json/login.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/lots.php" afterPath="$PROJECT_DIR$/models/json/lots.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/menu_left.php" afterPath="$PROJECT_DIR$/models/json/menu_left.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/menu_left_priv.php" afterPath="$PROJECT_DIR$/models/json/menu_left_priv.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/pass.php" afterPath="$PROJECT_DIR$/models/json/pass.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/registration.php" afterPath="$PROJECT_DIR$/models/json/registration.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/unregistration.php" afterPath="$PROJECT_DIR$/models/json/unregistration.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/user_privelege.php" afterPath="$PROJECT_DIR$/models/json/user_privelege.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view_count.php" afterPath="$PROJECT_DIR$/view_count.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -54,7 +46,126 @@
     <favorites_list name="electro" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="get_substation.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/get_substation.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-11">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_substation_filtred.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/get_substation_filtred.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-11">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_user.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/get_user.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-11">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding>
+                <marker date="1485427291039" expanded="true" signature="135:211" ph="SELECT id, u... users" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="insert_user_password.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/insert_user_password.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-11">
+              <caret line="12" column="35" lean-forward="false" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+              <folding>
+                <marker date="1485412027597" expanded="true" signature="1337:1447" ph="INSERT INTO users... " />
+                <marker date="1485412027597" expanded="true" signature="2534:2658" ph="UPDATE users... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="last_val_counters.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/last_val_counters.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-11">
+              <caret line="43" column="83" lean-forward="false" selection-start-line="43" selection-start-column="83" selection-end-line="43" selection-end-column="83" />
+              <folding>
+                <marker date="1485428271815" expanded="true" signature="390:436" ph="SELECT n_cou... count" />
+                <marker date="1485428271815" expanded="true" signature="700:864" ph="SELECT main.... counter_v" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/login.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-11">
+              <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu_left.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/menu_left.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-11">
+              <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu_left_priv.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/menu_left_priv.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-11">
+              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+              <folding>
+                <marker date="1485412056236" expanded="true" signature="445:506" ph="SELECT id_me... tables_priv" />
+                <marker date="1485412056236" expanded="true" signature="968:1061" ph="SELECT m.id_... menu_left" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="registration.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/registration.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="666">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding>
+                <marker date="1485428634315" expanded="true" signature="575:653" ph="SELECT id, u... users" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user_privelege.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/models/json/user_privelege.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1313">
+              <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <folding>
+                <marker date="1485412092591" expanded="true" signature="312:405" ph="SELECT m.id_... menu_left" />
+                <marker date="1485412092591" expanded="true" signature="811:890" ph="SELECT t_pri... tables_priv" />
+                <marker date="1485412092591" expanded="true" signature="1261:1321" ph="UPDATE table... " />
+                <marker date="1485412092591" expanded="true" signature="2065:2108" ph="INSERT INTO tables_priv... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -67,6 +178,7 @@
       <find>backg</find>
       <find>norm_cell</find>
       <find>$N_counter</find>
+      <find>edit_f</find>
     </findStrings>
     <dirStrings>
       <dir>C:\server\domains\el_development\public_html</dir>
@@ -79,8 +191,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/models/json/pdo/getCounts.php" />
-        <option value="$PROJECT_DIR$/models/json/pdo/GetNamePage.php" />
         <option value="$PROJECT_DIR$/models/json/pdo/Privelege.php" />
         <option value="$PROJECT_DIR$/models/json/pdo/Lots.php" />
         <option value="$PROJECT_DIR$/models/json/pdo/GetUser.php" />
@@ -106,30 +216,32 @@
         <option value="$PROJECT_DIR$/models/calc_count_d.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/help.php" />
-        <option value="$PROJECT_DIR$/models/json/menu_left.php" />
         <option value="$PROJECT_DIR$/add_value.php" />
         <option value="$PROJECT_DIR$/calc_count.php" />
         <option value="$PROJECT_DIR$/edit_count.php" />
         <option value="$PROJECT_DIR$/load_forms.php" />
         <option value="$PROJECT_DIR$/view_count.php" />
-        <option value="$PROJECT_DIR$/models/json/get_counter.php" />
-        <option value="$PROJECT_DIR$/models/json/edit_form_user.php" />
-        <option value="$PROJECT_DIR$/models/json/edit_form_value.php" />
         <option value="$PROJECT_DIR$/models/json/Autoload.php" />
         <option value="$PROJECT_DIR$/models/json/filter_value.php" />
-        <option value="$PROJECT_DIR$/models/json/get_counter_filtred.php" />
-        <option value="$PROJECT_DIR$/models/json/get_substation.php" />
-        <option value="$PROJECT_DIR$/models/json/get_substation_filtred.php" />
-        <option value="$PROJECT_DIR$/models/json/get_user.php" />
         <option value="$PROJECT_DIR$/models/json/insert_user_password.php" />
-        <option value="$PROJECT_DIR$/models/json/last_val_counters.php" />
-        <option value="$PROJECT_DIR$/models/json/login.php" />
         <option value="$PROJECT_DIR$/models/json/lots.php" />
         <option value="$PROJECT_DIR$/models/json/menu_left_priv.php" />
         <option value="$PROJECT_DIR$/models/json/pass.php" />
+        <option value="$PROJECT_DIR$/models/json/user_privelege.php" />
+        <option value="$PROJECT_DIR$/models/json/filter/FilterInput.php" />
+        <option value="$PROJECT_DIR$/js/main.js" />
+        <option value="$PROJECT_DIR$/models/json/edit_form_user.php" />
+        <option value="$PROJECT_DIR$/models/json/get_counter.php" />
+        <option value="$PROJECT_DIR$/models/json/get_counter_filtred.php" />
+        <option value="$PROJECT_DIR$/models/json/get_substation.php" />
+        <option value="$PROJECT_DIR$/models/json/get_substation_filtred.php" />
+        <option value="$PROJECT_DIR$/models/json/edit_form_value.php" />
+        <option value="$PROJECT_DIR$/models/json/get_user.php" />
+        <option value="$PROJECT_DIR$/models/json/last_val_counters.php" />
+        <option value="$PROJECT_DIR$/models/json/login.php" />
+        <option value="$PROJECT_DIR$/models/json/menu_left.php" />
         <option value="$PROJECT_DIR$/models/json/registration.php" />
         <option value="$PROJECT_DIR$/models/json/unregistration.php" />
-        <option value="$PROJECT_DIR$/models/json/user_privelege.php" />
       </list>
     </option>
   </component>
@@ -229,6 +341,28 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public_html" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public_html" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="json" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="filter" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="ColorIdeProjectViewPane">
@@ -267,7 +401,7 @@
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="SearchEverywhereHistoryKey" value="inde&#9;FILE&#9;file://C:/server/domains/el_development/public_html/index.php&#10;aut&#9;FILE&#9;file://C:/server/domains/el_development/public_html/models/json/AutoloadBase.php&#10;autol&#9;FILE&#9;file://C:/server/domains/el_development/public_html/models/json/Autoload.php" />
   </component>
@@ -375,12 +509,12 @@
       <workItem from="1485377574091" duration="130000" />
       <workItem from="1485377730773" duration="3716000" />
       <workItem from="1485381499528" duration="1712000" />
-      <workItem from="1485406495406" duration="5626000" />
+      <workItem from="1485406495406" duration="14211000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64354000" />
+    <option name="totallyTimeSpent" value="72939000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -393,9 +527,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.159375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.159375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -455,31 +589,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/models/json/pdo/getCounts.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="838">
-          <caret line="46" column="20" lean-forward="false" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="55" column="10" lean-forward="true" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/db.conf.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
           <caret line="16" column="3" lean-forward="false" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/open.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -620,46 +733,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/menu_left.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="17" column="5" lean-forward="false" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/change_count.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/edit_form_value.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1120">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <marker date="1485411898865" expanded="true" signature="293:783" ph="SELECT main.... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/edit_form_user.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <marker date="1485411891470" expanded="true" signature="336:437" ph="SELECT id, u... users" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/get_counter.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -748,9 +825,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models/open.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/filter/FilterInput.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="700">
+          <caret line="32" column="27" lean-forward="false" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="300" column="33" lean-forward="false" selection-start-line="300" selection-start-column="33" selection-end-line="300" selection-end-column="33" />
+          <folding>
+            <marker date="1485423178842" expanded="true" signature="7495:7636" ph="..." />
+            <marker date="1485423178842" expanded="true" signature="7866:8046" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/json/filter_value.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="590">
+        <state relative-caret-position="1674">
           <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
           <folding>
             <marker date="1485411995506" expanded="true" signature="1588:2085" ph="SELECT main.... " />
@@ -765,73 +869,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/edit_form_user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-26">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="28" />
+          <folding>
+            <marker date="1485423490601" expanded="true" signature="253:354" ph="SELECT id, u... users" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/edit_form_value.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+          <folding>
+            <marker date="1485427121961" expanded="true" signature="210:700" ph="SELECT main.... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/get_counter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/json/get_counter_filtred.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="-11">
+          <caret line="9" column="31" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/json/get_substation.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="-11">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/json/get_substation_filtred.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="-11">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/json/get_user.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="770">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="-11">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <marker date="1485412019333" expanded="true" signature="152:228" ph="SELECT id, u... users" />
+            <marker date="1485427291039" expanded="true" signature="135:211" ph="SELECT id, u... users" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/menu_registration.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-735">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/user_privelege.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2144">
-          <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding>
-            <marker date="1485412092591" expanded="true" signature="312:405" ph="SELECT m.id_... menu_left" />
-            <marker date="1485412092591" expanded="true" signature="811:890" ph="SELECT t_pri... tables_priv" />
-            <marker date="1485412092591" expanded="true" signature="1261:1321" ph="UPDATE table... " />
-            <marker date="1485412092591" expanded="true" signature="2065:2108" ph="INSERT INTO tables_priv... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/unregistration.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/json/insert_user_password.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="674">
-          <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+        <state relative-caret-position="-11">
+          <caret line="12" column="35" lean-forward="false" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
           <folding>
             <marker date="1485412027597" expanded="true" signature="1337:1447" ph="INSERT INTO users... " />
             <marker date="1485412027597" expanded="true" signature="2534:2658" ph="UPDATE users... " />
@@ -841,11 +944,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/json/last_val_counters.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="674">
-          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        <state relative-caret-position="-11">
+          <caret line="43" column="83" lean-forward="false" selection-start-line="43" selection-start-column="83" selection-end-line="43" selection-end-column="83" />
           <folding>
-            <marker date="1485412033807" expanded="true" signature="439:485" ph="SELECT n_cou... count" />
-            <marker date="1485412033807" expanded="true" signature="773:937" ph="SELECT main.... counter_v" />
+            <marker date="1485428271815" expanded="true" signature="390:436" ph="SELECT n_cou... count" />
+            <marker date="1485428271815" expanded="true" signature="700:864" ph="SELECT main.... counter_v" />
           </folding>
         </state>
       </provider>
@@ -866,14 +969,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/menu_left_priv.php">
+    <entry file="file://$PROJECT_DIR$/models/json/login.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="674">
-          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding>
-            <marker date="1485412056236" expanded="true" signature="445:506" ph="SELECT id_me... tables_priv" />
-            <marker date="1485412056236" expanded="true" signature="968:1061" ph="SELECT m.id_... menu_left" />
-          </folding>
+        <state relative-caret-position="-11">
+          <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/menu_left.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11">
+          <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/menu_registration.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -885,21 +1001,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/registration.php">
+    <entry file="file://$PROJECT_DIR$/models/json/menu_left_priv.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="674">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        <state relative-caret-position="-11">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding>
-            <marker date="1485412078406" expanded="true" signature="565:643" ph="SELECT id, u... users" />
+            <marker date="1485412056236" expanded="true" signature="445:506" ph="SELECT id_me... tables_priv" />
+            <marker date="1485412056236" expanded="true" signature="968:1061" ph="SELECT m.id_... menu_left" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/login.php">
+    <entry file="file://$PROJECT_DIR$/models/json/unregistration.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="37">
+          <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/registration.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <marker date="1485428634315" expanded="true" signature="575:653" ph="SELECT id, u... users" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/user_privelege.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1313">
+          <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding>
+            <marker date="1485412092591" expanded="true" signature="312:405" ph="SELECT m.id_... menu_left" />
+            <marker date="1485412092591" expanded="true" signature="811:890" ph="SELECT t_pri... tables_priv" />
+            <marker date="1485412092591" expanded="true" signature="1261:1321" ph="UPDATE table... " />
+            <marker date="1485412092591" expanded="true" signature="2065:2108" ph="INSERT INTO tables_priv... " />
+          </folding>
         </state>
       </provider>
     </entry>

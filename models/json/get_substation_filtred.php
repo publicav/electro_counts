@@ -5,17 +5,14 @@ include_once("../config.php");
 include_once("../funclib.php");
 
 $filter = new \filter\FilterInput( $_GET );
-$get_prog = $filter->getInputAll();
+$lot = $filter->getInt('data');
 
-if (isset($get_prog['data'])) $lot = (int)$get_prog['data']; else
-{
-    header("HTTP/1.1 400 Bad Request", true, 400);    
+if ( is_null( $lot ) ) {
+    header("HTTP/1.1 400 Bad Request", true, 400);
     echo exit_error(false, 1, 'Error input Lot ');
     exit();
 } 
+$substationFilter = new pdo\Substation( $pdo, $lot );
 
- $substationFilter = new pdo\Substation( $pdo, $lot );
- $counts_substation = $substationFilter->GetSubstationFilter();
- 
-$result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$counts_substation);
+$result = [ 'success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$substationFilter->GetSubstationFilter() ];
 print json_encode($result);

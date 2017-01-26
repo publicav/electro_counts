@@ -18,10 +18,9 @@ else {
         exit();
 };
 
-$md5 = sha1(md5(md5($password).$keys1.$username));
+$md5 = sha1( md5( md5( $password ) . $keys1 . $username ) );
 $sq = "SELECT id, users, name, family FROM users WHERE (users = ?) AND (password = ?)";
 $msg = 'зарегистрирован';
-
 
     $res = $pdo->prepare( $sq );
     if ( $res->execute( [$username, $md5] )) {
@@ -35,7 +34,7 @@ $msg = 'зарегистрирован';
             $type['message'] = $users . ' ' . $msg;
             $_SESSION['sid']= $id; //      session_start(); вызывается в open.php
         }
-		if (isset($type)) echo json_encode($type); 
+		if ( isset( $type ) )  echo json_encode($type);
 		else { 
 			header("HTTP/1.1 400 Bad Request", true, 400);		
 			echo exit_error(false, 1, 'Ошибка регистрации'); 

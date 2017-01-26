@@ -5,17 +5,14 @@ include_once("../config.php");
 include_once("../funclib.php");
 
 $filter = new \filter\FilterInput( $_GET );
-$get_prog = $filter->getInputAll();
+$substation = $filter->getInt('data');
 
-if (isset($get_prog['data'])) $substation = (int)$get_prog['data']; else
-{
+if ( is_null( $substation ) ) {
     header("HTTP/1.1 400 Bad Request", true, 400);    
     echo exit_error(false, 1, 'Error input substation ');
     exit();
 }
-
 $counterFilter = new pdo\Counter( $pdo, $substation );
-$counts_count = $counterFilter->GetCounterFilter();
 
-$result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$counts_count);
+$result = [ 'success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$counterFilter->GetCounterFilter() ];
 print json_encode($result);
