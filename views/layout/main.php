@@ -17,7 +17,7 @@
     <script src="js/login.js"></script>
 </head>
 <script type="text/javascript">
-    <?php include __DIR__ . "/../views/base/jquery_exec.php"; ?>
+    <?php  include __DIR__ . "/../base/jquery_exec.php"; ?>
 </script>
 
 

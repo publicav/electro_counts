@@ -6,7 +6,7 @@ include_once("../funclib.php");
 
 if ( $sid > 0 ) {
 	$menuLeft = new pdo\Privelege( $pdo, $sid);
-	$menu_left_m = $menuLeft->get_menu_left( $pdo );
+	$menu_left_m = $menuLeft->getMenuLeft( $pdo );
 }
 
 echo json_encode( $menu_left_m );
