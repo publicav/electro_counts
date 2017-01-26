@@ -15,15 +15,17 @@ class Substation {
      */
     function __construct($pdo, $lot ) {
 		$this->sq = "SELECT s.id, s.name FROM  substation AS s WHERE ( s.lots = :lot );";
-		$this->param = array ( 'lot' => $lot ); 
+		$this->param = [ 'lot' => $lot ];
 		$this->res = $pdo->prepare( $this->sq );
-		if ($this->res->execute( $this->param )) {
-			$this->substation = $this->res->fetchAll(); 
-		} else {
+		if ( !$this->res->execute( $this->param )) {
 			header("HTTP/1.1 400 Bad Request", true, 400);
 			print exit_error( false, 3, $this->res->errorInfo()[2] );
 			exit();
 		}
+        $substation = $this->res->fetchAll();
+        $this->substation = $substation;
+//        var_dump($this->substation);
+
     }
 
     /**
@@ -41,4 +43,3 @@ class Substation {
 		return  array_merge( $substationFilter, $this->substation);
 	}
 }
-?>

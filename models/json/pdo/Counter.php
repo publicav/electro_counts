@@ -29,4 +29,3 @@ class Counter {
 		return  array_merge( $counterFilter, $this->counter);
 	}
 }
-?>

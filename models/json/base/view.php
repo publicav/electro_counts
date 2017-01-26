@@ -56,6 +56,17 @@ class View{
     }
 
     /**
+     * @param $confArray
+     */
+    public function setHeadUrl($confArray ){
+        $this->_title = $confArray['title'];
+        $this->_MetaK = $confArray['meta_k'];
+        $this->_MetaD = $confArray['meta_d'];
+//        var_dump($this->_mainMenu, $this->_MetaK,$this->_MetaD);
+    }
+
+
+    /**
      * @param mixed $auth
      */
     public function setAuth( $auth ) {
@@ -75,4 +86,5 @@ class View{
     public function setLeftMenu( $leftMenu ){
         $this->_leftMenu = $leftMenu;
     }
+
 }

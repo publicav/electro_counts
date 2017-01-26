@@ -20,4 +20,3 @@ class DivisionDay {
         $this->minuteAfter =  1440 -  $this->minuteBefore;
     }   
 }
-?>

@@ -14,5 +14,5 @@ if ( is_null( $substation ) ) {
 }
 $counterFilter = new pdo\Counter( $pdo, $substation );
 
-$result = ['success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=> $counterFilter->GetCounter() ];
+$result = ['success' => true, 'error' => 'Ok', 'id_error' => 0,  'data' => $counterFilter->GetCounter() ];
 print json_encode($result);

@@ -14,5 +14,5 @@ if ( is_null( $lot ) ) {
 } 
 $substationFilter = new pdo\Substation( $pdo, $lot );
 
-$result = [ 'success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$substationFilter->GetSubstationFilter() ];
+$result = [ 'success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data' => $substationFilter->GetSubstationFilter() ];
 print json_encode($result);

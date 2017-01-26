@@ -49,4 +49,12 @@ class GetNamePage {
         return $this->conf_h[0]['meta_d'];
     }
 
+    /**
+     * @return array['title','meta_k','meta_d']
+     */
+    public function getConfAll()
+    {
+        return $this->conf_h[0];
+    }
+
 }

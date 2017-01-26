@@ -28,7 +28,7 @@ class FilterInput {
        return null;
 
     }
-    public function getInt($key){
+    public function getInt( $key ){
         if ( isset( $this->resultArr[$key] ) ) {
             return intval( $this->resultArr[$key] );
         }
@@ -36,4 +36,3 @@ class FilterInput {
     }
     
 }
-?>

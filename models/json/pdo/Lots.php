@@ -41,4 +41,3 @@ class Lots {
 		return  array_merge( $lotsFilter, $this->lots );
 	}
 }
-?>
