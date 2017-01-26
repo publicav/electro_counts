@@ -19,4 +19,3 @@ $counts_count = $counterFilter->GetCounterFilter();
 
 $result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$counts_count);
 print json_encode($result);
-?>

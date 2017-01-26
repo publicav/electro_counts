@@ -19,5 +19,3 @@ $counts_substation = $substationFilter->GetSubstation();
 
 $result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$counts_substation);
 print json_encode($result);
-
-?>

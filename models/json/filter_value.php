@@ -149,6 +149,5 @@ $type['navigator'] = $navigator;
 $type['url'] = $url;
 echo json_encode($type);
 
-?>
 
 	

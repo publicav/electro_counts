@@ -8,11 +8,7 @@ include_once("../funclib.php");
 $filter = new \filter\FilterInput( $_GET );
 $get_prog = $filter->getInputAll();
 	
-if(isset($get_prog['id'])) 
-{
-    $id = intval($get_prog['id']);
-    $select=1;
-} else {$id = 0; $select = 1;}
+if(isset($get_prog['id'])) $id = intval($get_prog['id']);  else $id = 0;
 
 $sq = "SELECT id, users, password, name, family FROM users WHERE  (ring > 0) AND (id = :id) ORDER BY id DESC;"; 
 
@@ -31,6 +27,6 @@ $type['id_error'] = 0;
 $type['data'] = $user;
 
 echo json_encode($type);
-?>
+
 
 	

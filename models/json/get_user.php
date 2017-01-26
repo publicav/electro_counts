@@ -20,6 +20,6 @@ $type['success'] = true;
 $type['id_error'] = 0;
 $type['data'] = $user_all;
 print json_encode($type);
-?>
+
 
 	

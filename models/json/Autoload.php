@@ -20,4 +20,3 @@ function myAutoload($classname) {
 
 }
 spl_autoload_register('myAutoload');
-?>

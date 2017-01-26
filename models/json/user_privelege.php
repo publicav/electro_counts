@@ -74,4 +74,3 @@ if (!empty($id_privelege)) {
 $type['id_error'] = 0;
 $type['success'] = true;
 echo json_encode($type);
-?>

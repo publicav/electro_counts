@@ -45,4 +45,3 @@ $res = $pdo->prepare( $sq );
 if  ( !empty( $value1 ) ) $retVal = $value1[0]; else  $retVal = '';
 $result = array('success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data'=>$retVal, 'counter' => $N_counter[0] );
 print json_encode($result);
-?>

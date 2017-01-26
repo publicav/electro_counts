@@ -50,4 +50,3 @@ if ($res = $pdo->query( $sq )) {
 }
 
 print json_encode($menu_left_m);
-?>

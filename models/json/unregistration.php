@@ -7,4 +7,3 @@
    unset($_SESSION['sid']);
    session_destroy(); // разрушаем сессию
    echo json_encode($type);
-?> 

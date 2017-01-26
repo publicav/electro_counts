@@ -46,4 +46,3 @@ $msg = 'зарегистрирован';
         print exit_error( false, 3, $res->errorInfo()[2] );
         exit();
     }
-?>

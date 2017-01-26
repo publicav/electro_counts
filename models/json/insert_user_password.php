@@ -96,4 +96,3 @@ $type['id_error'] = 0;
 $type['success'] = true;
 $type['message'] = ' ' . $msg;
 echo json_encode($type);
-?>
