@@ -6,7 +6,9 @@
 
 	<select id="lot" class="filtred_selected">
 	<?php
-		$mainfile = '';
+        $lots = \pdo\Lots::GetLotsFilter();
+//        var_dump($lot);
+        $mainfile = '';
 		for($i = 0; $i < SizeOf( $lots ); $i++) {
 			$lot_id = $lots[$i]['id'];
 			$lot_name = $lots[$i]['name'];

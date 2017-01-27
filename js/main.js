@@ -176,7 +176,7 @@ let print_t_calc = ( counter )  => {
 let print_menu = ( menu ) => {
 	var st = '';
 	for(let i = 0; i < menu.length; i++)
-		st += `	<li>
+		st += `	<li class="menu_childs1">
 					<a id="${menu[i].id_a}" href="${menu[i].url}">${menu[i].name}</a>
 				</li>`;
 	return st;

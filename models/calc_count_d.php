@@ -1,16 +1,24 @@
 <?php
-$menu_m = json_menu2array( $menu_json );
-if ( $sid > 0 ) {
-	$menuLeft = new pdo\Privelege( $pdo, $sid );
-	$menu_left_m = $menuLeft->get_menu_left( $pdo );
+$currentPage = new pdo\GetNamePage( $route->getFileName(), $config['LANG'] );
+$view = new base\View();
+$view->setLayout( $route->getLayout('main') );
+$view->setHeadUrl( $currentPage->getConfAll() );
 
-	$name = new pdo\GetUser( $pdo, $sid );
-	$user = $name->user;
+if ( $sid != 0 ) {
+    $menuLeft = new pdo\Privelege( $sid );
+    $mainMenu =new base\mainMenu( $route->getMenuRegPath() );
+
+    $view->setMainMenu( $mainMenu->getMenu() );
+    $view->setLeftMenu( $menuLeft->getMenuLeft() );
+    $view->setAuth( $sid );
+    $view->setUser( pdo\GetUser::GetUser(  $sid  ) );
+    $view->setJs( [
+        'js/filters-calc.js'
+    ]);
+    $view->render( $route->getViewPath(), '');
+} else {
+    $mainMenu =new base\mainMenu( $route->getMenuUnRegPath() );
+    $view->setAuth( null );
+    $view->setMainMenu( $mainMenu->getMenu() );
+    $view->render( $route->getBlankViewPath(), '');
 }
-$currentPage = new pdo\GetNamePage( $pdo, $Full_Page_Name, $config['LANG'] );
-$head = $currentPage->get_head( $head );
- 
-$lotsFilter = new pdo\Lots( $pdo );
-$lots = $lotsFilter->GetLotsFilter();
-
-	

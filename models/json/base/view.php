@@ -16,10 +16,13 @@ class View{
     protected $_mainMenu, $_leftMenu;
     protected $_auth =null;
     protected $_user;
+    protected $_js =[];
+    protected $_css = [];
+
     public function render($tplName, $data){
 //           var_dump($this->_baseDir);
 //           var_dump($tplName);
-//           var_dump($this->_layout);
+//           var_dump($this->getJsHTML());
 
         include $this->_layout;
     }
@@ -87,4 +90,21 @@ class View{
         $this->_leftMenu = $leftMenu;
     }
 
+    /**
+     * @param array $js
+     */
+    public function setJs( $js ){
+        $this->_js = $js;
+    }
+
+    /**
+     * @return string $JsHTML
+     */
+    public function getJsHTML() {
+        $JsHTML = '';
+        foreach ($this->_js as $scriptName){
+            $JsHTML .= "<script src=\"$scriptName\"></script>";
+        }
+        return $JsHTML;
+    }
 }

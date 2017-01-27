@@ -1,18 +1,17 @@
 <?php
-$currentPage = new pdo\GetNamePage( $pdo, $route->getFileName(), $config['LANG'] );
+$currentPage = new pdo\GetNamePage( $route->getFileName(), $config['LANG'] );
 $view = new base\View();
 $view->setLayout( $route->getLayout('main') );
 $view->setHeadUrl( $currentPage->getConfAll() );
 
 if ( $sid != 0 ) {
-    $menuLeft = new pdo\Privelege( $pdo, $sid);
-    $user = new pdo\GetUser( $pdo, $sid );
+    $menuLeft = new pdo\Privelege( $sid );
     $mainMenu =new base\mainMenu( $route->getMenuRegPath() );
 
+    $view->setMainMenu( $mainMenu->getMenu() );
     $view->setLeftMenu( $menuLeft->getMenuLeft( $pdo ) );
     $view->setAuth( $sid );
-    $view->setUser( $user->GetUser() );
-    $view->setMainMenu( $mainMenu->getMenu() );
+    $view->setUser( pdo\GetUser::GetUser(  $sid  ) );
     $view->render( $route->getViewPath(), '');
 } else {
     $mainMenu =new base\mainMenu( $route->getMenuUnRegPath() );

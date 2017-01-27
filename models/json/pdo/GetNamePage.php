@@ -4,6 +4,7 @@ namespace pdo;
 class GetNamePage { 
     private  $sq, $param;
     private $res, $conf_h, $head;
+    private $_pdo;
 
     /**
      * GetNamePage constructor.
@@ -12,11 +13,13 @@ class GetNamePage {
      * @param $langvige
      * @throws \Exception
      */
-    function __construct($pdo, $pageName, $langvige ) {
+    function __construct($pageName, $langvige ) {
+        $db = \db::getLink();
+        $this->_pdo = $db->getDb();
 
 		$this->sq = "SELECT m.title, m.meta_k, m.meta_d FROM adm_main_struct AS m WHERE (m.name = :page_name) AND (id_lang = :id_lang);";
 		$this->param = ['page_name' => $pageName, 'id_lang' => $langvige ];
-		$this->res = $pdo->prepare( $this->sq );
+		$this->res = $this->_pdo->prepare( $this->sq );
 		if (!$this->res->execute( $this->param )) {
 		    throw new \Exception('Bad Request','400');
 //			header("HTTP/1.1 400 Bad Request", true, 400);

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <script src="js/ui/minified/jquery-ui.min.js"></script>
     <script src="js/login.js"></script>
+    <?=$this->getJsHTML()?>
 </head>
 <script type="text/javascript">
     <?php  include __DIR__ . "/../base/jquery_exec.php"; ?>

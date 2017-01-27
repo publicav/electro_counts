@@ -20,7 +20,7 @@ class Route{
      */
     public function __construct(){
         if( !file_exists(__DIR__  . "/../../../config/route.conf.php") ) {
-            throw new \Exception('Route file  not found! ' . __DIR__  . "/../../config/route.conf.php");
+            throw new \Exception('Route file  not found! -  ' . __DIR__  . "/../../config/route.conf.php");
         }
         $this->_config = require_once __DIR__  . "/../../../config/route.conf.php";
         $this->_pathinfo = pathinfo( $_SERVER['SCRIPT_FILENAME'] );
@@ -44,7 +44,7 @@ class Route{
         $pathModels = $this->_config['model'] .  '/' . $this->_filename . $this->_config['modelFileLatest'] . '.' .
                       $this->_config['modelExtension'];
         if( !file_exists( $pathModels ) ) {
-            throw new Exception('File not found!' . $pathModels, '404');
+            throw new Exception('File not found! - ' . $pathModels, '404');
         }
 
         return $pathModels;
@@ -59,7 +59,7 @@ class Route{
         $pathViews = $this->_config['view'] .  '/' . $this->_filename . $this->_config['viewFileLatest'] . '.' .
                      $this->_config['viewExtension'];
         if( !file_exists( $pathViews ) ) {
-            throw new \Exception('File not found!' . $pathViews, '404');
+            throw new \Exception('File not found! - ' . $pathViews, '404');
         }
 
         return $pathViews;
@@ -74,7 +74,7 @@ class Route{
         $pathBlankViews = $this->_config['view'] .  '/' . $this->_config['viewBlank'] . $this->_config['viewFileLatest'] . '.' .
             $this->_config['viewExtension'];
             if( !file_exists( $pathBlankViews ) ) {
-                throw new \Exception('File not found!' . $pathBlankViews, '404');
+                throw new \Exception('File not found! - ' . $pathBlankViews, '404');
             }
 
         return $pathBlankViews;

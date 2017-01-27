@@ -7,24 +7,18 @@ class Privelege {
 	private $visibly = 0;
 	private $_pdo;
 
-    /**
-     * Privelege constructor.
-     * @param $pdo
-     * @param $id
-     */
-    function __construct($pdo, $id ) {
 
+    function __construct( $id ) {
+        $this->_pdo = \db::getLink()->getDb();
 		$this->sq = "SELECT id_menu, visibly FROM tables_priv WHERE (id_users = :id )";
-		$this->param = array ( 'id' => $id ); 
-		$this->res = $pdo->prepare( $this->sq );
+		$this->param = [ 'id' => $id ];
+		$this->res = $this->_pdo->prepare( $this->sq );
 		if ( !$this->res->execute( $this->param ) ) {
 			header("HTTP/1.1 400 Bad Request", true, 400);
 			print exit_error( false, 3, $this->res->errorInfo()[2] );
 			exit();
 		}
         $this->priv = $this->res->fetchAll();
-        $this->_pdo = $pdo;
-
     }
 
     /**
@@ -50,10 +44,10 @@ class Privelege {
 	}
 
     /**
-     * @param $Page_Name
-     * @return int
+     * @param string $Page_Name
+     * @return int $visibly
      */
-    function GetVisiblyFilter($Page_Name ) {
+    function GetVisiblyFilter( $Page_Name ) {
 		for( $i = 0; $i < SizeOf( $this->menu_left ); $i++ ) {
 			 if ($this->menu_left[$i]['id_a'] == $Page_Name) $this->visibly = 1;
 		}

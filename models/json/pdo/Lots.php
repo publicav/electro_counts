@@ -1,43 +1,42 @@
 <?php
 namespace pdo;
 class Lots { 
-    private  $sq, $param;
+    private  $sq;
     private $res, $lots;
-	private $i, $row;
-	private $menu_left;
-	private $visibly = 0;
-	private $lotsFilter;
+	private $_pdo;
+	private static $_link;
 
-    /**
-     * Lots constructor.
-     * @param $pdo
-     */
-    function __construct($pdo ) {
-
+    function __construct() {
+        $this->_pdo = \db::getLink()->getDb();
 		$this->sq = "SELECT l.id, l.name FROM  lots AS l;";
-		// $this->param = array ( 'id' => $id ); 
-		$this->res = $pdo->prepare( $this->sq );
-		if ($this->res->execute()) {
-			$this->lots = $this->res->fetchAll(); 
-		} else {
+		$this->res = $this->_pdo->prepare( $this->sq );
+		if (!$this->res->execute()) {
 			header("HTTP/1.1 400 Bad Request", true, 400);
 			print exit_error( false, 3, $this->res->errorInfo()[2] );
 			exit();
 		}
+        $this->lots = $this->res->fetchAll();
     }
 
     /**
-     * @return mixed
+     * @return array $lots
      */
-    function GetLots() {
-		return $this->lots;
+    public static function  GetLots() {
+        if ( is_null( self::$_link ) ){
+            self::$_link = new self();
+        }
+        return self::$_link->lots;
 	}
 
     /**
      * @return array
      */
-    function GetLotsFilter() {
-		$lotsFilter[] = array('id' => '0','name' => 'Все участки');
-		return  array_merge( $lotsFilter, $this->lots );
+    public static function GetLotsFilter() {
+        if ( is_null( self::$_link ) ){
+            self::$_link = new self();
+        }
+		$lotsFilter[] = [ 'id' => '0', 'name' => 'Все участки' ];
+		return  array_merge( $lotsFilter, self::$_link->lots );
 	}
+
 }
