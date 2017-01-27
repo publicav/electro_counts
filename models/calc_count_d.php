@@ -1,8 +1,7 @@
 <?php
-$currentPage = new pdo\GetNamePage( $route->getFileName(), $config['LANG'] );
 $view = new base\View();
 $view->setLayout( $route->getLayout('main') );
-$view->setHeadUrl( $currentPage->getConfAll() );
+$view->setHeadUrl( pdo\GetNamePage::getConfAll( $route->getFileName(), $config['LANG'] ) );
 
 if ( $sid != 0 ) {
     $menuLeft = new pdo\Privelege( $sid );
@@ -11,7 +10,6 @@ if ( $sid != 0 ) {
     $view->setMainMenu( $mainMenu->getMenu() );
     $view->setLeftMenu( $menuLeft->getMenuLeft() );
     $view->setAuth( $sid );
-    $view->setUser( pdo\GetUser::GetUser(  $sid  ) );
     $view->setJs( [
         'js/filters-calc.js'
     ]);

@@ -5,7 +5,17 @@
     <bookmark url="file://$PROJECT_DIR$/models/json/navigation/Route.php" line="14" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cbab2b43-cdfb-4772-ac79-f2c43acb965b" name="Default" comment="" />
+    <list default="true" id="cbab2b43-cdfb-4772-ac79-f2c43acb965b" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/calc_count_d.php" afterPath="$PROJECT_DIR$/models/calc_count_d.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/edit_count_d.php" afterPath="$PROJECT_DIR$/models/edit_count_d.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/help_d.php" afterPath="$PROJECT_DIR$/models/help_d.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/index_d.php" afterPath="$PROJECT_DIR$/models/index_d.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/pdo/GetNamePage.php" afterPath="$PROJECT_DIR$/models/json/pdo/GetNamePage.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/json/pdo/GetUser.php" afterPath="$PROJECT_DIR$/models/json/pdo/GetUser.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/load_forms_d.php" afterPath="$PROJECT_DIR$/models/load_forms_d.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/view_count_d.php" afterPath="$PROJECT_DIR$/models/view_count_d.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/base/menu.php" afterPath="$PROJECT_DIR$/views/base/menu.php" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,11 +40,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="help_d.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/help_d.php">
+      <file leaf-file-name="index_d.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/index_d.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="396">
+              <caret line="9" column="27" lean-forward="false" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -43,8 +53,18 @@
       <file leaf-file-name="edit_count_d.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/edit_count_d.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <state relative-caret-position="396">
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="help_d.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/help_d.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -53,8 +73,8 @@
       <file leaf-file-name="load_forms_d.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/load_forms_d.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="11" column="51" lean-forward="false" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+            <state relative-caret-position="572">
+              <caret line="13" column="20" lean-forward="false" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -63,8 +83,8 @@
       <file leaf-file-name="view_count_d.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/view_count_d.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="1" column="38" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="396">
+              <caret line="9" column="27" lean-forward="false" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -73,41 +93,56 @@
       <file leaf-file-name="calc_count_d.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/calc_count_d.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1056">
-              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="44">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="calc_count_v.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/calc_count_v.php">
+      <file leaf-file-name="view.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/base/view.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="31" />
+            <state relative-caret-position="4180">
+              <caret line="100" column="29" lean-forward="false" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="filtr_calc.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/base/filtr_calc.php">
+      <file leaf-file-name="Privelege.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/pdo/Privelege.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="-748">
+              <caret line="13" column="38" lean-forward="false" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
               <folding>
-                <marker date="1485515851783" expanded="true" signature="429:466" ph="..." />
+                <marker date="1485512007648" expanded="true" signature="249:313" ph="SELECT id_me... tables_priv" />
+                <marker date="1485512007648" expanded="true" signature="717:834" ph="SELECT m.id_... menu_left" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="filtr_lot.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/base/filtr_lot.php">
+      <file leaf-file-name="GetUser.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/json/pdo/GetUser.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="8" column="23" lean-forward="false" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="23" />
-              <folding />
+            <state relative-caret-position="924">
+              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+              <folding>
+                <marker date="1485538247880" expanded="true" signature="307:354" ph="SELECT name,... users" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GetNamePage.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/models/json/pdo/GetNamePage.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="21" column="4" lean-forward="false" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+              <folding>
+                <marker date="1485540980877" expanded="true" signature="267:380" ph="SELECT m.tit... adm_main_struct" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -153,7 +188,6 @@
         <option value="$PROJECT_DIR$/views/template/index_v.php" />
         <option value="$PROJECT_DIR$/models/json/base/mainMenu.php" />
         <option value="$PROJECT_DIR$/views/base/menu_left.php" />
-        <option value="$PROJECT_DIR$/views/base/menu.php" />
         <option value="$PROJECT_DIR$/help.php" />
         <option value="$PROJECT_DIR$/views/template/help_v.php" />
         <option value="$PROJECT_DIR$/models/json/menu_left.php" />
@@ -177,7 +211,6 @@
         <option value="$PROJECT_DIR$/edit_count.php" />
         <option value="$PROJECT_DIR$/views/template/edit_count_v.php" />
         <option value="$PROJECT_DIR$/models/json/base/view.php" />
-        <option value="$PROJECT_DIR$/models/json/pdo/GetNamePage.php" />
         <option value="$PROJECT_DIR$/view_count.php" />
         <option value="$PROJECT_DIR$/views/template/view_count_v.php" />
         <option value="$PROJECT_DIR$/models/json/pdo/Privelege.php" />
@@ -185,16 +218,18 @@
         <option value="$PROJECT_DIR$/views/base/filtr_lot.php" />
         <option value="$PROJECT_DIR$/models/json/pdo/Lots.php" />
         <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/models/json/pdo/GetUser.php" />
-        <option value="$PROJECT_DIR$/models/index_d.php" />
-        <option value="$PROJECT_DIR$/models/help_d.php" />
-        <option value="$PROJECT_DIR$/models/edit_count_d.php" />
-        <option value="$PROJECT_DIR$/models/load_forms_d.php" />
-        <option value="$PROJECT_DIR$/models/view_count_d.php" />
         <option value="$PROJECT_DIR$/calc_count.php" />
-        <option value="$PROJECT_DIR$/models/calc_count_d.php" />
         <option value="$PROJECT_DIR$/views/template/calc_count_v.php" />
         <option value="$PROJECT_DIR$/views/base/filtr_calc.php" />
+        <option value="$PROJECT_DIR$/views/base/menu.php" />
+        <option value="$PROJECT_DIR$/models/json/pdo/GetUser.php" />
+        <option value="$PROJECT_DIR$/models/edit_count_d.php" />
+        <option value="$PROJECT_DIR$/models/index_d.php" />
+        <option value="$PROJECT_DIR$/models/help_d.php" />
+        <option value="$PROJECT_DIR$/models/load_forms_d.php" />
+        <option value="$PROJECT_DIR$/models/view_count_d.php" />
+        <option value="$PROJECT_DIR$/models/calc_count_d.php" />
+        <option value="$PROJECT_DIR$/models/json/pdo/GetNamePage.php" />
       </list>
     </option>
   </component>
@@ -292,25 +327,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="template" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electro" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
+              <option name="myItemId" value="base" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -365,94 +382,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="pdo" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electro" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="json" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="navigation" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electro" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="json" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="filter" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electro" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="json" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="exception" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electro" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="electro" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="json" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="date" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -774,12 +703,12 @@
       <workItem from="1485446587296" duration="16766000" />
       <workItem from="1485463556748" duration="5891000" />
       <workItem from="1485495167856" duration="16057000" />
-      <workItem from="1485535442304" duration="593000" />
+      <workItem from="1485535442304" duration="4610000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="112477000" />
+    <option name="totallyTimeSpent" value="116494000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -791,7 +720,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="2578" height="1410" extended-state="7" />
+    <frame x="-9" y="-9" width="2578" height="1410" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15898438" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -854,14 +783,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/models/json/menu_left.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="8" column="41" lean-forward="false" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/help.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -1030,14 +951,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/base/view.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3515">
-          <caret line="100" column="29" lean-forward="false" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/open.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="111">
@@ -1058,6 +971,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-444">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1066,16 +980,6 @@
         <state relative-caret-position="74">
           <caret line="2" column="5" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/pdo/GetNamePage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
-          <folding>
-            <marker date="1485504618128" expanded="true" signature="396:509" ph="SELECT m.tit... adm_main_struct" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1091,13 +995,6 @@
         <state relative-caret-position="259">
           <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="31" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/pdo/Privelege.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="13" column="38" lean-forward="false" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -1131,6 +1028,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding>
+            <marker date="1485433900000" expanded="true" signature="330:395" ph="SELECT s.id,... substation" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1152,48 +1052,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/json/pdo/GetUser.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="30" column="7" lean-forward="true" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
-          <folding>
-            <marker date="1485514996169" expanded="true" signature="303:350" ph="SELECT name,... users" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/index_d.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="14" column="51" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/help_d.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/edit_count_d.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/load_forms_d.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="11" column="51" lean-forward="false" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view_count.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="370">
@@ -1206,22 +1064,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
           <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/view_count_d.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="1" column="38" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/calc_count_d.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1056">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1260,10 +1102,107 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/base/filtr_calc.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
+        <state relative-caret-position="440">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
             <marker date="1485515851783" expanded="true" signature="429:466" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/base/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4180">
+          <caret line="100" column="29" lean-forward="false" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/pdo/Privelege.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-748">
+          <caret line="13" column="38" lean-forward="false" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+          <folding>
+            <marker date="1485512007648" expanded="true" signature="249:313" ph="SELECT id_me... tables_priv" />
+            <marker date="1485512007648" expanded="true" signature="717:834" ph="SELECT m.id_... menu_left" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/pdo/GetUser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="924">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding>
+            <marker date="1485538247880" expanded="true" signature="307:354" ph="SELECT name,... users" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/base/menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="10" column="47" lean-forward="false" selection-start-line="10" selection-start-column="47" selection-end-line="10" selection-end-column="47" />
+          <folding>
+            <marker date="1485537428701" expanded="true" signature="104:249" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/view_count_d.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="9" column="27" lean-forward="false" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/load_forms_d.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="13" column="20" lean-forward="false" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/help_d.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/edit_count_d.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/index_d.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="9" column="27" lean-forward="false" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/calc_count_d.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/json/pdo/GetNamePage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="21" column="4" lean-forward="false" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding>
+            <marker date="1485540980877" expanded="true" signature="267:380" ph="SELECT m.tit... adm_main_struct" />
           </folding>
         </state>
       </provider>

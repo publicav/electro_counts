@@ -1,6 +1,5 @@
 <ul>
 <?php
-
 	$content = '';
 	for($i=0; $i < SizeOf($this->_mainMenu); $i++){
             $content .= '<li>
@@ -8,10 +7,11 @@
 						  </li>
 			';
 	}
-	
-	if ( !is_null($this->_auth ) ) $content .= '<div class="user"><div class="title_user">Вы зашли как:</div>' . $this->_user['name'] . ' ' . $this->_user['family'] .  '</div>';
+	if ( !is_null($this->_auth ) ) {
+        $user = pdo\GetUser::GetUser(  $this->_auth );
+	    $content .= '<div class="user"><div class="title_user">Вы зашли как:</div>' . $user['name'] . ' ' . $user['family'] .  '</div>';
+    }
 	echo $content;
 ?>
-
 </ul>
 

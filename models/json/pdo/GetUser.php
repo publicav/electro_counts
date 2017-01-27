@@ -1,7 +1,7 @@
 <?php
 namespace pdo;
 class GetUser { 
-    public $user;
+    protected $_user;
     private  $sq;
     private  $res;
     private static $_link;
@@ -21,7 +21,7 @@ class GetUser {
             exit();
         }
         $user_a = $this->res->fetchAll();
-        if ( !empty( $user_a ) ) $this->user = $user_a[0];
+        if ( !empty( $user_a ) ) $this->_user = $user_a[0];
     }
 
 
@@ -33,7 +33,6 @@ class GetUser {
         if ( is_null( self::$_link ) ){
             self::$_link = new self( $id );
         }
-        return self::$_link->user;
-
+        return self::$_link->_user;
     }
 }
