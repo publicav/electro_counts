@@ -13,7 +13,7 @@ function myAutoload($classname) {
         $filename = 'models/json/' .  $filename . ".php";
     }
     if( !file_exists( $filename ) ){
-        echo "Class $classname not found!";
+        echo "Class -  $classname not found!";
         exit();
     }
     include_once $filename;

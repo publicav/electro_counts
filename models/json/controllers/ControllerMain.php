@@ -13,23 +13,24 @@ use base\Conroller;
 use pdo\GetNamePage;
 use pdo\Privelege;
 use base\mainMenu;
+
 class ControllerMain extends Conroller {
-    public function actionIndex( $auth ){
+    public function actionIndex(){
         // TODO: Implement actionIndex() method.
         $this->_view->setHeadUrl( GetNamePage::getConfAll( $this->_route->getFileName(), 1 ) );
-            $menuLeft = new Privelege( $auth );
-            $this->_view->setAuth( $auth );
-            $this->_view->setMainMenu( mainMenu::getMenu( $this->_route->getMenuRegPath() ) );
-            $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
-            $this->_view->render( $this->_route->getViewPath(), '');
+        $menuLeft = new Privelege( $this->_route->getAuthorization() );
+        $this->_view->setAuth( $this->_route->getAuthorization() );
+        $this->_view->setMainMenu( mainMenu::getMenu( $this->_route->getMenuRegPath() ) );
+        $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
+//        $this->_view->render( $this->_route->getViewPath(), '');
     }
 
-    public function actionBlank( $auth ){
+    public function actionBlank(){
         $this->_view->setAuth( null );
         $this->_view->setMainMenu( mainMenu::getMenu( $this->_route->getMenuUnRegPath() ) );
         $this->_view->render( $this->_route->getBlankViewPath(), '');
     }
-    public function actionHelp( $auth ){
+    public function actionHelp(){
         $this->_view->setAuth( null );
         $this->_view->setMainMenu( mainMenu::getMenu( $this->_route->getMenuUnRegPath() ) );
         $this->_view->render( $this->_route->getViewPath(), '');

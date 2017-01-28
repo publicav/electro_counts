@@ -19,5 +19,5 @@ abstract class  Conroller{
         $this->_view->setLayout( $this->_route->getLayout('main') );
     }
 
-    abstract public function actionIndex( $sid );
+    abstract public function actionIndex();
 }

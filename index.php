@@ -7,11 +7,14 @@ try {
     include_once("models/funclib.php");
 
     $route = navigation\Route::init();
+    $route->setAuthorization( $sid );
+    $route->getController();
 //    include_once $route->getModelPath();
-    $conroler = 'controllers\ControllerMain';
+    var_dump($route->getController());
+    $conroler = $route->getController();
     if ( $sid  != 0 ) $action = 'actionIndex'; else $action = 'actionBlank';
     $contoller = new $conroler();
-    $contoller->$action( $sid );
+    $contoller->$action();
 }catch(Exception $e){
     die( $e->getMessage() );
 }

@@ -13,6 +13,9 @@ class Route{
     protected static $_link = null;
     protected $_config;
     protected $_pathinfo, $_filename;
+    private $container = array();
+    protected $_authorization = null;
+    protected $_conroller;
 
     /**
      * Route constructor.
@@ -25,6 +28,7 @@ class Route{
         $this->_config = require_once __DIR__  . "/../../../config/route.conf.php";
         $this->_pathinfo = pathinfo( $_SERVER['SCRIPT_FILENAME'] );
         $this->_filename = $this->_pathinfo['filename'];
+        $this->_conroller = $this->_filename;
     }
 
     /**
@@ -135,5 +139,38 @@ class Route{
 
         return $pathLayot;
     }
+    public function __set($name, $value) {
+        // TODO: Implement __set() method.
+        if( !isset( $this->container[$name] ) ) {
+            $this->container[$name] = $value;
+        } else {
+            trigger_error('Variable '. $name .' already defined', E_USER_WARNING);
+        }
+    }
+    public function __get($name) {
+        // TODO: Implement __get() method.
+        return $this->container[$name];
+    }
 
+    /**
+     * @param mixed $authorization
+     */
+    public function setAuthorization($authorization){
+        $this->_authorization = $authorization;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthorization(){
+        return $this->_authorization;
+    }
+
+    public function getController(){
+        $controler = $this->_config['controllers'];
+        if ( !is_null( $this->_authorization ) ) {
+            return $controler[ $this->_conroller ]['controllerName'];
+        }
+        return $controler[ $this->_conroller ]['controllerName'];
+    }
 }

@@ -22,7 +22,12 @@ return [
     'menuFileUnReg' => 'menu',
     'menuPath' => 'models/json',
     'menuRegExtension' => 'json',
-    'menuUnRegExtension' => 'json'
-
+    'LANG' => 1,
+    'menuUnRegExtension' => 'json',
+    'controllers' => [
+        'default'   => [  'controllerName' => 'controllers\ControllerMain', 'action' => 'actionIndex'],
+        'index'     => [  'controllerName' => 'controllers\ControllerMain', 'action' => 'actionIndex'],
+        'help'      => [  'controllerName' => 'controllers\ControllerMain', 'action' => 'actionIndex']
+    ]
 
 ];

@@ -1,4 +1,5 @@
 <?php
+
  $config['PAGE_COUNTER'] = 34;
  $config['LANG'] = 1;
  $config['ACCESSABLY'] = 1;
