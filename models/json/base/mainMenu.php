@@ -12,17 +12,18 @@ namespace base;
 class mainMenu{
     protected $_menu;
     protected $_menuArray;
+    protected static $_link = null;
+
     public function __construct( $pathJson ){
         $this->openFile( $pathJson );
         $this->_menuArray = $this->stdToArray();
-
     }
 
     /**
      * @param $file
      * @throws \Exception
      */
-    protected  function openFile($file ){
+    protected  function openFile( $file ){
         if (!file_exists( $file )) {
             throw new \Exception('File not found! - ' . $file, '404');
         }
@@ -38,12 +39,15 @@ class mainMenu{
         return $rc;
     }
 
+
     /**
+     * @param $pathJson
      * @return array
      */
-    public function getMenu()
+    public static function getMenu( $pathJson )
     {
-        return $this->_menuArray['menu'];
+        if ( is_null( self::$_link ) ) self::$_link = new self( $pathJson );
+        return self::$_link->_menuArray['menu'];
     }
 
 

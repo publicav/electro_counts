@@ -7,8 +7,11 @@ try {
     include_once("models/funclib.php");
 
     $route = navigation\Route::init();
-    include_once $route->getModelPath();
-
+//    include_once $route->getModelPath();
+    $conroler = 'controllers\ControllerMain';
+    if ( $sid  != 0 ) $action = 'actionIndex'; else $action = 'actionBlank';
+    $contoller = new $conroler();
+    $contoller->$action( $sid );
 }catch(Exception $e){
     die( $e->getMessage() );
 }

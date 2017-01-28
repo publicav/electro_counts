@@ -4,12 +4,9 @@ $view->setLayout( $route->getLayout('main') );
 $view->setHeadUrl( pdo\GetNamePage::getConfAll( $route->getFileName(), $config['LANG'] ) );
 
 if ( $sid != 0 ) {
-
     $menuLeft = new pdo\Privelege( $sid );
-    $mainMenu =new base\mainMenu( $route->getMenuRegPath() );
-
     $view->setAuth( $sid );
-    $view->setMainMenu( $mainMenu->getMenu() );
+    $view->setMainMenu( base\mainMenu::getMenu( $route->getMenuRegPath() ) );
     $view->setLeftMenu( $menuLeft->getMenuLeft() );
     $view->setJs( [
                     'js/jquery.maskedinput.min.js',
@@ -18,8 +15,7 @@ if ( $sid != 0 ) {
                   ]);
     $view->render( $route->getViewPath(), '');
 } else {
-    $mainMenu =new base\mainMenu( $route->getMenuUnRegPath() );
     $view->setAuth( null );
-    $view->setMainMenu( $mainMenu->getMenu() );
+    $view->setMainMenu( base\mainMenu::getMenu( $route->getMenuUnRegPath() ) );
     $view->render( $route->getBlankViewPath(), '');
 }
