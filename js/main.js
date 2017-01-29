@@ -421,6 +421,7 @@ let unregistration = () => {
 				$('#right').html( '' );
 			})
 			.fail(() => alert('Error'));
+			alert(result.message);
 	})
 	.fail(() => alert('Error'));
 }
