@@ -34,6 +34,33 @@ class ControllerMain extends Conroller {
             'js/filters.js'
         ]);
         $this->_view->render( $this->_route->getViewPath(), '');
-
     }
+    public function actionLoad_forms(){
+        $menuLeft = new Privelege( $this->_auth );
+        $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
+        $this->_view->setJs( [
+            'js/user.js'
+        ]);
+        $this->_view->render( $this->_route->getViewPath(), '');
+    }
+    public function actionEdit_count(){
+        $menuLeft = new Privelege( $this->_auth );
+        $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
+        $this->_view->setJs( [
+            'js/jquery.maskedinput.min.js',
+            'js/filters.js',
+            'js/edit_counts.js'
+        ]);
+        $this->_view->render( $this->_route->getViewPath(), '');
+    }
+    public function actionCalc_count(){
+        $menuLeft = new Privelege( $this->_auth );
+        $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
+        $this->_view->setJs( [
+            'js/filters-calc.js'
+        ]);
+        $this->_view->render( $this->_route->getViewPath(), '');
+    }
+
+
 }

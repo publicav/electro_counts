@@ -25,30 +25,57 @@ return [
     'LANG' => 1,
     'menuUnRegExtension' => 'json',
     'controllers' => [
-        'default'   =>    [ 'controllerName' => 'controllers\ControllerMain',
-                            'actions' => [
-                                'auth' => 'actionIndex',
-                                'nonAuth' => 'actionBlank'
-                            ]
+        'default'   =>    [
+            'controllerName' => 'controllers\ControllerMain',
+            'actions' => [
+                'auth' => 'actionIndex',
+                'nonAuth' => 'actionBlank'
+            ]
         ],
-        'index'   =>      [ 'controllerName' => 'controllers\ControllerMain',
-                            'actions' => [
-                            'auth' => 'actionIndex',
-                            'nonAuth' => 'actionBlank'
-                          ]
+        'index'   =>      [
+            'controllerName' => 'controllers\ControllerMain',
+            'actions' => [
+                'auth' => 'actionIndex',
+                'nonAuth' => 'actionBlank'
+            ]
         ],
-        'help'   =>       [ 'controllerName' => 'controllers\ControllerMain',
-                            'actions' => [
-                                'auth' => 'actionIndex',
-                                'nonAuth' => 'actionHelp'
-                          ]
+        'help'   =>       [
+            'controllerName' => 'controllers\ControllerMain',
+            'actions' => [
+                'auth' => 'actionIndex',
+                'nonAuth' => 'actionHelp'
+           ]
         ],
-        'view_count'   => [ 'controllerName' => 'controllers\ControllerMain',
-                            'actions' => [
-                                'auth' => 'actionView_count',
-                                'nonAuth' => 'actionBlank'
-                            ]
-        ]
+        'view_count'   => [
+            'controllerName' => 'controllers\ControllerMain',
+            'actions' => [
+                'auth' => 'actionView_count',
+                'nonAuth' => 'actionBlank'
+            ]
+        ],
+        'edit_count'   => [
+            'controllerName' => 'controllers\ControllerMain',
+            'actions' => [
+                'auth' => 'actionEdit_count',
+                'nonAuth' => 'actionBlank'
+            ]
+        ],
+
+        'load_forms'   => [
+            'controllerName' => 'controllers\ControllerMain',
+            'actions' => [
+                'auth' => 'actionLoad_forms',
+                'nonAuth' => 'actionBlank'
+            ]
+        ],
+        'calc_count'   => [
+            'controllerName' => 'controllers\ControllerMain',
+            'actions' => [
+                'auth' => 'actionCalc_count',
+                'nonAuth' => 'actionBlank'
+            ]
+        ],
+
 
 
 
