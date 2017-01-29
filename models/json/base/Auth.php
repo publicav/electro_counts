@@ -16,6 +16,9 @@ class Auth{
         }
         return false;
     }
+    public static function sessionStart(){
+        session_start();
+    }
     public static function login( $id ){
         $_SESSION['user']['id'] = $id;
     }

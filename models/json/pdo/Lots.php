@@ -10,7 +10,7 @@ class Lots {
         $this->_pdo = \db::getLink()->getDb();
 		$this->sq = "SELECT l.id, l.name FROM  lots AS l;";
 		$this->res = $this->_pdo->prepare( $this->sq );
-		if (!$this->res->execute()) {
+		if ( !$this->res->execute() ) {
 			header("HTTP/1.1 400 Bad Request", true, 400);
 			print exit_error( false, 3, $this->res->errorInfo()[2] );
 			exit();
@@ -37,6 +37,7 @@ class Lots {
         }
 		$lotsFilter[] = [ 'id' => '0', 'name' => 'Все участки' ];
 		return  array_merge( $lotsFilter, self::$_link->lots );
+//		var_dump(self::$_link->lots);
 	}
 
 }

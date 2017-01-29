@@ -6,10 +6,10 @@
 
 	<select id="lot" class="filtred_selected">
 	<?php
-        $lots = \pdo\Lots::GetLotsFilter();
+        $lotsF = \pdo\Lots::GetLotsFilter();
         $mainfile = '';
-		for($i = 0; $i < SizeOf( $lots ); $i++) {
-			$mainfile .= "<option value=\{$lots[$i]['id']}\">{$lots[$i]['name']}</option>";
+		for($i = 0; $i < SizeOf( $lotsF ); $i++) {
+            $mainfile .= "<option value=\"{$lotsF[$i]['id']}\">{$lotsF[$i]['name']}</option>";
 		}
 		echo $mainfile;
 	?>
