@@ -14,10 +14,11 @@ class View{
     protected $_title, $_MetaK, $_MetaD;
     protected $_layout;
     protected $_mainMenu, $_leftMenu;
-    protected $_auth =null;
+    protected $_auth = null;
     protected $_user;
     protected $_js =[];
     protected $_css = [];
+    protected $_seo = [];
 
     public function render($tplName, $data){
 //           var_dump($this->_baseDir);
@@ -74,6 +75,13 @@ class View{
      */
     public function setAuth( $auth ) {
         $this->_auth = $auth;
+    }
+
+    /**
+     * @return null
+     */
+    public function getAuth() {
+        return $this->_auth;
     }
 
     /**

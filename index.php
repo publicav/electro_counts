@@ -8,11 +8,8 @@ try {
 
     $route = navigation\Route::init();
     $route->setAuthorization( $sid );
-    $route->getController();
-//    include_once $route->getModelPath();
-    var_dump($route->getController());
     $conroler = $route->getController();
-    if ( $sid  != 0 ) $action = 'actionIndex'; else $action = 'actionBlank';
+    $action = $route->getAction();
     $contoller = new $conroler();
     $contoller->$action();
 }catch(Exception $e){

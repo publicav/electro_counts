@@ -22,7 +22,7 @@ class ControllerMain extends Conroller {
         $this->_view->setAuth( $this->_route->getAuthorization() );
         $this->_view->setMainMenu( mainMenu::getMenu( $this->_route->getMenuRegPath() ) );
         $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
-//        $this->_view->render( $this->_route->getViewPath(), '');
+        $this->_view->render( $this->_route->getViewPath(), '');
     }
 
     public function actionBlank(){

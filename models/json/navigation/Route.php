@@ -16,6 +16,7 @@ class Route{
     private $container = array();
     protected $_authorization = null;
     protected $_conroller;
+    protected $_action;
 
     /**
      * Route constructor.
@@ -168,9 +169,21 @@ class Route{
 
     public function getController(){
         $controler = $this->_config['controllers'];
-        if ( !is_null( $this->_authorization ) ) {
-            return $controler[ $this->_conroller ]['controllerName'];
-        }
+//        if ( !is_null( $this->_authorization ) ) {
+//            return $controler[ $this->_conroller ]['controllerName'];
+//        }
         return $controler[ $this->_conroller ]['controllerName'];
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAction(){
+        $actions = $this->_config['controllers'][ $this->_conroller ]['actions'];
+        if ( !is_null( $this->_authorization ) ) {
+            return $actions['auth'];
+        }
+        return $actions['nonAuth'];
+    }
+
 }

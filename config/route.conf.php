@@ -25,9 +25,34 @@ return [
     'LANG' => 1,
     'menuUnRegExtension' => 'json',
     'controllers' => [
-        'default'   => [  'controllerName' => 'controllers\ControllerMain', 'action' => 'actionIndex'],
-        'index'     => [  'controllerName' => 'controllers\ControllerMain', 'action' => 'actionIndex'],
-        'help'      => [  'controllerName' => 'controllers\ControllerMain', 'action' => 'actionIndex']
+        'default'   =>    [ 'controllerName' => 'controllers\ControllerMain',
+                            'actions' => [
+                                'auth' => 'actionIndex',
+                                'nonAuth' => 'actionBlank'
+                            ]
+        ],
+        'index'   =>      [ 'controllerName' => 'controllers\ControllerMain',
+                            'actions' => [
+                            'auth' => 'actionIndex',
+                            'nonAuth' => 'actionBlank'
+                          ]
+        ],
+        'help'   =>       [ 'controllerName' => 'controllers\ControllerMain',
+                            'actions' => [
+                                'auth' => 'actionIndex',
+                                'nonAuth' => 'actionHelp'
+                          ]
+        ],
+        'view_count'   => [ 'controllerName' => 'controllers\ControllerMain',
+                            'actions' => [
+                                'auth' => 'actionIndex',
+                                'nonAuth' => 'actionBlank'
+                            ]
+        ]
+
+
+
+
     ]
 
 ];
