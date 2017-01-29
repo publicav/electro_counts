@@ -32,7 +32,8 @@ $msg = 'зарегистрирован';
             $type['name'] = $row['name'];
             $type['family'] = $row['family'];
             $type['message'] = $users . ' ' . $msg;
-            $_SESSION['sid']= $id; //      session_start(); вызывается в open.php
+            base\Auth::login($id);
+//            $_SESSION['user']['sid']= $id; //      session_start(); вызывается в open.php
         }
 		if ( isset( $type ) )  echo json_encode($type);
 		else { 

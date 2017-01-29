@@ -45,7 +45,7 @@ return [
         ],
         'view_count'   => [ 'controllerName' => 'controllers\ControllerMain',
                             'actions' => [
-                                'auth' => 'actionIndex',
+                                'auth' => 'actionView_count',
                                 'nonAuth' => 'actionBlank'
                             ]
         ]

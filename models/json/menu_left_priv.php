@@ -4,6 +4,10 @@ include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
 
+$route = navigation\Route::init();
+$id_users = $route->getAuthorization();
+
+
 $filter = new \filter\FilterInput( $_POST );
 $get_prog = $filter->getInputAll();
 
@@ -15,7 +19,7 @@ if (isset( $get_prog['id_user'] )) $id_user = (int)$get_prog['id_user']; else
     exit();
 }
    
-if ( $sid >0 ) {
+if ( $id_users > 0 ) {
     $sq = "SELECT id_menu, visibly FROM tables_priv WHERE (id_users = ?)";
     $res = $pdo->prepare( $sq );
     if ( $res->execute( [$id_user] ) ) {

@@ -4,9 +4,13 @@ include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
 
-if ( $sid > 0 ) {
-	$menuLeft = new pdo\Privelege( $sid );
-	$menu_left_m = $menuLeft->getMenuLeft( $pdo );
+
+$route = navigation\Route::init();
+$id_users = $route->getAuthorization();
+
+if ( $id_users > 0 ) {
+	$menuLeft = new pdo\Privelege( $id_users );
+	$menu_left_m = $menuLeft->getMenuLeft();
 }
 
 echo json_encode( $menu_left_m );

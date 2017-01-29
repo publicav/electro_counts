@@ -6,6 +6,9 @@ include_once("../funclib.php");
 
 
 $url = $_SERVER['REQUEST_URI'];
+$route = navigation\Route::init();
+$id_users = $route->getAuthorization();
+
 	
 $N_counter = 1;  		// Важный параметр пока не работает номер счётчика в ячейке !!!! убрать когда всё заработает
 
@@ -16,7 +19,7 @@ $N_counter = 1;  		// Важный параметр пока не работае
 $name_lot = validator_input_sql('lots', $get_prog['lot']);
 $name_substation = validator_input_sql('substation', $get_prog['substation']);
 //$name_count = validator_input_sql('count', $get_prog['counter']);
-$id_users = $sid;   // Регистрация
+
 
 $sq  = "SELECT n_counter, name FROM  count  WHERE (id = :id );";
 $param = array ('id' => $get_prog['counter'] ); 
@@ -46,7 +49,7 @@ if (!isset($name_count)) {
 	echo exit_error(false, 2, 'Error input select counter');	
 	exit();
 }
-if ($sid == 0) {
+if ( $id_users == 0 ) {
 	echo exit_error(false, 2, 'Error user not found');	
 	exit();
 }
@@ -120,7 +123,7 @@ if ($get_prog['actions'] == 'edit'){
 	
 $data = Array("id" => $id_add, "lot" => $get_prog['lot'], "substation" => $get_prog['substation'], "counter" => $get_prog['counter'],
 								"name_lot" => $name_lot, "name_substation" => $name_substation, "name_counter" => $name_count, 
-								"date" => $get_prog['date_begin'], "time" => $get_prog['time_begin'], "id_users" => $sid,
+								"date" => $get_prog['date_begin'], "time" => $get_prog['time_begin'], "id_users" => $id_users,
 								"value" => $get_prog['counter_val']);
 $type['success'] = true;
 $type['id_error'] = 0;

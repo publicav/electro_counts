@@ -30,6 +30,8 @@ class Route{
         $this->_pathinfo = pathinfo( $_SERVER['SCRIPT_FILENAME'] );
         $this->_filename = $this->_pathinfo['filename'];
         $this->_conroller = $this->_filename;
+        if (isset($_SESSION['user']['id'])) $id = $_SESSION['user']['id']; else $id = null;
+        $this->_authorization = $id;
     }
 
     /**
@@ -84,7 +86,6 @@ class Route{
 
         return $pathBlankViews;
     }
-
     /**
      * @return mixed
      */
@@ -109,7 +110,7 @@ class Route{
     /**
      * @return string
      */
-    public function getMenuRegPath(){
+    protected function getMenuRegPath(){
          $pathMenu = $this->_config['menuPath'] .  '/' . $this->_config['menuFileReg']  . '.' .
             $this->_config['menuRegExtension'];
          return $pathMenu;
@@ -118,11 +119,18 @@ class Route{
     /**
      * @return string
      */
-    public function getMenuUnRegPath(){
+    protected function getMenuUnRegPath(){
         $pathMenu = $this->_config['menuPath'] .  '/' . $this->_config['menuFileUnReg']  . '.' .
             $this->_config['menuUnRegExtension'];
         return $pathMenu;
     }
+    public function getMainMenu(){
+        if ( !is_null( $this->_authorization ) ){
+            return $this->getMenuRegPath();
+        }
+        return $this->getMenuUnRegPath();
+    }
+
 
     public function getLayout( $name ){
         $pathLayot = $this->_config['layout'] .  '/' . $name . '.' . $this->_config['layoutExtension'];
