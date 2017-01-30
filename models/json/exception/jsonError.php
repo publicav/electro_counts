@@ -9,7 +9,7 @@
 namespace exception;
 
 
-class jsonError {
+class JsonError {
     public static function exitError($success, $id_error, $errorName ){
         $type['success'] = $success;
         $type['id_error'] = $id_error;
