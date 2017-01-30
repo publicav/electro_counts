@@ -8,64 +8,114 @@
 
 namespace pdo;
 
+use exception\JsonError;
+use exception\BadRequestException;
+
 
 class CalcGroup {
     private $_idGroup;
     private $_nameGroup;
-    private $_idCell;
+    private $_idCells, $_nameCouter;
+    private $_inSQL;
     protected $_pdo;
+
+
     public function __construct( $numberGroup ) {
         $this->_pdo = \db::getLink()->getDb();
         $this->_idGroup = $numberGroup;
         $this->qNameGroup();
         $this->qIdCell();
+        $this->buldingSQlIn();
+        $this->qNameCell();
     }
 
     /**
      * @return mixed
      */
-    public function getIdGroup(){
+    public function getIdGroup() {
         return $this->_idGroup;
     }
 
     /**
      * @return mixed
      */
-    public function getNameGroup(){
+    public function getNameGroup() {
         return $this->_nameGroup;
     }
 
     /**
      * @return array
      */
-    public function getIdCell(){
-        return $this->_idCell;
+    public function getIdCell() {
+        return $this->_idCells;
     }
-    private function qNameGroup(){
+
+    /**
+     * @return mixed
+     */
+    public function getInSQL() {
+        return $this->_inSQL;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameCouter() {
+        return $this->_nameCouter;
+    }
+
+    private function qNameGroup() {
         $sq = "SELECt name FROM name_group_counters WHERE id = :id";
-        $param = ['id' => $this->_idGroup];
+        $param = [ 'id' => $this->_idGroup ];
         $res = $this->_pdo->prepare( $sq );
-        if(!$res->execute( $param )){
-            header("HTTP/1.1 400 Bad Request", true, 400);
-            echo exception\JsonError::exitError(false, 3, $this->_pdo->errorInfo());
-            exit();
+        if ( !$res->execute( $param ) ) {
+            throw new \Exception( $this->_pdo->errorInfo() );
         }
-        $this->_nameGroup = $res->fetchAll()[0]['name'];
+        $nameGroup = $res->fetchAll();
+        if ( empty( $nameGroup ) ) {
+            throw new BadRequestException( 'Group not found!' );
+        }
+        $this->_nameGroup = $nameGroup[0]['name'];
     }
-    private function qIdCell(){
-        $param = ['id' => $this->_idGroup];
-        $sq = "SELECT id_counter, coefficient FROM group_counters WHERE id_group = :id";
+
+    private function qNameCell() {
+        $sq = "SELECt name FROM count WHERE id IN {$this->getInSQL()}";
+        //        $param = [ 'id' => $this->_idGroup ];
         $res = $this->_pdo->prepare( $sq );
-        if(!$res->execute( $param )){
-            header("HTTP/1.1 400 Bad Request", true, 400);
-            echo exception\JsonError::exitError(false, 1, $pdo->errorInfo());
-            exit();
+        if ( !$res->execute() ) {
+            throw new \Exception( $this->_pdo->errorInfo() );
         }
-        $this->_idCell = $res->fetchAll();
+        $nameCouter = $res->fetchAll();
+        if ( empty( $nameCouter ) ) {
+            throw new BadRequestException( 'Group not found!' );
+        }
+        $this->_nameCouter = $nameCouter;
 
     }
-    private function buldingArrayIn(){
+
+    private function qIdCell() {
+        $param = [ 'id' => $this->_idGroup ];
+        $sq = "SELECT id_counter AS id, coefficient FROM group_counters WHERE id_group = :id";
+        $res = $this->_pdo->prepare( $sq );
+        if ( !$res->execute( $param ) ) {
+            throw new \Exception( $this->_pdo->errorInfo() );
+        }
+        $this->_idCells = $res->fetchAll();
+        if ( empty( $this->_idCells ) ) {
+            throw new BadRequestException( 'Cells not found!' );
+        }
 
     }
+
+    private function buldingSQlIn() {
+        $in_sql = '(';
+        foreach ( $this->_idCells as $cell ) {
+            $in_sql .= $cell['id'] . ',';
+        }
+        $in_sql = trim( $in_sql, ',' );
+        $in_sql .= ')';
+        $this->_inSQL = $in_sql;
+    }
+
 
 }
