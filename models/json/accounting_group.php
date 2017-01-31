@@ -28,7 +28,7 @@ try {
     var_dump($sqlData);
 
     echo 'Группа - ', $nameGroup, '<br/>';
-    var_dump( $calcGroup->getData() );
+//    var_dump( $calcGroup->getData() );
 //var_dump($calcGroup->getCoeffPower(22, 2));
 //echo 'getIdCell', '<br/>';
 //var_dump($calcGroup->getIdCell());

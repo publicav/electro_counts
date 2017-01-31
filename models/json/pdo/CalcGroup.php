@@ -150,19 +150,72 @@ class CalcGroup {
     public function queryGroup( $dateLow, $dateHigh ) {
         $dateLow .= ' 00:00:00';
         $dateHigh .= ' 23:59:59';
-        $param = [ 'dateLow' => $dateLow, 'dateHigh' => $dateHigh  ];
+        $param = [ 'dateLow' => $dateLow, 'dateHigh' => $dateHigh ];
         $sq = "SELECT main.id_counter, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS date_second, 
                    main.date_create AS dt1, main.n_counter
 			FROM counter_v AS main
             WHERE (main.id_counter IN  {$this->getInSQL()}) AND  main.date_create BETWEEN :dateLow AND :dateHigh
 			ORDER by date_create;
 			";
-//        (main.id_counter IN  {$this->getInSQL()}) AND
+        //        (main.id_counter IN  {$this->getInSQL()}) AND
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute( $param ) ) {
             throw new \Exception( $this->_pdo->errorInfo()[2] );
         }
         $this->_sqlData = $res->fetchAll();
+        $allowAll = null;
+        $bellowAll = null;
+        foreach ( $this->_counterGroup as $cell ) {
+            $allow = $this->qAllow( $cell['id'], $dateHigh );
+            $bellow = $this->qBellow( $cell['id'], $dateLow );
+
+            if ( !empty( $allow ) ) {
+                if ( is_array( $allowAll ) ) $allowAll = array_merge( $allowAll, $allow ); else $allowAll = $allow;
+            }
+            if ( !empty( $bellow ) ) {
+                if ( is_array( $bellowAll ) ) $bellowAll = array_merge( $bellowAll, $bellow ); else $bellowAll = $bellow;
+            }
+
+        }
+        //        var_dump( $bellowAll );
+        if ( is_array( $bellowAll ) && is_array( $allowAll ) && is_array( $this->_sqlData ) ) {
+            $this->_sqlData = array_merge( $bellowAll, $this->_sqlData, $allowAll );
+        }
+    }
+
+    private function qAllow( $count, $dateHigh ) {
+        $param = [ 'id_counter' => $count, 'dateHigh' => $dateHigh ];
+        $sq = "SELECT main.id_counter, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS date_second, 
+                   main.date_create AS dt1, main.n_counter
+			FROM counter_v AS main
+            WHERE (main.id_counter = :id_counter) AND  (main.date_create > :dateHigh)
+			ORDER BY date_create
+			LIMIT 1;
+			";
+        $res = $this->_pdo->prepare( $sq );
+        if ( !$res->execute( $param ) ) {
+            throw new \Exception( $this->_pdo->errorInfo()[2] );
+        }
+        return $res->fetchAll();
+    }
+
+    private function qBellow( $count, $dateLow ) {
+        $param = [ 'id_counter' => $count, 'dateLow' => $dateLow ];
+        $sq = "SELECT main.id_counter, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS date_second, 
+                   main.date_create AS dt1, main.n_counter
+			FROM counter_v AS main
+            WHERE (main.id_counter = :id_counter) AND  (main.date_create < :dateLow)
+			ORDER BY date_create DESC 
+			LIMIT 2;
+			";
+        $res = $this->_pdo->prepare( $sq );
+        if ( !$res->execute( $param ) ) {
+            throw new \Exception( $this->_pdo->errorInfo()[2] );
+        }
+        $bll = $res->fetchAll();
+        if ( !empty( $bll ) ) $bll = array_reverse( $bll );
+        return $bll;
+
     }
 
     private function creteInputData() {
