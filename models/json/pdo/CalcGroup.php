@@ -8,16 +8,18 @@
 
 namespace pdo;
 
-use exception\JsonError;
 use exception\BadRequestException;
-
 
 class CalcGroup {
     private $_idGroup;
     private $_nameGroup;
+    private $_counterGroup;
+    private $_CoeffPower;
     private $_idCells, $_nameCouter;
     private $_inSQL;
     protected $_pdo;
+    protected $_data;
+    protected $_sqlData;
 
 
     public function __construct( $numberGroup ) {
@@ -25,8 +27,9 @@ class CalcGroup {
         $this->_idGroup = $numberGroup;
         $this->qNameGroup();
         $this->qIdCell();
-        $this->buldingSQlIn();
-        $this->qNameCell();
+        $this->qDataCell();
+        $this->qCoeeffPower();
+        $this->creteInputData();
     }
 
     /**
@@ -41,6 +44,13 @@ class CalcGroup {
      */
     public function getNameGroup() {
         return $this->_nameGroup;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCounterGroup() {
+        return $this->_counterGroup;
     }
 
     /**
@@ -64,12 +74,31 @@ class CalcGroup {
         return $this->_nameCouter;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getData() {
+        return $this->_data;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSqlData() {
+        return $this->_sqlData;
+    }
+
+
+    public function getCoeffPower( $counter1, $n_counter ) {
+        return $this->_data[ $counter1 ][ $n_counter - 1 ]['coeffPower'];
+    }
+
     private function qNameGroup() {
         $sq = "SELECt name FROM name_group_counters WHERE id = :id";
         $param = [ 'id' => $this->_idGroup ];
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute( $param ) ) {
-            throw new \Exception( $this->_pdo->errorInfo() );
+            throw new \Exception( $this->_pdo->errorInfo()[2] );
         }
         $nameGroup = $res->fetchAll();
         if ( empty( $nameGroup ) ) {
@@ -78,33 +107,80 @@ class CalcGroup {
         $this->_nameGroup = $nameGroup[0]['name'];
     }
 
-    private function qNameCell() {
-        $sq = "SELECt name FROM count WHERE id IN {$this->getInSQL()}";
-        //        $param = [ 'id' => $this->_idGroup ];
-        $res = $this->_pdo->prepare( $sq );
-        if ( !$res->execute() ) {
-            throw new \Exception( $this->_pdo->errorInfo() );
-        }
-        $nameCouter = $res->fetchAll();
-        if ( empty( $nameCouter ) ) {
-            throw new BadRequestException( 'Group not found!' );
-        }
-        $this->_nameCouter = $nameCouter;
-
-    }
-
     private function qIdCell() {
         $param = [ 'id' => $this->_idGroup ];
         $sq = "SELECT id_counter AS id, coefficient FROM group_counters WHERE id_group = :id";
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute( $param ) ) {
-            throw new \Exception( $this->_pdo->errorInfo() );
+            throw new \Exception( $this->_pdo->errorInfo()[2] );
         }
         $this->_idCells = $res->fetchAll();
         if ( empty( $this->_idCells ) ) {
             throw new BadRequestException( 'Cells not found!' );
         }
+    }
 
+    private function qDataCell() {
+        $this->buldingSQlIn();
+        $sq = "SELECt id,  name FROM count WHERE id IN {$this->getInSQL()}";
+        $res = $this->_pdo->prepare( $sq );
+        if ( !$res->execute() ) {
+            throw new \Exception( $this->_pdo->errorInfo()[2] );
+        }
+        $couterGroup = $res->fetchAll();
+        if ( empty( $couterGroup ) ) {
+            throw new BadRequestException( 'Counters in Group not found!' );
+        }
+        $this->_counterGroup = $couterGroup;
+    }
+
+    private function qCoeeffPower() {
+        $sq = "SELECT id_counter, n_counter, koef FROM xchange WHERE id_counter IN {$this->getInSQL()}";
+        $res = $this->_pdo->prepare( $sq );
+        if ( !$res->execute() ) {
+            throw new \Exception( $this->_pdo->errorInfo()[2] );
+        }
+        $coefPower = $res->fetchAll();
+        if ( empty( $coefPower ) ) {
+            throw new BadRequestException( 'Coefficients Power  not found!' );
+        }
+        $this->_CoeffPower = $coefPower;
+    }
+
+    public function queryGroup( $dateLow, $dateHigh ) {
+        $dateLow .= ' 00:00:00';
+        $dateHigh .= ' 23:59:59';
+        $param = [ 'dateLow' => $dateLow, 'dateHigh' => $dateHigh  ];
+        $sq = "SELECT main.id_counter, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS date_second, 
+                   main.date_create AS dt1, main.n_counter
+			FROM counter_v AS main
+            WHERE (main.id_counter IN  {$this->getInSQL()}) AND  main.date_create BETWEEN :dateLow AND :dateHigh
+			ORDER by date_create;
+			";
+//        (main.id_counter IN  {$this->getInSQL()}) AND
+        $res = $this->_pdo->prepare( $sq );
+        if ( !$res->execute( $param ) ) {
+            throw new \Exception( $this->_pdo->errorInfo()[2] );
+        }
+        $this->_sqlData = $res->fetchAll();
+    }
+
+    private function creteInputData() {
+        $this->_data = [];
+        foreach ( $this->_idCells as $cell ) {
+            $key = $cell['id'];
+            $this->_data[ $key ] = [ 'coefficient' => $cell['coefficient'] ];
+        }
+        foreach ( $this->_counterGroup as $cell ) {
+            $key = $cell['id'];
+            $this->_data[ $key ] = array_merge( $this->_data[ $key ], [ 'name' => $cell['name'] ] );
+        }
+        foreach ( $this->_CoeffPower as $cell ) {
+            $key = $cell['id_counter'];
+            $n_counter = $cell['n_counter'];
+            $coeffPower = [ $n_counter => [ 'coeffPower' => $cell['koef'] ] ];
+            $this->_data[ $key ] = array_merge( $this->_data[ $key ], $coeffPower );
+        }
     }
 
     private function buldingSQlIn() {

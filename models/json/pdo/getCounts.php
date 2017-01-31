@@ -6,64 +6,47 @@
  * Time: 14:17
  */
 
- namespace pdo;
+namespace pdo;
+
+use exception\JsonError;
+use exception\BadRequestException;
 
 
-class getCounts {
+class getCounts
+{
 
-    private  $sq;
     private $res, $counts_count;
     private $name_counter;
+    private $_pdo;
 
-    /**
-     * getCounts constructor.
-     * @param $pdo
-     * @param $param
-     */
-    function __construct($pdo, $param ) {
-
-        $this->sq = "SELECT c.id, c.n_counter, c.name FROM  count AS c WHERE (c.id = :id);";
-        $this->res = $pdo->prepare( $this->sq );
-        if (!$this->res->execute( $param )) {
-            header("HTTP/1.1 400 Bad Request", true, 400);
-            print exit_error( false, 3, $this->res->errorInfo()[2] );
-            exit();
+    function __construct($param)
+    {
+        $this->_pdo = \db::getLink()->getDb();
+        $sq = "SELECT c.id, c.n_counter, c.name FROM  count AS c WHERE (c.id = :id);";
+        $this->res = $this->_pdo->prepare($sq);
+        if (!$this->res->execute($param)) {
+            throw new \Exception($this->_pdo->errorInfo()[2]);
         }
-        $this->counts_count = $this->res->fetchAll();
-        if (empty( $this->counts_count )) {
-            header("HTTP/1.1 400 Bad Request", true, 400);
-            print exit_error( false, 3, $this->res->errorInfo()[2] );
-            exit();
+        $count = $this->res->fetchAll();
+        if (empty($count)) {
+            throw new BadRequestException('Count not found!');
         } else {
-            for ( $i = 0; $i < count( $this->counts_count ); $i++) {
-                $this->name_counter[] = $this->counts_count[$i]['name'];
-                unset ( $this->counts_count[$i]['name'] );
-            }
+            $counts_count = $count[0];
+                $this->name_counter = $counts_count['name'];
+                unset ($counts_count['name']);
+            $this->counts_count = $counts_count;
         }
 
     }
 
-    /**
-     * @return array
-     */
-    public function getCountAll() {
+    public function getCount()
+    {
         return $this->counts_count;
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function getCountId($id ) {
-        return $this->counts_count[ $id ];
-    }
-
-    /**
-     * @param $id
-     * @return String
-     */
-    public function getName ( $id ){
-        return $this->name_counter[ $id ];
+    public function getName()
+    {
+        return $this->name_counter;
     }
 
 }

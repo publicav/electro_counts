@@ -18,18 +18,24 @@ try {
 
     $validator = new filter\Validator( $get_prog, [ 'group' => [ 'required', 'isPositive' ] ] );
     if ( !$validator->validateThis() ) {
-        throw new exception\InputException('Input error'); //$validator->getErrors()
+        throw new exception\InputException( 'Input error' ); //$validator->getErrors()
     }
 
     $calcGroup = new \pdo\CalcGroup( $filter->getInt( 'group' ) );
     $nameGroup = $calcGroup->getNameGroup();
-    $inSql = $calcGroup->getInSQL();
-    $nameCounts = $calcGroup->getNameCouter();
-
+    $calcGroup->queryGroup('2016-12-01', '2016-12-31');
+    $sqlData = $calcGroup->getSqlData();
+    var_dump($sqlData);
 
     echo 'Группа - ', $nameGroup, '<br/>';
-    echo 'Sql иньекция для in - ', $inSql, '<br/>';
-var_dump($nameCounts);
+    var_dump( $calcGroup->getData() );
+//var_dump($calcGroup->getCoeffPower(22, 2));
+//echo 'getIdCell', '<br/>';
+//var_dump($calcGroup->getIdCell());
+//echo 'getCounterGroup', '<br/>';
+//var_dump($calcGroup->getCounterGroup());
+//echo 'getCoeffPower', '<br/>';
+//var_dump($nameCounts);
 
     $type['success'] = true;
     $type['id_error'] = 0;
@@ -40,13 +46,13 @@ var_dump($nameCounts);
 //    var_dump($type);
     //echo json_encode($type);
 
-}catch ( exception\BadRequestException $e ){
+} catch ( exception\BadRequestException $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
-    echo exception\JsonError::exitError( false, 4,  $e->getMessage() );
-} catch ( exception\InputException $e ){
-    header("HTTP/1.1 400 Bad Request", true, 400);
-    echo exception\JsonError::exitError(false, 1, $e->getMessage());
-} catch ( Exception $e ){
+    echo exception\JsonError::exitError( false, 4, $e->getMessage() );
+} catch ( exception\InputException $e ) {
+    header( "HTTP/1.1 400 Bad Request", true, 400 );
+    echo exception\JsonError::exitError( false, 1, $e->getMessage() );
+} catch ( Exception $e ) {
     echo $e->getMessage();
 }
 	

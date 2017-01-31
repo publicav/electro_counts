@@ -63,19 +63,18 @@ if(isset($get_prog['date_e'])) {
 } else $date_e = '';
 
 
-$getCount = new pdo\getCounts($pdo, ['id' => $id_counter] );
-//$counts_count = $getCount->getCountId(0);
-$name_counter = $getCount->getName(0);
+$getCount = new pdo\getCounts( ['id' => $id_counter] );
+$name_counter = $getCount->getName();
 
-$koefP = new pdo\GetKoefPower( $pdo, $getCount->getCountId(0) );
-$koefPower = $koefP->getKoefPowerId();
+$GetCoeffPower = new pdo\GetCoeffPower( $getCount->getCount() );
+$coeffPower = $GetCoeffPower->getKoefPowerId();
 
 $dateSql = new date\rangeDateSql( $date_b, '');
 $rangeSql = $dateSql->getSQL( 'date_create' );
 
 	$rangeSql = ' AND ' . $rangeSql;
-	$sq =  "SELECT main.id,  DATE_FORMAT(main.date_create, '%d-%m-%Y %H:%i:%s' ) AS date1,  main.value AS value,
-			UNIX_TIMESTAMP(main.date_create)  AS date_second, main.date_create AS dt1, main.n_counter
+	$sq =  "SELECT main.id, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS date_second, 
+                   main.date_create AS dt1, main.n_counter
 			FROM counter_v AS main
 			WHERE (main.id_counter = :id_counter) $rangeSql
 			ORDER by date_create;";
@@ -122,7 +121,7 @@ while ($row = $res->fetch()) {
 		
 		$timeEnd = $row['date_second'];
 		$diffTime  =  round ( ( $timeEnd - $timeNew ) / 60 );
-		$diffValue = ( $row['value'] - $valueNew ) * $koefPower[$row['n_counter']];
+		$diffValue = ( $row['value'] - $valueNew ) * $coeffPower[$row['n_counter']];
 		$diffMinuteVal = $diffValue / $diffTime;
 		
 		if ( $count > 0 ) {
