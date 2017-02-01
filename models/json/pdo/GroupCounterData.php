@@ -10,7 +10,7 @@ namespace pdo;
 
 use exception\BadRequestException;
 
-class CalcGroup {
+class GroupCounterData {
     private $_idGroup;
     private $_nameGroup;
     private $_counterGroup;
@@ -20,6 +20,7 @@ class CalcGroup {
     protected $_pdo;
     protected $_data;
     protected $_sqlData;
+    private static $_link;
 
 
     public function __construct( $numberGroup ) {
@@ -30,6 +31,14 @@ class CalcGroup {
         $this->qDataCell();
         $this->qCoeeffPower();
         $this->creteInputData();
+    }
+
+    public static function init( $numberGroup ) {
+        if ( is_null( self::$_link ) ) {
+            self::$_link = new self( $numberGroup );
+        }
+        return self::$_link;
+
     }
 
     /**
@@ -162,24 +171,21 @@ class CalcGroup {
         if ( !$res->execute( $param ) ) {
             throw new \Exception( $this->_pdo->errorInfo()[2] );
         }
-        $this->_sqlData = $res->fetchAll();
-        $allowAll = null;
-        $bellowAll = null;
+        $sqlData = $res->fetchAll();
+        $allowAll = array();
+        $bellowAll = array();
         foreach ( $this->_counterGroup as $cell ) {
             $allow = $this->qAllow( $cell['id'], $dateHigh );
             $bellow = $this->qBellow( $cell['id'], $dateLow );
 
-            if ( !empty( $allow ) ) {
-                if ( is_array( $allowAll ) ) $allowAll = array_merge( $allowAll, $allow ); else $allowAll = $allow;
-            }
-            if ( !empty( $bellow ) ) {
-                if ( is_array( $bellowAll ) ) $bellowAll = array_merge( $bellowAll, $bellow ); else $bellowAll = $bellow;
-            }
-
+            if ( !empty( $allow ) ) $allowAll = array_merge( $allowAll, $allow );
+            if ( !empty( $bellow ) ) $bellowAll = array_merge( $bellowAll, $bellow );
         }
-        //        var_dump( $bellowAll );
-        if ( is_array( $bellowAll ) && is_array( $allowAll ) && is_array( $this->_sqlData ) ) {
-            $this->_sqlData = array_merge( $bellowAll, $this->_sqlData, $allowAll );
+        if ( is_array( $sqlData ) ) {
+            $this->_sqlData = array_merge( $bellowAll, $sqlData, $allowAll );
+
+        } else {
+            $this->_sqlData = array_merge( $bellowAll, $allowAll );
         }
     }
 

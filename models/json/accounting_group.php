@@ -21,21 +21,22 @@ try {
         throw new exception\InputException( 'Input error' ); //$validator->getErrors()
     }
 
-    $calcGroup = new \pdo\CalcGroup( $filter->getInt( 'group' ) );
-    $nameGroup = $calcGroup->getNameGroup();
-    $calcGroup->queryGroup('2016-12-01', '2016-12-31');
-    $sqlData = $calcGroup->getSqlData();
-    var_dump($sqlData);
+    //    $calcGroup = pdo\CalcGroup::init( $filter->getInt( 'group' ) );
+    //    $nameGroup = $calcGroup->getNameGroup();
+    //    $calcGroup->queryGroup('2016-12-01', '2016-12-31');
+    //    $sqlData = $calcGroup->getSqlData();
 
-    echo 'Группа - ', $nameGroup, '<br/>';
-//    var_dump( $calcGroup->getData() );
-//var_dump($calcGroup->getCoeffPower(22, 2));
-//echo 'getIdCell', '<br/>';
-//var_dump($calcGroup->getIdCell());
-//echo 'getCounterGroup', '<br/>';
-//var_dump($calcGroup->getCounterGroup());
-//echo 'getCoeffPower', '<br/>';
-//var_dump($nameCounts);
+    $calcGroup = new base\GroupCounterCalc( $filter->getInt( 'group' ), '2016-12-01', '2016-12-31' );
+
+        echo 'Группа - ', $calcGroup->getNameGroup(), '<br/>';
+    //    var_dump( $calcGroup->getData() );
+    //var_dump($calcGroup->getCoeffPower(22, 2));
+    //echo 'getIdCell', '<br/>';
+//    var_dump($calcGroup->getIdCell());
+    //echo 'getCounterGroup', '<br/>';
+    //var_dump($calcGroup->getCounterGroup());
+    //echo 'getCoeffPower', '<br/>';
+    //var_dump($nameCounts);
 
     $type['success'] = true;
     $type['id_error'] = 0;
@@ -43,7 +44,7 @@ try {
     $type['data'] = $counter;
     //$type['navigator'] = $navigator;
     //$type['url'] = $url_search_action;
-//    var_dump($type);
+    //    var_dump($type);
     //echo json_encode($type);
 
 } catch ( exception\BadRequestException $e ) {
