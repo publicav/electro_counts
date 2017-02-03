@@ -27,12 +27,12 @@ try {
     //    $sqlData = $calcGroup->getSqlData();
 
     $calcGroup = new base\GroupCounterCalc( $filter->getInt( 'group' ), '2016-12-01', '2016-12-31' );
-
-        echo 'Группа - ', $calcGroup->getNameGroup(), '<br/>';
+//    var_dump( $calcGroup->getSortData() );
+    echo 'Группа - ', $calcGroup->getNameGroup(), '<br/>';
     //    var_dump( $calcGroup->getData() );
     //var_dump($calcGroup->getCoeffPower(22, 2));
     //echo 'getIdCell', '<br/>';
-//    var_dump($calcGroup->getIdCell());
+    //    var_dump($calcGroup->getIdCell());
     //echo 'getCounterGroup', '<br/>';
     //var_dump($calcGroup->getCounterGroup());
     //echo 'getCoeffPower', '<br/>';
