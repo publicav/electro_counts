@@ -98,8 +98,13 @@ class GroupCounterData {
     }
 
 
-    public function getCoeffPower( $counter1, $n_counter ) {
-        return $this->_data[ $counter1 ][ $n_counter - 1 ]['coeffPower'];
+    /**
+     * @param $id_counter
+     * @param $n_counter
+     * @return $coefficient
+     */
+    public function getCoeffPower( $id_counter, $n_counter ) {
+        return $this->_data[ $id_counter ][ $n_counter - 1 ]['coeffPower'];
     }
 
     private function qNameGroup() {
