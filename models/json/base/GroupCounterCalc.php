@@ -100,7 +100,7 @@ class GroupCounterCalc {
         while ( 1 ) {
             $timeInd = $counter[ $position ]['date_second'];
             $timeInd1 = $counter[ $position - 1 ]['date_second'];
-            //            var_dump( $position, $timeStamp / 100 / 1000, $timeInd / 100 / 1000 );
+
             if ( ( $timeStamp <= $timeInd ) and ( $timeStamp >= $timeInd1 ) ) {
                 break;
             }
