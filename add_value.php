@@ -3,8 +3,7 @@ try {
     include_once "models/json/Autoload.php";
     include_once("models/config.php");
     include_once("models/open.php");
-//    include_once('models/json/pdo/Lots.php');
-    include_once("models/json/lots.php");
+
 }catch(\Exception $e){
     die( $e->getMessage() );
 }

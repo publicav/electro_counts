@@ -196,7 +196,7 @@ class GroupCounterData {
 			FROM counter_v AS main
             WHERE (main.id_counter = :id_counter) AND  (main.date_create > :dateHigh)
 			ORDER BY date_create
-			LIMIT 1;
+			LIMIT 3;
 			";
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute( $param ) ) {
@@ -212,7 +212,7 @@ class GroupCounterData {
 			FROM counter_v AS main
             WHERE (main.id_counter = :id_counter) AND  (main.date_create < :dateLow)
 			ORDER BY date_create DESC 
-			LIMIT 2;
+			LIMIT 3;
 			";
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute( $param ) ) {

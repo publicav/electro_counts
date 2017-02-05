@@ -6,12 +6,7 @@
 
 	<select id="lot" class="filtred_selected">
 	<?php
-        $lotsF = \pdo\Lots::GetLotsFilter();
-        $mainfile = '';
-		for($i = 0; $i < SizeOf( $lotsF ); $i++) {
-            $mainfile .= "<option value=\"{$lotsF[$i]['id']}\">{$lotsF[$i]['name']}</option>";
-		}
-		echo $mainfile;
+        \pdo\Lots::lotsFilter()->render();
 	?>
 	</select>
 

@@ -60,11 +60,11 @@ class GroupCounterCalc {
 
     private function _bustDays() {
         $dtHigh = new \DateTime( $this->_dateHigh );
-        $dtCurrent = new \DateTime( $this->_dateLow );
+        $dtCurrent = new \DateTime( $this->_dateLow . ' 00:00:00' );
         while ( $dtCurrent <= $dtHigh ) {
             $timeStamp = $dtCurrent->getTimestamp();
             $this->_bisectionCounters( $timeStamp );
-            $this->_calc();
+            $this->_calc( $timeStamp );
             //            var_dump( $cnIndex );
             $dtCurrent->add( new \DateInterval( 'P1D' ) );
         }
@@ -83,15 +83,15 @@ class GroupCounterCalc {
         $index = count( $counter ) - 1;
         //        var_dump( $counter[ $index ] );
         if ( $index <= 2 ) {
-            $retIndex = [ 'error' => 1, 'index1' => null, 'index' => null, 'index2' => null ];
+            $retIndex = [ 'position' => 1, 'index1' => null, 'index' => null, 'index2' => null ];
             return $retIndex;
         }
         if ( $timeStamp >= $counter[ $index ]['date_second'] ) {
-            $retIndex = [ 'error' => 0, 'index1' => $index - 1, 'index' => 0, 'index2' => $index ];
+            $retIndex = [ 'position' => 2, 'index1' => $index - 1, 'index' => 0, 'index2' => $index ];
             return $retIndex;
         }
         if ( $timeStamp <= $counter[0]['date_second'] ) {
-            $retIndex = [ 'error' => 0, 'index1' => 0, 'index' => 0, 'index2' => 1 ];
+            $retIndex = [ 'position' => 3, 'index1' => 0, 'index' => 0, 'index2' => 1 ];
             return $retIndex;
         }
         $index = (int)( $index / 2 );
@@ -113,20 +113,41 @@ class GroupCounterCalc {
             if ( $count >= 11 ) break;
             $count++;
         }
-        return [ 'error' => 0, 'indexLow' => $position - 1, 'index' => $position, 'indexHigh' => $position + 1 ];
+        return [ 'position' => 0, 'indexLow' => $position - 1, 'index' => $position, 'indexHigh' => $position + 1 ];
     }
 
-    protected function _calc() {
+    protected function _calc( $timeStamp ) {
         //        $indexLow = $
         foreach ( $this->_sortData as $key => $sortDataCount ) {
             $indexArr = $this->_cnIndex[ $key ];
-            $indexLow = $indexArr['indexLow'];
-            $indexHigh = $indexArr['indexHigh'];
-            $index = $indexArr['index'];
-
-            $DivisionDay = new DivisionDay( $sortDataCount[ $index ]['dt1'] );
-
-            var_dump( $DivisionDay );
+            switch ( $indexArr['position'] ) {
+                case 0:
+                    $this->_powerDay( $timeStamp, $indexArr, $sortDataCount );
+                case 1:
+                    $power = 0;
+                case 2:
+                    $power = 0;
+                case 3:
+                    $power = 0;
+                default:
+                    $power = 0;
+            }
         }
+    }
+
+    protected function _powerDay( $timeStamp, $indexArr, $sortDataCount ) {
+        $indexLow = $indexArr['indexLow'];
+        $indexHigh = $indexArr['indexHigh'];
+        $index = $indexArr['index'];
+        $DivisionDay = new DivisionDay( $sortDataCount[ $index ]['dt1'] );
+        if ( $DivisionDay->is_day( $timeStamp ) ) {
+            //            $diffTime1 = round( ( $index[] - $timeNew ) / 60 );
+            //            $diffTime2 = round( ( $timeEnd - $timeNew ) / 60 );
+
+        } else {
+
+        }
+        var_dump(  $DivisionDay->is_day( $timeStamp ) );
+
     }
 }

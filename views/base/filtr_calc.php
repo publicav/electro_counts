@@ -6,19 +6,8 @@
 
 	<select id="lot" class="filtred_selected">
 	<?php
-        $lots = \pdo\Lots::GetLotsFilter();
-		$mainfile = '';
-		for($i = 0; $i < SizeOf( $lots ); $i++) {
-			$lot_id = $lots[$i]['id'];
-			$lot_name = $lots[$i]['name'];
-			$mainfile .= "<option value=\"$lot_id\">
-								$lot_name 
-						  </option>
-			";
-		}
-		echo $mainfile;
-
-	?>
+        \pdo\Lots::lotsFilter()->render();
+    ?>
 	</select>
 
 	<div class="f_input_filtred">
