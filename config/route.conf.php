@@ -75,9 +75,13 @@ return [
                 'nonAuth' => 'actionBlank'
             ]
         ],
-
-
-
+        'calcgroup'   => [
+            'controllerName' => 'controllers\ControllerView',
+            'actions' => [
+                'auth' => 'actionCalcGroup',
+                'nonAuth' => 'actionBlank'
+            ]
+        ],
 
 
     ]

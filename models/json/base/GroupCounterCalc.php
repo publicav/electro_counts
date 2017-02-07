@@ -8,11 +8,12 @@
 
 namespace base;
 
-use pdo\GroupCounterData;
 use date\DivisionDay;
+use pdo\GroupCounterData;
 
 class GroupCounterCalc {
     const MAX_ITERACION = 11;
+    const MINUTE_DAY = 1440;
     private $_dataGroup;
     private $_dateLow, $_dateHigh;
     private $_nameGroup;
@@ -20,6 +21,7 @@ class GroupCounterCalc {
     private $_sortData;
     private $_cnIndex;
     private $_calcData;
+    private $_legend;
 
     public function __construct( $numberGroup, $dateLow, $dateHigh ) {
         $this->_dateLow = $dateLow;
@@ -28,7 +30,8 @@ class GroupCounterCalc {
         $this->_dataGroup->queryGroup( $dateLow, $dateHigh );
         $this->_nameGroup = $this->_dataGroup->getNameGroup();
         $this->_inputSqlData = $this->_dataGroup->getSqlData();
-        var_dump( $this->_dataGroup->getData() );
+        $this->_legend = $this->_dataGroup->getData();
+        //        var_dump( $this->_dataGroup->getData() );
         $this->_sortArray();
         $this->_bustDays();
 
@@ -48,9 +51,24 @@ class GroupCounterCalc {
         return $this->_sortData;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getLegend() {
+        return $this->_legend;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCalcData() {
+        return $this->_calcData;
+    }
+
     private function _sortArray() {
         $sortData = [];
-        for ( $i = 0; $i < count( $this->_inputSqlData ); $i++ ) {
+        $countInputData = count( $this->_inputSqlData );
+        for ( $i = 0; $i < $countInputData; $i++ ) {
             $row = $this->_inputSqlData[ $i ];
             $counter = $row['id_counter'];
             if ( !array_key_exists( $counter, $sortData ) ) $sortData[ $counter ] = array();
@@ -67,11 +85,14 @@ class GroupCounterCalc {
         while ( $dtCurrent <= $dtHigh ) {
             $timeStamp = $dtCurrent->getTimestamp();
             $this->_bisectionCounters( $timeStamp );
-            $this->_calcData[$dtCurrent->format('d-m-Y')] = $this->_calc( $timeStamp );
-            //            var_dump( $cnIndex );
+
+            $_calc = $this->_calc( $timeStamp );
+            $_calc['date'] = $dtCurrent->format( 'd-m-Y' );
+            $this->_calcData[] = $_calc;
+            //                        var_dump( $_calc );7
             $dtCurrent->add( new \DateInterval( 'P1D' ) );
         }
-        var_dump($this->_calcData);
+        //                var_dump( $this->_calcData );
     }
 
     private function _bisectionCounters( $timeStamp ) {
@@ -118,7 +139,9 @@ class GroupCounterCalc {
     }
 
     protected function _calc( $timeStamp ) {
-        foreach ( $this->_sortData as $key => $sortDataCount ) {
+        $keys = array_keys( $this->_sortData );
+        $powerAll = 0;
+        foreach ( $keys as $key ) {
             $indexArr = $this->_cnIndex[ $key ];
             switch ( $indexArr['position'] ) {
                 case 0:
@@ -136,9 +159,11 @@ class GroupCounterCalc {
                 default:
                     $_power = 0;
             }
-            $power[ $key ] = $_power;
+            $power[ $key ] = $_power * $this->_legend[ $key ]['coefficient'];
+            $powerAll = $powerAll + $power[ $key ];
+            //            var_dump( $this->_legend[ $key ]['coefficient'] );
         }
-//        var_dump($power);
+        $power['sumDay'] = $powerAll;
         return $power;
     }
 
@@ -168,13 +193,17 @@ class GroupCounterCalc {
 
             $power = $diffPower1 * $DivisionDay->getBefore() + $diffPower2 * $DivisionDay->getAfter();
 
-//            var_dump( $countLow, $countCurrent, $countHigh );
-//            var_dump( $diffTime1, $diffTime2 );
-//            var_dump( $diffValue1, $diffValue2 );
-//            var_dump( $diffPower1, $diffPower2 );
-//            var_dump($power);
+            //            var_dump( $countLow, $countCurrent, $countHigh );
+            //            var_dump( $diffTime1, $diffTime2 );
+            //            var_dump( $diffValue1, $diffValue2 );
+            //            var_dump( $diffPower1, $diffPower2 );
+            //            var_dump($power);
 
         } else {
+            $diffTime1 = round( ( $countCurrent['date_second'] - $countLow['date_second'] ) / 60 );
+            $diffValue1 = ( $countCurrent['value'] - $countLow['value'] ) * $coeff1;
+            $diffPower1 = $diffValue1 / $diffTime1;
+            $power = $diffPower1 * self::MINUTE_DAY;
 
         }
         return $power;

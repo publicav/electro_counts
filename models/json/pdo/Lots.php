@@ -70,7 +70,8 @@ class Lots {
     public function render() {
         if ( $this->_filter ) $lots = $this->_lotsFilter; else $lots = $this->_lots;
         $lotsHTML = '';
-        for ( $i = 0; $i < count( $lots ); $i++ ) {
+        $countLots = count( $lots );
+        for ( $i = 0; $i < $countLots; $i++ ) {
             $lotsHTML .= "<option value=\"{$lots[$i]['id']}\">{$lots[$i]['name']}</option>";
         }
         echo $lotsHTML;

@@ -1,7 +1,8 @@
 <ul>
     <?php
     $content = '';
-    for ( $i = 0; $i < SizeOf( $this->_mainMenu ); $i++ ) {
+    $countMainMenu = count( $this->_mainMenu );
+    for ( $i = 0; $i < $countMainMenu; $i++ ) {
         $content .= "<li>
                             <a id=\"{$this->_mainMenu[$i]->id_a}\" href=\"{$this->_mainMenu[$i]->url}\">{$this->_mainMenu[$i]->name}</a>
 					  </li>

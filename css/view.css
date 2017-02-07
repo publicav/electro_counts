@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url(../img/web/powerlines-bg3.jpg);
+    font: 13px verdana, sans-serif;
+}
+
+img {
+    border: 0;
+}
+
+.hide {
+    display: none;
+}
+
+#wrapper {
+    /*background-image:url(img/fon_con.gif);*/
+    margin: 0px auto;
+    min-width: 1225px;
+    max-width: 1225px;
+    text-align: left;
+    color: #2b4157;
+    background: #FFFFFF;
+    border: 0px solid #000;
+}
+#header{
+    margin: 0px auto;
+    height: 140px;
+    width: 1215px;
+    background-color: #69c;
+}
+#main_menu{
+    background: url(../img/web/menu.png) no-repeat center center;
+    font-family: Tahoma,Arial,sans-serif;
+    position: relative;
+    top: 10px;
+    left: 400px;
+    width: 707px;
+    height: 91px;
+    border: 0px none currentcolor;
+    font-size: 9pt;
+}
+#main_menu ol {
+    list-style: none;
+    text-decoration: none;
+    color: #fff;
+    /*margin: 5px 0px 10px;*/
+    padding: 18px 0px 5px 15px;
+    /*width: 300px;*/
+
+}
