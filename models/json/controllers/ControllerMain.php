@@ -15,20 +15,24 @@ use pdo\Privelege;
 class ControllerMain extends Conroller {
     public function actionIndex() {
         // TODO: Implement actionIndex() method.
+        $this->_view->setFileMainMenu( $this->_route->getMainMenu() );
         $menuLeft = new Privelege( $this->_auth );
         $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
         $this->_view->render( $this->_route->getViewPath(), '' );
     }
 
     public function actionBlank() {
+        $this->_view->setFileMainMenu( $this->_route->getMainMenu() );
         $this->_view->render( $this->_route->getBlankViewPath(), '' );
     }
 
     public function actionHelp() {
+        $this->_view->setFileMainMenu( $this->_route->getMainMenu() );
         $this->_view->render( $this->_route->getViewPath(), '' );
     }
 
     public function actionView_count() {
+        $this->_view->setFileMainMenu( $this->_route->getMainMenu() );
         $menuLeft = new Privelege( $this->_auth );
         $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
         $this->_view->setJs( [
@@ -39,6 +43,7 @@ class ControllerMain extends Conroller {
     }
 
     public function actionLoad_forms() {
+        $this->_view->setFileMainMenu( $this->_route->getMainMenu() );
         $menuLeft = new Privelege( $this->_auth );
         $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
         $this->_view->setJs( [
@@ -48,6 +53,7 @@ class ControllerMain extends Conroller {
     }
 
     public function actionEdit_count() {
+        $this->_view->setFileMainMenu( $this->_route->getMainMenu() );
         $menuLeft = new Privelege( $this->_auth );
         $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
         $this->_view->setJs( [
@@ -59,6 +65,7 @@ class ControllerMain extends Conroller {
     }
 
     public function actionCalc_count() {
+        $this->_view->setFileMainMenu( $this->_route->getMainMenu() );
         $menuLeft = new Privelege( $this->_auth );
         $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
         $this->_view->setJs( [

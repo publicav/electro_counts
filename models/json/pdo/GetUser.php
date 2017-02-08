@@ -1,38 +1,42 @@
 <?php
 namespace pdo;
-class GetUser { 
-    protected $_user;
-    private  $sq;
-    private  $res;
+class GetUser {
+    protected $_user = null;
     private static $_link;
     private $_pdo;
+
     /**
      * GetUser constructor.
      * @param $id
+     * @throws \Exception
      */
     function __construct( $id ) {
+//        if ( !is_null( $id ) ) return;
         $this->_pdo = \db::getLink()->getDb();
-        $this->sq = "SELECT name, family FROM users WHERE (id= :id );";
+        $sq = "SELECT name, family FROM users WHERE (id= :id );";
         $param = [ 'id' => $id ];
-        $this->res = $this->_pdo->prepare( $this->sq );
-        if ( !$this->res->execute( $param ) ) {
-            header("HTTP/1.1 400 Bad Request", true, 400);
-            print  $this->res->errorInfo()[2];
-            exit();
+        $res = $this->_pdo->prepare( $sq );
+        if ( !$res->execute( $param ) ) {
+            throw new \Exception( $res->errorInfo()[2], '400' );
         }
-        $user_a = $this->res->fetchAll();
+        $user_a = $res->fetchAll();
         if ( !empty( $user_a ) ) $this->_user = $user_a[0];
     }
 
 
     /**
      * @param $id
-     * @return array $user
+     * @return GetUser
      */
     public static function GetUser( $id ) {
-        if ( is_null( self::$_link ) ){
+        if ( is_null( self::$_link ) ) {
             self::$_link = new self( $id );
         }
-        return self::$_link->_user;
+        return self::$_link;
+    }
+
+    public function render() {
+        if ( !is_null( $this->_user ) )
+            echo "<div class=\"user\"><div class=\"title_user\">Вы зашли как:</div>{$this->_user['name']} {$this->_user['family']}</div>";
     }
 }

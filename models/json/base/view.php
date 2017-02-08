@@ -13,7 +13,7 @@ class View {
     protected $_baseDir = __DIR__ . '';
     protected $_title, $_MetaK, $_MetaD;
     protected $_layout;
-    protected $_mainMenu, $_leftMenu;
+    protected $_FileMainMenu, $_leftMenu;
     protected $_auth = null;
     protected $_user;
     protected $_js = [];
@@ -26,8 +26,8 @@ class View {
     /**
      * @param mixed $mainMenu
      */
-    public function setMainMenu( $mainMenu ) {
-        $this->_mainMenu = $mainMenu;
+    public function setFileMainMenu( $mainMenu ) {
+        $this->_FileMainMenu = $mainMenu;
     }
 
     public function setLayout( $pathLauout ) {
