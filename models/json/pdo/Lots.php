@@ -13,14 +13,12 @@ class Lots {
         $sq = "SELECT l.id, l.name FROM  lots AS l;";
         $res = $pdo->prepare( $sq );
         if ( !$res->execute() ) {
-            header( "HTTP/1.1 400 Bad Request", true, 400 );
-            print exit_error( false, 3, $res->errorInfo()[2] );
-            exit();
+            throw new Exception( 'Bad Request' . $res->errorInfo()[2], '400' );
         }
         $this->_lots = $res->fetchAll();
     }
 
-    
+
     /**
      * @return Lots
      */
