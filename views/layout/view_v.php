@@ -5,14 +5,15 @@
     <link rel="shortcut icon" type="image/x-icon" href="img/web/count1.png">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="author" content="level">
-    <meta name="description" content="<?=$this->_MetaD?>">
-    <meta name="keywords" content="<?=$this->_MetaK?>">
-    <title><?=$this->_title?></title>
+    <meta name="description" content="<?= $this->_MetaD ?>">
+    <meta name="keywords" content="<?= $this->_MetaK ?>">
+    <title><?= $this->_title ?></title>
     <script src="js/jquery-2.2.4.min.js"></script>
-    <?=$this->getJsHTML()?>
+    <?= $this->getCSSHTML() ?>
+    <?= $this->getJsHTML() ?>
 </head>
 <script type="text/javascript">
-    <?php  include __DIR__ . "/../base/jquery_exec.php"; ?>
+    <?php  //include __DIR__ . "/../base/jquery_exec.php"; ?>
 </script>
 
 

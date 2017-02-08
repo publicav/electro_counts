@@ -79,7 +79,7 @@ return [
             'controllerName' => 'controllers\ControllerView',
             'actions' => [
                 'auth' => 'actionCalcGroup',
-                'nonAuth' => 'actionBlank'
+                'nonAuth' => 'actionCalcGroup'
             ]
         ],
 

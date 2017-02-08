@@ -43,12 +43,21 @@ img {
     border: 0px none currentcolor;
     font-size: 9pt;
 }
-#main_menu ol {
-    list-style: none;
-    text-decoration: none;
-    color: #fff;
-    /*margin: 5px 0px 10px;*/
-    padding: 18px 0px 5px 15px;
-    /*width: 300px;*/
+#main_menu table{
+    border: 1px;
+}
 
+#main_menu table tr td {
+    border: 1px;
+    top: 0px;
+    width: 120px;
+    height: 40px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    /*padding: 0px 0px 0px 10px;*/
+}
+#main_menu table tr td a {
+    color: #fff;
+    text-decoration: none;
 }

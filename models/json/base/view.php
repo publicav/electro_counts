@@ -89,4 +89,22 @@ class View {
         }
         return $JsHTML;
     }
+
+    /**
+     * @param array $css
+     */
+    public function setCss( $css ) {
+        $this->_css = $css;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCSSHTML() {
+        $CssHTML = '';
+        foreach ( $this->_css as $cssName ) {
+            $CssHTML .= "<link type=\"text/css\" rel=\"stylesheet\" href=\"$cssName\">";
+        }
+        return $CssHTML;
+    }
 }

@@ -61,7 +61,7 @@ try {
              $tableRow[$key1] = $power;
 
         }
-        var_dump( $tableRow );
+//        var_dump( $tableRow );
     }
     $dateJson = json_encode( $date1 );
 

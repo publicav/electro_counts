@@ -1,4 +1,3 @@
-<?php include_once "models/json/accounting_group.php" ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -72,13 +71,15 @@
 <table id="groupconter_t" class="display" width="100%" cellspacing="0">
     <thead>
     <tr>
-        <th><?=$type['legend'][22]['name']?></th>
-        <th><?=$type['legend'][23]['name']?></th>
-        <th><?=$type['legend'][24]['name']?></th>
+        <th><?//=$type['legend'][22]['name']?></th>
+        <th><?//=$type['legend'][23]['name']?></th>
+        <th><?//=$type['legend'][24]['name']?></th>
     </tr>
-    </thead>
-    <tbody>
-
+    <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+    </tr>
     </tbody>
 </table>
 
