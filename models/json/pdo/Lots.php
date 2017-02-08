@@ -20,27 +20,7 @@ class Lots {
         $this->_lots = $res->fetchAll();
     }
 
-    /**
-     * @return array $lots
-     */
-    public static function GetLots() {
-        if ( is_null( self::$_link ) ) {
-            self::$_link = new self();
-        }
-        return self::$_link->_lots;
-    }
-
-    /**
-     * @return array
-     */
-    public static function GetLotsFilter() {
-        if ( is_null( self::$_link ) ) {
-            self::$_link = new self();
-        }
-        return array_merge( [ self::lotsFilter ], self::$_link->_lots );
-
-    }
-
+    
     /**
      * @return Lots
      */
