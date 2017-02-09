@@ -1,6 +1,6 @@
 ﻿$(function () {
     $('#group').change(function () {
-        var tableConst = '<table id="groupconter_t" class="display" width="90%" cellspacing="0"><thead></thead><tbody></tbody></table>';
+        var tableConst = '<table id="groupconter_t"  class="display" style="margin: 0 auto; padding: 0px 15px 10px 15px; width: 850px;" cellspacing="0" width="100%"><thead></thead><tbody></tbody></table>';
 
         console.log('change')
         var group = $(this).val();
@@ -16,11 +16,9 @@
                 //Таблица
                 var default_options = {
                     "pageLength": 50,
-                    // "scrollX": true,
                     "aaData": data.calcData,
                     "aoColumns": data.title,
-                    // "destroy": true
-
+                    "scrollX": true
                 };
                 $("#groupconter_t").dataTable(default_options);
                 // console.log('test', data);
@@ -37,7 +35,7 @@
     //     // aaData: body,
     //     // aoColumns: head
     // };
-    var tableConst = '<table id="groupconter_t" class="display" width="90%" cellspacing="0"><thead></thead><tbody></tbody></table>';
+    var tableConst = '<table id="groupconter_t"  class="display" style="margin: 0 auto; padding: 0px 15px 10px 15px; width: 850px;" cellspacing="0" width="100%"><thead></thead><tbody></tbody></table>';
     $.ajax({dataType: 'json', type: 'get', url: 'models/json/accounting_group.php', data: {'group': 1}})
         .success(function (result) {
             var data = result;
@@ -48,9 +46,9 @@
             //Таблица
             var default_options = {
                 "pageLength": 50,
-                // "scrollX": true,
                 "aaData": data.calcData,
-                "aoColumns": data.title
+                "aoColumns": data.title,
+                "scrollX": true
             };
             $("#groupconter_t").dataTable(default_options);
             // console.log('test', data);
