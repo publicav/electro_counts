@@ -31,12 +31,6 @@
  </div>
 <div id="right">
     <div id="table_div">
-    <table id="groupconter_t" class="display" width="90%" cellspacing="0">
-        <thead>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
     </div>
 
 </div>

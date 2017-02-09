@@ -9,14 +9,14 @@
 namespace pdo;
 
 
-class Groupfilter {
+class GroupFilter {
     private $_groupsFilter;
 
     private static $_link;
 
     function __construct() {
         $pdo = \db::getLink()->getDb();
-        $sq = "SELECT id, name FROM  name_group_counters;";
+        $sq = "SELECT id, name FROM  name_group_counters ORDER BY sort;";
         $res = $pdo->prepare( $sq );
         if ( !$res->execute() ) {
             throw new Exception( 'Bad Request' . $res->errorInfo()[2], '400' );
