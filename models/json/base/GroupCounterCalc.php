@@ -22,6 +22,7 @@ class GroupCounterCalc {
     private $_cnIndex;
     private $_calcData;
     private $_legend;
+    private $_round = 3;
 
     public function __construct( $numberGroup, $dateLow, $dateHigh ) {
         $this->_dateLow = $dateLow;
@@ -35,6 +36,14 @@ class GroupCounterCalc {
         $this->_sortArray();
         $this->_bustDays();
 
+    }
+
+    /**
+     * round  Округление результата до нужной точности
+     * @param int $round
+     */
+    public function setRound( $round ) {
+        $this->_round = $round;
     }
 
     /**
@@ -87,9 +96,14 @@ class GroupCounterCalc {
             $this->_bisectionCounters( $timeStamp );
 
             $_calc = $this->_calc( $timeStamp );
-            $_calc['date'] = $dtCurrent->format( 'd-m-Y' );
-            $this->_calcData[] = $_calc;
-            //                        var_dump( $_calc );7
+            $_calcD = [];
+            $_calcD[] = $dtCurrent->format( 'd-m-Y' );
+            foreach ( $_calc as $key => $value1 ) {
+                $_calcD[] = round( $value1, $this->_round );
+            }
+
+            $this->_calcData[] = $_calcD;
+            //            var_dump( $_calcD );
             $dtCurrent->add( new \DateInterval( 'P1D' ) );
         }
         //                var_dump( $this->_calcData );
@@ -159,11 +173,11 @@ class GroupCounterCalc {
                 default:
                     $_power = 0;
             }
-            $power[ $key ] = $_power * $this->_legend[ $key ]['coefficient'];
-            $powerAll = $powerAll + $power[ $key ];
+            $power[] = $_power * $this->_legend[ $key ]['coefficient'];
+            $powerAll = $powerAll + $_power * $this->_legend[ $key ]['coefficient'];
             //            var_dump( $this->_legend[ $key ]['coefficient'] );
         }
-        $power['sumDay'] = $powerAll;
+        $power[] = $powerAll;
         return $power;
     }
 

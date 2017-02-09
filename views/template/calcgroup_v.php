@@ -21,58 +21,22 @@
         </table>
     </div>
 </div>
- <div>
-<table id="groupconter_t" class="display" width="90%" cellspacing="0">
-    <tbody>
-    <thead>
-    <tr>
-        <th>test1</th>
-        <th>test2</th>
-        <th>test3</th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
+ <div id="left">
+     <div class="title_filtred">
+         <?php
+            include(__DIR__ . "/../base/filtr_group.php");
+         ?>
 
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-    </thead>
-    </tbody>
-</table>
+     </div>
+ </div>
+<div id="right">
+    <table id="groupconter_t" class="display" width="90%" cellspacing="0">
+        <thead>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+</div>
 
 </div>
