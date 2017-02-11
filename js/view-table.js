@@ -1,62 +1,88 @@
 ﻿$(function () {
+
     $('#group').change(function () {
-        var tableConst = '<table id="groupconter_t"  class="display" style="margin: 0 auto; padding: 0px 15px 10px 15px; width: 850px;" cellspacing="0" width="100%"><thead></thead><tbody></tbody></table>';
-
-        console.log('change')
-        var group = $(this).val();
-        $.ajax({dataType: 'json', type: 'get', url: 'models/json/accounting_group.php', data: {'group': group}})
-            .success(function (result) {
-                var data = result;
-                var nameGroup = data.nameGroup;
-                var titleGroup = '<div style="font-size: 18pt; padding: 10px; text-align: center">' + nameGroup +  '</div>'
-
-                // table.destroy();
-                $("#table_div").html('');
-                $("#table_div").append(titleGroup + tableConst);
-                //Таблица
-                var default_options = {
-                    "pageLength": 50,
-                    "aaData": data.calcData,
-                    "aoColumns": data.title,
-                    "scrollX": true
-                };
-                $("#groupconter_t").dataTable(default_options);
-                // console.log('test', data);
-            })
-            .error(function (result) {
-                    alert('Error')
-                }
-            );
-
+        cmd_arr.group = $(this).val();
+        jsonGetGroup(cmd_arr);
     })
-    // var default_options = {
-    //     bProcessing: true,
-    //     aoColumns: head
-    //     // aaData: body,
-    //     // aoColumns: head
-    // };
-    var tableConst = '<table id="groupconter_t"  class="display" style="margin: 0 auto; padding: 0px 15px 10px 15px; width: 850px;" cellspacing="0" width="100%"><thead></thead><tbody></tbody></table>';
-    $.ajax({dataType: 'json', type: 'get', url: 'models/json/accounting_group.php', data: {'group': 1}})
-        .success(function (result) {
-            var data = result;
-            var nameGroup = data.nameGroup;
-            var titleGroup = '<div style="font-size: 18pt; padding: 10px; text-align: center">' + nameGroup +  '</div>'
-            $("#table_div").html('');
-            $("#table_div").append(titleGroup + tableConst);
-            //Таблица
-            var default_options = {
-                "pageLength": 50,
-                "aaData": data.calcData,
-                "aoColumns": data.title,
-                "scrollX": true
-            };
-            $("#groupconter_t").dataTable(default_options);
-            // console.log('test', data);
-        })
-        .error(function (result) {
-                alert('Error')
+    cmd_arr.group = 1;
+    jsonGetGroup(cmd_arr);
+
+    $('.filtred_checkbox').on('click', function () {
+        var checkbox_id = $(this).attr('id');
+
+        cmd_arr.group = $('#group').val();
+        if ((checkbox_id == 'dt1_en'))
+            if ($('#dt1_en').prop('checked')) {
+
+                $('#dt2_en').prop('disabled', false);
+
+                $("#dt1").datepicker('enable');
+                jsonGetGroup(cmd_arr);
+                // json_get_table($('#right'), cmd_arr);
+                // history.pushState(null, null, create_cmd(base_link, cmd_arr));
+
+            } else {
+                delete cmd_arr.date_b;
+                delete cmd_arr.date_e;
+
+                $('#dt2_en').prop('disabled', true);
+                $('#dt2_en').prop('checked', false);
+
+
+                $("#dt1").datepicker('disable');
+                $("#dt2").datepicker('disable');
+                jsonGetGroup(cmd_arr);
+
+                // json_get_table($('#right'), cmd_arr);
+                // history.pushState(null, null, create_cmd(base_link, cmd_arr));
             }
-        );
+
+        if ((checkbox_id == 'dt2_en'))
+            if ($('#dt2_en').prop('checked')) {
+
+                $("#dt2").datepicker('enable');
+                cmd_arr.date_e = $("#dt2").datepicker().val();
+                jsonGetGroup(cmd_arr);
+                // json_get_table($('#right'), cmd_arr);
+                // history.pushState(null, null, create_cmd(base_link, cmd_arr));
+
+            } else {
+                delete cmd_arr.date_e;
+
+
+                $("#dt2").datepicker('disable');
+                jsonGetGroup(cmd_arr);
+                // json_get_table($('#right'), cmd_arr);
+                // history.pushState(null, null, create_cmd(base_link, cmd_arr));
+            }
+    });
+
+
+    $("#dt1").datepicker({
+        changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
+        onSelect: function (dateText, inst) {
+            cmd_arr.date_b = dateText;
+            console.log(cmd_arr);
+            jsonGetGroup(cmd_arr);
+            // json_get_table($('#right'), cmd_arr);
+        }
+    });
+
+    $("#dt2").datepicker({
+        changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
+        onSelect: function (dateText, inst) {
+            cmd_arr.date_e = dateText;
+            jsonGetGroup(cmd_arr);
+            // json_get_table($('#right'), cmd_arr);
+        }
+    });
+
+    if (!$('#dt1_en').prop('checked')) $("#dt1").datepicker('disable');
+    if (!$('#dt2_en').prop('checked')) $("#dt2").datepicker('disable');
+     $('#dt2_en').prop('disabled', true);
+
+
+$( document ).tooltip({ content: function() { return this.getAttribute("title") } });
 
 });
 

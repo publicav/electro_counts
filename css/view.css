@@ -116,12 +116,40 @@ img {
     padding: 0px 0px 0px 0px;
     text-align: center;
 }
+
 .f_input_filtred {
     font: 13px Tahoma;
     padding: 15px 0px 0px 0px;
 }
+.f_input {
+    font: 14px Tahoma;
+    margin: 15px 0px 10px 28px;
+    text-align: left;
+}
+
+.label_user_add_form {
+    font: 16px verdana, sans-serif;
+    display: inline-table;
+    width: 220px;
+}
+
+.input_user_add_form {
+    font: 16px verdana, sans-serif;
+    padding: 5px 0px 5px 0px;
+    width: 370px;
+}
+.filtred_label {
+    text-align: left;
+}
+.filtred_selected {
+    font: 14px Tahoma;
+    margin: 5px 0px 5px 0px;
+    padding: 5px 0px 5px 0px;
+    width: 250px;
+    text-align: left;
+}
 .p_input {
-    margin: 10px 0px 10px 40px;
+        margin: 10px 0px 10px 40px;
 }
 
 .label_p {
@@ -129,19 +157,18 @@ img {
     display: inline-table;
     width: 180px;
 }
-.f_input_filtred {
-    font: 13px Tahoma;
-    padding: 15px 0px 0px 0px;
+
+#counter_last_val {
+    font-weight: bold;
+    background-color: #FFEB9C;
 }
-.filtred_selected {
-    font: 14px Tahoma;
-    margin: 5px 0px 5px 0px;
+
+.input_form {
+    font: 16px verdana, sans-serif;
     padding: 5px 0px 5px 0px;
-    width: 250px;
+    width: 350px;
 }
-.filtred_label {
-    text-align: left;
-}
+
 
 
 
