@@ -21,11 +21,11 @@ class PeriodDay {
         $this->datetime2->add(new \DateInterval('P1D'));
 
 		while ($this->datetime2->format('d') != $this->dt1) {
-			$this->day[] = array(
+			$this->day[] = [
                 'name_counter' => $name_counter, 
                 'date' => $this->datetime2->format('d-m-Y'), 
                 'rare' =>  round( ($diffMinuteVal * 1400), $this->round)
-            );
+            ];
 			$this->datetime2->add(new \DateInterval('P1D'));			
 		}
 	}   

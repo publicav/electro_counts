@@ -35,8 +35,8 @@ function tableView(data) {
         aoColumnDefs: [
             // { bSortable: true, aTargets: [ 0 ] },
 //            { type: 'date-dd-mmm-yyyy', atargets: 0 },
-            { type: 'date-euro', targets: 0},
-            { bSortable: false, aTargets: [ '_all' ] }
+            {type: 'date-euro', targets: 0},
+            {bSortable: false, aTargets: ['_all']}
         ],
         "aaData": data.calcData,
         "aoColumns": data.title,
@@ -52,7 +52,7 @@ function jsonGetGroup(cmd_arr) {
             tableView(result);
         })
         .error(function (result) {
-                alert('Error - ' + result.error)
+                alert('Error - ' + result.responseJSON.error)
             }
         );
 }

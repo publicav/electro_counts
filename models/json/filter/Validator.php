@@ -44,6 +44,14 @@ class Validator {
 
     }
 
+    protected function isDate( $field ) {
+        if ( empty( $this->_data[ $field ] ) ) return;
+        $date = \DateTime::createFromFormat( 'Y-m-d', $this->_data[ $field ] );
+        if ( !$date ) {
+            $this->addError( $field, 'Date format error!' );
+        }
+    }
+
     public function addError( $field, $error ) {
         $this->_errors[ $field ] = $error;
     }

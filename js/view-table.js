@@ -59,7 +59,7 @@
 
 
     $("#dt1").datepicker({
-        changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
+        changeYear: true, changeMonth: true, minDate: '2016-11-11', maxDate: '0', dateFormat: 'yy-mm-dd',
         onSelect: function (dateText, inst) {
             cmd_arr.date_b = dateText;
             console.log(cmd_arr);
@@ -69,7 +69,7 @@
     });
 
     $("#dt2").datepicker({
-        changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
+        changeYear: true, changeMonth: true, minDate: '2016-11-11', maxDate: '0', dateFormat: 'yy-mm-dd',
         onSelect: function (dateText, inst) {
             cmd_arr.date_e = dateText;
             jsonGetGroup(cmd_arr);
@@ -80,6 +80,7 @@
     if (!$('#dt1_en').prop('checked')) $("#dt1").datepicker('disable');
     if (!$('#dt2_en').prop('checked')) $("#dt2").datepicker('disable');
      $('#dt2_en').prop('disabled', true);
+
 
 
 $( document ).tooltip({ content: function() { return this.getAttribute("title") } });
