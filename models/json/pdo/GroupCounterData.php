@@ -177,21 +177,24 @@ class GroupCounterData {
             throw new \Exception( $this->_pdo->errorInfo()[2] );
         }
         $sqlData = $res->fetchAll();
+//        var_dump($sqlData);
         $allowAll = array();
         $bellowAll = array();
         foreach ( $this->_counterGroup as $cell ) {
             $allow = $this->qAllow( $cell['id'], $dateHigh );
             $bellow = $this->qBellow( $cell['id'], $dateLow );
-
+            //var_dump($cell);
             if ( !empty( $allow ) ) $allowAll = array_merge( $allowAll, $allow );
             if ( !empty( $bellow ) ) $bellowAll = array_merge( $bellowAll, $bellow );
         }
+//        var_dump($bellowAll);
         if ( is_array( $sqlData ) ) {
             $this->_sqlData = array_merge( $bellowAll, $sqlData, $allowAll );
 
         } else {
             $this->_sqlData = array_merge( $bellowAll, $allowAll );
         }
+        //        var_dump($this->_sqlData);
     }
 
     private function qAllow( $count, $dateHigh ) {

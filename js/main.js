@@ -59,7 +59,7 @@ let get_last_val = ( {objCounterLastVal, param } ) => {
 			var data = result.data;
 			objCounterLastVal.val( data.value );	
 	})
-	.fail(( result ) => alert(result.error));
+	.fail(( result ) => alert( result.responseJSON.error));
 }
 
 
@@ -86,11 +86,11 @@ let get_counter = ( { objCounter, objCounterLastVal = {}, url_counter, actions =
 						var data = result.data;
 						objCounterLastVal.val( data.value );	
 				})
-				.fail(( result ) => alert(result.error));
+				.fail(( result ) => alert( result.responseJSON.error));
 			}
 		}
 	})	
-	.fail(( result, b, c ) => alert( result.error ));
+	.fail(( result, b, c ) => alert( result.responseJSON.error ));
 //	console.log(a, b, c);
 }	
 
@@ -110,7 +110,7 @@ let get_substation = ( {objSubstation, objCounter, objCounterLastVal = {}, url_s
 				get_counter( { objCounter, objCounterLastVal, url_counter, actions, EDIT_ACTIONS, couner_value}, value );
 			}
 	})
-	.fail(( result, b, c ) => alert('test' + result.error));
+	.fail(( result, b, c ) => alert( result.responseJSON.error));
 }
 
 
@@ -192,7 +192,7 @@ let json_get_table = ( objTarget, cmd_arr ) => {
 			history.pushState( null, null, create_cmd( '', cmd_arr ) );
 		} else  alert( result.error );
 	 })
-	 .fail(() => alert( result.error ));		
+	 .fail(() => alert(  result.responseJSON.error ));
 }
 
 let json_get_t_calc = ( objTarget, cmd_arr ) => {
@@ -205,7 +205,7 @@ let json_get_t_calc = ( objTarget, cmd_arr ) => {
 			history.pushState( null, null, create_cmd( '', cmd_arr ) );
 		} else  alert( result.error );
 	 })
-	 .fail(() => alert( 'Error' ));		
+	 .fail((result) => alert( result.responseJSON.error ));
 }
 
 /**
@@ -267,7 +267,7 @@ let json_get_user = ( objTarget ) => {
 			$( objTarget ).html( print_table_user( data ) );
 			$( objTarget ).prepend( add_user_btn() );
 	})
-	.fail(( result, b, c ) => alert(result.error));
+	.fail(( result, b, c ) => alert( result.responseJSON.error ));
 
 	function add_user_btn() {
 		let st = `	<div id="add_user_btn">
@@ -306,7 +306,7 @@ let l_form_edit_user = ( {objUser, objPassword, objConfirmPassword, objUserFamil
 		objUserName.val(data.name);	
 		objId.val(data.id);	
 	})
-	.fail(() => alert(result.error));
+	.fail(() => alert( result.responseJSON.error ));
 }
 
 let edit_form_actions = ( obj_form ) => {
@@ -328,7 +328,7 @@ let edit_form_actions = ( obj_form ) => {
 			json_get_table(obj_form.objTarget, obj_form.cmd);
 		} else  alert( result.error );
 	})
-	.fail((result) => alert( result.error ));	
+	.fail((result) => alert( result.responseJSON.error ));
 }
 
 let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, objBtnEdit, objListRec, btnPress, gl_add_counts, edit_arr} ) =>{

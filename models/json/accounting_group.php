@@ -1,4 +1,7 @@
 <?php
+
+use pdo\GroupCounterData;
+
 try {
     include_once "Autoload.php";
     include_once( "../open.php" );
@@ -17,16 +20,22 @@ try {
         }
     }
     $dt = new \DateTime();
-    if ( !isset( $get_prog['date_b'] ) ) {
+    if ( empty( $get_prog['date_b'] ) ) {
         $get_prog['date_b'] = $dt->format( 'Y-m-01' );
         $get_prog['date_e'] = $dt->format( 'Y-m-d' );
 
-    }
-    if ( !isset( $get_prog['date_e'] ) ) {
+    } elseif ( empty( $get_prog['date_e'] ) ) {
         $get_prog['date_e'] = $dt->format( 'Y-m-d' );
     }
 
-    $calcGroup = new base\GroupCounterCalc( $filter->getInt( 'group' ), $get_prog['date_b'], $get_prog['date_e'] );
+    $dateLow = $get_prog['date_b'];
+    $dateHigh = $get_prog['date_e'];
+    $numberGroup = $get_prog['group'];
+    $dataGroup = GroupCounterData::init( $numberGroup );
+    $dataGroup->queryGroup( $dateLow, $dateHigh );
+
+    $calcGroup = new base\GroupCounterCalc( $dataGroup, $dateLow, $dateHigh );
+    $calcGroup->init();
     $legend = $calcGroup->getLegend();
 
     $title[] = [ 'sTitle' => 'Время' ];
