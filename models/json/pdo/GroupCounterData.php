@@ -184,8 +184,8 @@ class GroupCounterData {
             $abow = $this->qAbow( $cell['id'], $dateHigh );
             $below = $this->qBelow( $cell['id'], $dateLow );
 
-            if ( !empty( $allow ) ) $abowAll = array_merge( $abowAll, $abow );
-            if ( !empty( $bellow ) ) $belowAll = array_merge( $belowAll, $below );
+            if ( !empty( $abow ) ) $abowAll = array_merge( $abowAll, $abow );
+            if ( !empty( $below ) ) $belowAll = array_merge( $belowAll, $below );
         }
 
         if ( is_array( $sqlData ) ) {

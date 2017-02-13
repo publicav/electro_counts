@@ -18,7 +18,6 @@ class GroupCounterCalc {
     private $_dataGroup;
     private $_dateLow, $_dateHigh;
     private $_sortData;
-    private $_cnIndex;
     private $_calcData;
     private $_round = 3;
 
@@ -99,8 +98,6 @@ class GroupCounterCalc {
         $dtCurrent = new \DateTime( $this->_dateLow . ' 00:00:00' );
         while ( $dtCurrent <= $dtHigh ) {
             $timeStamp = $dtCurrent->getTimestamp();
-            $this->_bisectionCounters( $timeStamp );
-
             $_calc = $this->_calc( $timeStamp );
             $_calcD = [];
             $_calcD[] = $dtCurrent->format( 'd-m-Y' );
@@ -118,7 +115,7 @@ class GroupCounterCalc {
         foreach ( $this->_sortData as $key => $sortDataCount ) {
             $retIndex[ $key ] = $this->_bisection( $timeStamp, $sortDataCount );
         }
-        $this->_cnIndex = $retIndex;
+        return $retIndex;
     }
 
     private function _bisection( $timeStamp, $counter ) {
@@ -156,11 +153,12 @@ class GroupCounterCalc {
     }
 
     protected function _calc( $timeStamp ) {
-        $keys = array_keys( $this->_sortData );
         $powerAll = 0;
+        $indexAllArray = $this->_bisectionCounters( $timeStamp );
+        $keys = array_keys( $this->_sortData );
         $legend = $this->getLegend();
         foreach ( $keys as $key ) {
-            $indexArr = $this->_cnIndex[ $key ];
+            $indexArr = $indexAllArray[ $key ];
             switch ( $indexArr['position'] ) {
                 case 0:
                     $_power = $this->_powerDay( $timeStamp, $indexArr, $key );
@@ -179,7 +177,7 @@ class GroupCounterCalc {
             }
             $power[] = $_power * $legend[ $key ]['coefficient'];
             $powerAll = $powerAll + $_power * $legend[ $key ]['coefficient'];
-            //                        var_dump( $legend[ $key ]['coefficient'] );
+
         }
         $power[] = $powerAll;
         //        var_dump($power);
@@ -188,14 +186,17 @@ class GroupCounterCalc {
 
     protected function _powerDay( $timeStamp, $indexArr, $key ) {
 
-        $indexLow = $indexArr['indexLow'];
-        $index = $indexArr['index'];
-        $indexHigh = $indexArr['indexHigh'];
+        $countLow = $this->_sortData[ $key ][ $indexArr['indexLow'] ];
+        $countCurrent = $this->_sortData[ $key ][ $indexArr['index'] ];
+        $countHigh = $this->_sortData[ $key ][ $indexArr['indexHigh'] ];
 
-        $countLow = $this->_sortData[ $key ][ $indexLow ];
-        $countCurrent = $this->_sortData[ $key ][ $index ];
-        $countHigh = $this->_sortData[ $key ][ $indexHigh ];
+        $valueLow = $countLow['value'];
+        $valueCurrent = $countCurrent['value'];
+        $valuueHigh = $countHigh['value'];
 
+        $timeLow = $countLow['date_second'];
+        $timeCurrent = $countCurrent['date_second'];
+        $timeHigh = $countHigh['date_second'];
 
         $coeff1 = $this->_dataGroup->getCoeffPower( $key, $countCurrent['n_counter'] );
         $coeff2 = $this->_dataGroup->getCoeffPower( $key, $countHigh['n_counter'] );
@@ -205,15 +206,11 @@ class GroupCounterCalc {
 
         $DivisionDay = new DivisionDay( $countCurrent['dt1'] );
 
-        $valueLow = $countLow['value'];
-        $valueCurrent = $countCurrent['value'];
-        $valuueHigh = $countHigh['value'];
-
         if ( $DivisionDay->is_day( $timeStamp ) ) {
             $valueCurrent1 = $valueCurrent;
             $valuueHigh1 = $valuueHigh;
-            $diffTime1 = round( ( $countCurrent['date_second'] - $countLow['date_second'] ) / 60 );
-            $diffTime2 = round( ( $countHigh['date_second'] - $countCurrent['date_second'] ) / 60 );
+            $diffTime1 = round( ( $timeCurrent - $timeLow ) / 60 );
+            $diffTime2 = round( ( $timeHigh - $timeCurrent ) / 60 );
 
             if ( ( $valueLow > $valueCurrent ) and ( $valueCurrent < self::LOW_MIN ) ) {
                 $pw = strlen( floor( $valueLow ) );
@@ -242,7 +239,7 @@ class GroupCounterCalc {
             $power = $diffPower1 * $DivisionDay->getBefore() + $diffPower2 * $DivisionDay->getAfter();
 
         } else {
-            $diffTime1 = round( ( $countCurrent['date_second'] - $countLow['date_second'] ) / 60 );
+            $diffTime1 = round( ( $timeCurrent - $timeLow ) / 60 );
             $diffValue1 = ( $valueCurrent - $valueLow ) * $coeff1;
             $diffPower1 = $diffValue1 / $diffTime1;
             $power = $diffPower1 * self::MINUTE_DAY;
@@ -277,6 +274,7 @@ class GroupCounterCalc {
 
         return $power;
     }
+
     private function _powerDayBelow( $indexArr, $key ) {
         $indexLow = $indexArr['indexLow'];
         $countLow = $this->_sortData[ $key ][ $indexLow ];
