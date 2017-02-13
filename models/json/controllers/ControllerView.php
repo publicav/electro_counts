@@ -43,5 +43,19 @@ class ControllerView extends Conroller {
         $this->_view->render( $this->_route->getViewPath(), '' );
 
     }
+    public function actionChartGroup(){
+        $this->_view->setLayout( $this->_route->getLayout( 'view_v' ) );
+        $this->_view->setJs( [
+            'js/ui/minified/jquery-ui.min.js',
+            'js/view-main.js',
+            'js/highcharts.js',
+            'js/modules/exporting.js',
+        ] );
+        $this->_view->setCss( [
+            '${demo.css}'
+        ] );
+        $this->_view->render( $this->_route->getViewPath(), '' );
+
+    }
 
 }

@@ -23,68 +23,93 @@
 </script>
 
 <script type="text/javascript">
-    $(function () {
-//        var charts = Highcharts.chart('container', {
-//            chart: {
-//                type: 'bar'
-//            },
-//            title: {
-//                text: '<?//=$type['nameGroup']?>//'
-//            },
-//            xAxis: {
-//                categories: <?//=$dateJson?>
-//
-//            },
-//            yAxis: {
-//                title: {
-//                    text: 'Расход электричества по ячейкам'
-//                }
-//            },
-//            legend: {
-//                reversed: true
-//            },
-//            plotOptions: {
-//                series: {
-//                    stacking: 'normal'
-//                }
-//            },
-//            series: [{
-//                name: '<?//=$type['legend'][22]['name']?>//',
-//                data: <?//=$xpo?>
-//            }, {
-//                name: '<?//=$type['legend'][23]['name']?>//',
-//                data: <?//=$xpo[23]?>
-//            }, {
-//                name: '<?//=$type['legend'][24]['name']?>//',
-//                data: <?//=$xpo[24]?>
-//            }]
-//        });
-//        charts.series[2].setData(<?//=$xpos23?>//);
-        $("#groupconter_t").dataTable();
-    });
+    $( function () {
+        var options = {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'dddd'
+            },
+            xAxis: {
+                categories: [ 0, 5, 10, 15 ]
+
+            },
+            yAxis: {
+                title: {
+                    text: 'Расход электричества по ячейкам'
+                }
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: []
+        };
+        options.series = [ {
+            name: 'ssds',
+            data: [ 1, 2, 3, 4 ]
+        }, {
+            name: 'ertt',
+            data: [ 1, 2, 3, 4 ]
+        }, {
+            name: '3353',
+            data: [ 1, 2, 3, 4 ]
+        } ];
+        var chart = new Highcharts.Chart('container', options );
+        console.log( options );
+        var options = {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'dddd'
+            },
+            xAxis: {
+                categories: [ 0, 5, 10, 15 ]
+
+            },
+            yAxis: {
+                title: {
+                    text: 'Расход электричества по ячейкам'
+                }
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: []
+        };
+        options.series = [ {
+            name: 'ssds',
+            data: [ 1, 2, 3, 4 ]
+        }, {
+            name: 'ertt',
+            data: [ 1, 2, 3, 4 ]
+        }, {
+            name: '3353',
+            data: [ 1, 2, 3, 4 ]
+        },{
+            name: '3333353',
+            data: [ 1, 2, 3, 4 ]
+        }  ];
+
+        var chart = new Highcharts.Chart('container', options );
+        //        charts.series[ 2 ].setData(<?//=$xpos23?>//);
+//        $( "#container" ).html( chart );
+    } )
+    ;
 </script>
 </head>
 <body>
-
-<!--<div id="container" style="min-width: 310px; max-width: 800px; height: 800px; margin: 0 auto"></div>-->
-
-<table id="groupconter_t" class="display" width="100%" cellspacing="0">
-    <thead>
-    <tr>
-        <th><?//=$type['legend'][22]['name']?></th>
-        <th><?//=$type['legend'][23]['name']?></th>
-        <th><?//=$type['legend'][24]['name']?></th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-    </tbody>
-</table>
-
-<?php // include $tplName; ?>
-
-
+<div id="container"></div>
 </body>
 </html>

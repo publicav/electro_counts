@@ -16,10 +16,10 @@ class GroupCounterCalc {
     const MINUTE_DAY = 1440;
     const LOW_MIN = 20;
     private $_dataGroup;
-    private $_dateLow, $_dateHigh;
+    protected $_dateLow, $_dateHigh;
     private $_sortData;
-    private $_calcData;
-    private $_round = 3;
+    protected $_calcData;
+    protected $_round = 3;
 
     public function __construct( GroupCounterData $dataGroup, $dateLow, $dateHigh ) {
         $this->_dateLow = $dateLow;
@@ -92,7 +92,7 @@ class GroupCounterCalc {
 
     }
 
-    private function _bustDays() {
+    protected function _bustDays() {
         $dtHigh = new \DateTime( $this->_dateHigh );
         $dtCurrent = new \DateTime( $this->_dateLow . ' 00:00:00' );
         //        var_dump( $dtCurrent, $dtHigh, $this->_dateLow );

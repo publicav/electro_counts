@@ -82,6 +82,13 @@ return [
                 'nonAuth' => 'actionCalcGroup'
             ]
         ],
+        'chartgroup'   => [
+            'controllerName' => 'controllers\ControllerView',
+            'actions' => [
+                'auth' => 'actionChartGroup',
+                'nonAuth' => 'actionChartGroup'
+            ]
+        ],
 
 
     ]
