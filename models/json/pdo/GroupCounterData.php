@@ -178,26 +178,24 @@ class GroupCounterData {
         }
         $sqlData = $res->fetchAll();
 //        var_dump($sqlData);
-        $allowAll = array();
-        $bellowAll = array();
+        $abowAll = array();
+        $belowAll = array();
         foreach ( $this->_counterGroup as $cell ) {
-            $allow = $this->qAllow( $cell['id'], $dateHigh );
-            $bellow = $this->qBellow( $cell['id'], $dateLow );
-            //var_dump($cell);
-            if ( !empty( $allow ) ) $allowAll = array_merge( $allowAll, $allow );
-            if ( !empty( $bellow ) ) $bellowAll = array_merge( $bellowAll, $bellow );
-        }
-//        var_dump($bellowAll);
-        if ( is_array( $sqlData ) ) {
-            $this->_sqlData = array_merge( $bellowAll, $sqlData, $allowAll );
+            $abow = $this->qAbow( $cell['id'], $dateHigh );
+            $below = $this->qBelow( $cell['id'], $dateLow );
 
-        } else {
-            $this->_sqlData = array_merge( $bellowAll, $allowAll );
+            if ( !empty( $allow ) ) $abowAll = array_merge( $abowAll, $abow );
+            if ( !empty( $bellow ) ) $belowAll = array_merge( $belowAll, $below );
         }
-        //        var_dump($this->_sqlData);
+
+        if ( is_array( $sqlData ) ) {
+            $this->_sqlData = array_merge( $belowAll, $sqlData, $abowAll );
+        } else {
+            $this->_sqlData = array_merge( $belowAll, $abowAll );
+        }
     }
 
-    private function qAllow( $count, $dateHigh ) {
+    private function qAbow( $count, $dateHigh ) {
         $param = [ 'id_counter' => $count, 'dateHigh' => $dateHigh ];
         $sq = "SELECT main.id_counter, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS date_second, 
                    main.date_create AS dt1, main.n_counter
@@ -213,7 +211,7 @@ class GroupCounterData {
         return $res->fetchAll();
     }
 
-    private function qBellow( $count, $dateLow ) {
+    private function qBelow( $count, $dateLow ) {
         $param = [ 'id_counter' => $count, 'dateLow' => $dateLow ];
         $sq = "SELECT main.id_counter, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS date_second, 
                    main.date_create AS dt1, main.n_counter
