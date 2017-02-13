@@ -108,7 +108,7 @@ class GroupCounterData {
     }
 
     private function qNameGroup() {
-        $sq = "SELECt name FROM name_group_counters WHERE id = :id";
+        $sq = "SELECT name FROM name_group_counters WHERE id = :id";
         $param = [ 'id' => $this->_idGroup ];
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute( $param ) ) {
@@ -177,7 +177,7 @@ class GroupCounterData {
             throw new \Exception( $this->_pdo->errorInfo()[2] );
         }
         $sqlData = $res->fetchAll();
-//        var_dump($sqlData);
+        //        var_dump($sqlData);
         $abowAll = array();
         $belowAll = array();
         foreach ( $this->_counterGroup as $cell ) {
@@ -193,6 +193,7 @@ class GroupCounterData {
         } else {
             $this->_sqlData = array_merge( $belowAll, $abowAll );
         }
+//        var_dump( $this->_sqlData );
     }
 
     private function qAbow( $count, $dateHigh ) {
@@ -202,7 +203,7 @@ class GroupCounterData {
 			FROM counter_v AS main
             WHERE (main.id_counter = :id_counter) AND  (main.date_create > :dateHigh)
 			ORDER BY date_create
-			LIMIT 3;
+			LIMIT 4;
 			";
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute( $param ) ) {
@@ -218,7 +219,7 @@ class GroupCounterData {
 			FROM counter_v AS main
             WHERE (main.id_counter = :id_counter) AND  (main.date_create < :dateLow)
 			ORDER BY date_create DESC 
-			LIMIT 3;
+			LIMIT 4;
 			";
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute( $param ) ) {

@@ -88,14 +88,14 @@ class GroupCounterCalc {
         }
         ksort( $sortData );
         $this->_sortData = $sortData;
-        //        $this->_sortData =  $sortData ;
-        //        var_dump( $this->_sortData );
+//                        var_dump( $this->_sortData );
 
     }
 
     private function _bustDays() {
         $dtHigh = new \DateTime( $this->_dateHigh );
         $dtCurrent = new \DateTime( $this->_dateLow . ' 00:00:00' );
+        //        var_dump( $dtCurrent, $dtHigh, $this->_dateLow );
         while ( $dtCurrent <= $dtHigh ) {
             $timeStamp = $dtCurrent->getTimestamp();
             $_calc = $this->_calc( $timeStamp );
@@ -105,7 +105,6 @@ class GroupCounterCalc {
                 $_calcD[] = round( $value1, $this->_round );
             }
             $this->_calcData[] = $_calcD;
-            //            var_dump( $_calc );
             $dtCurrent->add( new \DateInterval( 'P1D' ) );
         }
     }
@@ -154,11 +153,14 @@ class GroupCounterCalc {
 
     protected function _calc( $timeStamp ) {
         $powerAll = 0;
+
         $indexAllArray = $this->_bisectionCounters( $timeStamp );
+
         $keys = array_keys( $this->_sortData );
         $legend = $this->getLegend();
         foreach ( $keys as $key ) {
             $indexArr = $indexAllArray[ $key ];
+//            var_dump( $indexArr );
             switch ( $indexArr['position'] ) {
                 case 0:
                     $_power = $this->_powerDay( $timeStamp, $indexArr, $key );
