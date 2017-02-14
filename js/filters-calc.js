@@ -163,6 +163,23 @@ $(function() {
 			}			
 		}
 		json_get_t_calc($('#right'), cmd_arr);
-	});	
+	});
+
+	$('#edit_count').on('click', function(e) {
+		var mount =['31', '28', '31', '30', '31', '30', '31', '31', '30', '31', '30', '31'];
+		var param = cmd_arr;
+		if ( 'date_b' in cmd_arr ) {
+		 var dtBg = cmd_arr.date_b;
+		 var dtArr = dtBg.split('-')
+            // dtArr[1] ='02';
+  			if (! (Number( dtArr[0] ) % 4) )  mount[ 1 ] = '29';
+			param.date_e = dtArr[0] + '-' + dtArr[1] + '-' + mount[ Number(dtArr[1])-1 ];
+            param.date_b = dtArr[0] + '-' + dtArr[1] + '-' + '01';
+          console.log(param);
+		}
+        Date.parse('2011-01-26T13:51:50.417')
+        window.location.href = $('#edit_count').attr('href') + '?' + $.param(param);
+        e.preventDefault();
+    });
 	$( document ).tooltip({ content: function() { return this.getAttribute("title") } });
 });
