@@ -156,7 +156,7 @@ $(function() {
 		if (param != '') {
 			var stArr = (param.substr(1)).split('&');
 			for(var i=0; i < stArr.length; i++) {
-				st =  stArr[i].split('=');       // массив param будет содержать
+				var st =  stArr[i].split('=');       // массив param будет содержать
 				if (st[0] == 'st' ) {
 					if (st[1] != 0) cmd_arr.st = st[1]; else delete cmd_arr.st;
 				}	

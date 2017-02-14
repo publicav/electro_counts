@@ -1,22 +1,16 @@
 <?php
-mb_internal_encoding('UTF-8'); 
-include_once("models/open.php");
-include_once("models/config.php");
-include_once("models/funclib.php");
-include_once('models/json_e.php');
+try {
+    include_once "models/json/Autoload.php";
+    include_once("models/open.php");
+    include_once("models/config.php");
+    include_once("models/funclib.php");
 
-$Full_Page_Name  = 'add_user';
-$visibly = 0;
-$head=include_h("views/head.tpl");
+    $route = navigation\Route::init();
+    $conroler = $route->getController();
+    $action = $route->getAction();
 
-if ($sid == 0) {
-	$menu_json = include_h("models/json/menu.json");
-	include("models/load_forms_d.php");
-	include("views/blank_v.php");			
-} else {
-	$menu_json = include_h("models/json/menu_registration.json");
-	include("models/load_forms_d.php");
-	include("views/load_forms_v.php");
+    $contoller = new $conroler();
+    $contoller->$action();
+}catch(Exception $e){
+    die( $e->getMessage() );
 }
-exit();
-?>

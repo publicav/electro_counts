@@ -1,9 +1,8 @@
 <?php
+include_once "Autoload.php";
 include_once("../open.php");
-include_once("../json_e.php");
+include_once("../config.php");
 include_once("../funclib.php");
-
-mb_internal_encoding('UTF-8');
 
 if (isset($_POST['username'])) $username = $_POST['username'];
 else {
@@ -19,10 +18,9 @@ else {
         exit();
 };
 
-$md5 = sha1(md5(md5($password).$keys1.$username));
+$md5 = sha1( md5( md5( $password ) . $keys1 . $username ) );
 $sq = "SELECT id, users, name, family FROM users WHERE (users = ?) AND (password = ?)";
 $msg = 'зарегистрирован';
-
 
     $res = $pdo->prepare( $sq );
     if ( $res->execute( [$username, $md5] )) {
@@ -34,9 +32,10 @@ $msg = 'зарегистрирован';
             $type['name'] = $row['name'];
             $type['family'] = $row['family'];
             $type['message'] = $users . ' ' . $msg;
-            $_SESSION['sid']= $id; //      session_start(); вызывается в open.php
+            base\Auth::login($id);
+//            $_SESSION['user']['sid']= $id; //      session_start(); вызывается в open.php
         }
-		if (isset($type)) echo json_encode($type); 
+		if ( isset( $type ) )  echo json_encode($type);
 		else { 
 			header("HTTP/1.1 400 Bad Request", true, 400);		
 			echo exit_error(false, 1, 'Ошибка регистрации'); 
@@ -44,7 +43,6 @@ $msg = 'зарегистрирован';
 		}	
     } else {
         header("HTTP/1.1 400 Bad Request", true, 400);
-        print exit_error( false, 3, $res->errorInfo() );
+        print exit_error( false, 3, $res->errorInfo()[2] );
         exit();
     }
-?>

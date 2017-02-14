@@ -1,6 +1,5 @@
 <?php
-function include_h($file)
-{
+function include_h($file) {
  $file_name=$file; 
  $fh = fopen($file_name, "r"); 
  $res=fread($fh,filesize($file_name)); 
@@ -8,51 +7,38 @@ function include_h($file)
  return $res;
 }
                                 
-function create_sql($action,$table,$data)
-{
-    if ($action == 'add') 
-    {
+function create_sql($action, $table, $data) {
+    if ($action == 'add') {
         $insert =  "INSERT INTO $table (";
         $values = "VALUES (";
         $fields = '';
         $vars = '';
-        foreach ($data as $key => $value) 
-        {
-            if($key!='id')
-            {
+        foreach ($data as $key => $value) {
+            if($key!='id') {
                 $fields .= $key . ',';
                 $vars .= "'" . $value . "'" .  ",";
             }
-            
         }	
-        
         $fields = substr($fields, 0, strlen($fields)-1);
         $vars = substr($vars, 0, strlen($vars)-1);
-        
-       $res =  $insert . $fields . ") ". $values . $vars . ")";
+        $res =  $insert . $fields . ") ". $values . $vars . ")";
     };
     
-    if ($action == 'edit') 
-    {
+    if ($action == 'edit') {
         $update = "UPDATE $table ";
         $set = "SET "; 
         $vars = '';
-        foreach ($data as $key => $value) 
-        {
-            if($key!='id')
-            {
+        foreach ($data as $key => $value) {
+            if($key!='id')             {
                 $vars .=  $key . " = '" . $value . "'" .  ",";
-            }
-            else
-            {
+            } else {
                 $where = " WHERE (id = " . $value . ")";
             }
-            
         }	
         $vars = substr($vars, 0, strlen($vars)-1) . ' ';
         $res =  $update . $set . $vars . $where;
     };
- return $res;
+	return $res;
 }
 
 
@@ -79,14 +65,8 @@ function range_time_day($date_b, $date_e)
 	$r_time = " (date_create >= '') AND (date_create <= '')";
 	$on_b = preg_match("([0-9]{4}-[0-9]{2}-[0-9]{2})",$date_b,$dt_b);
 	$on_e = preg_match("([0-9]{4}-[0-9]{2}-[0-9]{2})",$date_e,$dt_e);
-	// echo "</br>";
-	// print_r('test = ' . $date_b . ' ' . $dt_b . ' ' . $on_b);
-	// echo "</br>";
-	// print_r('test = ' . $date_e . ' ' . $dt_e . ' ' . $on_e);
-	// echo "</br>";
 	
-	if ($on_b&&$on_e) 
-	{
+	if ($on_b && $on_e) {
 		$begin_dt = $dt_b[0] . " 00:00:00";
 		$end_dt = $dt_e[0] . " 23:59:59";
 		$r_time = " (date_create >= '" . $begin_dt . "') AND (date_create <= '" . $end_dt . "')";
@@ -98,28 +78,34 @@ function range_time_day($date_b, $date_e)
 function Page($position,$sq)
 {
    global $config;
-   global $db_li;
+   // global $db_li;
+   global $pdo;
 
 //Определяем количество записей в базе данных
    // echo $sq;
 
-   if ($res = $db_li->query($sq)) {
-        /* определение числа рядов в выборке */
-       $total = $res->num_rows;
-   }
+   // if ($res = $db_li->query( $sq )) {
+        // /* определение числа рядов в выборке */
+       // $total = $res->num_rows;
+   // }
+
+   $res = $pdo->prepare( $sq );
+	if ( $res->execute() ) {
+		$total = $res->rowCount();	
+	}
+   
    $c_page = $config['PAGE_COUNTER'];
-   if ($position<0) $position=0; 
-   if($position>$total) $position=(intval($total / $c_page) * $c_page); 
+   if ( $position < 0 ) $position = 0; 
+   if( $position > $total ) $position = ( intval( $total / $c_page ) * $c_page ); 
 
 
-   $page_arr['total']=$total;
-   $page_arr['position']=$position;
+   $page_arr['total'] = $total;
+   $page_arr['position'] = $position;
+  
    return $page_arr;
 }
 
-function navigator($fl,$page_arr,$dop)
-{
-
+function navigator($fl, $page_arr, $dop) {
     global $config;
     $pervpage = '';
     $page1left = '';
@@ -154,7 +140,7 @@ function navigator($fl,$page_arr,$dop)
    $pgr2 = $pg + 2;
    $pgr3 = $pg + 3;
    
-   if ($total>$c_page) $tek_page = "<span class='pagecurrent'>$pg</span>";
+   if ($total > $c_page) $tek_page = "<span class='pagecurrent'>$pg</span>";
    
    $sp="<span class='pagelink'>";
 
@@ -211,7 +197,6 @@ function exit_error($success, $id_error, $error){
 }
 
 function datetime_sql($dt_b, $time){
-
 	$on_day = preg_match("([0-9]{2})",$dt_b,$day_b);
 	$on_mt = preg_match("(-[0-9]{2})",$dt_b,$mt_b);
 	$on_yr = preg_match("([0-9]{4})",$dt_b,$yr_b);
@@ -226,29 +211,46 @@ function datetime_sql($dt_b, $time){
 	return $date_create;
 }
 
-function validator_input_sql($name_table, $id){
-	global $db_li;
+function validator_input_sql( $name_table, $id ){
+	// global $db_li;
+	global $pdo;
 	
-    $sq  = "SELECT name FROM  " . $name_table .  "  WHERE (id = " . $id . ");";
-    if ($res = $db_li->query($sq)) {
-        while ($row = $res->fetch_assoc()) {
-            $name_result = $row['name'];              
-        }
-        $res->free();
-    }
+    $sq  = "SELECT name FROM  $name_table WHERE ( id = :id );";
+	$param = array ( 'id' => $id ); 
+	$res = $pdo->prepare( $sq );
+	if ($res->execute( $param )) {
+		while ($row = $res->fetch()) {
+            $name_result = $row['name'];
+		}
+	}
+	
+    // if ($res = $db_li->query($sq)) {
+        // while ($row = $res->fetch_assoc()) {
+            // $name_result = $row['name'];              
+        // }
+        // $res->free();
+    // }
 	return $name_result;
 }
 
 function validator_user($user){
-	global $db_li;
+	// global $db_li;
+	global $pdo;
+    $sq  = "SELECT id FROM users  WHERE ( users = :user );";
+	$param = array ( 'user' => $user ); 
+	$res = $pdo->prepare( $sq );
+	if ($res->execute( $param )) {
+		while ( $row = $res->fetch() ) {
+            $id = $row['id'];
+		}
+	}
 	
-    $sq  = "SELECT id FROM users  WHERE (users = '" . $user . "');";
-    if ($res = $db_li->query($sq)) {
-        while ($row = $res->fetch_assoc()) {
-            $id = $row['id'];              
-        }
-        $res->free();
-    }
+    // if ($res = $db_li->query($sq)) {
+        // while ($row = $res->fetch_assoc()) {
+            // $id = $row['id'];              
+        // }
+        // $res->free();
+    // }
 	return $id;
 }
 

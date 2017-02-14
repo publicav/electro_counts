@@ -1,13 +1,10 @@
 <?php
+include_once "Autoload.php";
 include_once("../open.php");
 include_once("../config.php");
 include_once("../funclib.php");
+
+$filter = new \filter\FilterInput( $_POST );
+$get_prog = $filter->getInputAll();
   
-foreach ($_POST as $key => $value) 
-{
-    $key = filter_var($key, FILTER_SANITIZE_STRING);
-    $value = filter_var($value, FILTER_SANITIZE_STRING);
-    $get_prog[$key] = $value;
-}    
-echo json_encode($get_prog);
-?>
+echo json_encode( $get_prog );

@@ -77,7 +77,7 @@ $(function() {
 	$('#right').on('click','.counter_str_odd',function( event ) {
 		var edit_id = $(this).attr('id');
 		objEditForm.param = {'id': edit_id.slice(3)};
-		l_form_edit_value( objEditForm )
+		l_form_edit_value( objEditForm );
 		edit_form.dialog( "open" );
 	});
 
