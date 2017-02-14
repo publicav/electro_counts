@@ -48,11 +48,13 @@ class ControllerView extends Conroller {
         $this->_view->setJs( [
             'js/ui/minified/jquery-ui.min.js',
             'js/view-main.js',
+            'js/view-chart.js',
             'js/highcharts.js',
             'js/modules/exporting.js',
         ] );
         $this->_view->setCss( [
-            '${demo.css}'
+            'css/jquery-ui.min.css',
+//            '${demo.css}'
         ] );
         $this->_view->render( $this->_route->getViewPath(), '' );
 

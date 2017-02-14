@@ -69,6 +69,7 @@ try {
 
     $type['success'] = true;
     $type['id_error'] = 0;
+    $type['length'] = count($categories);
     $type['nameGroup'] = 'Группа - ' . $chartGroup->getNameGroup();
     $type['categories'] = $categories;
     $type['calcData'] = $chartData;

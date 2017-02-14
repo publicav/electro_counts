@@ -13,7 +13,7 @@
      </div>
  </div>
 <div id="right">
-    <div id="table_div">
+    <div id="container">
     </div>
 
 </div>
