@@ -29,7 +29,7 @@ try {
     $param = array( 'id' => $id );
     $res = $pdo->prepare( $sq );
     if ( !$res->execute( $param ) ) {
-        throw new \Exception( $this->_pdo->errorInfo()[2] );
+        throw new \Exception( $pdo->errorInfo()[2] );
     }
     while ( $row = $res->fetch() ) $editCounter = $row;
     if ( empty( $editCounter ) ) {

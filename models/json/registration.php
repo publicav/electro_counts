@@ -29,7 +29,7 @@ try {
     $res = $pdo->prepare( $sq );
     $param = [ 'user' => $username, 'password' => $md5 ];
     if ( !$res->execute( $param ) ) {
-        throw new \Exception( $this->_pdo->errorInfo()[2] );
+        throw new \Exception( $pdo->errorInfo()[2] );
     }
     $regArray = $res->fetchAll();
 

@@ -22,7 +22,7 @@ try {
 
     $res = $pdo->prepare( $sq );
     if ( !$res->execute( $param ) ) {
-        throw new \Exception( $this->_pdo->errorInfo()[2] );
+        throw new \Exception( $pdo->errorInfo()[2] );
     }
     $N_counter = $res->fetchAll()[0];
     if ( empty( $N_counter ) ) {
@@ -35,7 +35,7 @@ try {
     $param = [ 'n_counter' => $N_counter['n_counter'], 'id_counter' => $counter ];
     $res = $pdo->prepare( $sq );
     if ( !$res->execute( $param ) ) {
-        throw new \Exception( $this->_pdo->errorInfo()[2] );
+        throw new \Exception( $pdo->errorInfo()[2] );
     }
     $value1 = $res->fetchAll();
     if ( !empty( $value1 ) ) $retVal = $value1[0]; else  $retVal = '';
