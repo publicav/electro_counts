@@ -81,7 +81,7 @@ try {
         'id_error' => 0,
         'message'  => ' ' . $msg,
     ];
-    echo json_encode( $type );
+    echo json_encode( $result );
 
 } catch ( exception\BadRequestException $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
