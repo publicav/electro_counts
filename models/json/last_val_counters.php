@@ -1,45 +1,59 @@
 <?php
-include_once "Autoload.php";
-include_once( "../open.php" );
-include_once( "../config.php" );
-include_once( "../funclib.php" );
+try {
+    include_once "Autoload.php";
+    include_once( "../open.php" );
 
-$N_counter = 1;
+    $filter = new \filter\FilterInput( $_POST );
+    $get_prog = $filter->getInputAll();
 
-$filter = new \filter\FilterInput( $_POST );
-$counter = $filter->getInt( 'counter' );
+    $validator = new filter\Validator( $get_prog, [
+        'counter' => [ 'required', ],
+    ] );
 
+    if ( !$validator->validateThis() ) {
+        foreach ( $validator->getErrors() as $field => $error ) {
+            $firstError = $error;
+        }
+        throw new exception\InputException( 'Ошибка данных - ' . $firstError );
+    }
+    $counter = $get_prog['counter'];
+    $sq = "SELECT n_counter FROM  count  WHERE (id = :id);";
+    $param = [ 'id' => $counter ];
 
-if ( is_null( $counter ) ) {
-    header( "HTTP/1.1 400 Bad Request", true, 400 );
-    echo exit_error( false, 1, 'Error input counter ' );
-    exit();
-}
-
-$sq = "SELECT n_counter FROM  count  WHERE (id = :id);";
-
-$param = array( 'id' => $counter );
-
-$res = $pdo->prepare( $sq );
-if ( !$res->execute( $param ) ) {
-    header( "HTTP/1.1 400 Bad Request", true, 400 );
-    print exit_error( false, 3, $res->errorInfo()[2] );
-    exit();
-}
-$N_counter = $res->fetchAll();
-
-$sq = "SELECT main.value FROM  counter_v AS main 
+    $res = $pdo->prepare( $sq );
+    if ( !$res->execute( $param ) ) {
+        throw new \Exception( $this->_pdo->errorInfo()[2] );
+    }
+    $N_counter = $res->fetchAll()[0];
+    if ( empty( $N_counter ) ) {
+        throw new \Exception( 'Не найден номер счётчика!' );
+    }
+    $sq = "SELECT main.value FROM  counter_v AS main 
         WHERE (main.n_counter = :n_counter) AND (main.id_counter = :id_counter)
         ORDER BY date_create DESC LIMIT 1;";
 
-$param = [ 'n_counter' => $N_counter[0]['n_counter'], 'id_counter' => $counter ];
-$res = $pdo->prepare( $sq );
-if ( !$res->execute( $param ) ) {
+    $param = [ 'n_counter' => $N_counter['n_counter'], 'id_counter' => $counter ];
+    $res = $pdo->prepare( $sq );
+    if ( !$res->execute( $param ) ) {
+        throw new \Exception( $this->_pdo->errorInfo()[2] );
+    }
+    $value1 = $res->fetchAll();
+    if ( !empty( $value1 ) ) $retVal = $value1[0]; else  $retVal = '';
+    $result = [
+        'success'  => true,
+        'error'    => 'Ok',
+        'id_error' => 0,
+        'data'     => $retVal
+    ];
+    echo json_encode( $result );
+
+} catch ( exception\BadRequestException $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
-    print exit_error( false, 3, $res->errorInfo()[2] );
-    exit();
+    echo exception\JsonError::exitError( false, 4, $e->getMessage() );
+} catch ( exception\InputException $e ) {
+    header( "HTTP/1.1 400 Bad Request", true, 400 );
+    echo exception\JsonError::exitError( false, 1, $e->getMessage() );
+} catch ( Exception $e ) {
+    header( "HTTP/1.1 400 Bad Request", true, 400 );
+    echo exception\JsonError::exitError( false, 1, $e->getMessage() );
 }
-$value1 = $res->fetchAll();
-if ( !empty( $value1 ) ) $retVal = $value1[0]; else  $retVal = '';
-$result = [ 'success' => true, 'error' => 'Ok', 'id_error' => 0, 'data' => $retVal ];
-print json_encode( $result );

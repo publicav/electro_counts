@@ -1,22 +1,25 @@
 <?php
-include_once "Autoload.php";
-include_once("../open.php");
-include_once("../config.php");
-include_once("../funclib.php");
+try {
+    include_once "Autoload.php";
+    include_once "../open.php";
 
-$sq = "SELECT id, users, name, family FROM users WHERE  (ring > 0) ORDER BY id DESC;";
+    $GetAllUsers = new \pdo\GetAllUsers();
 
-if ( !$res = $pdo->query( $sq ) ){
-    header("HTTP/1.1 400 Bad Request", true, 400);
-    print exit_error( false, 3, $res->errorInfo()[2] );
-    exit();
+    $result = [ 'success'  => true,
+                'id_error' => 0,
+                'data'     => $GetAllUsers->getUserAll(),
+    ];
+    echo json_encode( $result );
+
+} catch ( exception\BadRequestException $e ) {
+    header( "HTTP/1.1 400 Bad Request", true, 400 );
+    echo exception\JsonError::exitError( false, 4, $e->getMessage() );
+} catch ( exception\InputException $e ) {
+    header( "HTTP/1.1 400 Bad Request", true, 400 );
+    echo exception\JsonError::exitError( false, 1, $e->getMessage() );
+} catch ( Exception $e ) {
+    echo $e->getMessage();
 }
-$user_all = $res->fetchAll();
-
-$type['success'] = true;
-$type['id_error'] = 0;
-$type['data'] = $user_all;
-print json_encode($type);
 
 
 	

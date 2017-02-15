@@ -31,7 +31,7 @@ class Validator {
 
     protected function required( $field ) {
         if ( empty( $this->_data[ $field ] ) ) {
-            $this->addError( $field, 'field must be set' );
+            $this->addError( $field, "field $field must be set" );
         }
 
     }
@@ -51,6 +51,7 @@ class Validator {
             $this->addError( $field, 'Date format error!' );
         }
     }
+
 
     public function addError( $field, $error ) {
         $this->_errors[ $field ] = $error;

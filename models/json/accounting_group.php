@@ -15,9 +15,10 @@ try {
         'date_e' => [ 'isDate' ],
     ] );
     if ( !$validator->validateThis() ) {
-        foreach ( $validator->getErrors() as $error ) {
-            throw new exception\InputException( 'Input error - ' . $error ); //$validator->getErrors()
+        foreach ( $validator->getErrors() as $field => $error ) {
+            $firstError = $error;
         }
+        throw new exception\InputException( 'Ошибка данных - ' . $firstError );
     }
     $dt = new \DateTime();
     if ( empty( $get_prog['date_b'] ) ) {
