@@ -30,5 +30,24 @@ class GroupCounterChart extends GroupCounterCalc {
 //        var_dump($this->_calcData);
     }
 
+    public function getxAxis(){
+        return  $this->getCalcData()['date'];
+
+//        $legend = $this->_dataGroup->getData();
+//        $calcData = $this->getCalcData();
+
+    }
+    public function getOutputChartData(){
+        $legend = $this->getLegend();
+        $calcData = $this->getCalcData();
+        $chartData =[];
+        $count = 0;
+        foreach ( $legend as $key => $value ) {
+            $chartData[] = [ 'name' => $value['name'], 'data' => $calcData[ $count ] ];
+            $count++;
+        }
+        return $chartData;
+
+    }
 
 }

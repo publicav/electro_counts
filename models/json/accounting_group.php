@@ -35,22 +35,16 @@ try {
     $dataGroup->queryGroup( $dateLow, $dateHigh );
 
     $calcGroup = new base\GroupCounterCalc( $dataGroup, $dateLow, $dateHigh );
-    $calcGroup->init();
-    $legend = $calcGroup->getLegend();
+    $calcGroup->calc();
 
-    $title[] = [ 'sTitle' => 'Время' ];
-    foreach ( $legend as $key => $value ) {
-        $title[] = [ 'sTitle' => $value['name'] ];
-    }
-    $title[] = [ 'sTitle' => 'Сумма' ];
+    $result = [ 'success'   => true,
+                'id_error' => 0,
+                'nameGroup' => $calcGroup->getNameGroup(),
+                'title' => $calcGroup->getTitle(),
+                'calcData'  => $calcGroup->getCalcData(),
+    ];
+    echo json_encode( $result );
 
-    $type['success'] = true;
-    $type['id_error'] = 0;
-    $type['nameGroup'] = 'Группа - ' . $calcGroup->getNameGroup();
-    $type['title'] = $title;
-    $type['calcData'] = $calcGroup->getCalcData();
-    echo json_encode( $type );
-//    var_dump($type);
 } catch ( exception\BadRequestException $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
     echo exception\JsonError::exitError( false, 4, $e->getMessage() );

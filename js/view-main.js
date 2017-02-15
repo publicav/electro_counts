@@ -27,7 +27,7 @@ function tableView(data) {
 
     var nameGroup = data.nameGroup;
     var tableConst = '<table id="groupconter_t"  class="display" style="margin: 0 auto; padding: 0px 15px 10px 15px; width: 850px;" cellspacing="0" width="100%"><thead></thead><tbody></tbody></table>';
-    var titleGroup = '<div style="font-size: 18pt; padding: 10px; text-align: center">' + nameGroup + '</div>'
+    var titleGroup = '<div style="font-size: 18pt; padding: 10px; text-align: center">Группа - ' + nameGroup + '</div>'
 
     // table.destroy();
     $("#table_div").html('');
@@ -69,7 +69,7 @@ function jsonGetChart(cmd_arr) {
                 type: 'bar'
             },
             title: {
-                text: 'Name'
+                text: ''
             },
             xAxis: {
                 categories: []
@@ -95,10 +95,9 @@ function jsonGetChart(cmd_arr) {
         $.ajax({dataType: 'json', type: 'get', url: 'models/json/accounting_chart.php', data: cmd_arr})
             .success(function (result) {
                 options.series = result.calcData;
-                options.title.text = result.nameGroup;
+                options.title.text = 'Группа - ' + result.nameGroup;
                 options.xAxis.categories = result.categories;
                 var h = result.length;
-                console.log('Count = ', h);
                 h = h * 27 +100;
                 $('#container').height(h);
 
