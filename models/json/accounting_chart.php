@@ -41,40 +41,17 @@ try {
     $dataGroup->queryGroup( $dateLow, $dateHigh );
 
     $chartGroup = new base\GroupCounterChart( $dataGroup, $dateLow, $dateHigh );
-    $chartGroup->init();
-    $legend = $chartGroup->getLegend();
-    $calcData = $chartGroup->getCalcData();
-    $categories = $calcData['date'];
-    $count = 0;
-    foreach ( $legend as $key => $value ) {
-        $chartData[] = [ 'name' => $value['name'], 'data' => $calcData[ $count ] ];
-        $count++;
-    }
+    $chartGroup->calc();
 
-    //    var_dump( $title );
-    //    options.series = [ {
-    //        name: 'ssds',
-    //            data: [ 1, 2, 3, 4 ]
-    //        }, {
-    //        name: 'ertt',
-    //            data: [ 1, 2, 3, 4 ]
-    //        }, {
-    //        name: '3353',
-    //            data: [ 1, 2, 3, 4 ]
-    //        },{
-    //        name: '3333353',
-    //            data: [ 1, 2, 3, 4 ]
-    //        }  ];
-    //
+    $result = [ 'success'    => true,
+                'id_error'   => 0,
+                'length'     => count( $chartGroup->getxAxis() ),
+                'nameGroup'  => $chartGroup->getNameGroup(),
+                'categories' => $chartGroup->getxAxis(),
+                'calcData'   => $chartGroup->getOutputChartData(),
+    ];
+    echo json_encode( $result );
 
-    $type['success'] = true;
-    $type['id_error'] = 0;
-    $type['length'] = count($categories);
-    $type['nameGroup'] = 'Группа - ' . $chartGroup->getNameGroup();
-    $type['categories'] = $categories;
-    $type['calcData'] = $chartData;
-    echo json_encode( $type );
-    //    var_dump( $type );
 } catch ( exception\BadRequestException $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
     echo exception\JsonError::exitError( false, 4, $e->getMessage() );

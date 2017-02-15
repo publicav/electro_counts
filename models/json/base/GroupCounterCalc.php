@@ -15,7 +15,7 @@ class GroupCounterCalc {
     const MAX_ITERACION = 11;
     const MINUTE_DAY = 1440;
     const LOW_MIN = 20;
-    private $_dataGroup;
+    protected $_dataGroup;
     protected $_dateLow, $_dateHigh;
     private $_sortData;
     protected $_calcData;
@@ -27,7 +27,7 @@ class GroupCounterCalc {
         $this->_dataGroup = $dataGroup;
     }
 
-    public function init() {
+    public function calc() {
         $this->_sortArray();
         $this->_bustDays();
     }
@@ -52,6 +52,14 @@ class GroupCounterCalc {
      */
     public function getNameGroup() {
         return $this->_dataGroup->getNameGroup();
+    }
+
+    public function getTitle() {
+        $legend = $this->getLegend();
+        $title[] = [ 'sTitle' => 'Время' ];
+        foreach ( $legend as $key => $value ) $title[] = [ 'sTitle' => $value['name'] ];
+        $title[] = [ 'sTitle' => 'Сумма' ];
+        return $title;
     }
 
     /**
@@ -88,7 +96,7 @@ class GroupCounterCalc {
         }
         ksort( $sortData );
         $this->_sortData = $sortData;
-//                        var_dump( $this->_sortData );
+        //                        var_dump( $this->_sortData );
 
     }
 
@@ -160,7 +168,7 @@ class GroupCounterCalc {
         $legend = $this->getLegend();
         foreach ( $keys as $key ) {
             $indexArr = $indexAllArray[ $key ];
-//            var_dump( $indexArr );
+            //            var_dump( $indexArr );
             switch ( $indexArr['position'] ) {
                 case 0:
                     $_power = $this->_powerDay( $timeStamp, $indexArr, $key );
