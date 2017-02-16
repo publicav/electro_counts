@@ -459,7 +459,7 @@ let registration = ( form ) => {
 
 let edit_privilege = () => {
 	var m_data = { 'id_user': $('#edit_user_id').val() }		
-	$.ajax({ dataType: 'json', type: 'post', data: m_data, url: 'models/json/menu_left_priv.php' })
+	$.ajax({ dataType: 'json', type: 'post', data: m_data, url: 'models/json/edit_form_privelege.php' })
 	.done(( result_menu ) => {
 			var menu_v =  result_menu;
 			var mainfile = '<ol>';

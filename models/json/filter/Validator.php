@@ -31,6 +31,7 @@ class Validator {
 
     protected function required( $field ) {
         if ( empty( $this->_data[ $field ] ) ) {
+            if ( isset( $this->_data[ $field ] ) ) return;
             $this->addError( $field, "поле  $field пустое!" );
         }
 

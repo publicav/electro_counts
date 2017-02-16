@@ -1,15 +1,20 @@
 <?php
 try {
     include_once "Autoload.php";
-    include_once "../open.php";
+    include_once( "../open.php" );
 
-    $filter = new \filter\FilterInput( $_GET );
+    $route = navigation\Route::init();
+    $id = $route->getAuthorization();
+    if ( is_null( $id ) ) {
+        throw new Exception( 'Вы не зарегистрированы' );
+    }
+
+    $filter = new \filter\FilterInput( $_POST );
     $get_prog = $filter->getInputAll();
 
     $validator = new filter\Validator( $get_prog, [
-        'data' => [ 'required', ],
+        'id_user' => [ 'required', 'isPositive', ],
     ] );
-
     if ( !$validator->validateThis() ) {
         foreach ( $validator->getErrors() as $field => $error ) {
             $firstError = $error;
@@ -17,15 +22,14 @@ try {
         throw new exception\InputException( 'Ошибка данных - ' . $firstError );
     }
 
+    $id_user = (int)$get_prog['id_user'];
 
-    $substation = $get_prog['data'];
-    $counterFilter = new pdo\Counter( $pdo, $substation );
+    $privelege = new pdo\Privelege( $id_user );
+    $getMenuLeft = new pdo\GetMenuLeft();
+    $leftMenu = new base\LeftMenu( $privelege, $getMenuLeft );
+    $menuLeftPriv = $leftMenu->getDataForm();
 
-    $result = [ 'success'  => true,
-                'id_error' => 0,
-                'data'     => $counterFilter->GetCounterFilter(),
-    ];
-    echo json_encode( $result );
+    echo json_encode( $menuLeftPriv );
 
 } catch ( exception\BadRequestException $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
@@ -34,5 +38,6 @@ try {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
     echo exception\JsonError::exitError( false, 1, $e->getMessage() );
 } catch ( Exception $e ) {
-    echo $e->getMessage();
+    header( "HTTP/1.1 400 Bad Request", true, 400 );
+    echo exception\JsonError::exitError( false, 1, $e->getMessage() );
 }
