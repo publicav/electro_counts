@@ -18,8 +18,8 @@ try {
     $privelegeData = new \Pdo\Privelege( $id_user );
     $getMenuLeftData = new \Pdo\GetMenuLeft();
     $leftMenu = new \Base\LeftMenu( $privelegeData, $getMenuLeftData );
-    $leftMenu->setSqlData( $dataCheck );
-    $leftMenu->savePrivelegeForm();
+    $leftMenu->setSqlData( $dataCheck )->savePrivelegeForm();
+
 
     $result = [
         'id_error' => 0,

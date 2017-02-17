@@ -12,7 +12,7 @@ namespace Pdo;
 use \Exception\BadRequestException;
 
 
-class getCounts
+class GetCounts
 {
 
     private $res, $counts_count;

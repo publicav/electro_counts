@@ -359,7 +359,7 @@ let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, obj
 		}
 		else  alert( result.error );
 	})
-	.fail((result) => alert( result.responseJSON.error ));
+	.fail(( result ) => alert( result.responseJSON.error ));
 
 	let ok_btn = ( data, row_add ) => {
 			if (gl_add_counts <= 10) {

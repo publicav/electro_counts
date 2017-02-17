@@ -45,11 +45,32 @@ class Validator {
 
     }
 
+    protected function DateDMY( $field ) {
+        $date = \DateTime::createFromFormat( 'd-m-Y', $this->_data[ $field ] );
+        if ( !$date ) {
+            $this->addError( $field, 'Date format error!' );
+        }
+    }
+
     protected function isDate( $field ) {
         if ( empty( $this->_data[ $field ] ) ) return;
         $date = \DateTime::createFromFormat( 'Y-m-d', $this->_data[ $field ] );
         if ( !$date ) {
             $this->addError( $field, 'Date format error!' );
+        }
+    }
+
+    protected function TimeSet( $field ) {
+        $date = \DateTime::createFromFormat( 'H:i', $this->_data[ $field ] );
+        if ( !$date ) {
+            $this->addError( $field, 'Time format error!' );
+        }
+
+    }
+
+    protected function notEmpty( $field ) {
+        if ( empty( $this->_data[ $field ] ) ) {
+            $this->addError( $field, 'Пустое значение' );
         }
     }
 

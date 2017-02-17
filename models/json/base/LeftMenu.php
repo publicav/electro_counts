@@ -8,8 +8,8 @@
 
 namespace Base;
 
-use \Pdo\Privelege;
-Use \Pdo\GetMenuLeft;
+use Pdo\GetMenuLeft;
+use Pdo\Privelege;
 
 class LeftMenu {
     protected $_privelege;
@@ -20,6 +20,7 @@ class LeftMenu {
     public function __construct( Privelege $privelege, GetMenuLeft $getMenuLeft ) {
         $this->_privelege = $privelege;
         $this->_getMenuLeft = $getMenuLeft;
+        return $this;
     }
 
     public function getDataForm() {
@@ -47,12 +48,13 @@ class LeftMenu {
         $countLeftMenu = count( $menuLeftData );
 
         for ( $i = 0; $i < $countLeftMenu; $i++ ) {
-            $sqlData[] = [ 'id_users' => "'$id_user'",
-                           'id_menu'  => "'{$menuLeftData[ $i ]['id_menu']}'",
-                           'visibly'  => "'{$dataCheck[ $i ]}'",
+            $sqlData[] = [ 'id_users' => $id_user,
+                           'id_menu'  => $menuLeftData[ $i ]['id_menu'],
+                           'visibly'  => $dataCheck[ $i ],
             ];
         }
         $this->_sqlData = $sqlData;
+        return $this;
     }
 
     /**
@@ -76,7 +78,7 @@ class LeftMenu {
         $countSqlData = count( $sqlData );
         $privelege_var = '';
         for ( $i = 0; $i < $countPriv; $i++ ) {
-            $row = '(' . "'{$priv[$i]['id']}'," . implode( ',', $sqlData[ $i ] ) . '),';
+            $row = '(' . $priv[ $i ]['id'] . ',' . implode( ',', $sqlData[ $i ] ) . '),';
             $privelege_var .= $row;
         }
         for ( $j = $i; $j < $countSqlData; $j++ ) {
@@ -87,7 +89,8 @@ class LeftMenu {
         $privelege_var = trim( $privelege_var, ',' );
         return $privelege_var;
     }
-    public function savePrivelegeForm(){
+
+    public function savePrivelegeForm() {
         $pdo = \DB::getLink()->getDb();
         $fields = $this->getSqlFields();
         $values = $this->getSqlValues();
@@ -100,7 +103,8 @@ class LeftMenu {
         $this->_sq = $sq;
 
     }
-    public function getSql(){
+
+    public function getSql() {
         return $this->_sq;
     }
 }

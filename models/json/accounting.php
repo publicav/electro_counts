@@ -62,7 +62,7 @@ if ( isset( $get_prog['date_e'] ) ) {
 } else $date_e = '';
 
 
-$getCount = new \Pdo\getCounts( [ 'id' => $id_counter ] );
+$getCount = new \Pdo\GetCounts( [ 'id' => $id_counter ] );
 $name_counter = $getCount->getName();
 
 $GetCoeffPower = new \Pdo\GetCoeffPower( $getCount->getCount() );
