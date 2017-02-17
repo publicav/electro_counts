@@ -6,7 +6,7 @@
  * Time: 23:38
  */
 
-namespace exception;
+namespace Exception;
 
 
 class InputException extends \Exception {

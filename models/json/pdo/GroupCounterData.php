@@ -6,9 +6,9 @@
  * Time: 11:32
  */
 
-namespace pdo;
+namespace Pdo;
 
-use exception\BadRequestException;
+use \Exception\BadRequestException;
 
 class GroupCounterData {
     private $_idGroup;

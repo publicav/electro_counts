@@ -1,5 +1,6 @@
 <?php
-namespace pdo;
+namespace Pdo;
+
 class Substation {
     private $substation;
 

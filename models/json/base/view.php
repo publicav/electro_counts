@@ -6,7 +6,7 @@
  * Time: 18:25
  */
 
-namespace base;
+namespace Base;
 
 
 class View {

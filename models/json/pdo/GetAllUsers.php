@@ -6,7 +6,7 @@
  * Time: 18:19
  */
 
-namespace pdo;
+namespace Pdo;
 
 
 class GetAllUsers {

@@ -1,5 +1,6 @@
 <?php
-namespace pdo;
+namespace Pdo;
+
 class Privelege {
     private $menu_left;
     private $visibly = 0;
@@ -15,21 +16,18 @@ class Privelege {
             throw new \Exception( $this->_pdo->errorInfo()[2] );
         }
         $this->priv = $res->fetchAll();
-//        var_dump($this->priv);
         $this->_id = $id;
     }
 
     /**
-     * @return array LeftMenu
+     * @return mixed
+     * @throws \Exception
      */
     function getMenuLeft() {
         $sq = "SELECT m.id_a AS id_a, m.id_menu AS id_menu,  m.name AS name, m.url AS url FROM menu_left AS m WHERE (visibility = 1);";
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute() ) {
-            header( "HTTP/1.1 400 Bad Request", true, 400 );
-            print  $res->errorInfo()[2];
-            exit();
-        }
+            throw new \Exception( $this->_pdo->errorInfo()[2] );        }
         while ( $row = $res->fetch() ) {
             for ( $i = 0; $i < SizeOf( $this->priv ); $i++ ) {
                 if ( ( $row['id_menu'] == $this->priv[ $i ]['id_menu'] ) AND ( $this->priv[ $i ]['visibly'] == 1 ) ) {

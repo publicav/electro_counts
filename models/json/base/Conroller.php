@@ -6,10 +6,10 @@
  * Time: 2:10
  */
 
-namespace base;
+namespace Base;
 
-use navigation\Route;
-use pdo\GetNamePage;
+use \Navigation\Route;
+use \Pdo\GetNamePage;
 
 abstract class  Conroller {
     public $_view;

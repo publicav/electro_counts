@@ -1,5 +1,6 @@
 <?php
-namespace date;
+namespace Date;
+
 class rangeDateSql {
     private $dt1, $dt2;
     public $interval;

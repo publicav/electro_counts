@@ -1,5 +1,6 @@
 <?php
-namespace pdo;
+namespace Pdo;
+
 class GetUser {
     protected $_user = null;
     private static $_link;

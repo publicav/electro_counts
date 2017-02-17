@@ -1,5 +1,6 @@
 <?php
-namespace pdo;
+namespace Pdo;
+
 class Lots {
     const lotsFilter = [ 'id' => '0', 'name' => 'Все участки' ];
     private $_lots;

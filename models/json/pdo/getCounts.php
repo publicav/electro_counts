@@ -6,10 +6,10 @@
  * Time: 14:17
  */
 
-namespace pdo;
+namespace Pdo;
 
-use exception\JsonError;
-use exception\BadRequestException;
+
+use \Exception\BadRequestException;
 
 
 class getCounts

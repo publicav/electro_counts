@@ -6,7 +6,7 @@
  * Time: 22:23
  */
 
-namespace exception;
+namespace Exception;
 
 
 class JsonError {

@@ -6,7 +6,7 @@
  * Time: 7:31
  */
 
-namespace filter;
+namespace Filter;
 
 
 class Validator {

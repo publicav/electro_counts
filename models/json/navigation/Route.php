@@ -6,7 +6,7 @@
  * Time: 18:36
  */
 
-namespace navigation;
+namespace Navigation;
 
 
 class Route {

@@ -1,5 +1,6 @@
 <?php
-namespace filter;
+namespace Filter;
+
 class FilterInput {
     private $resultArr;
 

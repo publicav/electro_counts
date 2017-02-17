@@ -6,7 +6,7 @@
  * Time: 16:50
  */
 
-namespace pdo;
+namespace Pdo;
 
 
 class GetMenuLeft {

@@ -6,14 +6,15 @@
  * Time: 17:28
  */
 
-namespace base;
+namespace Base;
 
-use \pdo\Privelege;
-Use \pdo\GetMenuLeft;
+use \Pdo\Privelege;
+Use \Pdo\GetMenuLeft;
 
 class LeftMenu {
     protected $_privelege;
     protected $_getMenuLeft;
+    protected $_sq;
     protected $_sqlData = null;
 
     public function __construct( Privelege $privelege, GetMenuLeft $getMenuLeft ) {
@@ -64,27 +65,11 @@ class LeftMenu {
     public function getSqlFields() {
         $countSqlData = count( $this->getSqlData() );
         if ( $countSqlData == 0 ) return null;
-        return implode( ',', array_keys( $this->getSqlData()[0] ) );
+        return 'id,' . implode( ',', array_keys( $this->getSqlData()[0] ) );
     }
 
-    public function getSqlFieldsReplace() {
-        return 'id,' . $this->getSqlFields();
-    }
 
     public function getSqlValues() {
-        $sqlData = $this->getSqlData();
-        $countSqlData = count( $sqlData );
-        $privelege_var = '';
-        for ( $i = 0; $i < $countSqlData; $i++ ) {
-            $row = '(' . implode( ',', $sqlData[ $i ] ) . '),';
-            $privelege_var .= $row;
-        }
-        $privelege_var = trim( $privelege_var, ',' );
-        return $privelege_var;
-
-    }
-
-    public function getSqlValuesReplace() {
         $priv = $this->_privelege->getPriv();
         $sqlData = $this->getSqlData();
         $countPriv = count( $priv );
@@ -94,12 +79,28 @@ class LeftMenu {
             $row = '(' . "'{$priv[$i]['id']}'," . implode( ',', $sqlData[ $i ] ) . '),';
             $privelege_var .= $row;
         }
-        for ( $j = $i; $i < $countSqlData; $i++ ) {
+        for ( $j = $i; $j < $countSqlData; $j++ ) {
             $row = '(' . "NULL," . implode( ',', $sqlData[ $j ] ) . '),';
             $privelege_var .= $row;
         }
 
         $privelege_var = trim( $privelege_var, ',' );
         return $privelege_var;
+    }
+    public function savePrivelegeForm(){
+        $pdo = \DB::getLink()->getDb();
+        $fields = $this->getSqlFields();
+        $values = $this->getSqlValues();
+        $sq = "REPLACE INTO tables_priv ( $fields ) VALUES $values;";
+
+        $res = $pdo->prepare( $sq );
+        if ( !$res->execute() ) {
+            throw new \Exception( $pdo->errorInfo()[2] );
+        }
+        $this->_sq = $sq;
+
+    }
+    public function getSql(){
+        return $this->_sq;
     }
 }

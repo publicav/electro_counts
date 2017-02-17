@@ -6,7 +6,7 @@
  * Time: 13:51
  */
 
-namespace exception;
+namespace Exception;
 
 
 class BadRequestException extends \Exception
