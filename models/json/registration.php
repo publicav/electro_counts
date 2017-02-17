@@ -38,7 +38,7 @@ try {
     }
     $registred = $regArray[0];
     $id = $registred['id'];
-    base\Auth::login( $id );
+    \Base\Auth::login( $id );
     $result = [ 'success'  => true,
                 'id_error' => 0,
                 'id'       => $id,

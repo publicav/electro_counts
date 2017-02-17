@@ -77,7 +77,7 @@ $sq = "SELECT main.id, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS
 			FROM counter_v AS main
 			WHERE (main.id_counter = :id_counter) $rangeSql
 			ORDER by date_create;";
-$navigationcalc = new \navigation\NavigationCalc( $url_search_action, $date_b, $put_js );
+$navigationcalc = new \Navigation\NavigationCalc( $url_search_action, $date_b, $put_js );
 $navigationcalc->classHTML = [ 'navigator', 'pagelink', 'pagecurrent' ];
 $navigator = $navigationcalc->getNavigator();
 
@@ -107,7 +107,7 @@ if ( !$res->execute( $param ) ) {
 while ( $row = $res->fetch() ) {
     if ( $firstLoop > 0 ) {
         $dt2 = $row['dt1'];
-        $dtMinuteEnd = new date\DivisionDay( $dt2 );
+        $dtMinuteEnd = new \Date\DivisionDay( $dt2 );
         $day = date( "d-m-Y", strtotime( $dt1 ) );
 
         $timeEnd = $row['date_second'];
@@ -121,7 +121,7 @@ while ( $row = $res->fetch() ) {
             $counter[] = array( 'name_counter' => $name_counter, 'date' => $day, 'rare' => round( $rare, $round ) );
         }
         if ( $diffTime > 1440 ) {
-            $periodObj = new date\PeriodDay ( $dt2, $dt1, $diffMinuteVal, $name_counter );
+            $periodObj = new \Date\PeriodDay ( $dt2, $dt1, $diffMinuteVal, $name_counter );
             foreach ( $periodObj->day as $colum ) $counter[] = $colum;
         }
         $rateBefore = $diffMinuteVal * $dtMinuteEnd->minuteBefore;
@@ -130,7 +130,7 @@ while ( $row = $res->fetch() ) {
     $timeNew = $row['date_second'];
     $valueNew = $row['value'];
     $dt1 = $row['dt1'];
-    $dtMinuteNew = new date\DivisionDay ( $dt1 );
+    $dtMinuteNew = new \Date\DivisionDay ( $dt1 );
     $firstLoop = 1;
 }
 

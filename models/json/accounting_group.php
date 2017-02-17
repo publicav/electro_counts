@@ -35,7 +35,7 @@ try {
     $dataGroup = GroupCounterData::init( $numberGroup );
     $dataGroup->queryGroup( $dateLow, $dateHigh );
 
-    $calcGroup = new base\GroupCounterCalc( $dataGroup, $dateLow, $dateHigh );
+    $calcGroup = new \Base\GroupCounterCalc( $dataGroup, $dateLow, $dateHigh );
     $calcGroup->calc();
 
     $result = [ 'success'   => true,

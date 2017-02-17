@@ -16,12 +16,12 @@ try {
         foreach ( $validator->getErrors() as $field => $error ) {
             $firstError = $error;
         }
-        throw new exception\InputException( 'Ошибка данных - ' . $firstError );
+        throw new \Exception\InputException( 'Ошибка данных - ' . $firstError );
     }
     $action = $get_prog['actions'];
 
     if ( $action == 'add' ) {
-        $validator = new filter\Validator( $get_prog, [
+        $validator = new \Filter\Validator( $get_prog, [
             'user_add'        => [ 'required', 'rangeLogin', 'uniqueLogin', ],
             'pass_add'        => [ 'required', 'confirmPassword', 'minPassword' ],
             'pass_repeat_add' => [ 'required', ],
@@ -33,7 +33,7 @@ try {
             foreach ( $validator->getErrors() as $field => $error ) {
                 $firstError = $error;
             }
-            throw new exception\InputException( 'Ошибка данных - ' . $firstError );
+            throw new \Exception\InputException( 'Ошибка данных - ' . $firstError );
         }
         $md5 = sha1( md5( md5( $get_prog['pass_add'] ) . $keys1 . $get_prog['user_add'] ) );
 
@@ -47,7 +47,7 @@ try {
     }
 
     if ( $action == 'edit' ) {
-        $validator = new filter\Validator( $get_prog, [
+        $validator = new \Filter\Validator( $get_prog, [
             'user_edit'        => [ 'required', 'rangeLogin', 'uniqueLogin', ],
             'pass_edit'        => [ 'required', 'confirmPassword', 'minPassword' ],
             'pass_repeat_edit' => [ 'required', ],
@@ -91,5 +91,5 @@ try {
     echo Exception\JsonError::exitError( false, 1, $e->getMessage() );
 } catch ( Exception $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
-    echo exception\JsonError::exitError( false, 1, $e->getMessage() );
+    echo Exception\JsonError::exitError( false, 1, $e->getMessage() );
 }

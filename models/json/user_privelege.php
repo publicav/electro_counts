@@ -3,7 +3,7 @@ try {
     include_once "Autoload.php";
     include_once( "../open.php" );
 
-    $filter = new \filter\FilterInput( $_POST );
+    $filter = new \Filter\FilterInput( $_POST );
     $get_prog = $filter->getInputAll();
 
     $validator = new \Filter\Validator( $get_prog, [

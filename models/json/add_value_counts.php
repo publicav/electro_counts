@@ -6,13 +6,13 @@ include_once("../funclib.php");
 
 
 $url = $_SERVER['REQUEST_URI'];
-$route = navigation\Route::init();
+$route = \Navigation\Route::init();
 $id_users = $route->getAuthorization();
 
 	
 $N_counter = 1;  		// Важный параметр пока не работает номер счётчика в ячейке !!!! убрать когда всё заработает
 
-	$filter = new \filter\FilterInput( $_POST );
+	$filter = new \Filter\FilterInput( $_POST );
 	$get_prog = $filter->getInputAll();
 	
 	
