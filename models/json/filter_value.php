@@ -15,7 +15,7 @@ $url_search_action = $url . '.php';
 
 $counter = array();
 
-$filter = new \filter\FilterInput( $_GET );
+$filter = new \Filter\FilterInput( $_GET );
 $get_prog = $filter->getInputAll();
 
 	

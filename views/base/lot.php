@@ -1,5 +1,5 @@
 <select id="lot" class="input_selected">
 <?php
-    \pdo\Lots::lots()->render();
+    \Pdo\Lots::lots()->render();
 ?>
 </select>

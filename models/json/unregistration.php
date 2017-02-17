@@ -7,6 +7,6 @@ $result = [
     'message' => 'Пользователь разлогинился',
 ];
 
-base\Auth::logout();
+\Base\Auth::logout();
 
 echo json_encode( $result );

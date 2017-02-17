@@ -6,9 +6,9 @@ try {
 
     mb_internal_encoding( 'UTF-8' );
 
-    $filter = new \filter\FilterInput( $_POST );
+    $filter = new \Filter\FilterInput( $_POST );
     $get_prog = $filter->getInputAll();
-    $validator = new filter\Validator( $get_prog, [
+    $validator = new \Filter\Validator( $get_prog, [
         'actions' => [ 'required', ],
     ] );
 
@@ -58,7 +58,7 @@ try {
             foreach ( $validator->getErrors() as $field => $error ) {
                 $firstError = $error;
             }
-            throw new exception\InputException( 'Ошибка данных - ' . $firstError );
+            throw new \Exception\InputException( 'Ошибка данных - ' . $firstError );
         }
         $md5 = sha1( md5( md5( $get_prog['pass_edit'] ) . $keys1 . $get_prog['user_edit'] ) );
 
@@ -83,12 +83,12 @@ try {
     ];
     echo json_encode( $result );
 
-} catch ( exception\BadRequestException $e ) {
+} catch ( Exception\BadRequestException $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
-    echo exception\JsonError::exitError( false, 4, $e->getMessage() );
-} catch ( exception\InputException $e ) {
+    echo Exception\JsonError::exitError( false, 4, $e->getMessage() );
+} catch ( Exception\InputException $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
-    echo exception\JsonError::exitError( false, 1, $e->getMessage() );
+    echo Exception\JsonError::exitError( false, 1, $e->getMessage() );
 } catch ( Exception $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
     echo exception\JsonError::exitError( false, 1, $e->getMessage() );

@@ -15,7 +15,7 @@ $url_search_action = $url . '.php';
 
 $counter = array();
 
-$filter = new \filter\FilterInput( $_GET );
+$filter = new \Filter\FilterInput( $_GET );
 $get_prog = $filter->getInputAll();
 
 if ( isset( $get_prog['id_lot'] ) ) {
@@ -62,13 +62,13 @@ if ( isset( $get_prog['date_e'] ) ) {
 } else $date_e = '';
 
 
-$getCount = new pdo\getCounts( [ 'id' => $id_counter ] );
+$getCount = new \Pdo\getCounts( [ 'id' => $id_counter ] );
 $name_counter = $getCount->getName();
 
-$GetCoeffPower = new pdo\GetCoeffPower( $getCount->getCount() );
+$GetCoeffPower = new \Pdo\GetCoeffPower( $getCount->getCount() );
 $coeffPower = $GetCoeffPower->getKoefPowerId();
 
-$dateSql = new date\rangeDateSql( $date_b, '' );
+$dateSql = new \Date\rangeDateSql( $date_b, '' );
 $rangeSql = $dateSql->getSQL( 'date_create' );
 
 $rangeSql = ' AND ' . $rangeSql;
