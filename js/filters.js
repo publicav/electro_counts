@@ -162,6 +162,7 @@ $(function() {
 				}	
 			}			
 		}
+		console.log( cmd_arr );
 		json_get_table($('#right'), cmd_arr);
 	});	
 	$( document ).tooltip({ content: function() { return this.getAttribute("title") } });

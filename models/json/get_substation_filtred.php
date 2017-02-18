@@ -7,7 +7,7 @@ try {
     $get_prog = $filter->getInputAll();
 
     $validator = new \Filter\Validator( $get_prog, [
-        'data' => [ 'required', 'isPositive' ],
+        'data' => [ 'required',  ],
     ] );
 
     if ( !$validator->validateThis() ) {

@@ -53,57 +53,24 @@ function range_time( $dayofmt, $y_m ) {
 }
 
 function range_time_day( $date_b, $date_e ) {
-    if ( ( $date_e == '' ) AND ( $date_b == '' ) ) {
-        return "";
-    }
     if ( $date_e == '' ) $date_e = $date_b;
     if ( $date_b == '' ) $date_b = $date_e;
 
-    $r_time = "";
-    $r_time = " (date_create >= '') AND (date_create <= '')";
-    $on_b = preg_match( "([0-9]{4}-[0-9]{2}-[0-9]{2})", $date_b, $dt_b );
-    $on_e = preg_match( "([0-9]{4}-[0-9]{2}-[0-9]{2})", $date_e, $dt_e );
-
-    if ( $on_b && $on_e ) {
-        $begin_dt = $dt_b[0] . " 00:00:00";
-        $end_dt = $dt_e[0] . " 23:59:59";
-        $r_time = " (date_create >= '" . $begin_dt . "') AND (date_create <= '" . $end_dt . "')";
-    }
-    return $r_time;
-
+    if ( ( \DateTime::createFromFormat( 'Y-m-d', $date_b ) ) and ( \DateTime::createFromFormat( 'Y-m-d', $date_e ) ) ) {
+        $date_b = $date_b . " 00:00:00";
+        $date_e = $date_e . ' 23:59:59';
+        return "date_create BETWEEN '$date_b' AND '$date_e'";
+    } else return '';
 }
 
-function Page( $position, $sq ) {
-    global $config;
-    // global $db_li;
-    global $pdo;
-
-    //Определяем количество записей в базе данных
-    // echo $sq;
-
-    // if ($res = $db_li->query( $sq )) {
-    // /* определение числа рядов в выборке */
-    // $total = $res->num_rows;
-    // }
-
-    $res = $pdo->prepare( $sq );
-    if ( $res->execute() ) {
-        $total = $res->rowCount();
-    }
-
-    $c_page = $config['PAGE_COUNTER'];
+function positionValid( $columPage, $position, $total ) {
     if ( $position < 0 ) $position = 0;
-    if ( $position > $total ) $position = ( intval( $total / $c_page ) * $c_page );
-
-
-    $page_arr['total'] = $total;
-    $page_arr['position'] = $position;
-
-    return $page_arr;
+    if ( $position > $total ) $position = ( intval( $total / $columPage ) * $columPage );
+    return $position;
 }
 
-function navigator( $fl, $page_arr, $dop ) {
-    global $config;
+function navigator( $fl, $position, $total, $columPage, $cmd_arr ) {
+
     $pervpage = '';
     $page1left = '';
     $page2left = '';
@@ -113,22 +80,21 @@ function navigator( $fl, $page_arr, $dop ) {
     $page2rigth = '';
     $page3rigth = '';
     $nextpage = '';
+    unset( $cmd_arr['st'] );
+    $paramUrl = http_build_query( $cmd_arr );
 
-    $total = $page_arr['total'];
-    $position = $page_arr['position'];
 
-    $c_page = $config['PAGE_COUNTER'];
+    $end = ( intval( $total / $columPage ) * $columPage );
+    if ( $end == $total ) $end = $end - $columPage;
 
-    $end = ( intval( $total / $c_page ) * $c_page );
-    if ( $end == $total ) $end = $end - $c_page;
-    $pg = intval( $position / $c_page ) + 1;
-    // echo $pg.' test';
-    $stl1 = $position - $c_page;
-    $stl2 = $position - $c_page * 2;
-    $stl3 = $position - $c_page * 3;
-    $str1 = $position + $c_page;
-    $str2 = $position + $c_page * 2;
-    $str3 = $position + $c_page * 3;
+    $pg = intval( $position / $columPage ) + 1;
+
+    $stl1 = $position - $columPage;
+    $stl2 = $position - $columPage * 2;
+    $stl3 = $position - $columPage * 3;
+    $str1 = $position + $columPage;
+    $str2 = $position + $columPage * 2;
+    $str3 = $position + $columPage * 3;
 
     $pgl1 = $pg - 1;
     $pgl2 = $pg - 2;
@@ -136,22 +102,22 @@ function navigator( $fl, $page_arr, $dop ) {
     $pgr1 = $pg + 1;
     $pgr2 = $pg + 2;
     $pgr3 = $pg + 3;
-
-    if ( $total > $c_page ) $tek_page = "<span class='pagecurrent'>$pg</span>";
+    if ( !empty( $paramUrl ) ) $paramUrl = '&' . $paramUrl;
+    if ( $total > $columPage ) $tek_page = "<span class='pagecurrent'>$pg</span>";
 
     $sp = "<span class='pagelink'>";
 
-    if ( $stl1 >= 0 ) $pervpage = "$sp<a href=./$fl?st=0$dop title='На первую страницу'>«</a></span>$sp<a href=./$fl?st=$stl1$dop title='Предыдущая страница'>&lt;</a></span>";
+    if ( $stl1 >= 0 ) $pervpage = "$sp<a href=./$fl?st=0$paramUrl title='На первую страницу'>«</a></span>$sp<a href=./$fl?st=$stl1$paramUrl title='Предыдущая страница'>&lt;</a></span>";
 
-    if ( $str1 < $total ) $nextpage = "$sp<a href= ./$fl?st=$str1$dop title='Следующая страница'>&gt</a></span>$sp<a href= ./$fl?st=" . $end . $dop . " title='На последнюю  страницу'>»</a></span>";
+    if ( $str1 < $total ) $nextpage = "$sp<a href= ./$fl?st=$str1$paramUrl title='Следующая страница'>&gt</a></span>$sp<a href= ./$fl?st=" . $end . $paramUrl . " title='На последнюю  страницу'>»</a></span>";
 
-    if ( $stl1 >= 0 ) $page1left = "$sp<a href=./$fl?st=$stl1$dop title='$pgl1'>$pgl1</a></span>";
-    if ( $stl2 >= 0 ) $page2left = "$sp<a href=./$fl?st=$stl2$dop title='$pgl2'>$pgl2</a></span>";
-    if ( $stl3 >= 0 ) $page3left = "$sp<a href=./$fl?st=$stl3$dop title='$pgl3'>$pgl3</a></span>";
+    if ( $stl1 >= 0 ) $page1left = "$sp<a href=./$fl?st=$stl1$paramUrl title='$pgl1'>$pgl1</a></span>";
+    if ( $stl2 >= 0 ) $page2left = "$sp<a href=./$fl?st=$stl2$paramUrl title='$pgl2'>$pgl2</a></span>";
+    if ( $stl3 >= 0 ) $page3left = "$sp<a href=./$fl?st=$stl3$paramUrl title='$pgl3'>$pgl3</a></span>";
 
-    if ( $str1 < $total ) $page1rigth = "$sp<a href=./$fl?st=$str1$dop title='$pgr1'>$pgr1</a></span>";
-    if ( $str2 < $total ) $page2rigth = "$sp<a href=./$fl?st=$str2$dop title='$pgr2'>$pgr2</a></span>";
-    if ( $str3 < $total ) $page3rigth = "$sp<a href=./$fl?st=$str3$dop title='$pgr3'>$pgr3</a></span>";
+    if ( $str1 < $total ) $page1rigth = "$sp<a href=./$fl?st=$str1$paramUrl title='$pgr1'>$pgr1</a></span>";
+    if ( $str2 < $total ) $page2rigth = "$sp<a href=./$fl?st=$str2$paramUrl title='$pgr2'>$pgr2</a></span>";
+    if ( $str3 < $total ) $page3rigth = "$sp<a href=./$fl?st=$str3$paramUrl title='$pgr3'>$pgr3</a></span>";
     $rt = '<div class="navigator">
              <p>' . $pervpage . $page3left . $page2left . $page1left . $tek_page . $page1rigth . $page2rigth . $page3rigth . $nextpage . '</p>
            </div>';
@@ -281,5 +247,3 @@ function json_menu2array( $menu_json ) {
     }
     return $menu_arr;
 }
-
-?>

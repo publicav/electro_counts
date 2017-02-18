@@ -4,9 +4,6 @@ include_once( "../open.php" );
 include_once( "../config.php" );
 include_once( "../funclib.php" );
 
-$st_sql = '';
-$st_page = '';
-
 $path_parts = pathinfo( $_SERVER["HTTP_REFERER"] );
 $url = $path_parts['filename'];
 $url_search_action = $url . '.php';
@@ -42,117 +39,107 @@ if ( isset( $get_prog['id_counter'] ) and ( $select == 3 ) ) {
     if ( $id_counter == 0 ) $select = 3;
 } else $id_counter = 0;
 
+if ( isset( $get_prog['date_b'] ) ) {
+    $date_b = $get_prog['date_b'];
+} else $date_b = '';
 
-$dt = new \DateTime();
-if ( empty( $get_prog['date_b'] ) ) {
-    $get_prog['date_b'] = $dt->format( 'Y-m-01' );
-    $get_prog['date_e'] = $dt->format( 'Y-m-d' );
-
-} elseif ( empty( $get_prog['date_e'] ) ) {
-    $get_prog['date_e'] = $dt->format( 'Y-m-d' );
-}
-
-//if ( isset( $get_prog['date_b'] ) ) {
-//    $date_b = $get_prog['date_b'];
-//} else $date_b = '';
-//
-//if ( isset( $get_prog['date_e'] ) ) {
-//    $date_e = $get_prog['date_e'];
-//} else $date_e = '';
+if ( isset( $get_prog['date_e'] ) ) {
+    $date_e = $get_prog['date_e'];
+} else $date_e = '';
 
 $dateRange = range_time_day( $date_b, $date_e );
-$st_navigator = cmd_page_navigator( $date_b, $date_e );
+if ( $dateRange != '' ) {
+    $dtRangeSql = " AND $dateRange";
+} else {
+    $dtRangeSql = '';
+}
+//$st_navigator = cmd_page_navigator( $date_b, $date_e );
 
 
 switch ( $select ) {
     case 1:
-        if ( $dateRange != '' ) {
-            $st_sql = ' AND ' . $dateRange;
-            $st_page = 'WHERE ' . $dateRange;
-        }
-        $sq = "SELECT main.id, cnt.name AS counter, DATE_FORMAT(main.date_create, '%d-%m-%y %H:%i' ) AS date1, main.value AS value,
-					   sub.name AS substation, lot.name AS lot, concat( users.name, ' ', users.family) AS name_user
-				FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
-				WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND 
-					  (sub.lots = lot.id) AND (main.id_users = users.id)  $st_sql
-				ORDER by date_create
-				LIMIT :position_in, :total_col;";
-        $page_out = Page( $position_in, "SELECT main.id FROM counter_v AS main $st_page;" );
-        $navigator = navigator( $url_search_action, $page_out, $st_navigator );
+        $filterSql = '';
+        $paramNrange = [];
         $param = [ 'position_in' => $position_in,
                    'total_col'   => $config['PAGE_COUNTER']
         ];
-
         break;
-    case
-    2:
-        if ( $dateRange != '' ) $st_sql = ' AND ' . $dateRange;
-        $sq = "SELECT main.id, cnt.name AS counter, DATE_FORMAT(main.date_create, '%d-%m-%y %H:%i' ) AS date1, main.value AS value,
-					   sub.name AS substation, lot.name AS lot, concat( users.name, ' ', users.family) AS name_user
-				FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
-				WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND 
-						(sub.lots = lot.id) AND (main.id_users = users.id) AND (lot.id = :id_lot) $st_sql
-				ORDER by date_create
-				LIMIT :position_in, :total_col;";
-        $page_out = Page( $position_in, "SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
-									   WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ") $st_sql;" );
-        $navigator = navigator( $url_search_action, $page_out, '&id_lot=' . $id_lot . $st_navigator );
+    case 2:
+        $filterSql = ' AND (lot.id = :id_lot)';
+        $paramNrange = [ 'id_lot' => $id_lot ];
         $param = [ 'position_in' => $position_in,
                    'total_col'   => $config['PAGE_COUNTER'],
                    'id_lot'      => $id_lot
         ];
         break;
     case 3:
-        if ( $dateRange != '' ) $st_sql = ' AND ' . $dateRange;
-        $sq = "SELECT main.id, cnt.name AS counter, DATE_FORMAT(main.date_create, '%d-%m-%y %H:%i' ) AS date1, main.value AS value,
-					   sub.name AS substation, lot.name AS lot, concat( users.name, ' ', users.family) AS name_user
-				FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
-				WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND
-					  (main.id_users = users.id) AND	(lot.id = :id_lot) AND (sub.id = :id_sub) $st_sql
-				ORDER by date_create
-				LIMIT :position_in, :total_col;";
-        $page_out = Page( $position_in, "SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
-									   WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ")  AND (sub.id = " . $id_sub . ") $st_sql;" );
-        $navigator = navigator( $url_search_action, $page_out, '&id_lot=' . $id_lot . '&id_sub=' . $id_sub . $st_navigator );
+        $filterSql = ' AND (sub.id = :id_sub)';
+        $paramNrange = [ 'id_sub' => $id_sub ];
         $param = [ 'position_in' => $position_in,
                    'total_col'   => $config['PAGE_COUNTER'],
-                   'id_lot'      => $id_lot,
                    'id_sub'      => $id_sub
         ];
         break;
     case 4:
-        if ( $dateRange != '' ) $st_sql = ' AND ' . $dateRange;
-        $sq = "SELECT main.id, cnt.name AS counter, DATE_FORMAT(main.date_create, '%d-%m-%y %H:%i' ) AS date1, main.value AS value,
-					   sub.name AS substation, lot.name AS lot, concat( users.name, ' ', users.family) AS name_user
-				FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
-				WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND 
-					  (main.id_users = users.id)  AND (lot.id = :id_lot) AND (cnt.id = :id_counter) $st_sql
-				ORDER by date_create
-				LIMIT :position_in, :total_col;";
-        $page_out = Page( $position_in, "SELECT main.id FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
-									   WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND (lot.id = " . $id_lot . ")  AND (sub.id = " . $id_sub . ") AND (cnt.id = " . $id_counter . ") $st_sql;" );
-        $navigator = navigator( $url_search_action, $page_out, '&id_lot=' . $id_lot . '&id_sub=' . $id_sub . '&id_counter=' . $id_counter . $st_navigator );
+        $filterSql = ' AND (cnt.id = :id_counter)';
+        $paramNrange = [ 'id_counter' => $id_counter ];
         $param = [ 'position_in' => $position_in,
                    'total_col'   => $config['PAGE_COUNTER'],
-                   'id_lot'      => $id_lot,
                    'id_counter'  => $id_counter
         ];
         break;
 
     default:
 }
+$sqlNumberRecords = "SELECT main.id 
+                     FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot 
+                     WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) 
+                     $filterSql $dtRangeSql;
+                     ";
 
-$pdo->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
-$res = $pdo->prepare( $sq );
-if ( !$res->execute( $param ) ) {
+$res = $pdo->prepare( $sqlNumberRecords );
+if ( !$res->execute( $paramNrange ) ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
     print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
+$total = $res->rowCount();
+
+$sq = "SELECT main.id, cnt.name AS counter, DATE_FORMAT(main.date_create, '%d-%m-%y %H:%i' ) AS date1, 
+                      main.value AS value, sub.name AS substation, lot.name AS lot, 
+                      concat( users.name, ' ', users.family) AS name_user
+				FROM counter_v AS main, count AS cnt, substation AS sub, lots AS lot, users
+				WHERE (main.id_counter = cnt.id) AND (cnt.substations = sub.id) AND (sub.lots = lot.id) AND 
+				      (main.id_users = users.id)  
+				      $filterSql $dtRangeSql
+				ORDER by date_create
+				LIMIT :position_in, :total_col;
+      ";
+
+$pdo->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
+$res = $pdo->prepare( $sq );
+if ( !$res->execute( $param ) ) {
+
+    header( "HTTP/1.1 400 Bad Request", true, 400 );
+    print exit_error( false, 3, $res->errorInfo()[2] );
+    exit();
+}
+
 while ( $row = $res->fetch() ) {
     $keyId = 'c' . $row['id'];
     $counter[ $keyId ] = $row;
 }
+
+$position_in = positionValid( $config['PAGE_COUNTER'], $position_in, $total );
+
+if ( !is_array( $get_prog ) ) $get_prog = [];
+$navigator = navigator(
+    $url_search_action,
+    $position_in,
+    $total,
+    $config['PAGE_COUNTER'],
+    $get_prog
+);
 
 $result = [
     'success'   => true,
