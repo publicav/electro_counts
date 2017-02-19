@@ -68,10 +68,8 @@ $name_counter = $getCount->getName();
 $GetCoeffPower = new \Pdo\GetCoeffPower( $getCount->getCount() );
 $coeffPower = $GetCoeffPower->getKoefPowerId();
 
-$dateSql = new \Date\rangeDateSql( $date_b, '' );
-$rangeSql = $dateSql->getSQL( 'date_create' );
+$rangeSql = \Date\RangeMonthSql::init( $date_b, '' )->doMonth()->getSQL( 'date_create' );
 
-$rangeSql = ' AND ' . $rangeSql;
 $sq = "SELECT main.id, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS date_second, 
                    main.date_create AS dt1, main.n_counter
 			FROM counter_v AS main
