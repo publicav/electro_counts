@@ -130,9 +130,6 @@ while ( $row = $res->fetch() ) {
     $counter[ $keyId ] = $row;
 }
 
-$position_in = positionValid( $config['PAGE_COUNTER'], $position_in, $total );
-
-if ( !is_array( $get_prog ) ) $get_prog = [];
 $navigator = navigator(
     $url_search_action,
     $position_in,
@@ -140,13 +137,14 @@ $navigator = navigator(
     $config['PAGE_COUNTER'],
     $get_prog
 );
-
+$navigationData = \Navigation\NavigationFilter::init( $position_in, $total, $get_prog )->
+                    setColumPage( 34 )->setNavigatorPage( 3 )->doNavigation();
 $result = [
-    'success'   => true,
-    'id_error'  => 0,
-    'data'      => $counter,
-    'navigator' => $navigator,
-    'url'       => $url,
+    'success'        => true,
+    'id_error'       => 0,
+    'data'           => $counter,
+    'navigator'      => $navigator,
+    'navigationData' => $navigationData,
 ];
 echo json_encode( $result );
 

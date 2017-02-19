@@ -16,7 +16,7 @@ function create_sql( $action, $table, $data ) {
         foreach ( $data as $key => $value ) {
             if ( $key != 'id' ) {
                 $fields .= $key . ',';
-                $vars .= "'" . $value . "'" . ",";
+                $vars .= "'$value',";
             }
         }
         $fields = substr( $fields, 0, strlen( $fields ) - 1 );
@@ -63,66 +63,50 @@ function range_time_day( $date_b, $date_e ) {
     } else return '';
 }
 
-function positionValid( $columPage, $position, $total ) {
-    if ( $position < 0 ) $position = 0;
-    if ( $position > $total ) $position = ( intval( $total / $columPage ) * $columPage );
-    return $position;
-}
 
-function navigator( $fl, $position, $total, $columPage, $cmd_arr ) {
-
-    $pervpage = '';
-    $page1left = '';
-    $page2left = '';
-    $page3left = '';
-    $tek_page = '';
-    $page1rigth = '';
-    $page2rigth = '';
-    $page3rigth = '';
-    $nextpage = '';
+function navigator( $file, $position, $total, $columPage, $cmd_arr ) {
+    if ( !is_array( $cmd_arr ) ) $cmd_arr = [];
     unset( $cmd_arr['st'] );
     $paramUrl = http_build_query( $cmd_arr );
-
-
-    $end = ( intval( $total / $columPage ) * $columPage );
-    if ( $end == $total ) $end = $end - $columPage;
-
-    $pg = intval( $position / $columPage ) + 1;
-
-    $stl1 = $position - $columPage;
-    $stl2 = $position - $columPage * 2;
-    $stl3 = $position - $columPage * 3;
-    $str1 = $position + $columPage;
-    $str2 = $position + $columPage * 2;
-    $str3 = $position + $columPage * 3;
-
-    $pgl1 = $pg - 1;
-    $pgl2 = $pg - 2;
-    $pgl3 = $pg - 3;
-    $pgr1 = $pg + 1;
-    $pgr2 = $pg + 2;
-    $pgr3 = $pg + 3;
     if ( !empty( $paramUrl ) ) $paramUrl = '&' . $paramUrl;
-    if ( $total > $columPage ) $tek_page = "<span class='pagecurrent'>$pg</span>";
 
-    $sp = "<span class='pagelink'>";
+    if ( $position < 0 ) $position = 0;
+    if ( $position > $total ) $position = ( floor( $total / $columPage ) * $columPage );
 
-    if ( $stl1 >= 0 ) $pervpage = "$sp<a href=./$fl?st=0$paramUrl title='На первую страницу'>«</a></span>$sp<a href=./$fl?st=$stl1$paramUrl title='Предыдущая страница'>&lt;</a></span>";
+    $end = ( floor( $total / $columPage ) * $columPage );
+    if ( $end == $total ) $end = $end - $columPage;
+    $stl1 = $position - $columPage;
+    $str1 = $position + $columPage;
 
-    if ( $str1 < $total ) $nextpage = "$sp<a href= ./$fl?st=$str1$paramUrl title='Следующая страница'>&gt</a></span>$sp<a href= ./$fl?st=" . $end . $paramUrl . " title='На последнюю  страницу'>»</a></span>";
+    $pgCurrent = floor( $position / $columPage ) + 1;
+    $navigatorPage = 4;
+    $page = '';
+    $classSpan = 'pagelink';
 
-    if ( $stl1 >= 0 ) $page1left = "$sp<a href=./$fl?st=$stl1$paramUrl title='$pgl1'>$pgl1</a></span>";
-    if ( $stl2 >= 0 ) $page2left = "$sp<a href=./$fl?st=$stl2$paramUrl title='$pgl2'>$pgl2</a></span>";
-    if ( $stl3 >= 0 ) $page3left = "$sp<a href=./$fl?st=$stl3$paramUrl title='$pgl3'>$pgl3</a></span>";
+    if ( $stl1 >= 0 ) {
+        $pervpage = "<span class=$classSpan><a href=./$file?st=0$paramUrl title=\"На первую страницу\">«</a></span>
+                     <span class=$classSpan><a href=./$file?st=$stl1$paramUrl title=\"Предыдущая страница\">&lt;</a></span>";
+    } else  $pervpage = '';
+    for ( $i = $pgCurrent - $navigatorPage, $count = -$navigatorPage; $i <= $pgCurrent + $navigatorPage; $i++, $count++ ) {
+        $stFirst = $position + $columPage * $count;
+        if ( ( $stFirst >= 0 ) and ( $stFirst < $total ) ) {
+            if ( $i == $pgCurrent ) {
+                if ( $total > $columPage ) $page .= "<span class=\"pagecurrent\">$pgCurrent</span>";
+            } else {
+                $page .= "<span class=$classSpan><a href=./$file?st=$stFirst$paramUrl title=\"$i\">$i</a></span>";
+            }
+        }
+    }
+    if ( $str1 < $total ) {
+        $nextpage = "<span class=$classSpan><a href= ./$file?st=$str1$paramUrl title='Следующая страница'>&gt</a></span>
+                     <span class=$classSpan><a href= ./$file?st=$end$paramUrl  title='На последнюю  страницу'>»</a></span>";
+    } else $nextpage = '';
 
-    if ( $str1 < $total ) $page1rigth = "$sp<a href=./$fl?st=$str1$paramUrl title='$pgr1'>$pgr1</a></span>";
-    if ( $str2 < $total ) $page2rigth = "$sp<a href=./$fl?st=$str2$paramUrl title='$pgr2'>$pgr2</a></span>";
-    if ( $str3 < $total ) $page3rigth = "$sp<a href=./$fl?st=$str3$paramUrl title='$pgr3'>$pgr3</a></span>";
     $rt = '<div class="navigator">
-             <p>' . $pervpage . $page3left . $page2left . $page1left . $tek_page . $page1rigth . $page2rigth . $page3rigth . $nextpage . '</p>
+                 <p>' . $pervpage . $page . $nextpage . '</p>
            </div>';
-    return $rt;
 
+    return $rt;
 }
 
 function deltree( $folder ) {
@@ -186,18 +170,10 @@ function validator_input_sql( $name_table, $id ) {
             $name_result = $row['name'];
         }
     }
-
-    // if ($res = $db_li->query($sq)) {
-    // while ($row = $res->fetch_assoc()) {
-    // $name_result = $row['name'];
-    // }
-    // $res->free();
-    // }
     return $name_result;
 }
 
 function validator_user( $user ) {
-    // global $db_li;
     global $pdo;
     $sq = "SELECT id FROM users  WHERE ( users = :user );";
     $param = array( 'user' => $user );
@@ -207,13 +183,6 @@ function validator_user( $user ) {
             $id = $row['id'];
         }
     }
-
-    // if ($res = $db_li->query($sq)) {
-    // while ($row = $res->fetch_assoc()) {
-    // $id = $row['id'];
-    // }
-    // $res->free();
-    // }
     return $id;
 }
 
