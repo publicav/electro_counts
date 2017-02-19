@@ -8,8 +8,6 @@ $path_parts = pathinfo( $_SERVER["HTTP_REFERER"] );
 $url = $path_parts['filename'];
 $url_search_action = $url . '.php';
 
-$counter = array();
-
 $filter = new \Filter\FilterInput( $_GET );
 $get_prog = $filter->getInputAll();
 
@@ -53,8 +51,6 @@ if ( $dateRange != '' ) {
 } else {
     $dtRangeSql = '';
 }
-//$st_navigator = cmd_page_navigator( $date_b, $date_e );
-
 
 switch ( $select ) {
     case 1:
@@ -119,31 +115,24 @@ $sq = "SELECT main.id, cnt.name AS counter, DATE_FORMAT(main.date_create, '%d-%m
 $pdo->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
 $res = $pdo->prepare( $sq );
 if ( !$res->execute( $param ) ) {
-
     header( "HTTP/1.1 400 Bad Request", true, 400 );
     print exit_error( false, 3, $res->errorInfo()[2] );
     exit();
 }
 
+$counter =[];
 while ( $row = $res->fetch() ) {
     $keyId = 'c' . $row['id'];
     $counter[ $keyId ] = $row;
 }
 
-$navigator = navigator(
-    $url_search_action,
-    $position_in,
-    $total,
-    $config['PAGE_COUNTER'],
-    $get_prog
-);
-$navigationData = \Navigation\NavigationFilter::init( $position_in, $total, $get_prog )->
-                    setColumPage( 34 )->setNavigatorPage( 3 )->doNavigation();
+$navigationData = \Navigation\NavigationFilterData::init( $position_in, $total, $get_prog )->
+                    setColumPage( 34 )->setNavigatorPage( 5 )->doNavigation();
 $result = [
     'success'        => true,
     'id_error'       => 0,
     'data'           => $counter,
-    'navigator'      => $navigator,
+//    'navigator'      => $navigator,
     'navigationData' => $navigationData,
 ];
 echo json_encode( $result );

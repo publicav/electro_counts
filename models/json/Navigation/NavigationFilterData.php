@@ -9,12 +9,12 @@
 namespace Navigation;
 
 
-class NavigationFilter {
+class NavigationFilterData {
     protected $_icons = [
         'first' => '«',
         'prev'  => '&lt',
         'next'  => '&gt',
-        'end'   => 'На последнюю  страницу',
+        'end'   => '»',
     ];
     protected $_title = [
         'first' => 'На первую страницу',

@@ -150,10 +150,15 @@ let print_table = ( counter )  => {
 }
 const navigation = ( data ) =>{
 	var page = data.page;
+	var span = '';
 	for(let i =0 ; i<page.length; i++) {
-	    if (page.st == null)
-          var result += `<span class=""><a href="" title="">test</a></span>
+	    if (page[i].st == null) {
+            span += `<span class="pagecurrent">${page[i].text}</span>`;
+		} else {
+	    	span += `<span class="pagelink"><a href="${data.file}?st=${page[i].st}${data.paramUrl}" title="${page[i].title}">${page[i].text}</a></span>`;
+        }
     }
+    var result = `<p>${span}<p>`;
 	return result;
 }
 
@@ -195,10 +200,10 @@ let json_get_table = ( objTarget, cmd_arr ) => {
 	 .done(( result ) => {
 		if (result.success) {
 			var data = result.data;
-            var navigationD = navigation( result.navigationData );
-            console.log( navigationD );
 			objTarget.html( print_table( data ) );
-			objTarget.append( result.navigator );
+            var navigationD = navigation( result.navigationData );
+			objTarget.append( '<div class="navigator">' +  navigationD + '</div>' );
+			// objTarget.append( result.navigator );
 			history.pushState( null, null, create_cmd( '', cmd_arr ) );
 		} else  alert( result.error );
 	 })
