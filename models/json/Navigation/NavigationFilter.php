@@ -14,7 +14,13 @@ class NavigationFilter {
         'first' => '«',
         'prev'  => '&lt',
         'next'  => '&gt',
-        'end'   => '»',
+        'end'   => 'На последнюю  страницу',
+    ];
+    protected $_title = [
+        'first' => 'На первую страницу',
+        'prev'  => 'Предыдущая страница',
+        'next'  => 'Следующая страница',
+        'end'   => 'На последнюю  страницу',
     ];
     protected $_columPage = 34;
     protected $_navigatorPage = 4;
@@ -53,6 +59,24 @@ class NavigationFilter {
 
     public function setNavigatorPage( $navigatorPage ) {
         $this->_navigatorPage = $navigatorPage;
+        return $this;
+    }
+
+    /**
+     * @param array $icons
+     * @return $this
+     */
+    public function setIcons( $icons ) {
+        $this->_icons = $icons;
+        return $this;
+    }
+
+    /**
+     * @param array $title
+     * @return $this
+     */
+    public function setTitle( $title ) {
+        $this->_title = $title;
         return $this;
     }
 
@@ -134,24 +158,24 @@ class NavigationFilter {
         $str1 = $position + $columPage;
         $pageArr = [];
         if ( $stl1 >= 0 ) {
-            $pageArr[] = [ 'st' => 0, 'text' => $this->_icons['first'] ];
-            $pageArr[] = [ 'st' => $stl1, 'text' => $this->_icons['prev'] ];
+            $pageArr[] = [ 'st' => 0, 'text' => $this->_icons['first'], 'title' => $this->_title['first'] ];
+            $pageArr[] = [ 'st' => $stl1, 'text' => $this->_icons['prev'], 'title' => $this->_title['prev'] ];
         }
         for ( $i = $pgCurrent - $navigatorPage, $count = -$navigatorPage; $i <= $pgCurrent + $navigatorPage; $i++, $count++ ) {
             $stFirst = $position + $columPage * $count;
             if ( ( $stFirst >= 0 ) and ( $stFirst < $total ) ) {
                 if ( $i == $pgCurrent ) {
                     if ( $total > $columPage ) {
-                        $pageArr[] = [ 'st' => null, 'text' => $pgCurrent ];
+                        $pageArr[] = [ 'st' => null, 'text' => $pgCurrent, 'title' => '' ];
                     }
                 } else {
-                    $pageArr[] = [ 'st' => $stFirst, 'text' => $i ];
+                    $pageArr[] = [ 'st' => $stFirst, 'text' => $i, 'title' => $i ];
                 }
             }
         }
         if ( $str1 < $total ) {
-            $pageArr[] = [ 'st' => $str1, 'text' => $this->_icons['next'] ];
-            $pageArr[] = [ 'st' => $end, 'text' => $this->_icons['end'] ];
+            $pageArr[] = [ 'st' => $str1, 'text' => $this->_icons['next'], 'title' => $this->_title['next'] ];
+            $pageArr[] = [ 'st' => $end, 'text' => $this->_icons['end'], 'title' => $this->_title['end'] ];
         }
         $this->_pgCurrent = $pgCurrent;
         $this->_end = $end;

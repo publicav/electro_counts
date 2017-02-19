@@ -10,8 +10,8 @@ let getUrlVars = () => {
     return vars;
 }
 
-const SELECTED_ACTIONS = 1, EDIT_ACTIONS = 2; 
-const ADD_USER_ACTIONS = 1, EDIT_USER_ACTIONS = 2; 
+const SELECTED_ACTIONS = 1, EDIT_ACTIONS = 2;
+const ADD_USER_ACTIONS = 1, EDIT_USER_ACTIONS = 2;
 const ADD_COUNTER_BTN_NAME = 'ok_f', EDIT_COUNTER_BTN_NAME = 'edit_f';
 const parseBASENAME = window.location.pathname.slice( 1 ).split( '/' );
 const BASENAME = parseBASENAME[parseBASENAME.length-1];
@@ -21,7 +21,7 @@ cmd_arr = getUrlVars();
 console.log(cmd_arr);
 
 /**
- * Возвращает индекс массива объектов. 
+ * Возвращает индекс массива объектов.
  *
  * @param {array} arr массив объектов.
  * @param {number} find_id Значение id объекта по которому  осуществляется поиск.
@@ -34,7 +34,7 @@ let find_arr_id = ( arr, find_id ) => {
 }
 
 /**
- * Парсим командную строку ищем значение st. 
+ * Парсим командную строку ищем значение st.
  *
  * @param {string} param исходная командная строка.
  * @return {string} Возвращает retSt если находит st={number} .
@@ -46,9 +46,9 @@ let cmdLineParsing = ( param ) => {
 		for (var i = 0; i < stArr.length; i++) {
 			st =  stArr[i].split('=');       // массив param будет содержать
 			if (st[0] == 'st' ) {
-				if (st[1] != 0) retSt = st[1]; 
-			}	
-		}			
+				if (st[1] != 0) retSt = st[1];
+			}
+		}
 	}
 	return retSt;
 }
@@ -57,7 +57,7 @@ let get_last_val = ( {objCounterLastVal, param } ) => {
 	$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: param})
 	 .done(( result ) => {
 			var data = result.data;
-			objCounterLastVal.val( data.value );	
+			objCounterLastVal.val( data.value );
 	})
 	.fail(( result ) => alert( result.responseJSON.error));
 }
@@ -84,29 +84,29 @@ let get_counter = ( { objCounter, objCounterLastVal = {}, url_counter, actions =
 				$.ajax({dataType: 'json', type: 'post', url: 'models/json/last_val_counters.php', data: { 'counter': counter } } )
 				 .done(( result ) => {
 						var data = result.data;
-						objCounterLastVal.val( data.value );	
+						objCounterLastVal.val( data.value );
 				})
 				.fail(( result ) => alert( result.responseJSON.error));
 			}
 		}
-	})	
+	})
 	.fail(( result, b, c ) => alert( result.responseJSON.error ));
 //	console.log(a, b, c);
-}	
+}
 
-let get_substation = ( {objSubstation, objCounter, objCounterLastVal = {}, url_substation, url_counter, editCounter = 0}, 
+let get_substation = ( {objSubstation, objCounter, objCounterLastVal = {}, url_substation, url_counter, editCounter = 0},
 			      data = 1, actions = SELECTED_ACTIONS, value = 0, couner_value = 0 ) => {
 	objSubstation.prop('disabled', true);
 	objSubstation.html('<option>загрузка...</option>');
 	$.getJSON(url_substation, {data: data})
-	.done((result) => { 
+	.done((result) => {
 			var options = '';
 			$(result.data).each(function() { options += '<option value="' + $(this).attr('id') + '">' + $(this).attr('name') + '</option>';	});
 			objSubstation.html( options );
 			objSubstation.prop('disabled', false);
 			if (actions == SELECTED_ACTIONS) get_counter( { objCounter, objCounterLastVal, url_counter}, result.data[0].id );
 			if (actions == EDIT_ACTIONS) {
-				objSubstation.find('[value="' + value + '"]').prop("selected", true);				
+				objSubstation.find('[value="' + value + '"]').prop("selected", true);
 				get_counter( { objCounter, objCounterLastVal, url_counter, actions, EDIT_ACTIONS, couner_value}, value );
 			}
 	})
@@ -124,7 +124,7 @@ let create_cmd = ( base_link, params )  => {
 	}
 	return cmd;
 }
-	
+
 let print_table = ( counter )  => {
 	var count = 0 , class_e;
 	var st = `	<div class="title_table_counter">
@@ -133,20 +133,28 @@ let print_table = ( counter )  => {
 					<div class="title_counts">Ячейка</div>
 					<div class="title_date">Дата</div>
 					<div class="title_date">Значение</div>
-				</div>`; 
-	
+				</div>`;
+
 	for (let key in counter) {
-		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';			
+		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
 		st += `	<div id="id_${counter[key].id}" class="${class_e}" title="Ввод - <b>${counter[key].name_user}</b>">
 				<div class="col_lots">${counter[key].lot}</div>
 				<div class="col_substation">${counter[key].substation}</div>
 				<div class="col_counts">${counter[key].counter}</div>
 				<div class="col_date">${counter[key].date1}</div>
 				<div class="col_value">${counter[key].value}</div>
-				</div>`; 
+				</div>`;
 		count++;
 	}
 	return st;
+}
+const navigation = ( data ) =>{
+	var page = data.page;
+	for(let i =0 ; i<page.length; i++) {
+	    if (page.st == null)
+          var result += `<span class=""><a href="" title="">test</a></span>
+    }
+	return result;
 }
 
 let print_t_calc = ( counter )  => {
@@ -156,17 +164,17 @@ let print_t_calc = ( counter )  => {
 					<div class="title_counts">Ячейка</div>
 					<div class="title_date">Дата</div>
 					<div class="title_date">Значение</div>
-				</div>`; 
-	
+				</div>`;
+
 	for (let key in counter) {
-		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';	
-		if ( counter[key].rare < 0 ) class_e = 'counter_str_err';	
+		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
+		if ( counter[key].rare < 0 ) class_e = 'counter_str_err';
 		st += `	<div class="${class_e}" title="Расчёт">
 					<div class="col_date"></div>		
 					<div class="col_counts">${counter[key].name_counter}</div>
 					<div class="col_date">${counter[key].date}</div>
 					<div class="col_value">${counter[key].rare}</div>
-				</div>`; 
+				</div>`;
 		count++;
 	}
 	return st;
@@ -187,12 +195,14 @@ let json_get_table = ( objTarget, cmd_arr ) => {
 	 .done(( result ) => {
 		if (result.success) {
 			var data = result.data;
+            var navigationD = navigation( result.navigationData );
+            console.log( navigationD );
 			objTarget.html( print_table( data ) );
 			objTarget.append( result.navigator );
 			history.pushState( null, null, create_cmd( '', cmd_arr ) );
 		} else  alert( result.error );
 	 })
-	 .fail(() => alert(  result.responseJSON.error ));
+	 .fail(() => alert( result.responseJSON.error ));
 }
 
 let json_get_t_calc = ( objTarget, cmd_arr ) => {
@@ -209,7 +219,7 @@ let json_get_t_calc = ( objTarget, cmd_arr ) => {
 }
 
 /**
- * Возвращает отформатированую таблицу всех пользователей. 
+ * Возвращает отформатированую таблицу всех пользователей.
  *
  * @param {object} user_all  массив объектов.
  * @return {string} st возвращает отформатированую таблицу всех пользователей.
@@ -220,22 +230,22 @@ let print_table_user = ( user_all ) => {
 				<div class="title_user">Пользователь</div>
 				<div class="title_family">Фамилия</div>
 				<div class="title_name">Имя</div>
-			  </div>`; 
+			  </div>`;
 	for (let key in user_all) {
-		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';			
+		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
 		st += `<div id="id_${user_all[key].id}" class="${class_e}"  title="Редактировать параметры пользователя">
 				<div class="col_user">${user_all[key].users}</div>
 				<div class="col_family">${user_all[key].family}</div>
 				<div class="col_name">${user_all[key].name}</div>
-			   </div>`; 
+			   </div>`;
 		count++;
-		
+
 	}
 	return st;
 }
 
 /**
- * Возвращает отформатированую строку введенных данных. 
+ * Возвращает отформатированую строку введенных данных.
  * данные передаются ввиде одного объекта.
  * @param {string} name_lot строка содержащая участок ввода.
  * @param {string} name_substation строка содержащая подстанцию ввода.
@@ -245,7 +255,7 @@ let print_table_user = ( user_all ) => {
  * @param {number} value значение счётчика.
  * @param {number} id счётчика в базе.
  * @param {object} name_counter  массив объектов.
- 
+
  * @return {string} row_add возвращает строку введенных данных.
  */
 let print_add_record = ( {name_lot, name_substation, name_counter, date, time, value, id} ) => {
@@ -283,13 +293,13 @@ let l_form_edit_value = ( {objLot, objSubstation, objCounter, objDate, objTime, 
 	$.ajax({dataType: 'json', type: 'get', url: 'models/json/edit_form_value.php', data: param })
 	 .done((result) => {
 		var data = result.data;
-		var obj = {	objSubstation, 	objCounter, url_substation, url_counter	};	
+		var obj = {	objSubstation, 	objCounter, url_substation, url_counter	};
 		objLot.find('[value="' + data.lot_id + '"]').prop("selected", true);
 		get_substation(obj, data.lot_id, 2, data.sub_id, data.counter_id);
 		objDate.val(data.date1);
-		objTime.val(data.time1);	
-		objValEdit.val(data.value);	
-		objId.val(data.id);	
+		objTime.val(data.time1);
+		objValEdit.val(data.value);
+		objId.val(data.id);
 	})
 	.fail((result) => alert(result.error));
 }
@@ -299,12 +309,12 @@ let l_form_edit_user = ( {objUser, objPassword, objConfirmPassword, objUserFamil
 	 .done((result) => {
 		var data = result.data;
 		if( data == null) return;
-		objUser.val(data.users);	
+		objUser.val(data.users);
 		objPassword.val('');
-		objConfirmPassword.val('');	
-		objUserFamily.val(data.family);	
-		objUserName.val(data.name);	
-		objId.val(data.id);	
+		objConfirmPassword.val('');
+		objUserFamily.val(data.family);
+		objUserName.val(data.name);
+		objId.val(data.id);
 	})
 	.fail(() => alert( result.responseJSON.error ));
 }
@@ -315,10 +325,10 @@ let edit_form_actions = ( obj_form ) => {
 	var lot = obj_form.objLot.val();
 	var substation = obj_form.objSubstation.val();
 	var counts = obj_form.objCounter.val();
-	var m_method = $(form).attr('method'); 
-	var m_action = $(form).attr('action'); 
+	var m_method = $(form).attr('method');
+	var m_action = $(form).attr('action');
 	var m_data = $(form).serialize(); // input1=value1&input2=value2..., только input=text
-	m_data += `&lot=${lot}&substation=${substation}&counter=${counts}&actions=edit`; 
+	m_data += `&lot=${lot}&substation=${substation}&counter=${counts}&actions=edit`;
 
 	$.ajax({dataType: 'json', type: m_method, url: m_action, data: m_data})
 	.done((result) => {
@@ -335,27 +345,27 @@ let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, obj
 	var lot = objLot.val();
 	var substation = objSubstation.val();
 	var counts = objCounter.val();
-	var m_method=$(form).attr('method'); 
-	var m_action=$(form).attr('action'); 
+	var m_method=$(form).attr('method');
+	var m_action=$(form).attr('action');
 	var m_data=$(form).serialize(); // input1=value1&input2=value2..., только input=text
 
-	m_data += `&lot=${lot}&counter=${counts}&substation=${substation}`; 
-	if (btnPress.id == ADD_COUNTER_BTN_NAME)  m_data += '&actions=add';   		
-	if (btnPress.id == EDIT_COUNTER_BTN_NAME) m_data += '&actions=edit';   
+	m_data += `&lot=${lot}&counter=${counts}&substation=${substation}`;
+	if (btnPress.id == ADD_COUNTER_BTN_NAME)  m_data += '&actions=add';
+	if (btnPress.id == EDIT_COUNTER_BTN_NAME) m_data += '&actions=edit';
 
 	$.ajax({dataType: 'json', type: m_method, url: m_action, data: m_data })
 	.done((result) => {
 		if (result.success) {
 			var data = result.data;
 			gl_add_counts++;
-			
+
 			var row_edit = print_add_record( data );
 			var row_add = `<li>${row_edit}</li>`;
-			
+
 			if (btnPress.id == ADD_COUNTER_BTN_NAME) ok_btn( data, row_add );
 			if (btnPress.id == EDIT_COUNTER_BTN_NAME) edit_btn(data, row_edit );
 
-			
+
 		}
 		else  alert( result.error );
 	})
@@ -370,7 +380,7 @@ let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, obj
 				edit_arr.pop();
 				objListRec.find('li:last').remove();
 				objListRec.prepend( row_add );
-			}	
+			}
 	}
 	let edit_btn = ( data, row_edit ) => {
 			var index = find_arr_id( edit_arr, data.id );
@@ -379,25 +389,25 @@ let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, obj
 			objBtnEdit.button("option", "disabled", true); // - разблокировка элемента с id=EDIT_COUNTER_BTN_NAME
 			objListRec.find('li:nth-child(' + ( index + 1 ) + ')').html( row_edit );
 	}
-	
+
 }
-	
+
 let user_form_actions = ( obj_form ) => {
 	var form, workForm, actions;
 	if ( obj_form.actionsCmd == ADD_USER_ACTIONS ) {
 		form = obj_form.view.user_form_add_submit;
-		workForm = obj_form.view.user_form_add;		
+		workForm = obj_form.view.user_form_add;
 		actions = '&actions=add';
 	}
 	if ( obj_form.actionsCmd == EDIT_USER_ACTIONS) {
 		form = obj_form.view.user_form_edit_submit;
-		workForm = obj_form.view.user_form_edit;			
+		workForm = obj_form.view.user_form_edit;
 		actions = '&actions=edit';
 	}
-	var m_method = $(form).attr('method'); 
-	var m_action = $(form).attr('action'); 
+	var m_method = $(form).attr('method');
+	var m_action = $(form).attr('action');
 	var m_data = $(form).serialize(); // input1=value1&input2=value2..., только input=text
-	m_data += actions;   
+	m_data += actions;
 
 	$.ajax({dataType: 'json', type: m_method, url: m_action, data: m_data })
 	.done((result) => {
@@ -427,10 +437,10 @@ let unregistration = () => {
 }
 
 let registration = ( form ) => {
-	var m_method=$(form).attr('method'); 
-	var m_action=$(form).attr('action'); 
+	var m_method=$(form).attr('method');
+	var m_action=$(form).attr('action');
 	var m_data=$(form).serialize();
-	
+
 	$.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
 	.done((result) => {
 		$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_registration.json' })
@@ -438,11 +448,11 @@ let registration = ( form ) => {
 			var menu =  result_menu.menu;
 			var mainfile = `<ul>${print_menu( menu )}`;
 			if (result.id != 0) mainfile += `<div class="user"><div class="title_user">Вы зашли как:</div>${result.name} ${result.family}</div>`;
-			mainfile += '</ul>';	
+			mainfile += '</ul>';
 			$('#menu').html( mainfile );
 		})
 		.fail(( result ) => alert('Error'));
-		
+
 		$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_left.php' })
 		.done((result_menu) => {
 			var menu =  result_menu;
@@ -458,7 +468,7 @@ let registration = ( form ) => {
 
 
 let edit_privilege = () => {
-	var m_data = { 'id_user': $('#edit_user_id').val() }		
+	var m_data = { 'id_user': $('#edit_user_id').val() }
 	$.ajax({ dataType: 'json', type: 'post', data: m_data, url: 'models/json/edit_form_privelege.php' })
 	.done(( result_menu ) => {
 			var menu_v =  result_menu;
@@ -467,7 +477,7 @@ let edit_privilege = () => {
 				mainfile += `<li>${menu_v[i].name}
 								<input id="check_${menu_v[i].id_a}" class="privilege_checkbox" type="checkbox" ${menu_v[i].checked}/>
 							</li>`;
-			mainfile += '</ol>';	
+			mainfile += '</ol>';
 			$( '#user_form_privelege' ).html( mainfile );
 
 	})
@@ -480,17 +490,17 @@ let privilege_user_form_actions = ( obj_form ) => {
 	var workForm = obj_form.view.user_form_privilege;
 	var m_method = $(form).attr('method'); //берем из формы метод передачи данных
 	var m_action = $(form).attr('action'); //получаем адрес скрипта на сервере, куда нужно отправить форму
-	
+
 	var m_checkbox = form.find('input[type=checkbox]');	// запомнить !!!
-	
+
 	$(m_checkbox).each(function () {
 		var sThisVal = (this.checked ? "1" : "0");
 		sList += (sList=="" ? sThisVal : "," + sThisVal);
 	});
-		
+
 	var m_data = {
 		data: sList,
-		id_user: $('#edit_user_id').val() 
+		id_user: $('#edit_user_id').val()
 	};
 	$.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
 	.done((result) => {
