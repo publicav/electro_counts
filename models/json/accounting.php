@@ -52,13 +52,11 @@ if ( !isset( $get_prog['id_counter'] ) ) {
 
 if ( isset( $get_prog['date_b'] ) ) {
     $date_b = $get_prog['date_b'];
-    //	$put_js['date_b'] = $date_b;
 } else $date_b = '';
 
 
 if ( isset( $get_prog['date_e'] ) ) {
     $date_e = $get_prog['date_e'];
-    // $put_js['date_e'] = $date_e;
 } else $date_e = '';
 
 
@@ -68,7 +66,7 @@ $name_counter = $getCount->getName();
 $GetCoeffPower = new \Pdo\GetCoeffPower( $getCount->getCount() );
 $coeffPower = $GetCoeffPower->getKoefPowerId();
 
-$rangeSql = \Date\RangeMonthSql::init( $date_b, '' )->doMonth()->getSQL( 'date_create' );
+$rangeSql = \Date\RangeMonthSql::init( $date_b, '' )->doMonth( 'date_create' )->getSQL();
 
 $sq = "SELECT main.id, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS date_second, 
                    main.date_create AS dt1, main.n_counter
@@ -131,12 +129,6 @@ while ( $row = $res->fetch() ) {
     $dtMinuteNew = new \Date\DivisionDay ( $dt1 );
     $firstLoop = 1;
 }
-
-// if (!isset($counter)) {
-// header("HTTP/1.1 400 Bad Request", true, 400);
-// print exit_error( false, 3, 'Данные отсутствуют' );
-// exit();
-// }
 
 
 $type['success'] = true;

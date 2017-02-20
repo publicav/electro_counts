@@ -2,11 +2,12 @@
 namespace Date;
 
 class RangeMonthSql {
-    protected $_dt1, $_dt2;
-    protected $_firstDayMonth;
-    protected $_lastDayMonth;
+    protected $_dt1;
+    protected $_dt2;
     protected $dtLow;
     protected $dtHigh;
+    protected $_sql;
+
     /**
      * rangeDateSql constructor.
      * @param $dt1
@@ -21,21 +22,15 @@ class RangeMonthSql {
         return new self( $dt1, $dt2 );
     }
 
-    public function doMonth() {
+    public function doMonth( $fieldSqlName ) {
 
         if ( \DateTime::createFromFormat( 'Y-m-d', $this->_dt1 ) ) {
-            $dtFirst =  new \DateTime( $this->_dt1 );
+            $dtFirst = new \DateTime( $this->_dt1 );
         } else {
-            $dtFirst =  new \DateTime();
+            $dtFirst = new \DateTime();
         }
-        $dtLast = new \DateTime();
-
-//        $this->dtLow = new \DateTime();
-//        $this->dtHigh = new \DateTime();
 
         $dtLast = new \DateTime();
-
-
         $year = $dtFirst->format( 'Y' );
         $month = $dtFirst->format( 'm' );
 
@@ -49,21 +44,22 @@ class RangeMonthSql {
 
         $this->dtLow = $dtFirst;
         $this->dtHigh = $dtLast;
+        $this->_sql = " AND $fieldSqlName  BETWEEN  '{$this->getDateLow()}' AND '{$this->getDateHigh()}'";
         return $this;
     }
 
 
     public function getDateLow() {
-        return $this->dtLow->format( 'Y-m-d' );
+        return $this->dtLow->format( 'Y-m-d' ) . ' 00:00:00';
     }
 
     public function getDateHigh() {
-        return $this->dtHigh->format( 'Y-m-d' );
+        return $this->dtHigh->format( 'Y-m-d' ) . ' 23:59:59';
     }
 
 
-    public function getSQL( $fieldSqlName ) {
-        return " AND $fieldSqlName  BETWEEN  '{$this->getDateLow()} 00:00:00' AND '{$this->getDateHigh()} 23:59:59'";
+    public function getSQL() {
+        return $this->_sql;
     }
 }
 

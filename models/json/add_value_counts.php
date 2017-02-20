@@ -66,7 +66,11 @@ try {
     if ( $get_prog['actions'] == 'add' ) {
         $sq = "SELECT id FROM  counter_v  
 			WHERE (n_counter = :n_counter) AND (id_counter = :id_counter) AND (date_create = :date_create);";
-        $paramDublicate = [ 'n_counter' => $N_counter, 'id_counter' => $get_prog['counter'], 'date_create' => $date_create ];
+        $paramDublicate = [
+            'n_counter'   => $N_counter,
+            'id_counter'  => $get_prog['counter'],
+            'date_create' => $date_create
+        ];
         $dublicate = new \Filter\ValidDublicate( $pdo, $sq, $paramDublicate );
         if ( $dublicate->valide() ) {
             throw new \Exception\InputException( 'Error, Дублирующая запись' );

@@ -34,14 +34,14 @@ class FilterInput {
         if ( isset( $this->resultArr[ $key ] ) ) {
             return intval( $this->resultArr[ $key ] );
         }
-        return null;
+        return 0;
     }
 
     public function getDate( $key ) {
         if ( isset( $this->resultArr[ $key ] ) ) {
             return  $this->resultArr[ $key ] ;
         }
-        return null;
+        return '';
     }
 
 }
