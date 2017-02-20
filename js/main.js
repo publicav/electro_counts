@@ -167,20 +167,18 @@ let print_t_calc = ( data )  => {
 	var title = data.title;
 	var counter = data.Data;
 	var st = `	<div class="title_table_counter">
-					<div class="title_date"></div>
-					<div class="title_counts">Ячейка</div>
-					<div class="title_date">Дата</div>
-					<div class="title_date">Значение</div>
+					<div class="title_calc_counter">Ячейка</div>
+					<div class="title_calc_date">Дата</div>
+					<div class="title_calc_value">Значение</div>
 				</div>`;
 
 	for (let key in counter) {
 		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
 		if ( counter[key].rare < 0 ) class_e = 'counter_str_err';
 		st += `	<div class="${class_e}" title="Расчёт">
-					<div class="col_date"></div>		
-					<div class="col_counts">${title}</div>
-					<div class="col_date">${counter[key][0]}</div>
-					<div class="col_value">${counter[key][1]}</div>
+					<div class="colum_calc_counter">${title}</div>
+					<div class="colum_calc_date">${counter[key][0]}</div>
+					<div class="colum_calc_value">${counter[key][1]}</div>
 				</div>`;
 		count++;
 	}

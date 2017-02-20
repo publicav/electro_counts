@@ -492,7 +492,7 @@ a:focus {
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.24);
 }
 
-.pagelink a, .pagelinklast a{
+.pagelink a, .pagelinklast a {
     display: inline-block;
     padding: 5px 9px;
     border-radius: 6px;
@@ -782,6 +782,27 @@ a:focus {
     font: 17px Tahoma;
 }
 
+.title_table_counter .title_calc_counter {
+    width: 245px;
+    display: block;
+    float: left;
+    padding: 7px 0px 0px 60px;
+}
+
+.title_table_counter .title_calc_date {
+    width: 125px;
+    display: block;
+    float: left;
+    padding: 7px 0px 0px 10px;
+}
+
+.title_table_counter .title_calc_value {
+    width: 100px;
+    display: block;
+    float: left;
+    padding: 7px 0px 0px 110px;
+}
+
 .title_table_counter .title_lots {
     width: 145px;
     display: block;
@@ -890,6 +911,28 @@ a:focus {
     display: block;
     float: left;
     padding: 11px 0px 5px 5px;
+}
+
+.colum_calc_counter {
+    width: 245px;
+    display: block;
+    float: left;
+    padding: 11px 0px 5px 50px;
+}
+
+.colum_calc_date {
+    width: 125px;
+    display: block;
+    float: left;
+    padding: 11px 0px 5px 0px;
+
+}
+.colum_calc_value{
+    width: 100px;
+    display: block;
+    float: left;
+    padding: 11px 0px 5px 100px;
+
 }
 
 .an_col_pict {

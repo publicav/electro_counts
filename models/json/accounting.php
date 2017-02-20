@@ -21,17 +21,34 @@ $get_prog = $filter->getInputAll();
 
 $id_counter = $filter->getInt( 'id_counter' );
 $date_b = $filter->getDate( 'date_b' );
-$date_e = $filter->getDate( 'date_e' );
+//$date_e = $filter->getDate( 'date_e' );
 
 $rangeDate = \Date\RangeMonthSql::init( $date_b, '' )->DoRangeDate();
 $dt1 = $rangeDate->getDateFirst();
 $dt2 = $rangeDate->getDateLast();
 
+$navig = [
+    //    'date_b' => $date_b,
+    'id_counter' => $id_counter,
+];
+$navigationcalc = new \Navigation\NavigationCalc( 'calc_count.php', $dt1, $navig );
+$navigationcalc->classHTML = [ 'navigator', 'pagelink', 'pagecurrent' ];
+$navigator = $navigationcalc->getNavigator();
 
-if ( $id_counter <= 0 ) {
+
+$dtPresent = new \DateTime();
+
+$dtLow = new DateTime( '2016-11-01' );
+$dtHigh = new \DateTime( $dt2 );
+
+$dtPresent->add( new \DateInterval( 'P1M' ) );
+
+if ( ( $id_counter <= 0 ) or ( ( $dtHigh > $dtPresent ) or ( $dtHigh < $dtLow ) ) ) {
+
     $type['success'] = true;
     $type['id_error'] = 0;
     $type['data'] = [];
+    $type['navigator'] = $navigator;
     echo json_encode( $type );
     exit();
 }
@@ -44,15 +61,12 @@ $name_counter = $getCount->getName();
 $calcGroup = new \Base\GroupCounterCalc( $dataCounter, $dt1, $dt2 );
 $calcGroup->calc();
 
-$navigationcalc = new \Navigation\NavigationCalc( '', $dt1, $get_prog );
-$navigationcalc->classHTML = [ 'navigator', 'pagelink', 'pagecurrent' ];
-$navigator = $navigationcalc->getNavigator();
 
 $result = [ 'success'   => true,
             'id_error'  => 0,
             'nameGroup' => $calcGroup->getNameGroup(),
             'title'     => $name_counter,
-            'Data'  => $calcGroup->getCalcData(),
+            'Data'      => $calcGroup->getCalcData(),
             'navigator' => $navigator,
 ];
 echo json_encode( $result );
