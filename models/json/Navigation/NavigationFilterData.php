@@ -72,7 +72,7 @@ class NavigationFilterData {
     }
 
     /**
-     * @param array $title
+     * @param $title
      * @return $this
      */
     public function setTitle( $title ) {
@@ -84,7 +84,7 @@ class NavigationFilterData {
      * @param $position
      * @param $total
      * @param $cmd_arr
-     * @return NavigationFilter
+     * @return NavigationFilterData
      */
     public static function init( $position, $total, $cmd_arr ) {
         return new self( $position, $total, $cmd_arr );

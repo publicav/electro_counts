@@ -22,6 +22,31 @@ class RangeMonthSql {
         return new self( $dt1, $dt2 );
     }
 
+    public function DoRangeDate() {
+
+        if ( \DateTime::createFromFormat( 'Y-m-d', $this->_dt1 ) ) {
+            $dtFirst = new \DateTime( $this->_dt1 );
+        } else {
+            $dtFirst = new \DateTime();
+        }
+        $dtLast = new \DateTime();
+        $year = $dtFirst->format( 'Y' );
+        $month = $dtFirst->format( 'm' );
+        $year1 = $dtLast->format( 'Y' );
+        $month1 = $dtLast->format( 'm' );
+
+        $dtFirst->setDate( $year, $month, 1 );
+        if ( !( ( $year == $year1 ) and ( $month == $month1 ) ) ) {
+            $numberDay = cal_days_in_month( CAL_GREGORIAN, $month, $year );
+            $dtLast->setDate( $year, $month, $numberDay );
+        }
+
+
+        $this->dtLow = $dtFirst;
+        $this->dtHigh = $dtLast;
+        return $this;
+    }
+
     public function doMonth( $fieldSqlName ) {
 
         if ( \DateTime::createFromFormat( 'Y-m-d', $this->_dt1 ) ) {
@@ -48,6 +73,16 @@ class RangeMonthSql {
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDateFirst() {
+        return $this->dtLow->format( 'Y-m-d' );
+    }
+
+    public function getDateLast() {
+        return $this->dtHigh->format( 'Y-m-d' );
+    }
 
     public function getDateLow() {
         return $this->dtLow->format( 'Y-m-d' ) . ' 00:00:00';

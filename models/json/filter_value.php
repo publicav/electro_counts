@@ -24,18 +24,12 @@ if ( $id_sub > 0 ) {
 $id_counter = $filter->getInt( 'id_counter' );
 if ( $id_counter > 0 ) {
     $select = 4;
-} else {
-    unset( $get_prog['id_counter'] );
 }
-
-//if ( isset( $get_prog['id_counter'] )  ) {
-//    $id_counter = intval( $get_prog['id_counter'] );
-//    $select = 4;
-//    if ( $id_counter == 0 ) $select = 3;
-//} else $id_counter = 0;
 $date_b = $filter->getDate( 'date_b' );
 $date_e = $filter->getDate( 'date_e' );
 $dtRangeSql = \Date\RangeTimeSql::init( $date_b, $date_e )->doRange( 'date_create' )->getSQL();
+$paramNrange = [];
+$param =[];
 
 switch ( $select ) {
     case 1:
@@ -105,12 +99,11 @@ while ( $row = $res->fetch() ) {
 }
 
 $navigationData = \Navigation\NavigationFilterData::init( $position_in, $total, $get_prog )->
-setColumPage( 34 )->setNavigatorPage( 5 )->doNavigation();
+                setColumPage( 34 )->setNavigatorPage( 5 )->doNavigation();
 $result = [
     'success'        => true,
     'id_error'       => 0,
     'data'           => $counter,
-    //    'navigator'      => $navigator,
     'navigationData' => $navigationData,
 ];
 echo json_encode( $result );

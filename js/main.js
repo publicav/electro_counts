@@ -162,8 +162,10 @@ const navigation = ( data ) =>{
 	return result;
 }
 
-let print_t_calc = ( counter )  => {
+let print_t_calc = ( data )  => {
 	var count = 0 , class_e;
+	var title = data.title;
+	var counter = data.Data;
 	var st = `	<div class="title_table_counter">
 					<div class="title_date"></div>
 					<div class="title_counts">Ячейка</div>
@@ -176,9 +178,9 @@ let print_t_calc = ( counter )  => {
 		if ( counter[key].rare < 0 ) class_e = 'counter_str_err';
 		st += `	<div class="${class_e}" title="Расчёт">
 					<div class="col_date"></div>		
-					<div class="col_counts">${counter[key].name_counter}</div>
-					<div class="col_date">${counter[key].date}</div>
-					<div class="col_value">${counter[key].rare}</div>
+					<div class="col_counts">${title}</div>
+					<div class="col_date">${counter[key][0]}</div>
+					<div class="col_value">${counter[key][1]}</div>
 				</div>`;
 		count++;
 	}
@@ -215,7 +217,7 @@ let json_get_t_calc = ( objTarget, cmd_arr ) => {
 	 .done(( result ) => {
 		if (result.success) {
 			var data = result.data;
-			objTarget.html( print_t_calc( data ) );
+			objTarget.html( print_t_calc( result ) );
 			objTarget.append( result.navigator );
 			history.pushState( null, null, create_cmd( '', cmd_arr ) );
 		} else  alert( result.error );

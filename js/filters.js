@@ -46,6 +46,7 @@ $(function() {
 	$('#lot').change(function () {
 		var lot = $(this).val();
 		cmd_arr.id_lot = lot;
+		console.log(cmd_arr);
 		if (lot == 0) {
 			delete cmd_arr.id_lot;
 			delete cmd_arr.id_sub;
@@ -54,9 +55,10 @@ $(function() {
 		} else { 
 			delete cmd_arr.st;
 			delete cmd_arr.id_sub;
+            delete cmd_arr.id_counter;
 			$('#substation').prop('disabled', false);
 		}
-		
+        console.log(cmd_arr);
 		get_substation(objFiltred, lot);
 		json_get_table($('#right'), cmd_arr);
 		history.pushState(null, null, create_cmd(base_link, cmd_arr));

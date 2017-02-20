@@ -34,6 +34,7 @@ $(function() {
 		var lot = $(this).val();
 		cmd_arr.id_lot = lot;
 		if (lot == 0) {
+			console.log(cmd_arr);
 			delete cmd_arr.id_lot;
 			delete cmd_arr.id_sub;
 			delete cmd_arr.id_counter;
@@ -41,6 +42,7 @@ $(function() {
 		} else { 
 			delete cmd_arr.date_b;
 			delete cmd_arr.id_sub;
+            delete cmd_arr.id_counter;
 			$('#substation').prop('disabled', false);
 		}
 		
