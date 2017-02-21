@@ -21,7 +21,7 @@
     {
       "id": 3,
       "id_a": "calc_count",
-      "url": "calc_count.php",
+      "url": "calc_count",
       "name": "Расход",
       "title": "Учёт электроэнергии. Расход по ячейкам",
       "meta_d": "Расход по ячейкам",
