@@ -5,7 +5,7 @@
         $countLeftMenu = count( $this->_leftMenu );
         for ( $i = 0; $i < $countLeftMenu; $i++ ) {
             $menu_left .= "<li class=\"menu_childs1\">
-								<a  id=\"{$this->_leftMenu[$i]['id_a']}\" href=\"{$this->_leftMenu[$i]['url']}\">{$this->_leftMenu[$i]['name']}</a>
+								<a  id=\"{$this->_leftMenu[$i]['id_a']}\" href=\"{$this->_leftMenu[$i]['id_a']}\">{$this->_leftMenu[$i]['name']}</a>
 						  </li>
 			";
         }

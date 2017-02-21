@@ -98,7 +98,7 @@ function jsonGetChart(cmd_arr) {
                 options.title.text = 'Группа - ' + result.nameGroup;
                 options.xAxis.categories = result.categories;
                 var h = result.length;
-                h = h * 27 +100;
+                h = h * 27 + 150;
                 $('#container').height(h);
 
                 var chart = new Highcharts.Chart('container', options);

@@ -12,6 +12,10 @@ class FilterInput {
         }
     }
 
+    public static function init( $inputArr ) {
+        return new self( $inputArr );
+    }
+
     /**
      * @return mixed
      */
@@ -39,7 +43,7 @@ class FilterInput {
 
     public function getDate( $key ) {
         if ( isset( $this->resultArr[ $key ] ) ) {
-            return  $this->resultArr[ $key ] ;
+            return $this->resultArr[ $key ];
         }
         return '';
     }

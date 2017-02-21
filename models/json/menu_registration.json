@@ -12,7 +12,7 @@
     {
       "id": 2,
       "id_a": "view_count",
-      "url": "view_count.php",
+      "url": "view_count",
       "name": "Просмотр",
       "title": "Учёт электроэнергии. Просмотр значения",
       "meta_d": "Просмотр значения",
@@ -30,7 +30,7 @@
     {
       "id": 4,
       "id_a": "calcgroup",
-      "url": "calcgroup.php",
+      "url": "calcgroup",
       "name": "Расход по группам",
       "title": "Учёт электроэнергии. Расход по группам",
       "meta_d": "Расход по группам",
@@ -39,7 +39,7 @@
     {
       "id": 5,
       "id_a": "help",
-      "url": "help.php",
+      "url": "help",
       "name": "?",
       "title": "Учёт электроэнергии. Помощь",
       "meta_d": "Помощь",

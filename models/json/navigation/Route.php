@@ -8,6 +8,7 @@
 
 namespace Navigation;
 
+use \Base\Url;
 
 class Route {
     protected static $_link = null;
@@ -28,8 +29,12 @@ class Route {
         }
         $this->_config = require_once __DIR__ . "/../../../config/route.conf.php";
         $this->_pathinfo = pathinfo( $_SERVER['SCRIPT_FILENAME'] );
-        $this->_filename = $this->_pathinfo['filename'];
-        $this->_conroller = $this->_filename;
+        //                $this->_filename = $this->_pathinfo['filename'];
+        //                var_dump($this->_filename);
+        //                exit();
+        //                        $this->_conroller = $this->_filename;
+        $controller = Url::getSegment( 0 );
+        $this->_conroller = $controller;
         if ( isset( $_SESSION['user']['id'] ) ) $id = $_SESSION['user']['id']; else $id = null;
         $this->_authorization = $id;
     }
@@ -136,7 +141,7 @@ class Route {
 
     public function getLayout( $name ) {
         $conf = $this->_config;
-//        $pathLayot = $this->_config['layout'] . '/' . $name . '.' . $this->_config['layoutExtension'];
+        //        $pathLayot = $this->_config['layout'] . '/' . $name . '.' . $this->_config['layoutExtension'];
         $pathLayot = "{$conf['layout']}/$name.{$conf['layoutExtension']}";
         if ( !file_exists( $pathLayot ) ) {
             throw new \Exception( 'File not found! - ' . $pathLayot, '404' );
@@ -185,12 +190,15 @@ class Route {
 
     public function getController() {
         $controler = $this->_config['controllers'];
-        //        if ( !is_null( $this->_authorization ) ) {
-        //            return $controler[ $this->_conroller ]['controllerName'];
-        //        }
         if ( !array_key_exists( $this->_conroller, $controler ) ) {
-            throw new \Exception( 'Не найдена конфигурация для  - ' . $this->_conroller . '.php', '404' );
+//            var_dump( 'tttttt', $this->_conroller );
+            $this->_conroller = 'index';
+            $this->_filename = 'index';
+
+        } else {
+            $this->_filename = $this->_conroller;
         }
+        //        var_dump( $this->getViewPath() );
         return $controler[ $this->_conroller ]['controllerName'];
     }
 
