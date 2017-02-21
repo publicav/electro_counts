@@ -8,8 +8,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "": "",
-            "JSON\\": "models/json/"
+            "": "models/json/"
         }
     },
     "require": {}

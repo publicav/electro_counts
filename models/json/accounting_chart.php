@@ -9,7 +9,8 @@
 use \Pdo\GroupCounterData;
 
 try {
-    include_once "Autoload.php";
+    include_once  '../../vendor/autoload.php';
+//    include_once "Autoload.php";
     include_once( "../open.php" );
 
     $filter = new \Filter\FilterInput( $_GET );
