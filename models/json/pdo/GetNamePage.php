@@ -1,5 +1,5 @@
 <?php
-namespace pdo;
+namespace Pdo;
 
 class GetNamePage {
     private $_conf_h;

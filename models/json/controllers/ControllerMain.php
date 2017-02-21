@@ -6,11 +6,11 @@
  * Time: 2:16
  */
 
-namespace controllers;
+namespace Controllers;
 
 
-use base\Conroller;
-use pdo\Privelege;
+use \Base\Conroller;
+use \Pdo\Privelege;
 
 class ControllerMain extends Conroller {
     public function actionIndex() {

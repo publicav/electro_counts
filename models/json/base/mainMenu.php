@@ -6,7 +6,7 @@
  * Time: 19:30
  */
 
-namespace base;
+namespace Base;
 
 
 class mainMenu {

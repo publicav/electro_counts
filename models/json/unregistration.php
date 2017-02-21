@@ -1,11 +1,12 @@
 <?php
 include_once "Autoload.php";
-include_once("../open.php");
-include_once("../config.php");
-include_once("../funclib.php");
+include_once "../open.php";
 
-$type['success'] = true;
-$type['message'] = 'Пользователь разлогинился';
+$result = [
+    'success' => true,
+    'message' => 'Пользователь разлогинился',
+];
 
-base\Auth::logout();
-echo json_encode($type);
+\Base\Auth::logout();
+
+echo json_encode( $result );

@@ -6,7 +6,7 @@
 
 	<select id="lot" class="filtred_selected">
 	<?php
-        \pdo\Lots::lotsFilter()->render();
+        \Pdo\Lots::lotsFilter()->render();
     ?>
 	</select>
 

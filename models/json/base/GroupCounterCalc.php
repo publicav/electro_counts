@@ -6,10 +6,10 @@
  * Time: 20:53
  */
 
-namespace base;
+namespace Base;
 
-use date\DivisionDay;
-use pdo\GroupCounterData;
+use \Date\DivisionDay;
+use \Pdo\GroupCounterData;
 
 class GroupCounterCalc {
     const MAX_ITERACION = 11;

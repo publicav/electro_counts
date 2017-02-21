@@ -6,21 +6,22 @@
  * Time: 11:32
  */
 
-namespace pdo;
+namespace Pdo;
 
-use exception\BadRequestException;
+use \Exception\BadRequestException;
 
 class GroupCounterData {
-    private $_idGroup;
-    private $_nameGroup;
-    private $_counterGroup;
-    private $_CoeffPower;
-    private $_idCells, $_nameCouter;
-    private $_inSQL;
+    protected $_idGroup;
+    protected $_nameGroup;
+    protected $_counterGroup;
+    protected $_CoeffPower;
+    protected $_idCells;
+    protected $_nameCouter;
+    protected $_inSQL;
     protected $_pdo;
     protected $_data;
     protected $_sqlData;
-    private static $_link;
+    protected static $_link;
 
 
     public function __construct( $numberGroup ) {
@@ -38,7 +39,6 @@ class GroupCounterData {
             self::$_link = new self( $numberGroup );
         }
         return self::$_link;
-
     }
 
     /**
@@ -107,7 +107,7 @@ class GroupCounterData {
         return $this->_data[ $id_counter ][ $n_counter - 1 ]['coeffPower'];
     }
 
-    private function qNameGroup() {
+    protected function qNameGroup() {
         $sq = "SELECT name FROM name_group_counters WHERE id = :id";
         $param = [ 'id' => $this->_idGroup ];
         $res = $this->_pdo->prepare( $sq );
@@ -121,7 +121,7 @@ class GroupCounterData {
         $this->_nameGroup = $nameGroup[0]['name'];
     }
 
-    private function qIdCell() {
+    protected function qIdCell() {
         $param = [ 'id' => $this->_idGroup ];
         $sq = "SELECT id_counter AS id, coefficient FROM group_counters WHERE id_group = :id";
         $res = $this->_pdo->prepare( $sq );
@@ -134,8 +134,9 @@ class GroupCounterData {
         }
     }
 
-    private function qDataCell() {
+    protected function qDataCell() {
         $this->buldingSQlIn();
+
         $sq = "SELECt id,  name FROM count WHERE id IN {$this->getInSQL()}";
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute() ) {
@@ -148,7 +149,7 @@ class GroupCounterData {
         $this->_counterGroup = $couterGroup;
     }
 
-    private function qCoeeffPower() {
+    protected function qCoeeffPower() {
         $sq = "SELECT id_counter, n_counter, koef FROM xchange WHERE id_counter IN {$this->getInSQL()}";
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute() ) {
@@ -193,10 +194,10 @@ class GroupCounterData {
         } else {
             $this->_sqlData = array_merge( $belowAll, $abowAll );
         }
-//        var_dump( $this->_sqlData );
+        //        var_dump( $this->_sqlData );
     }
 
-    private function qAbow( $count, $dateHigh ) {
+    protected function qAbow( $count, $dateHigh ) {
         $param = [ 'id_counter' => $count, 'dateHigh' => $dateHigh ];
         $sq = "SELECT main.id_counter, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS date_second, 
                    main.date_create AS dt1, main.n_counter
@@ -212,7 +213,7 @@ class GroupCounterData {
         return $res->fetchAll();
     }
 
-    private function qBelow( $count, $dateLow ) {
+    protected function qBelow( $count, $dateLow ) {
         $param = [ 'id_counter' => $count, 'dateLow' => $dateLow ];
         $sq = "SELECT main.id_counter, main.value AS value, UNIX_TIMESTAMP(main.date_create)  AS date_second, 
                    main.date_create AS dt1, main.n_counter
@@ -231,7 +232,7 @@ class GroupCounterData {
 
     }
 
-    private function creteInputData() {
+    protected function creteInputData() {
         $this->_data = [];
         foreach ( $this->_idCells as $cell ) {
             $key = $cell['id'];
@@ -249,7 +250,7 @@ class GroupCounterData {
         }
     }
 
-    private function buldingSQlIn() {
+    protected function buldingSQlIn() {
         $in_sql = '(';
         foreach ( $this->_idCells as $cell ) {
             $in_sql .= $cell['id'] . ',';

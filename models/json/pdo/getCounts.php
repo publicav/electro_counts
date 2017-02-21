@@ -6,13 +6,13 @@
  * Time: 14:17
  */
 
-namespace pdo;
-
-use exception\JsonError;
-use exception\BadRequestException;
+namespace Pdo;
 
 
-class getCounts
+use \Exception\BadRequestException;
+
+
+class GetCounts
 {
 
     private $res, $counts_count;

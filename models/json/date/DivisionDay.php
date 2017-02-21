@@ -1,5 +1,5 @@
 <?php
-namespace date;
+namespace Date;
 
 class DivisionDay {
     public $minuteBefore = 0;

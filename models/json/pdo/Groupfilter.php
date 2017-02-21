@@ -6,7 +6,7 @@
  * Time: 22:52
  */
 
-namespace pdo;
+namespace Pdo;
 
 
 class GroupFilter {

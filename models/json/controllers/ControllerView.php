@@ -6,10 +6,10 @@
  * Time: 21:36
  */
 
-namespace controllers;
+namespace Controllers;
 
 
-use base\Conroller;
+use \Base\Conroller;
 
 class ControllerView extends Conroller {
     public function actionIndex() {

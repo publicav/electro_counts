@@ -385,7 +385,7 @@ a:focus {
 .ui-icon {
     width: 22px;
     height: 22px;
-    background-image: url(../img/web/search-button.png);
+    /*background-image: url(../img/web/search-button.png);*/
     margin: 0px 2px 4px 0px;
     padding: 0px 0px 0px 0px;
 }
@@ -482,28 +482,54 @@ a:focus {
 }
 
 .pagelink, .pagelinklast, .pagecurrent {
-    font: 14px Tahoma;;
     background-color: #edeeee;
-    border: 1px solid #4f5a60;
-    padding: 3px 7px;
+    /*border: 1px solid #4f5a60;*/
+    display: inline-block;
     margin: 4px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    -khtml-border-radius: 3px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.24);
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.24);
+}
 
+.pagelink a, .pagelinklast a {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 6px;
+
+}
+
+.pagelink a:hover, .pagelinklast a:hover {
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.23);
+    background: #e84c3d;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    text-decoration: none;
 }
 
 .pagecurrent {
+    padding: 5px 9px;
     background-color: #e0e3f1;
+    display: inline-block;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
 }
 
 .navigator {
-    font: 14px Tahoma;
+    font-family: "Segoe ui", sans-serif;
+    display: block;
+    overflow: hidden;
+    font-size: 12px;
     height: 36px;
     float: left;
-    margin: 15px 0px 15px 12px;
+    margin: 15px 0px 15px 15px;
     text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+    color: #717e83;
 
 }
 
@@ -517,6 +543,7 @@ a:focus {
 .pagecurrent a:visited,
 .pagecurrent a:link {
     text-decoration: none;
+
 }
 
 #navigator1 {
@@ -755,6 +782,27 @@ a:focus {
     font: 17px Tahoma;
 }
 
+.title_table_counter .title_calc_counter {
+    width: 245px;
+    display: block;
+    float: left;
+    padding: 7px 0px 0px 60px;
+}
+
+.title_table_counter .title_calc_date {
+    width: 125px;
+    display: block;
+    float: left;
+    padding: 7px 0px 0px 10px;
+}
+
+.title_table_counter .title_calc_value {
+    width: 100px;
+    display: block;
+    float: left;
+    padding: 7px 0px 0px 110px;
+}
+
 .title_table_counter .title_lots {
     width: 145px;
     display: block;
@@ -863,6 +911,28 @@ a:focus {
     display: block;
     float: left;
     padding: 11px 0px 5px 5px;
+}
+
+.colum_calc_counter {
+    width: 245px;
+    display: block;
+    float: left;
+    padding: 11px 0px 5px 50px;
+}
+
+.colum_calc_date {
+    width: 125px;
+    display: block;
+    float: left;
+    padding: 11px 0px 5px 0px;
+
+}
+.colum_calc_value{
+    width: 100px;
+    display: block;
+    float: left;
+    padding: 11px 0px 5px 100px;
+
 }
 
 .an_col_pict {

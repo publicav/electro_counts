@@ -1,5 +1,6 @@
 <?php
-namespace navigation;
+namespace Navigation;
+
 class NavigationCalc {
 	const DATE_B = 'date_b=';
 	const SEPAR_DATE = '-';

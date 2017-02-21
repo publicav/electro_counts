@@ -1,18 +1,38 @@
 <?php
-include_once "Autoload.php";
-include_once("../open.php");
-include_once("../config.php");
-include_once("../funclib.php");
+try {
+    include_once "Autoload.php";
+    include_once "../open.php";
 
-$filter = new \filter\FilterInput( $_GET );
-$substation = $filter->getInt('data');
+    $filter = new \Filter\FilterInput( $_GET );
+    $get_prog = $filter->getInputAll();
 
-if ( is_null( $substation ) ) {
-    header("HTTP/1.1 400 Bad Request", true, 400);    
-    echo exit_error(false, 1, 'Error input substation ');
-    exit();
+    $validator = new \Filter\Validator( $get_prog, [
+        'data' => [ 'required', ],
+    ] );
+
+    if ( !$validator->validateThis() ) {
+        foreach ( $validator->getErrors() as $field => $error ) {
+            $firstError = $error;
+        }
+        throw new \Exception\InputException( 'Ошибка данных - ' . $firstError );
+    }
+
+
+    $substation = $get_prog['data'];
+    $counterFilter = new \Pdo\Counter( $pdo, $substation );
+
+    $result = [ 'success'  => true,
+                'id_error' => 0,
+                'data'     => $counterFilter->GetCounterFilter(),
+    ];
+    echo json_encode( $result );
+
+} catch ( Exception\BadRequestException $e ) {
+    header( "HTTP/1.1 400 Bad Request", true, 400 );
+    echo Exception\JsonError::exitError( false, 4, $e->getMessage() );
+} catch ( Exception\InputException $e ) {
+    header( "HTTP/1.1 400 Bad Request", true, 400 );
+    echo Exception\JsonError::exitError( false, 1, $e->getMessage() );
+} catch ( Exception $e ) {
+    echo $e->getMessage();
 }
-$counterFilter = new pdo\Counter( $pdo, $substation );
-
-$result = [ 'success'=> true, 'error' => 'Ok', 'id_error' => 0,  'data' => $counterFilter->GetCounterFilter() ];
-print json_encode($result);

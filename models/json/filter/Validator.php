@@ -6,7 +6,7 @@
  * Time: 7:31
  */
 
-namespace filter;
+namespace Filter;
 
 
 class Validator {
@@ -31,7 +31,8 @@ class Validator {
 
     protected function required( $field ) {
         if ( empty( $this->_data[ $field ] ) ) {
-            $this->addError( $field, 'field must be set' );
+            if ( isset( $this->_data[ $field ] ) ) return;
+            $this->addError( $field, "поле  $field пустое!" );
         }
 
     }
@@ -39,9 +40,16 @@ class Validator {
     protected function isPositive( $field ) {
         $positive = (int)$this->_data[ $field ];
         if ( $positive <= 0 ) {
-            $this->addError( $field, 'Number is not positive!' );
+            $this->addError( $field, 'Число не является положительным' );
         }
 
+    }
+
+    protected function DateDMY( $field ) {
+        $date = \DateTime::createFromFormat( 'd-m-Y', $this->_data[ $field ] );
+        if ( !$date ) {
+            $this->addError( $field, 'Date format error!' );
+        }
     }
 
     protected function isDate( $field ) {
@@ -50,6 +58,61 @@ class Validator {
         if ( !$date ) {
             $this->addError( $field, 'Date format error!' );
         }
+    }
+
+    protected function TimeSet( $field ) {
+        $date = \DateTime::createFromFormat( 'H:i', $this->_data[ $field ] );
+        if ( !$date ) {
+            $this->addError( $field, 'Time format error!' );
+        }
+
+    }
+
+    protected function notEmpty( $field ) {
+        if ( empty( $this->_data[ $field ] ) ) {
+            $this->addError( $field, 'Пустое значение' );
+        }
+    }
+
+    protected function rangeLogin( $field ) {
+        $login = $this->_data[ $field ];
+        if ( ( strlen( $login ) <= 3 ) and ( strlen( $login ) > 11 ) ) {
+            $this->addError( $field, 'Login out of range!' );
+        }
+    }
+
+    protected function uniqueLogin( $field ) {
+        $pdo = \DB::getLink()->getDb();
+        $user = $this->_data[ $field ];
+        $sq = "SELECT id FROM users WHERE users = :user";
+        $param = [ 'user' => $user ];
+        $res = $pdo->prepare( $sq );
+        if ( !$res->execute( $param ) ) {
+            throw new \Exception( $pdo->errorInfo()[2] );
+        }
+        $gId = $res->fetchAll();
+        if ( !empty( $gId ) ) {
+            $this->addError( $field, 'Такой пользователь существует' );
+        }
+
+    }
+
+    protected function confirmPassword( $field ) {
+        $password = $this->_data[ $field ];
+        $keyArr = explode( '_', $field );
+        $key = "{$keyArr[0]}_repeat_{$keyArr[1]}";
+        if ( $password != $this->_data[ $key ] ) {
+            $this->addError( $field, 'Пароли не совпадают' );
+        }
+
+    }
+
+    protected function minPassword( $field ) {
+        $password = $this->_data[ $field ];
+        if ( ( strlen( $password ) < 3 ) ) {
+            $this->addError( $field, 'Длина пароля меньше 3 символов' );
+        }
+
     }
 
     public function addError( $field, $error ) {

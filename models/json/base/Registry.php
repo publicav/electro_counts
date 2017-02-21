@@ -6,7 +6,7 @@
  * Time: 12:35
  */
 
-namespace base;
+namespace Base;
 
 
 class Registry implements \ArrayAccess

@@ -5,7 +5,7 @@
 
 	<select id="group" class="filtred_selected">
 	<?php
-        \pdo\Groupfilter::init()->render();
+        \Pdo\Groupfilter::init()->render();
     ?>
 	</select>
     <div class="f_input">
