@@ -70,4 +70,9 @@ class Url {
         return $_SERVER['REQUEST_URI'];
     }
 
+    public static function getAllParam() {
+        $params = self::getParamsFromUrl();
+        return $params;
+    }
+
 }

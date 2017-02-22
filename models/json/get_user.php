@@ -1,7 +1,7 @@
 <?php
 try {
     include_once  '../../vendor/autoload.php';
-//    include_once "Autoload.php";
+   // include_once "Autoload.php";
     include_once "../open.php";
 
     $GetAllUsers = new \Pdo\GetAllUsers();

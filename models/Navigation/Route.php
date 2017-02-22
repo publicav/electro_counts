@@ -24,15 +24,17 @@ class Route {
      * @throws \Exception
      */
     public function __construct() {
-        if ( !file_exists( __DIR__ . "/../../../config/route.conf.php" ) ) {
-            throw new \Exception( 'Route file  not found! -  ' . __DIR__ . "/../../config/route.conf.php" );
+        if ( !file_exists( __DIR__ . "/../config/route.conf.php" ) ) {
+            throw new \Exception( 'Route file  not found! -  ' . __DIR__ . "/config/route.conf.php" );
         }
-        $this->_config = require_once __DIR__ . "/../../../config/route.conf.php";
+        $this->_config = require_once __DIR__ . "/../config/route.conf.php";
         $this->_pathinfo = pathinfo( $_SERVER['SCRIPT_FILENAME'] );
-        //                $this->_filename = $this->_pathinfo['filename'];
-        //                var_dump($this->_filename);
-        //                exit();
-        //                        $this->_conroller = $this->_filename;
+        //      Старый режим где контроллер берется из имени файла
+        //        $this->_filename = $this->_pathinfo['filename'];
+
+        //      Новый режим контроллер берется из URL
+        $this->_filename = Url::getSegment( 0 );
+        $this->_conroller = $this->_filename;
         $controller = Url::getSegment( 0 );
         $this->_conroller = $controller;
         if ( isset( $_SESSION['user']['id'] ) ) $id = $_SESSION['user']['id']; else $id = null;
@@ -189,28 +191,45 @@ class Route {
     }
 
     public function getController() {
-        $controler = $this->_config['controllers'];
-        if ( !array_key_exists( $this->_conroller, $controler ) ) {
-//            var_dump( 'tttttt', $this->_conroller );
+        $controlerConfArr = $this->_config['controllers'];
+        if ( !array_key_exists( $this->_conroller, $controlerConfArr ) ) {
             $this->_conroller = 'index';
             $this->_filename = 'index';
-
-        } else {
-            $this->_filename = $this->_conroller;
         }
-        //        var_dump( $this->getViewPath() );
-        return $controler[ $this->_conroller ]['controllerName'];
+        return $controlerConfArr[ $this->_conroller ]['controllerName'];
     }
 
     /**
      * @return mixed
      */
     public function getAction() {
+        $conrollerPath = $this->getController();
+        $conrollerArr = explode( '\\', $conrollerPath );
+        $conroller = $conrollerArr[1];
         $actions = $this->_config['controllers'][ $this->_conroller ]['actions'];
-        if ( !is_null( $this->_authorization ) ) {
-            return $actions['auth'];
+
+        switch ( $conroller ) {
+            case
+            'ControllerMain':
+                if ( !is_null( $this->_authorization ) ) {
+                    $act = $actions['auth'];
+                } else  $act = $actions['nonAuth'];
+                break;
+            case
+            'ControllerView':
+                $act = $actions['default'];
+                break;
+            case
+            'ControllerAjax':
+                $segment1 = Url::getSegment( 1 );
+                if ( !array_key_exists( $segment1, $actions ) ) {
+                    $act = $actions['default'];
+                } else {
+                    $act = $actions[ $segment1 ];
+                }
+                break;
         }
-        return $actions['nonAuth'];
+        return $act;
     }
 
     public function getLangv() {

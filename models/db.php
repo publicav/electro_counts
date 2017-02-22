@@ -20,11 +20,11 @@ class db {
      * db constructor.
      */
     public function __construct(){
-        if( !file_exists(__DIR__  . "/../../config/db.conf.php") ) {
+        if( !file_exists(__DIR__  . "/config/db.conf.php") ) {
             throw new \Exception('Config db not found!');
         }
 
-        $this->_config = require_once __DIR__  . "/../../config/db.conf.php";
+        $this->_config = require_once __DIR__  . "/config/db.conf.php";
         $dsn = 'mysql:host=' . $this->_config['host'] . ';dbname=' . $this->_config['dbname'] . ';charset=' . $this->_config['charset'];
         $this->_db = new \PDO( $dsn,
                             $this->_config['user'],

@@ -4,6 +4,10 @@ namespace Filter;
 class FilterInput {
     private $resultArr;
 
+    /**
+     * FilterInput constructor.
+     * @param array $inputArr
+     */
     public function __construct( $inputArr ) {
         foreach ( $inputArr as $key => $value ) {
             $key = filter_var( $key, FILTER_SANITIZE_STRING );
@@ -47,5 +51,6 @@ class FilterInput {
         }
         return '';
     }
+
 
 }
