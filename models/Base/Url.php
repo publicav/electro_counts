@@ -72,6 +72,7 @@ class Url {
 
     public static function getAllParam() {
         $params = self::getParamsFromUrl();
+        if ( is_null( $params ) ) return [];
         return $params;
     }
 

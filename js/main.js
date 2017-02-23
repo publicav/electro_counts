@@ -276,7 +276,7 @@ let print_add_record = ( {name_lot, name_substation, name_counter, date, time, v
 }
 
 let json_get_user = ( objTarget ) => {
-	$.ajax({dataType: 'json', type: 'get', url: 'models/json/get_user.php'})
+	$.ajax({dataType: 'json', type: 'get', url: 'ajax/getuser_all/'})
 	 .done(( result ) => {
 			var data = result.data;
 			$( objTarget ).html( print_table_user( data ) );

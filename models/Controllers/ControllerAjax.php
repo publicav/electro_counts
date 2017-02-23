@@ -14,8 +14,10 @@ use Models\CounterFilterModel;
 use Models\CounterModel;
 use Models\SubstFilterModel;
 use Models\SubstModel;
+use Models\UserAllModel;
 
 class ControllerAjax {
+    public $result;
 
     public function ajaxBlank() {
         $result = [ 'ajax' => 'done' ];
@@ -34,12 +36,13 @@ class ControllerAjax {
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $result = [ 'success'  => true,
-                        'id_error' => 0,
-                        'data'     => $data
+            $this->result = [
+                'success'  => true,
+                'id_error' => 0,
+                'data'     => $data
             ];
         }
-        echo json_encode( $result );
+        echo json_encode( $this->result );
     }
 
     /**
@@ -54,12 +57,13 @@ class ControllerAjax {
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $result = [ 'success'  => true,
-                        'id_error' => 0,
-                        'data'     => $data
+            $this->result = [
+                'success'  => true,
+                'id_error' => 0,
+                'data'     => $data
             ];
         }
-        echo json_encode( $result );
+        echo json_encode( $this->result );
     }
 
     /**
@@ -74,12 +78,13 @@ class ControllerAjax {
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $result = [ 'success'  => true,
-                        'id_error' => 0,
-                        'data'     => $data
+            $this->result = [
+                'success'  => true,
+                'id_error' => 0,
+                'data'     => $data
             ];
         }
-        echo json_encode( $result );
+        echo json_encode( $this->result );
     }
 
     /**
@@ -94,12 +99,34 @@ class ControllerAjax {
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $result = [ 'success'  => true,
-                        'id_error' => 0,
-                        'data'     => $data
+            $this->result = [
+                'success'  => true,
+                'id_error' => 0,
+                'data'     => $data
             ];
         }
-        echo json_encode( $result );
+        echo json_encode( $this->result );
+    }
+
+    /**
+     * Возвращает всех пользоватлей проекта
+     * @throws InputException
+     */
+    public function ajaxGetUserAll() {
+        $model = new UserAllModel();
+        if ( Request::isGet() ) {
+            if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
+                $data = $model->doUserAll()->getResult();
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+            $this->result = [
+                'success'  => true,
+                'id_error' => 0,
+                'data'     => $data
+            ];
+        }
+        echo json_encode( $this->result );
     }
 
 }
