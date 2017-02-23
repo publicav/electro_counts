@@ -18,6 +18,8 @@ use Models\UserAllModel;
 use Models\LoadFormUserModel;
 use Models\LoadFormPrivelegeModel;
 use Models\LoadFormValueModel;
+use Models\ActionFormUserModel;
+use Models\ActionFormPrivelegeModel;
 
 
 class ControllerAjax {
@@ -199,6 +201,27 @@ class ControllerAjax {
                 'id_error' => 0,
                 'data'     => $data
             ];
+        }
+        echo json_encode( $this->result );
+
+    }
+
+    /**
+     * Загрузка данных в форму привелегии
+     * @throws InputException
+     */
+    public function ajaxActionFormPrivelege() {
+        $model = new ActionFormPrivelegeModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doActionFormPrivelege() )
+                    $this->result = [
+                        'id_error' => 0,
+                        'success'  => true,
+                    ];
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
         }
         echo json_encode( $this->result );
 

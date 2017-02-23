@@ -56,7 +56,7 @@
   </div>
 
   <div id="user_div_privelege" style="display:none;">
-	<form id="user_form_privelege" name="user_form_privelege" method="post" action="models/json/user_privelege.php">
+	<form id="user_form_privelege" name="user_form_privelege" method="post" action="ajax/actionform_privelege/">
 	</form>
   </div>
   
