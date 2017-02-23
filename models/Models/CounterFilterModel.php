@@ -24,14 +24,7 @@ class CounterFilterModel extends BaseModel {
     public function doCounterFilter() {
         $counterFilter = new Counter( $this->_pdo, $this->data );
         $this->result = $counterFilter->GetCounterFilter();
-        return $this;
-    }
-
-    /**
-     * @return array значений подстанций
-     */
-    public function getResult() {
-        return $this->result;
+        return true;
     }
 
 }

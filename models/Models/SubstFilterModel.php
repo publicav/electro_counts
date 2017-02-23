@@ -24,14 +24,6 @@ class SubstFilterModel extends BaseModel {
     public function doSubstationFilter() {
         $substationFilter = new Substation( $this->_pdo, $this->data );
         $this->result = $substationFilter->GetSubstationFilter();
-        return $this;
+        return true;
     }
-
-    /**
-     * @return array значений подстанций
-     */
-    public function getResult() {
-        return $this->result;
-    }
-
 }

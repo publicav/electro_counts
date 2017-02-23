@@ -15,6 +15,7 @@ use Models\CounterModel;
 use Models\SubstFilterModel;
 use Models\SubstModel;
 use Models\UserAllModel;
+use Models\LoadFormUserModel;
 
 class ControllerAjax {
     public $result;
@@ -32,7 +33,8 @@ class ControllerAjax {
         $model = new SubstFilterModel();
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
-                $data = $model->doSubstationFilter()->getResult();
+                if ( $model->doSubstationFilter() )
+                    $data = $model->getResult();
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
@@ -53,7 +55,8 @@ class ControllerAjax {
         $model = new SubstModel();
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
-                $data = $model->doSubstation()->getResult();
+                if ( $model->doSubstation() )
+                    $data = $model->getResult();
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
@@ -74,7 +77,8 @@ class ControllerAjax {
         $model = new CounterFilterModel();
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
-                $data = $model->doCounterFilter()->getResult();
+                if ( $model->doCounterFilter() )
+                    $data = $model->getResult();
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
@@ -95,7 +99,8 @@ class ControllerAjax {
         $model = new CounterModel();
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
-                $data = $model->doCounter()->getResult();
+                if ( $model->doCounter() )
+                    $data = $model->getResult();
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
@@ -116,7 +121,8 @@ class ControllerAjax {
         $model = new UserAllModel();
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
-                $data = $model->doUserAll()->getResult();
+                if ( $model->doUserAll() )
+                    $data = $model->getResult();
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
@@ -127,6 +133,30 @@ class ControllerAjax {
             ];
         }
         echo json_encode( $this->result );
+    }
+
+    /**
+     *
+     * @throws InputException
+     */
+    public function ajaxLoadFormUser() {
+        $model = new LoadFormUserModel();
+        if ( Request::isGet() ) {
+            if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
+                if ( $model->doLoadFormUser() )
+                    $data = $model->getResult();
+                else throw new \Exception( 'Ошибка загрузки формы' );
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+            $this->result = [
+                'success'  => true,
+                'id_error' => 0,
+                'data'     => $data
+            ];
+        }
+        echo json_encode( $this->result );
+
     }
 
 }

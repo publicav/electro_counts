@@ -22,15 +22,6 @@ class UserAllModel extends BaseModel {
     public function doUserAll() {
         $GetAllUsers = new GetAllUsers();
         $this->result = $GetAllUsers->getUserAll();
-        return $this;
+        return true;
     }
-
-    /**
-     * @return array
-     */
-    public function getResult() {
-        return $this->result;
-    }
-
-
 }

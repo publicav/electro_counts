@@ -89,12 +89,15 @@ return [
         'ajax'       => [
             'controllerName' => 'controllers\ControllerAjax',
             'actions'        => [
-                'default'        => 'ajaxBlank',
-                'subst_filter'   => 'ajaxSubstationFilter', // Возвращает массив значений подстанций для фильтра
-                'subst'          => 'ajaxSubstation',       // Возвращает массив значений подстанций для формы
-                'counter_filter' => 'ajaxCounterFilter',    // Возвращает массив значений счётчиков для фильтра
-                'counter'        => 'ajaxCounter',          // Возвращает массив значений счётчиков для формы
-                'getuser_all'    => 'ajaxGetUserAll',       // Возвращает всех пользоватлей проекта
+                'default'         => 'ajaxBlank',
+                'subst_filter'    => 'ajaxSubstationFilter',         // Возвращает массив значений подстанций для фильтра
+                'subst'           => 'ajaxSubstation',               // Возвращает массив значений подстанций для формы
+                'counter_filter'  => 'ajaxCounterFilter',            // Возвращает массив значений счётчиков для фильтра
+                'counter'         => 'ajaxCounter',                  // Возвращает массив значений счётчиков для формы
+                'getuser_all'     => 'ajaxGetUserAll',               // Возвращает всех пользоватлей проекта
+                'loadform_user'   => 'ajaxLoadFormUser',             // Загрузка данных в форму user
+                'loadform_privel' => 'ajaxLoadFormPrivelege',        // Загрузка данных в форму привелегии
+                'loadform_value'  => 'ajaxLoadFormValueCounter',     // Загрузка данных в форму редактирование счётчика
             ]
         ],
 

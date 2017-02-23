@@ -61,4 +61,7 @@ abstract class BaseModel {
         }
 
     }
+    public function getResult() {
+        return $this->result;
+    }
 }

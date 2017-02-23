@@ -310,7 +310,7 @@ let l_form_edit_value = ( {objLot, objSubstation, objCounter, objDate, objTime, 
 }
 
 let l_form_edit_user = ( {objUser, objPassword, objConfirmPassword, objUserFamily, objUserName, objId, param } ) => {
-	$.ajax({dataType: 'json', type: 'get', url: 'models/json/edit_form_user.php', data: param})
+	$.ajax({dataType: 'json', type: 'get', url: 'ajax/loadform_user/', data: param})
 	 .done((result) => {
 		var data = result.data;
 		if( data == null) return;

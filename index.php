@@ -4,7 +4,7 @@ try {
     include_once 'vendor/autoload.php';
     include_once( "models/open.php" );
     include_once( "models/config.php" );
-//    include_once( "models/funclib.php" );
+    //    include_once( "models/funclib.php" );
 
     $route = \Navigation\Route::init();
     $conroler = $route->getController();
@@ -19,7 +19,8 @@ try {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
     echo Exception\JsonError::exitError( false, 1, $e->getMessage() );
 } catch ( Exception $e ) {
-    echo $e->getMessage();
+    header( "HTTP/1.1 400 Bad Request", true, 400 );
+    echo Exception\JsonError::exitError( false, 1, $e->getMessage() );
 }
 
 

@@ -1,22 +1,14 @@
 <?php
 try {
     include_once  '../../vendor/autoload.php';
-
-//    include_once "Autoload.php";
     include_once( "../open.php" );
     include_once( "../config.php" );
-    //include_once( "../funclib.php" );
 
-
-    $st_sql = '';
-    $st_page = '';
-    $name_counter = '';
 
     $path_parts = pathinfo( $_SERVER["HTTP_REFERER"] );
     $url = $path_parts['filename'];
     $url_search_action = $url . '.php';
 
-    $counter = [];
 
     $filter = new \Filter\FilterInput( $_GET );
     $get_prog = $filter->getInputAll();
@@ -71,7 +63,6 @@ try {
                 'navigator' => $navigator,
     ];
     echo json_encode( $result );
-    //var_dump( $result );
 
 } catch ( Exception\BadRequestException $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );

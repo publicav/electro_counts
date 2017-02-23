@@ -22,16 +22,8 @@ class CounterModel extends BaseModel {
     }
 
     public function doCounter() {
-        $counter= new Counter( $this->_pdo, $this->data );
+        $counter = new Counter( $this->_pdo, $this->data );
         $this->result = $counter->GetCounter();
-        return $this;
+        return true;
     }
-
-    /**
-     * @return array значений подстанций
-     */
-    public function getResult() {
-        return $this->result;
-    }
-
 }
