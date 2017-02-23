@@ -16,6 +16,9 @@ use Models\SubstFilterModel;
 use Models\SubstModel;
 use Models\UserAllModel;
 use Models\LoadFormUserModel;
+use Models\LoadFormPrivelegeModel;
+use Models\LoadFormValueModel;
+
 
 class ControllerAjax {
     public $result;
@@ -136,13 +139,13 @@ class ControllerAjax {
     }
 
     /**
-     *
+     * Загрузка данных в форму user
      * @throws InputException
      */
     public function ajaxLoadFormUser() {
         $model = new LoadFormUserModel();
-        if ( Request::isGet() ) {
-            if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
                 if ( $model->doLoadFormUser() )
                     $data = $model->getResult();
                 else throw new \Exception( 'Ошибка загрузки формы' );
@@ -158,5 +161,48 @@ class ControllerAjax {
         echo json_encode( $this->result );
 
     }
+
+    /**
+     * Загрузка данных в форму привелегии
+     * @throws InputException
+     */
+    public function ajaxLoadFormPrivelege() {
+        $model = new LoadFormPrivelegeModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doLoadFormPrivelege() )
+                    $data = $model->getResult();
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+        echo json_encode( $data );
+
+    }
+
+    /**
+     * Загрузка данных в форму user
+     * @throws InputException
+     */
+    public function ajaxLoadFormValueCounter() {
+        $model = new LoadFormValueModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doLoadFormValue() )
+                    $data = $model->getResult();
+                else throw new \Exception( 'Ошибка загрузки формы' );
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+            $this->result = [
+                'success'  => true,
+                'id_error' => 0,
+                'data'     => $data
+            ];
+        }
+        echo json_encode( $this->result );
+
+    }
+
 
 }

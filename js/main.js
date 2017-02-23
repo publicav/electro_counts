@@ -295,7 +295,7 @@ let json_get_user = ( objTarget ) => {
 
 let l_form_edit_value = ( {objLot, objSubstation, objCounter, objDate, objTime, objValEdit,
 							 objId, url_substation, url_counter, param} ) => {
-	$.ajax({dataType: 'json', type: 'get', url: 'models/json/edit_form_value.php', data: param })
+	$.ajax({dataType: 'json', type: 'post', url: 'ajax/loadform_value/', data: param })
 	 .done((result) => {
 		var data = result.data;
 		var obj = {	objSubstation, 	objCounter, url_substation, url_counter	};
@@ -310,7 +310,7 @@ let l_form_edit_value = ( {objLot, objSubstation, objCounter, objDate, objTime, 
 }
 
 let l_form_edit_user = ( {objUser, objPassword, objConfirmPassword, objUserFamily, objUserName, objId, param } ) => {
-	$.ajax({dataType: 'json', type: 'get', url: 'ajax/loadform_user/', data: param})
+	$.ajax({dataType: 'json', type: 'post', url: 'ajax/loadform_user/', data: param})
 	 .done((result) => {
 		var data = result.data;
 		if( data == null) return;
@@ -474,7 +474,7 @@ let registration = ( form ) => {
 
 let edit_privilege = () => {
 	var m_data = { 'id_user': $('#edit_user_id').val() }
-	$.ajax({ dataType: 'json', type: 'post', data: m_data, url: 'models/json/edit_form_privelege.php' })
+	$.ajax({ dataType: 'json', type: 'post', data: m_data, url: 'ajax/loadform_privelege/' })
 	.done(( result_menu ) => {
 			var menu_v =  result_menu;
 			var mainfile = '<ol>';
