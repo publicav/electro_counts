@@ -31,7 +31,6 @@ class Route {
         $this->_pathinfo = pathinfo( $_SERVER['SCRIPT_FILENAME'] );
         //      Старый режим где контроллер берется из имени файла
         //        $this->_filename = $this->_pathinfo['filename'];
-
         //      Новый режим контроллер берется из URL
         $this->_filename = Url::getSegment( 0 );
         $this->_conroller = $this->_filename;

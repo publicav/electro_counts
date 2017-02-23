@@ -8,9 +8,9 @@
 namespace Models;
 
 use Base\BaseModel;
-use Pdo\Substation;
+use Pdo\Counter;
 
-class SubstFilterModel extends BaseModel {
+class CounterFilterModel extends BaseModel {
     public $data;
     public $result;
 
@@ -21,9 +21,9 @@ class SubstFilterModel extends BaseModel {
         ];
     }
 
-    public function doSubstationFilter() {
-        $substationFilter = new Substation( $this->_pdo, $this->data );
-        $this->result = $substationFilter->GetSubstationFilter();
+    public function doCounterFilter() {
+        $counterFilter = new Counter( $this->_pdo, $this->data );
+        $this->result = $counterFilter->GetCounterFilter();
         return $this;
     }
 

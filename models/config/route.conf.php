@@ -89,8 +89,11 @@ return [
         'ajax'       => [
             'controllerName' => 'controllers\ControllerAjax',
             'actions'        => [
-                'default'     => 'ajaxBlank',
-                'subs_filter' => 'ajaxSubstationFilter',
+                'default'        => 'ajaxBlank',
+                'subst_filter'   => 'ajaxSubstationFilter', // Возвращает массив значений подстанций для фильтра
+                'subst'          => 'ajaxSubstation',       // Возвращает массив значений подстанций для формы
+                'counter_filter' => 'ajaxCounterFilter',    // Возвращает массив значений счётчиков для фильтра
+                'counter'        => 'ajaxCounter',           // Возвращает массив значений счётчиков для формы
             ]
         ],
 

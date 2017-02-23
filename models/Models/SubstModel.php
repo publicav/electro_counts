@@ -10,7 +10,7 @@ namespace Models;
 use Base\BaseModel;
 use Pdo\Substation;
 
-class SubstFilterModel extends BaseModel {
+class SubstModel extends BaseModel {
     public $data;
     public $result;
 
@@ -21,9 +21,9 @@ class SubstFilterModel extends BaseModel {
         ];
     }
 
-    public function doSubstationFilter() {
+    public function doSubstation() {
         $substationFilter = new Substation( $this->_pdo, $this->data );
-        $this->result = $substationFilter->GetSubstationFilter();
+        $this->result = $substationFilter->GetSubstation();
         return $this;
     }
 

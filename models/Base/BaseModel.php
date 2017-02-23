@@ -8,7 +8,7 @@
 
 namespace Base;
 
-use \Filter\Validator;
+use Filter\Validator;
 
 abstract class BaseModel {
     protected $_pdo;
@@ -52,5 +52,13 @@ abstract class BaseModel {
      */
     public function getErrors() {
         return $this->_errors;
+    }
+
+    public function getFirstError() {
+        foreach ( $this->getErrors() as $field => $error ) {
+            $firstError = [ 'error' => [ $field, $error ] ];
+            return $firstError;
+        }
+
     }
 }

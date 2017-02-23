@@ -6,8 +6,8 @@ $(function(){
 		objSubstation:	 $( '#substation' ),
  		objCounter:   	 $( '#counter' ),
  		objCounterLastVal: $( '#counter_last_val' ),
-		url_substation: 'models/json/get_substation.php',
-		url_counter:    'models/json/get_counter.php',
+		url_substation: 'ajax/subst/',
+		url_counter:    'ajax/counter/',
 		editCounter:	0
 	};	
 	

@@ -3,8 +3,8 @@ $(function() {
 		objLot: $('#lot_edit'),
 		objSubstation: $('#substation_edit'),
 		objCounter: $('#counter_edit'),
-		url_substation: 'models/json/get_substation.php',
-		url_counter: 'models/json/get_counter.php'
+		url_substation: 'ajax/subst/',
+		url_counter: 'ajax/counter/'
 	};
 	
 	var objEditForm = {

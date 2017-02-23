@@ -5,9 +5,8 @@ $(function() {
 	var objFiltred = {
 		objSubstation: $('#substation'),
 		objCounter: $('#counter'),
-		// url_substation: 'models/json/get_substation_filtred.php',
-        url_substation: 'ajax/subs_filter/',
-		url_counter: 'models/json/get_counter_filtred.php'
+        url_substation: 'ajax/subst_filter/',
+		url_counter: 'ajax/counter_filter/'
 	};	
 	
 	json_get_t_calc($('#right'), cmd_arr);
