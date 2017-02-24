@@ -9,17 +9,20 @@
 namespace Base;
 
 use Filter\Validator;
+use \Base\Registry;
 
 abstract class BaseModel {
     protected $_pdo;
     protected $_data;
     protected $_errors = [];
+    protected $_config;
     protected $_validator = null;
 
     abstract function getRules();
 
     function __construct() {
         $this->_pdo = \db::getLink()->getDb();
+        $this->_config = Registry::init();
     }
 
     public function validate() {

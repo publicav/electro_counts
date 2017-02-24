@@ -1,5 +1,5 @@
 ﻿  <div id="user_div_add" style="display:none;">
-    <form id="user_form_add" name="user_form_add" method="post" action="models/json/insert_user_password.php">
+    <form id="user_form_add" name="user_form_add" method="post" action="ajax/actionform_user_add/">
 	  <div class="p_input">	
       <div class="label_user_add_form"><label for="user_add">Логин:</label></div>
       <input type="text" name="user_add" id="user_add" class="input_user_add_form" tabindex="1">
@@ -27,7 +27,7 @@
   </div>
 
   <div id="user_div_edit" style="display:none;">
-    <form id="user_form_edit" name="user_form_edit" method="post" action="models/json/insert_user_password.php">
+    <form id="user_form_edit" name="user_form_edit" method="post" action="ajax/actionform_user/">
 	  <input id="edit_user_id"  type="hidden"  name="edit_user_id"/>
 	  <div class="p_input">	
       <div class="label_user_add_form"><label for="user_edit">Логин:</label></div>

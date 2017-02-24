@@ -10,16 +10,17 @@ namespace Controllers;
 
 use Base\Request;
 use Exception\InputException;
+use Models\ActionFormPrivelegeModel;
+use Models\ActionFormUserAddModel;
+use Models\ActionFormUserModel;
 use Models\CounterFilterModel;
 use Models\CounterModel;
+use Models\LoadFormPrivelegeModel;
+use Models\LoadFormUserModel;
+use Models\LoadFormValueModel;
 use Models\SubstFilterModel;
 use Models\SubstModel;
 use Models\UserAllModel;
-use Models\LoadFormUserModel;
-use Models\LoadFormPrivelegeModel;
-use Models\LoadFormValueModel;
-use Models\ActionFormUserModel;
-use Models\ActionFormPrivelegeModel;
 
 
 class ControllerAjax {
@@ -207,7 +208,33 @@ class ControllerAjax {
     }
 
     /**
-     * Загрузка данных в форму привелегии
+     * Запись данных в форму user редактирование
+     * @throws InputException
+     */
+    public function ajaxActionFormUser() {
+        $model = new ActionFormUserModel();
+
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doActionFormUser() )
+                    $data = $model->getResult();
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+            $this->result = [
+                'success'  => true,
+                'id_error' => 0,
+                'message'  => ' ' . $data,
+            ];
+
+        }
+        echo json_encode( $this->result );
+
+    }
+
+
+    /**
+     * Запись данных в форму привелегии
      * @throws InputException
      */
     public function ajaxActionFormPrivelege() {
@@ -227,5 +254,29 @@ class ControllerAjax {
 
     }
 
+    /**
+     * Запись данных в форму user добавление
+     * @throws InputException
+     */
+    public function ajaxActionFormUserAdd() {
+        $model = new ActionFormUserAddModel();
+
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doActionFormUserAdd() )
+                    $data = $model->getResult();
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+            $this->result = [
+                'success'  => true,
+                'id_error' => 0,
+                'message'  => ' ' . $data,
+            ];
+
+        }
+        echo json_encode( $this->result );
+
+    }
 
 }

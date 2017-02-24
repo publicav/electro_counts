@@ -9,9 +9,10 @@
 namespace Models;
 
 use Base\BaseModel;
-use \Base\Registry;
+
 
 class ActionFormUserModel extends BaseModel {
+    public $edit_user_id;
     public $actions;
     public $user_edit;
     public $pass_edit;
@@ -30,47 +31,34 @@ class ActionFormUserModel extends BaseModel {
             'pass_repeat_edit' => [ 'required', ],
             'family_edit'      => [ 'required', ],
             'name_edit'        => [ 'required', ],
+            'edit_user_id'     => [ 'required', ],
         ];
     }
 
     public function doActionFormUser() {
-        $md5 = sha1( md5( md5( $this->pass_edit ) . $config['md5'] . $this->user_edit) );
-
+        $config = $this->_config;
+        $md5 = sha1( md5( md5( $this->pass_edit ) . $config['MD5'] . $this->user_edit ) );
         $sq = "UPDATE users  
 			SET users = :users, password = :password, name = :name, family = :family, ring = :ring
 			WHERE (id = :id);";
 
-        $msg = 'Пользователь ' . $get_prog['name_edit'] . ' изменён';
+        $msg = 'Пользователь ' . $this->name_edit . ' изменён';
         $param = [
             'users'    => $this->user_edit,
             'password' => $md5,
-            'name'     => $get_prog['name_edit'],
-            'family'   => $get_prog['family_edit'],
-            'ring'     => 1,
-            'id'       => $get_prog['edit_user_id']
+            'name'     => $this->name_edit,
+            'family'   => $this->family_edit,
+            'ring'     => $config['RING'],
+            'id'       => $this->edit_user_id,
         ];
-        $user_edit;
-        $pass_edit;
-        $pass_repeat_edit;
-        $family_edit;
-        $name_edit;
 
-        $res = $pdo->prepare( $sq );
+        $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute( $param ) ) {
-            throw new \Exception( $pdo->errorInfo()[2] );
+            throw new \Exception( $this->_pdo->errorInfo()[2] );
         }
-
-        $result = [
-            'success'  => true,
-            'id_error' => 0,
-            'message'  => ' ' . $msg,
-        ];
-        echo json_encode( $result );
-
+        $this->result = $msg;
 
         return true;
-
-
     }
 
 }
