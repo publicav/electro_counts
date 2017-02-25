@@ -52,7 +52,7 @@ a:focus {
     top: 0;
     left: 50%;
     width: 1000px;
-    background-color: #fff;
+    /*background-color: #fff;*/
     color: #000;
     margin: 0 0 0 -500px;
     text-align: left;
@@ -69,23 +69,13 @@ a:focus {
     color: #000;
     margin: 0 0 0 -350px;
     text-align: left;
-    background-color: #F0EFDD;
     -webkit-border-radius: 5px;
-
     -moz-border-radius: 5px;
-
     border-radius: 5px;
-
-    -khtml-border-bottom-left-radius: 5px;
-    -khtml-border-bottom-right-radius: 5px;
-    -khtml-border-top-left-radius: 5px;
-    -khtml-border-top-right-radius: 5px;
 
     box-shadow: 3px 3px 3px #999;
     -webkit-box-shadow: 3px 3px 5px #999;
     -moz-box-shadow: 3px 3px 5px #999;
-    -khtml-box-shadow: 3px 3px 5px #999;
-
 }
 
 #wrap_delete {
@@ -94,27 +84,17 @@ a:focus {
     top: 10px;
     left: 50%;
     width: 900px;
-    background-color: #fff;
     color: #000;
     margin: 0 0 0 -450px;
     text-align: left;
     background-color: #F0EFDD;
     -webkit-border-radius: 5px;
-
     -moz-border-radius: 5px;
-
     border-radius: 5px;
-
-    -khtml-border-bottom-left-radius: 5px;
-    -khtml-border-bottom-right-radius: 5px;
-    -khtml-border-top-left-radius: 5px;
-    -khtml-border-top-right-radius: 5px;
 
     box-shadow: 3px 3px 3px #999;
     -webkit-box-shadow: 3px 3px 5px #999;
     -moz-box-shadow: 3px 3px 5px #999;
-    -khtml-box-shadow: 3px 3px 5px #999;
-
 }
 
 .add_last_counts {
@@ -123,7 +103,6 @@ a:focus {
     top: 324px;
     left: 50%;
     width: 800px;
-    background-color: #fff;
     color: #000;
     margin: 0 0 0 -400px;
 
@@ -133,16 +112,9 @@ a:focus {
     -moz-border-radius: 5px;
     border-radius: 5px;
 
-    -khtml-border-bottom-left-radius: 5px;
-    -khtml-border-bottom-right-radius: 5px;
-    -khtml-border-top-left-radius: 5px;
-    -khtml-border-top-right-radius: 5px;
-
     box-shadow: 3px 3px 3px #999;
     -webkit-box-shadow: 3px 3px 5px #999;
     -moz-box-shadow: 3px 3px 5px #999;
-    -khtml-box-shadow: 3px 3px 5px #999;
-
 }
 
 .add_last_counts ul {
@@ -152,13 +124,13 @@ a:focus {
 }
 
 .add_last_counts ul li {
-    padding: 3px 7px 3px 7px;
+    padding: 3px 7px;
     list-style: none;
     height: 55px;
 }
 
 .add_last_counts ul li a {
-    padding: 8px 0px 0px 0px;
+    padding-top: 8px;
     display: block;
     cursor: pointer;
 }
@@ -205,15 +177,11 @@ a:focus {
     box-shadow: 3px 3px 3px #999;
     -webkit-box-shadow: 3px 3px 5px #999;
     -moz-box-shadow: 3px 3px 5px #999;
-    -khtml-box-shadow: 3px 3px 5px #999;
 
     -webkit-border-bottom-left-radius: 10px;
     -webkit-border-bottom-right-radius: 10px;
     -moz-border-radius-bottomleft: 10px;
     -moz-border-radius-bottomright: 10px;
-
-    -khtml-border-bottom-right-radius: 5px;
-    -khtml-border-bottom-left-radius: 5px;
 
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -236,20 +204,12 @@ a:focus {
     background: #000 url(../img/web/menubar_bg.png);
 
     -webkit-border-radius: 5px;
-
     -moz-border-radius: 5px;
-
     border-radius: 5px;
-
-    -khtml-border-bottom-left-radius: 5px;
-    -khtml-border-bottom-right-radius: 5px;
-    -khtml-border-top-left-radius: 5px;
-    -khtml-border-top-right-radius: 5px;
 
     box-shadow: 3px 3px 3px #999;
     -webkit-box-shadow: 3px 3px 5px #999;
     -moz-box-shadow: 3px 3px 5px #999;
-    -khtml-box-shadow: 3px 3px 5px #999;
 
 }
 
@@ -269,7 +229,8 @@ a:focus {
     display: block;
     line-height: 34px;
     text-align: -webkit-match-parent;
-    padding: 0px 14px 0 14px;
+    padding-right: 14px;
+    padding-left: 14px;
 }
 
 #menu ul .user .title_user {
@@ -308,10 +269,6 @@ a:focus {
 
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
-
-    -khtml-border-top-left-radius: 7px;
-    -khtml-border-top-right-radius: 7px;
-
 }
 
 #menu li.act {
@@ -321,10 +278,6 @@ a:focus {
 
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
-
-    -khtml-border-top-left-radius: 7px;
-    -khtml-border-top-right-radius: 7px;
-
 }
 
 #menu a:focus {
@@ -338,12 +291,13 @@ a:focus {
 
 #menu_left ol {
     list-style: none;
-    margin: 5px 0px 10px;
-    padding: 0px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 #menu_left ol li {
-    margin: 0px 5px 0px 5px;
+    margin-right: 5px;
+    margin-left: 5px;
     padding: 5px 2px 7px 7px;
 }
 
@@ -359,35 +313,21 @@ a:focus {
 #menu_left li:hover {
     background-image: url(../img/web/navbar_bg.png);
     -moz-border-radius: 3px;
-
     border-radius: 3px;
-
-    -khtml-border-bottom-left-radius: 3px;
-    -khtml-border-bottom-right-radius: 3px;
-    -khtml-border-top-left-radius: 3px;
-    -khtml-border-top-right-radius: 3px;
-
 }
 
 #menu_left li.act {
     background-image: url(../img/web/navbar_bg.png);
     -moz-border-radius: 3px;
-
     border-radius: 3px;
-
-    -khtml-border-bottom-left-radius: 3px;
-    -khtml-border-bottom-right-radius: 3px;
-    -khtml-border-top-left-radius: 3px;
-    -khtml-border-top-right-radius: 3px;
-
 }
 
 .ui-icon {
     width: 22px;
     height: 22px;
     /*background-image: url(../img/web/search-button.png);*/
-    margin: 0px 2px 4px 0px;
-    padding: 0px 0px 0px 0px;
+    margin-right: 2px;
+    margin-bottom: 4px;
 }
 
 #left {
@@ -409,15 +349,11 @@ a:focus {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 
-    -khtml-border-bottom-left-radius: 20px;
-    -khtml-border-bottom-right-radius: 20px;
-
     border-top-left-radius: 5px;
 
     box-shadow: 3px 3px 3px #999;
     -webkit-box-shadow: 3px 3px 5px #999;
     -moz-box-shadow: 3px 3px 5px #999;
-    -khtml-box-shadow: 3px 3px 5px #999;
 }
 
 #right {
@@ -435,34 +371,11 @@ a:focus {
     -webkit-border-bottom-left-radius: 20px;
     -webkit-border-bottom-right-radius: 20px;
 
-    -moz-border-radius-bottomleft: 20px;
-    -moz-border-radius-bottomright: 20px;
-
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-
-    -khtml-border-top-left-radius: 5px;
-    -khtml-border-top-right-radius: 5px;
-
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-
-    /*border-top-left-radius:5px;*/
-    border-top-right-radius: 5px;
-
-    -khtml-border-top-left-radius: 5px;
-    -khtml-border-top-right-radius: 5px;
-
+    -moz-border-radius: 5px 5px 20px 20px;
+    border-radius: 5px 5px 20px 20px;
     box-shadow: 3px 3px 3px #999;
     -webkit-box-shadow: 3px 3px 5px #999;
     -moz-box-shadow: 3px 3px 5px #999;
-    -khtml-box-shadow: 3px 3px 5px #999;
 }
 
 .left-box {
@@ -474,11 +387,9 @@ a:focus {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    -khtml-border-radius: 5px;
     box-shadow: 3px 3px 3px #999;
     -webkit-box-shadow: 3px 3px 5px #999;
     -moz-box-shadow: 3px 3px 5px #999;
-    -khtml-box-shadow: 3px 3px 5px #999;
 }
 
 .pagelink, .pagelinklast, .pagecurrent {
@@ -487,9 +398,9 @@ a:focus {
     display: inline-block;
     margin: 4px;
     border-radius: 6px;
-    -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.24);
-    -moz-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.24);
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.24);
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.24);
 }
 
 .pagelink a, .pagelinklast a {
@@ -526,7 +437,7 @@ a:focus {
     font-size: 12px;
     height: 36px;
     float: left;
-    margin: 15px 0px 15px 15px;
+    margin: 15px 0 15px 15px;
     text-align: center;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
     color: #717e83;
@@ -547,12 +458,12 @@ a:focus {
 }
 
 #navigator1 {
-    margin: 15px 0px 15px 0px;
+    margin: 15px 0 15px 0;
     text-align: center;
 }
 
 #upfiles {
-    margin: 20px 0px 10px 120px;
+    margin: 20px 0 10px 120px;
     width: 200px;
 
 }
@@ -566,13 +477,12 @@ a:focus {
 .title_filtred {
     font: 16px verdana, sans-serif;
     color: #473C8B;
-    padding: 0px 0px 0px 0px;
     text-align: center;
 }
 
 .f_input_filtred {
     font: 13px Tahoma;
-    padding: 15px 0px 0px 0px;
+    padding-top: 15px;
 }
 
 .label_user_add_form {
@@ -583,12 +493,12 @@ a:focus {
 
 .input_user_add_form {
     font: 16px verdana, sans-serif;
-    padding: 5px 0px 5px 0px;
+    padding: 5px 0 5px 0;
     width: 370px;
 }
 
 .p_input {
-    margin: 10px 0px 10px 40px;
+    margin: 10px 0 10px 40px;
 }
 
 .label_p {
@@ -604,7 +514,7 @@ a:focus {
 
 .input_form {
     font: 16px verdana, sans-serif;
-    padding: 5px 0px 5px 0px;
+    padding: 5px 0;
     width: 350px;
 }
 
@@ -622,38 +532,38 @@ a:focus {
 
 .input_selected {
     font: 16px verdana, sans-serif;
-    padding: 5px 0px 5px 0px;
+    padding: 5px 0;
     width: 350px;
 }
 
 .input_date_b {
     font: 16px verdana, sans-serif;
-    padding: 5px 0px 5px 0px;
-    margin: 0px 3px 0px 2px;
+    padding: 5px 0;
+    margin: 0 3px 0 2px;
     width: 110px;
 }
 
 .input_date_e {
-    padding: 5px 0px 5px 0px;
-    margin: 0px 3px 0px 2px;
+    padding: 5px 0;
+    margin: 0 3px 0 2px;
     width: 90px;
 }
 
 .input_time_b {
     font: 16px verdana, sans-serif;
-    padding: 4px 0px 3px 2px;
-    margin: 0px 0px 0px 2px;
+    padding: 4px 0 3px 2px;
+    margin-left: 2px;
     width: 85px;
 }
 
 .input_time_e {
-    padding: 4px 0px 3px 2px;
-    margin: 0px 0px 0px 2px;
+    padding: 4px 0 3px 2px;
+    margin-left: 2px;
     width: 85px;
 }
 
 #files {
-    margin: 30px 0px 10px 40px;
+    margin: 30px 0 10px 40px;
 }
 
 #sel_f {
@@ -669,7 +579,7 @@ a:focus {
 
 #add_user_btn {
     margin: 10px 10px 20px 30px;
-    padding: 0px 10px 0px 10px;
+    padding: 0 10px;
     cursor: pointer;
     height: 37px;
     font: 15px verdana, sans-serif;
@@ -682,14 +592,7 @@ a:focus {
 #add_user_btn:hover {
     background-image: url(../img/web/navbar_bg.png);
     -moz-border-radius: 5px;
-
     border-radius: 5px;
-
-    -khtml-border-bottom-left-radius: 5px;
-    -khtml-border-bottom-right-radius: 5px;
-    -khtml-border-top-left-radius: 5px;
-    -khtml-border-top-right-radius: 5px;
-
 }
 
 #add_user_btn .btn-ico {
@@ -701,7 +604,7 @@ a:focus {
 #add_user_btn .btn-text {
     display: block;
     float: left;
-    padding: 10px 0px 0px 10px;
+    padding: 10px 0 0 10px;
     /*	width:180px;	*/
 }
 
@@ -709,7 +612,7 @@ a:focus {
     width: 170px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 15px;
+    padding: 11px 0 5px 15px;
     font: 16px verdana, sans-serif;
     color: #191970;
 }
@@ -718,7 +621,7 @@ a:focus {
     width: 170px;
     display: block;
     float: left;
-    padding: 10px 0px 5px 15px;
+    padding: 10px 0 5px 15px;
     font: 18px Tahoma;
     color: #191970;
 }
@@ -727,7 +630,7 @@ a:focus {
     width: 170px;
     display: block;
     float: left;
-    padding: 10px 0px 5px 15px;
+    padding: 10px 0 5px 15px;
     font: 18px Tahoma;
     color: #191970;
 }
@@ -736,13 +639,13 @@ a:focus {
     width: 80px;
     display: block;
     float: left;
-    padding: 3px 0px 0px 0px;
+    padding: 3px 0 0 0;
     font: 14px Tahoma;
     color: #191970;
 }
 
 .title_table_user {
-    margin: 2px 0px 4px 20px;
+    margin: 2px 0 4px 20px;
     height: 35px;
     float: left;
     color: #000;
@@ -755,25 +658,25 @@ a:focus {
     width: 170px;
     display: block;
     float: left;
-    padding: 7px 0px 0px 15px;
+    padding: 7px 0 0 15px;
 }
 
 .title_table_user .title_family {
     width: 170px;
     display: block;
     float: left;
-    padding: 7px 0px 0px 15px;
+    padding: 7px 0 0 15px;
 }
 
 .title_table_user .title_name {
     width: 170px;
     display: block;
     float: left;
-    padding: 7px 0px 0px 15px;
+    padding: 7px 0 0 15px;
 }
 
 .title_table_counter {
-    margin: 30px 0px 4px 20px;
+    margin: 30px 0 4px 20px;
     height: 35px;
     float: left;
     color: #000;
@@ -786,35 +689,35 @@ a:focus {
     width: 245px;
     display: block;
     float: left;
-    padding: 7px 0px 0px 60px;
+    padding: 7px 0 0 60px;
 }
 
 .title_table_counter .title_calc_date {
     width: 125px;
     display: block;
     float: left;
-    padding: 7px 0px 0px 10px;
+    padding: 7px 0 0 10px;
 }
 
 .title_table_counter .title_calc_value {
     width: 100px;
     display: block;
     float: left;
-    padding: 7px 0px 0px 110px;
+    padding: 7px 0 0 110px;
 }
 
 .colum_calc_counter {
     width: 245px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 50px;
+    padding: 11px 0 5px 50px;
 }
 
 .colum_calc_date {
     width: 125px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 0px;
+    padding: 11px 0 5px 0;
 
 }
 
@@ -822,7 +725,7 @@ a:focus {
     width: 100px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 100px;
+    padding: 11px 0 5px 100px;
 
 }
 
@@ -862,7 +765,7 @@ a:focus {
 }
 
 .counter_str_err {
-    margin: 2px 0px 2px 20px;
+    margin: 2px 0 2px 20px;
     height: 40px;
     float: left;
     background-color: #FF69B4;
@@ -875,7 +778,7 @@ a:focus {
 }
 
 .counter_str_odd {
-    margin: 2px 0px 2px 20px;
+    margin: 2px 0 2px 20px;
     height: 40px;
     float: left;
     background-color: #FDF5E6;
@@ -889,7 +792,7 @@ a:focus {
 }
 
 .counter_str_even {
-    margin: 2px 0px 2px 20px;
+    margin: 2px 0 2px 20px;
     height: 40px;
     float: left;
     background-color: #FFF8DC;
@@ -968,17 +871,16 @@ a:focus {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    padding: 5px 5px 0px 5px;
+    padding: 5px 5px 0 5px;
     border: 1px solid black;
     box-shadow: 6px 3px 6px rgba(9, 9, 9, 0.7);
     -webkit-box-shadow: 6px 3px 6px rgba(9, 9, 9, 0.7);
     -moz-box-shadow: 6px 3px 6px rgba(9, 9, 9, 0.7);
-    -khtml-box-shadow: 6px 3px 6px rgba(9, 9, 9, 0.7);
     background-color: white;
 }
 
 .pict {
-    margin: 0px 0px 30px 30px;
+    margin: 0 0 30px 30px;
 }
 
 .albums {
@@ -996,13 +898,13 @@ a:focus {
 
 .f_input {
     font: 14px Tahoma;
-    margin: 15px 0px 10px 5px;
+    margin: 15px 0 10px 5px;
 }
 
 .filtred_selected {
     font: 14px Tahoma;
-    margin: 5px 0px 5px 0px;
-    padding: 5px 0px 5px 0px;
+    margin: 5px 0;
+    padding: 5px 0;
     width: 190px;
 }
 
@@ -1015,13 +917,11 @@ a:focus {
     text-align: left;
     opacity: 1;
     position: absolute;
-    margin: -0px 0px;
+    margin: -0px 0;
     text-decoration: none;
     box-shadow: 6px 3px 6px rgba(9, 9, 9, 0.9);
     -webkit-box-shadow: 6px 3px 6px rgba(9, 9, 9, 0.7);
     -moz-box-shadow: 6px 3px 6px rgba(9, 9, 9, 0.7);
-    -khtml-box-shadow: 6px 3px 6px rgba(9, 9, 9, 0.7);
-
 }
 
 .info_name h5 {
@@ -1213,14 +1113,13 @@ a:focus {
 
 #user_div_privelege ol {
     list-style: none;
-    margin: 5px 0px 10px;
-    padding: 0px;
+    margin: 5px 0 10px;
     width: 300px;
 
 }
 
 #user_div_privelege ol li {
-    margin: 0px 5px 0px 5px;
+    margin: 0 5px;
     padding: 5px 2px 7px 7px;
     display: block;
     float: left;
@@ -1231,7 +1130,7 @@ a:focus {
 #user_div_privelege ol li .privilege_checkbox {
     display: block;
     float: right;
-    margin: 3px 5px 0px 5px;
+    margin: 3px 5px 0 5px;
 }
 
 #help1 {

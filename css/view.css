@@ -22,21 +22,20 @@ img {
     left: 50%;
     width: 1250px;
     margin: 0 0 0 -625px;
-
     /*margin: 0px auto;*/
     /*min-width: 1225px;*/
     /*max-width: 1225px;*/
     text-align: left;
     color: #2b4157;
     background: #69c;
-    border: 0px solid #000;
-    -webkit-box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.75);
-    box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.75);
+    border: 0 solid #000;
+    -webkit-box-shadow: 2px 2px 8px 0 rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 2px 2px 8px 0 rgba(50, 50, 50, 0.75);
+    box-shadow: 2px 2px 8px 0 rgba(50, 50, 50, 0.75);
 }
 
 #header {
-    margin: 0px auto;
+    margin: 0 auto;
     height: 140px;
     width: 1225px;
     position: relative;
@@ -52,7 +51,7 @@ img {
     left: 500px;
     width: 707px;
     height: 91px;
-    border: 0px none currentcolor;
+    border: 0 none currentcolor;
     font-size: 9pt;
 }
 
@@ -62,7 +61,7 @@ img {
 
 #main_menu table tr td {
     border: 1px;
-    top: 0px;
+    top: 0;
     width: 120px;
     height: 40px;
     color: #fff;
@@ -88,9 +87,9 @@ img {
     text-align: left;
     padding: 10px;
 
-    -webkit-box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.75);
-    box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.75);
+    -webkit-box-shadow: 2px 2px 8px 0 rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 2px 2px 8px 0 rgba(50, 50, 50, 0.75);
+    box-shadow: 2px 2px 8px 0 rgba(50, 50, 50, 0.75);
 }
 
 #right {
@@ -105,25 +104,24 @@ img {
     /*background-image:url(../img/bg.png);*/
     text-align: left;
     padding: 10px;
-    -webkit-box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.75);
-    box-shadow: 2px 2px 8px 0px rgba(50, 50, 50, 0.75);
+    -webkit-box-shadow: 2px 2px 8px 0 rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 2px 2px 8px 0 rgba(50, 50, 50, 0.75);
+    box-shadow: 2px 2px 8px 0 rgba(50, 50, 50, 0.75);
 }
 
 .title_filtred {
     font: 16px verdana, sans-serif;
     color: #473C8B;
-    padding: 0px 0px 0px 0px;
     text-align: center;
 }
 
 .f_input_filtred {
     font: 13px Tahoma;
-    padding: 15px 0px 0px 0px;
+    padding-top: 15px;
 }
 .f_input {
     font: 14px Tahoma;
-    margin: 15px 0px 10px 28px;
+    margin: 15px 0 10px 28px;
     text-align: left;
 }
 
@@ -135,7 +133,7 @@ img {
 
 .input_user_add_form {
     font: 16px verdana, sans-serif;
-    padding: 5px 0px 5px 0px;
+    padding: 5px 0 5px 0;
     width: 370px;
 }
 .filtred_label {
@@ -143,13 +141,13 @@ img {
 }
 .filtred_selected {
     font: 14px Tahoma;
-    margin: 5px 0px 5px 0px;
-    padding: 5px 0px 5px 0px;
+    margin: 5px 0 5px 0;
+    padding: 5px 0 5px 0;
     width: 250px;
     text-align: left;
 }
 .p_input {
-        margin: 10px 0px 10px 40px;
+        margin: 10px 0 10px 40px;
 }
 
 .label_p {
@@ -165,7 +163,7 @@ img {
 
 .input_form {
     font: 16px verdana, sans-serif;
-    padding: 5px 0px 5px 0px;
+    padding: 5px 0 5px 0;
     width: 350px;
 }
 
