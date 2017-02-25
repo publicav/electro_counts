@@ -10,12 +10,14 @@ namespace Base;
 
 use Filter\Validator;
 use \Base\Registry;
+use Navigation\Route;
 
 abstract class BaseModel {
     protected $_pdo;
     protected $_data;
     protected $_errors = [];
     protected $_config;
+    protected $_route;
     protected $_validator = null;
 
     abstract function getRules();
@@ -23,6 +25,7 @@ abstract class BaseModel {
     function __construct() {
         $this->_pdo = \db::getLink()->getDb();
         $this->_config = Registry::init();
+        $this->_route = Route::init();
     }
 
     public function validate() {
@@ -64,6 +67,7 @@ abstract class BaseModel {
         }
 
     }
+
     public function getResult() {
         return $this->result;
     }

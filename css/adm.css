@@ -803,39 +803,62 @@ a:focus {
     padding: 7px 0px 0px 110px;
 }
 
-.title_table_counter .title_lots {
-    width: 145px;
+.colum_calc_counter {
+    width: 245px;
     display: block;
     float: left;
-    padding: 7px 0px 0px 15px;
+    padding: 11px 0px 5px 50px;
 }
 
-.title_table_counter .title_substation {
+.colum_calc_date {
     width: 125px;
     display: block;
     float: left;
-    padding: 7px 0px 0px 0px;
+    padding: 11px 0px 5px 0px;
+
+}
+
+.colum_calc_value {
+    width: 100px;
+    display: block;
+    float: left;
+    padding: 11px 0px 5px 100px;
+
+}
+
+.title_table_counter .title_lots {
+    width: 140px;
+    display: block;
+    float: left;
+    padding: 7px 0 0 15px;
+}
+
+.title_table_counter .title_substation {
+    width: 120px;
+    display: block;
+    float: left;
+    padding: 7px 0 0 10px;
 }
 
 .title_table_counter .title_counts {
     width: 145px;
     display: block;
     float: left;
-    padding: 7px 0px 0px 0px;
+    padding: 7px 0 0 15px;
 }
 
 .title_table_counter .title_date {
-    width: 125px;
+    width: 110px;
     display: block;
     float: left;
-    padding: 7px 0px 0px 0px;
+    padding: 7px 0 0 10px;
 }
 
 .title_table_counter .title_value {
     width: 100px;
     display: block;
     float: left;
-    padding: 7px 0px 0px 0px;
+    padding: 7px 0 0 20px;
 }
 
 .counter_str_err {
@@ -858,6 +881,7 @@ a:focus {
     background-color: #FDF5E6;
     cursor: pointer;
     width: 685px;
+    display: flex;
 }
 
 .counter_str_odd:hover {
@@ -867,11 +891,11 @@ a:focus {
 .counter_str_even {
     margin: 2px 0px 2px 20px;
     height: 40px;
-    /*	line-height: 40px;*/
     float: left;
     background-color: #FFF8DC;
     cursor: pointer;
     width: 685px;
+    display: flex;
 }
 
 .counter_str_even:hover {
@@ -882,65 +906,61 @@ a:focus {
     width: 140px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 15px;
+    padding-left: 15px;
+    margin: auto 0;
 }
 
 .col_substation {
     width: 125px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 0px;
+    margin: auto 0;
+    padding-left: 15px;
 }
 
 .col_counts {
     width: 145px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 0px;
+    margin: auto 0;
+    padding-left: 15px;
 }
 
 .col_date {
     width: 125px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 0px;
+    margin: auto 0;
+    padding-left: 15px;
 }
 
 .col_value {
     width: 100px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 5px;
+    margin: auto 0;
+    padding-left: 15px;
 }
 
 .colum_calc_counter {
     width: 245px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 50px;
+    margin: auto 0;
 }
 
 .colum_calc_date {
     width: 125px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 0px;
-
+    margin: auto 0;
 }
-.colum_calc_value{
+
+.colum_calc_value {
     width: 100px;
     display: block;
     float: left;
-    padding: 11px 0px 5px 100px;
-
-}
-
-.an_col_pict {
-    float: left;
-    padding: 20px 5px 20px 5px;
-    width: 40px;
-    height: 56px;
-
+    margin: auto 0;
 }
 
 .thumbs {

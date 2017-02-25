@@ -1,8 +1,8 @@
 <?php
 try {
     include_once 'vendor/autoload.php';
-    include_once( "models/open.php" );
-    include_once( "models/config.php" );
+    include_once 'models/open.php';
+    include_once 'models/config.php';
 
     $route = \Navigation\Route::init();
     $conroler = $route->getController();

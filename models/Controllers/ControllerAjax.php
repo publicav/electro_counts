@@ -13,6 +13,7 @@ use Exception\InputException;
 use Models\ActionFormPrivelegeModel;
 use Models\ActionFormUserAddModel;
 use Models\ActionFormUserModel;
+use Models\ActionFromValueModel;
 use Models\CounterFilterModel;
 use Models\CounterModel;
 use Models\LoadFormPrivelegeModel;
@@ -251,7 +252,6 @@ class ControllerAjax {
             }
         }
         echo json_encode( $this->result );
-
     }
 
     /**
@@ -274,6 +274,28 @@ class ControllerAjax {
                 'message'  => ' ' . $data,
             ];
 
+        }
+        echo json_encode( $this->result );
+    }
+
+    /**
+     * Запись данных в главную таблицу значение счётчика
+     * @throws InputException
+     */
+    public function ajaxActionFormValueCounter() {
+        $model = new ActionFromValueModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doActionFromValue() )
+                    $data = $model->getResult();
+                    $this->result = [
+                        'id_error' => 0,
+                        'success'  => true,
+                        'data' => $data,
+                    ];
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
         }
         echo json_encode( $this->result );
 

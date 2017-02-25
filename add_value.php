@@ -1,16 +1,17 @@
 <?php
 try {
-    include_once "models/json/Autoload.php";
-    include_once("models/config.php");
-    include_once("models/open.php");
+    include_once 'vendor/autoload.php';
+    include_once 'models/config.php';
+    include_once 'models/open.php';
 
-}catch(\Exception $e){
+} catch ( \Exception $e ) {
     die( $e->getMessage() );
 }
 ?>
 <!DOCTYPE html>
-<html> 
+<html>
 <head>
+    <link rel="shortcut icon" type="image/x-icon" href="img/web/count1.png">
 </head>
 
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
@@ -22,26 +23,40 @@ try {
 <script src="js/add_counts.js"></script>
 <script>
 </script>
-<body> 
+<body>
 <div id="wrap_myupload">
-    <form id="add_value_counts_form" name="add_value_form" method="post" action="models/json/add_value_counts.php">     
-		<input id="edit_id"  type="hidden"  name="edit_id"/>
-		<div class="p_input"><div class="label_p"><label for="lot">Участок</label></div><?php include_once("views/base/lot.php"); ?></div>
-		<div class="p_input"><div class="label_p"><label for="substation">Подстанция</label></div><select id="substation" class="input_selected"></select></div>
-		<div class="p_input"><div class="label_p"><label for="counter">Ячейка</label></div><select id="counter" class="input_selected"></select></div>
-        
-		<div class="p_input"><div class="label_p"><label for="path_name"> Время замера</label></div><input type="text"  class="input_date_b" id="date_airing_begin"  name="date_begin" value="<?php echo  date("d-m-Y");;?>"/><input   class="input_time_b" id="time_airing_begin" type="text" name="time_begin"/></div>
-				<div class="p_input"><div class="label_p"><label for="counter_last_val">Предыдущие</label></div><input id="counter_last_val"  type="" class="input_form" name="counter_last_val" disabled="disabled"/></div>
-        <div class="p_input"><div class="label_p"><label for="counter_val">Значение счётчика</label></div><input id="counter_val"  type="" class="input_form" name="counter_val"/></div>
-		<button id="ok_f"  type="submit" class="button">Ok</button>
-		<button id="edit_f"  type="submit" class="button" disabled="disabled">Правка</button>
-	</form>
+    <form id="add_value_counts_form" name="add_value_form" method="post" action="ajax/actionform_value/">
+        <input id="edit_id" type="hidden" name="edit_id"/>
+        <div class="p_input">
+            <div class="label_p"><label for="lot">Участок</label></div><?php include_once 'views/base/lot.php' ?>
+        </div>
+        <div class="p_input">
+            <div class="label_p"><label for="substation">Подстанция</label></div>
+            <select id="substation" class="input_selected"></select></div>
+        <div class="p_input">
+            <div class="label_p"><label for="counter">Ячейка</label></div>
+            <select id="counter" class="input_selected"></select></div>
 
-	<div id="add_last_counts" class="add_last_counts">
-		<ul id="list_counts"></ul> 
-	</div>
+        <div class="p_input">
+            <div class="label_p"><label for="path_name"> Время замера</label></div>
+            <input type="text" class="input_date_b" id="date_airing_begin" name="date_begin"
+                   value="<?php echo date( "d-m-Y" );; ?>"/><input class="input_time_b" id="time_airing_begin"
+                                                                   type="text" name="time_begin"/></div>
+        <div class="p_input">
+            <div class="label_p"><label for="counter_last_val">Предыдущие</label></div>
+            <input id="counter_last_val" type="" class="input_form" name="counter_last_val" disabled="disabled"/></div>
+        <div class="p_input">
+            <div class="label_p"><label for="counter_val">Значение счётчика</label></div>
+            <input id="counter_val" type="" class="input_form" name="counter_val"/></div>
+        <button id="ok_f" type="submit" class="button">Ok</button>
+        <button id="edit_f" type="submit" class="button" disabled="disabled">Правка</button>
+    </form>
+
+    <div id="add_last_counts" class="add_last_counts">
+        <ul id="list_counts"></ul>
+    </div>
 
 </div>
 
-</body> 
+</body>
 </html>
