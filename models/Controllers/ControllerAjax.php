@@ -19,6 +19,7 @@ use Models\CounterModel;
 use Models\LoadFormPrivelegeModel;
 use Models\LoadFormUserModel;
 use Models\LoadFormValueModel;
+use Models\MenuLeftModel;
 use Models\SubstFilterModel;
 use Models\SubstModel;
 use Models\UserAllModel;
@@ -288,14 +289,34 @@ class ControllerAjax {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
                 if ( $model->doActionFromValue() )
                     $data = $model->getResult();
-                    $this->result = [
-                        'id_error' => 0,
-                        'success'  => true,
-                        'data' => $data,
-                    ];
+                $this->result = [
+                    'id_error' => 0,
+                    'success'  => true,
+                    'data'     => $data,
+                ];
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
+        }
+        echo json_encode( $this->result );
+
+    }
+
+    /**
+     * Возвращает массив данных для построения левого меню проекта
+     * @throws InputException
+     */
+    public function ajaxMenuLeft() {
+        $model = new MenuLeftModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doMenuLeft() )
+                    $data = $model->getResult();
+                else $data = $model->getResult();
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+            $this->result = $data;
         }
         echo json_encode( $this->result );
 

@@ -36,6 +36,7 @@ class Request {
      */
     public static function getPost() {
         $validation = new FilterInput( $_POST );
+        if ( is_null( $validation->getInputAll() ) ) return [];
         return $validation->getInputAll();
     }
 

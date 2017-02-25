@@ -9,7 +9,6 @@
 namespace Base;
 
 use Filter\Validator;
-use \Base\Registry;
 use Navigation\Route;
 
 abstract class BaseModel {
