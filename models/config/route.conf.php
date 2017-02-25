@@ -105,6 +105,8 @@ return [
                 'menuleft'             => 'ajaxMenuLeft',                   // Возвращает массив данных для построения левого меню проекта
                 'registration'         => 'ajaxRegistration',               // Регистрация пользователя  данные POST
                 'unregistration'       => 'ajaxUnregistration',             // Выход пользователя с системы
+                'lastvalue_counter'    => 'ajaxLastValueCounter',           // последнее значение введенное для данного счётчика
+                'filterValue'          => 'ajaxFilterValue',                // Результаты по работе фильтров
             ]
         ],
     ]

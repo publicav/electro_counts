@@ -17,6 +17,7 @@ use Models\ActionFormUserModel;
 use Models\ActionFromValueModel;
 use Models\CounterFilterModel;
 use Models\CounterModel;
+use Models\LastValueCounterModel;
 use Models\LoadFormPrivelegeModel;
 use Models\LoadFormUserModel;
 use Models\LoadFormValueModel;
@@ -354,6 +355,25 @@ class ControllerAjax {
         ];
         Auth::logout();
         echo json_encode( $this->result );
+    }
+
+    /**
+     * Возвращает массив данных для построения левого меню проекта
+     * @throws InputException
+     */
+    public function ajaxLastValueCounter() {
+        $model = new LastValueCounterModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doLastValueCounter() )
+                    $data = $model->getResult();
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+            $this->result = $data;
+        }
+        echo json_encode( $this->result );
+
     }
 
 }
