@@ -21,6 +21,7 @@ use Models\LoadFormPrivelegeModel;
 use Models\LoadFormUserModel;
 use Models\LoadFormValueModel;
 use Models\MenuLeftModel;
+use Models\RegistrationModel;
 use Models\SubstFilterModel;
 use Models\SubstModel;
 use Models\UserAllModel;
@@ -314,6 +315,25 @@ class ControllerAjax {
                 if ( $model->doMenuLeft() )
                     $data = $model->getResult();
                 else $data = $model->getResult();
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+            $this->result = $data;
+        }
+        echo json_encode( $this->result );
+
+    }
+
+    /**
+     * Регистрация пользователя  данные POST
+     * @throws InputException
+     */
+    public function ajaxRegistration() {
+        $model = new RegistrationModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doRegistration() )
+                    $data = $model->getResult();
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
