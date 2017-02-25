@@ -426,7 +426,7 @@ let user_form_actions = ( obj_form ) => {
 }
 
 let unregistration = () => {
-	$.ajax({dataType: 'json', type: 'post', url: 'models/json/unregistration.php'} )
+	$.ajax({dataType: 'json', type: 'post', url: 'ajax/unregistration/'} )
 	.done((result) => {
 			$.ajax({dataType: 'json', type: 'post', url: 'models/json/menu.json'} )
 			.done((result_menu) => {

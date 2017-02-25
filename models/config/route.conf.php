@@ -103,6 +103,8 @@ return [
                 'actionform_value'     => 'ajaxActionFormValueCounter',     // Запись данных в главную таблицу счётчика
                 'actionform_user_add'  => 'ajaxActionFormUserAdd',          // Запись данных в таблицу  пользоваталея. Добавление
                 'menuleft'             => 'ajaxMenuLeft',                   // Возвращает массив данных для построения левого меню проекта
+                'registration'         => 'ajaxRegistration',               // Регистрация пользователя  данные POST
+                'unregistration'       => 'ajaxUnregistration',             // Выход пользователя с системы
             ]
         ],
     ]

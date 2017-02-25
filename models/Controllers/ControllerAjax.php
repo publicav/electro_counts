@@ -8,6 +8,7 @@
 
 namespace Controllers;
 
+use Base\Auth;
 use Base\Request;
 use Exception\InputException;
 use Models\ActionFormPrivelegeModel;
@@ -320,6 +321,19 @@ class ControllerAjax {
         }
         echo json_encode( $this->result );
 
+    }
+
+    /**
+     * Выход пользователя с системы
+     * @throws InputException
+     */
+    public function ajaxUnregistration() {
+        $this->result = [
+            'success' => true,
+            'message' => 'Пользователь разлогинился',
+        ];
+        Auth::logout();
+        echo json_encode( $this->result );
     }
 
 }
