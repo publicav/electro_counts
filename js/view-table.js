@@ -1,5 +1,21 @@
 ﻿$( function () {
-
+    $.datepicker.regional['ru'] = {
+        closeText: 'Закрыть',
+        prevText: '&#x3c;Пред',
+        nextText: 'След&#x3e;',
+        currentText: 'Сегодня',
+        monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+            'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+        monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+            'Июл','Авг','Сен','Окт','Ноя','Дек'],
+        dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+        dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+        dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+        dateFormat: 'dd.mm.yy',
+        firstDay: 1,
+        isRTL: false
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ru']);
 
     jsonGetGroup( cmd_arr );
     if ( 'group' in cmd_arr ) {
@@ -77,6 +93,7 @@
     if ( !$( '#dt1_en' ).prop( 'checked' ) ) $( "#dt1" ).datepicker( 'disable' );
     if ( !$( '#dt2_en' ).prop( 'checked' ) ) $( "#dt2" ).datepicker( 'disable' );
     if ( !('date_b' in cmd_arr) ) $( '#dt2_en' ).prop( 'disabled', true );
+
 
 
     $( document ).tooltip( {

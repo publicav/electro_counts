@@ -36,6 +36,7 @@ class ControllerMain extends Conroller {
         $menuLeft = new Privelege( $this->_auth );
         $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
         $this->_view->setJs( [
+            'js/ui/minified/jquery.ui.datepicker-ru.min.js',
             'js/jquery.maskedinput.min.js',
             'js/filters.js'
         ] );
@@ -57,6 +58,7 @@ class ControllerMain extends Conroller {
         $menuLeft = new Privelege( $this->_auth );
         $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
         $this->_view->setJs( [
+            'js/ui/minified/jquery.ui.datepicker-ru.min.js',
             'js/jquery.maskedinput.min.js',
             'js/filters.js',
             'js/edit_counts.js'
@@ -69,7 +71,7 @@ class ControllerMain extends Conroller {
         $menuLeft = new Privelege( $this->_auth );
         $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
         $this->_view->setJs( [
-            'js/filters-calc.js'
+            'js/filters-calc.js',
         ] );
         $this->_view->render( $this->_route->getViewPath(), '' );
     }

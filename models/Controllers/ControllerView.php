@@ -29,10 +29,11 @@ class ControllerView extends Conroller {
         $this->_view->setLayout( $this->_route->getLayout( 'view_v' ) );
         $this->_view->setJs( [
             'js/ui/minified/jquery-ui.min.js',
-            'js/datatables.min.js',
             'js/view-main.js',
             'js/view-table.js',
-            'js/date-euro.js'
+            'js/datatables.min.js',
+            'js/date-euro.js',
+            'js/ui/minified/jquery.ui.datepicker-ru.min.js',
 
         ] );
         $this->_view->setCss( [
@@ -47,6 +48,7 @@ class ControllerView extends Conroller {
         $this->_view->setLayout( $this->_route->getLayout( 'view_v' ) );
         $this->_view->setJs( [
             'js/ui/minified/jquery-ui.min.js',
+            'js/ui/minified/jquery.ui.datepicker-ru.min.js',
             'js/view-main.js',
             'js/view-chart.js',
             'js/highcharts.js',
