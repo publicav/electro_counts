@@ -9,8 +9,8 @@
 namespace Controllers;
 
 
-use \Base\Conroller;
-use \Pdo\Privelege;
+use Base\Conroller;
+use Pdo\Privelege;
 
 class ControllerMain extends Conroller {
     public function actionIndex() {

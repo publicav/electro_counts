@@ -9,7 +9,7 @@
 namespace Pdo;
 
 
-use \Exception\BadRequestException;
+use Exception\BadRequestException;
 
 
 class GetCounts

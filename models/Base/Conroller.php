@@ -8,8 +8,8 @@
 
 namespace Base;
 
-use \Navigation\Route;
-use \Pdo\GetNamePage;
+use Navigation\Route;
+use Pdo\GetNamePage;
 
 abstract class  Conroller {
     public $_view;

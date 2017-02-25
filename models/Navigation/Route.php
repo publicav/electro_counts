@@ -8,7 +8,7 @@
 
 namespace Navigation;
 
-use \Base\Url;
+use Base\Url;
 
 class Route {
     protected static $_link = null;

@@ -9,9 +9,10 @@
 namespace Models;
 
 use Base\BaseModel;
-use Pdo\Privelege;
-use Pdo\GetMenuLeft;
 use Base\LeftMenu;
+use Pdo\GetMenuLeft;
+use Pdo\Privelege;
+
 class ActionFormPrivelegeModel extends BaseModel {
     public $id_user;
     public $data;

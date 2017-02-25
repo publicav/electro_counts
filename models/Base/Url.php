@@ -8,7 +8,7 @@
 
 namespace Base;
 
-use \Filter\FilterInput;
+use Filter\FilterInput;
 
 class Url {
     /**

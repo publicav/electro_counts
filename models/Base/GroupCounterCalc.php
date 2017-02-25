@@ -8,8 +8,8 @@
 
 namespace Base;
 
-use \Date\DivisionDay;
-use \Pdo\GroupCounterData;
+use Date\DivisionDay;
+use Pdo\GroupCounterData;
 
 class GroupCounterCalc {
     const MAX_ITERACION = 11;

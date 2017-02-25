@@ -10,8 +10,8 @@ namespace Models;
 
 use Base\BaseModel;
 use Base\LeftMenu;
-use Pdo\Privelege;
 use Pdo\GetMenuLeft;
+use Pdo\Privelege;
 
 class LoadFormPrivelegeModel extends BaseModel {
     public $id_user;

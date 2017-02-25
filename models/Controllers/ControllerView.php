@@ -9,7 +9,7 @@
 namespace Controllers;
 
 
-use \Base\Conroller;
+use Base\Conroller;
 
 class ControllerView extends Conroller {
     public function actionIndex() {

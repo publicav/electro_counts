@@ -8,7 +8,7 @@
 
 namespace Filter;
 
-use \Exception\InputException;
+use Exception\InputException;
 
 class ValidDependentFilters {
     protected $_lot;

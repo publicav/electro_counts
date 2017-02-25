@@ -8,7 +8,7 @@
 
 namespace Pdo;
 
-use \Exception\BadRequestException;
+use Exception\BadRequestException;
 
 class GroupCounterData {
     protected $_idGroup;

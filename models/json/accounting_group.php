@@ -1,6 +1,6 @@
 <?php
 
-use \Pdo\GroupCounterData;
+use Pdo\GroupCounterData;
 
 try {
     include_once  '../../vendor/autoload.php';

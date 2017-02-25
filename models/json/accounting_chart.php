@@ -6,7 +6,7 @@
  * Time: 23:37
  */
 
-use \Pdo\GroupCounterData;
+use Pdo\GroupCounterData;
 
 try {
     include_once  '../../vendor/autoload.php';
