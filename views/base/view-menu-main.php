@@ -1,4 +1,5 @@
 <div id="main_menu">
+    <div class="img_title"></div>
         <table>
             <tr>
                 <td><a href="calcgroup">Таблицы</a></td>
