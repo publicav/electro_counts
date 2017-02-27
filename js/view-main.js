@@ -51,7 +51,7 @@ function tableView(data) {
 
 function jsonGetGroup(cmd_arr) {
     if (Object.keys(cmd_arr).length != 0) {
-        $.ajax({dataType: 'json', type: 'get', url: 'models/json/accounting_group.php', data: cmd_arr})
+        $.ajax({dataType: 'json', type: 'get', url: 'ajax/calculation_group/', data: cmd_arr})
             .success(function (result) {
                 tableView(result);
                 history.replaceState(cmd_arr, '', BASENAME + '?' + $.param(cmd_arr));
