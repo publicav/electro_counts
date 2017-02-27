@@ -152,6 +152,7 @@ class Route {
     }
 
     public function getJson( $name ) {
+        var_dump('ttt');
         $conf = $this->_config;
         $pathLayot = "{$conf['json']}/$name.{$conf['jsonExtension']}";
         if ( !file_exists( $pathLayot ) ) {

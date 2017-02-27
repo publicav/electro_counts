@@ -190,7 +190,7 @@ let print_menu = ( menu ) => {
 	var st = '';
 	for(let i = 0; i < menu.length; i++)
 		st += `	<li class="menu_childs1">
-					<a id="${menu[i].id_a}" href="${menu[i].url}">${menu[i].name}</a>
+					<a id="${menu[i].id_a}" href="${menu[i].id_a}">${menu[i].name}</a>
 				</li>`;
 	return st;
 }
@@ -428,7 +428,7 @@ let user_form_actions = ( obj_form ) => {
 let unregistration = () => {
 	$.ajax({dataType: 'json', type: 'post', url: 'ajax/unregistration/'} )
 	.done((result) => {
-			$.ajax({dataType: 'json', type: 'post', url: 'models/json/menu.json'} )
+			$.ajax({dataType: 'json', type: 'post', url: 'json/menu.json'} )
 			.done((result_menu) => {
 				var menu =  result_menu.menu;
 				$('#menu').html( `<ul>${print_menu( menu )}</ul>` );
@@ -448,7 +448,7 @@ let registration = ( form ) => {
 
 	$.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
 	.done((result) => {
-		$.ajax({ dataType: 'json', type: 'post', url: 'models/json/menu_registration.json' })
+		$.ajax({ dataType: 'json', type: 'post', url: 'json/menu_registration.json' })
 		 .done((result_menu) => {
 			var menu =  result_menu.menu;
 			var mainfile = `<ul>${print_menu( menu )}`;
