@@ -92,7 +92,7 @@ function jsonGetChart(cmd_arr) {
             series: []
         };
 
-        $.ajax({dataType: 'json', type: 'get', url: 'models/json/accounting_chart.php', data: cmd_arr})
+        $.ajax({dataType: 'json', type: 'get', url: 'ajax/calculation_chart/', data: cmd_arr})
             .success(function (result) {
                 options.series = result.calcData;
                 options.title.text = 'Группа - ' + result.nameGroup;

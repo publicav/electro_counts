@@ -15,6 +15,7 @@ use Models\ActionFormPrivelegeModel;
 use Models\ActionFormUserAddModel;
 use Models\ActionFormUserModel;
 use Models\ActionFromValueModel;
+use Models\CalculationChartModel;
 use Models\CalculationCounterModel;
 use Models\CalculationGroupModel;
 use Models\CounterFilterModel;
@@ -427,6 +428,27 @@ class ControllerAjax {
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
                 if ( $model->doCalculationGroup() ) {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                } else {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+
+    /**
+     * Расчёт расхода электроэнергии для заданной группы для графиков
+     * @throws InputException
+     */
+    public function ajaxCalculationChart() {
+        $model = new CalculationChartModel();
+        if ( Request::isGet() ) {
+            if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
+                if ( $model->doCalculationChart() ) {
                     $this->result = $model->getResult();
                     echo json_encode( $this->result );
                 } else {
