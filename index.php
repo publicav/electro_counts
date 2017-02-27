@@ -1,8 +1,11 @@
 <?php
 try {
     include_once 'vendor/autoload.php';
-    include_once 'models/open.php';
     include_once 'models/config.php';
+
+    mb_internal_encoding( 'UTF-8' );
+    $pdo = \db::getLink()->getDb();
+    Base\Auth::sessionStart();
 
     $route = \Navigation\Route::init();
     $conroler = $route->getController();

@@ -214,10 +214,19 @@ class Route {
                     $act = $actions['auth'];
                 } else  $act = $actions['nonAuth'];
                 break;
+
+            case
+            'ControllerAdd':
+                if ( !is_null( $this->_authorization ) ) {
+                    $act = $actions['auth'];
+                } else  $act = $actions['nonAuth'];
+                break;
+
             case
             'ControllerView':
                 $act = $actions['default'];
                 break;
+
             case
             'ControllerAjax':
                 $segment1 = Url::getSegment( 1 );

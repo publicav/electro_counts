@@ -1,29 +1,3 @@
-<?php
-try {
-    include_once 'vendor/autoload.php';
-    include_once 'models/config.php';
-    include_once 'models/open.php';
-
-} catch ( \Exception $e ) {
-    die( $e->getMessage() );
-}
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="shortcut icon" type="image/x-icon" href="img/web/count1.png">
-</head>
-
-<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="js/main.js"></script>
-<script src="js/ui/minified/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="css/jquery-ui.min.css">
-<link rel="stylesheet" href="css/adm.css">
-<script src="js/jquery.maskedinput.min.js"></script>
-<script src="js/add_counts.js"></script>
-<script>
-</script>
-<body>
 <div id="wrap_myupload">
     <form id="add_value_counts_form" name="add_value_form" method="post" action="ajax/actionform_value/">
         <input id="edit_id" type="hidden" name="edit_id"/>
@@ -57,6 +31,3 @@ try {
     </div>
 
 </div>
-
-</body>
-</html>

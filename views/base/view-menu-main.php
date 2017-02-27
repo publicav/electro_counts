@@ -10,7 +10,7 @@
                 <td></td>
             </tr>
             <tr>
-                <td><a href="index"> Редактирование</a></td>
+                <td><a href="/"> Редактирование</a></td>
                 <td></td>
                 <td></td>
                 <td></td>
