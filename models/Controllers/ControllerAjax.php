@@ -15,6 +15,7 @@ use Models\ActionFormPrivelegeModel;
 use Models\ActionFormUserAddModel;
 use Models\ActionFormUserModel;
 use Models\ActionFromValueModel;
+use Models\CalculationCounterModel;
 use Models\CounterFilterModel;
 use Models\CounterModel;
 use Models\FilterValueModel;
@@ -30,7 +31,7 @@ use Models\UserAllModel;
 
 
 class ControllerAjax {
-    public $result;
+    public $result = null;
 
     public function ajaxBlank() {
         $result = [ 'ajax' => 'done' ];
@@ -45,18 +46,19 @@ class ControllerAjax {
         $model = new SubstFilterModel();
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
-                if ( $model->doSubstationFilter() )
+                if ( $model->doSubstationFilter() ) {
                     $data = $model->getResult();
+                    $this->result = [
+                        'success'  => true,
+                        'id_error' => 0,
+                        'data'     => $data
+                    ];
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = [
-                'success'  => true,
-                'id_error' => 0,
-                'data'     => $data
-            ];
         }
-        echo json_encode( $this->result );
     }
 
     /**
@@ -67,18 +69,19 @@ class ControllerAjax {
         $model = new SubstModel();
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
-                if ( $model->doSubstation() )
+                if ( $model->doSubstation() ) {
                     $data = $model->getResult();
+                    $this->result = [
+                        'success'  => true,
+                        'id_error' => 0,
+                        'data'     => $data
+                    ];
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = [
-                'success'  => true,
-                'id_error' => 0,
-                'data'     => $data
-            ];
         }
-        echo json_encode( $this->result );
     }
 
     /**
@@ -89,18 +92,19 @@ class ControllerAjax {
         $model = new CounterFilterModel();
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
-                if ( $model->doCounterFilter() )
+                if ( $model->doCounterFilter() ) {
                     $data = $model->getResult();
+                    $this->result = [
+                        'success'  => true,
+                        'id_error' => 0,
+                        'data'     => $data
+                    ];
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = [
-                'success'  => true,
-                'id_error' => 0,
-                'data'     => $data
-            ];
         }
-        echo json_encode( $this->result );
     }
 
     /**
@@ -111,18 +115,19 @@ class ControllerAjax {
         $model = new CounterModel();
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
-                if ( $model->doCounter() )
+                if ( $model->doCounter() ) {
                     $data = $model->getResult();
+                    $this->result = [
+                        'success'  => true,
+                        'id_error' => 0,
+                        'data'     => $data
+                    ];
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = [
-                'success'  => true,
-                'id_error' => 0,
-                'data'     => $data
-            ];
         }
-        echo json_encode( $this->result );
     }
 
     /**
@@ -133,18 +138,19 @@ class ControllerAjax {
         $model = new UserAllModel();
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
-                if ( $model->doUserAll() )
+                if ( $model->doUserAll() ) {
                     $data = $model->getResult();
+                    $this->result = [
+                        'success'  => true,
+                        'id_error' => 0,
+                        'data'     => $data
+                    ];
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = [
-                'success'  => true,
-                'id_error' => 0,
-                'data'     => $data
-            ];
         }
-        echo json_encode( $this->result );
     }
 
     /**
@@ -179,14 +185,14 @@ class ControllerAjax {
         $model = new LoadFormPrivelegeModel();
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
-                if ( $model->doLoadFormPrivelege() )
-                    $data = $model->getResult();
+                if ( $model->doLoadFormPrivelege() ) {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
         }
-        echo json_encode( $data );
-
     }
 
     /**
@@ -197,20 +203,19 @@ class ControllerAjax {
         $model = new LoadFormValueModel();
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
-                if ( $model->doLoadFormValue() )
+                if ( $model->doLoadFormValue() ) {
                     $data = $model->getResult();
-                else throw new \Exception( 'Ошибка загрузки формы' );
+                    $this->result = [
+                        'success'  => true,
+                        'id_error' => 0,
+                        'data'     => $data
+                    ];
+                    echo json_encode( $this->result );
+                } else throw new \Exception( 'Ошибка загрузки формы' );
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = [
-                'success'  => true,
-                'id_error' => 0,
-                'data'     => $data
-            ];
         }
-        echo json_encode( $this->result );
-
     }
 
     /**
@@ -222,20 +227,19 @@ class ControllerAjax {
 
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
-                if ( $model->doActionFormUser() )
+                if ( $model->doActionFormUser() ) {
                     $data = $model->getResult();
+                    $this->result = [
+                        'success'  => true,
+                        'id_error' => 0,
+                        'message'  => ' ' . $data,
+                    ];
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = [
-                'success'  => true,
-                'id_error' => 0,
-                'message'  => ' ' . $data,
-            ];
-
         }
-        echo json_encode( $this->result );
-
     }
 
 
@@ -247,16 +251,17 @@ class ControllerAjax {
         $model = new ActionFormPrivelegeModel();
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
-                if ( $model->doActionFormPrivelege() )
+                if ( $model->doActionFormPrivelege() ) {
                     $this->result = [
                         'id_error' => 0,
                         'success'  => true,
                     ];
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
         }
-        echo json_encode( $this->result );
     }
 
     /**
@@ -268,19 +273,19 @@ class ControllerAjax {
 
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
-                if ( $model->doActionFormUserAdd() )
+                if ( $model->doActionFormUserAdd() ) {
                     $data = $model->getResult();
+                    $this->result = [
+                        'success'  => true,
+                        'id_error' => 0,
+                        'message'  => ' ' . $data,
+                    ];
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = [
-                'success'  => true,
-                'id_error' => 0,
-                'message'  => ' ' . $data,
-            ];
-
         }
-        echo json_encode( $this->result );
     }
 
     /**
@@ -293,17 +298,17 @@ class ControllerAjax {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
                 if ( $model->doActionFromValue() )
                     $data = $model->getResult();
+                else $data = null;
                 $this->result = [
                     'id_error' => 0,
                     'success'  => true,
                     'data'     => $data,
                 ];
+                echo json_encode( $this->result );
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
         }
-        echo json_encode( $this->result );
-
     }
 
     /**
@@ -314,16 +319,14 @@ class ControllerAjax {
         $model = new MenuLeftModel();
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
-                if ( $model->doMenuLeft() )
-                    $data = $model->getResult();
-                else $data = $model->getResult();
+                if ( $model->doMenuLeft() ) {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = $data;
         }
-        echo json_encode( $this->result );
-
     }
 
     /**
@@ -334,15 +337,14 @@ class ControllerAjax {
         $model = new RegistrationModel();
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
-                if ( $model->doRegistration() )
-                    $data = $model->getResult();
+                if ( $model->doRegistration() ) {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = $data;
         }
-        echo json_encode( $this->result );
-
     }
 
     /**
@@ -366,15 +368,14 @@ class ControllerAjax {
         $model = new LastValueCounterModel();
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
-                if ( $model->doLastValueCounter() )
-                    $data = $model->getResult();
+                if ( $model->doLastValueCounter() ) {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = $data;
         }
-        echo json_encode( $this->result );
-
     }
 
     /**
@@ -385,15 +386,35 @@ class ControllerAjax {
         $model = new FilterValueModel();
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
-                if ( $model->doFilterValue() )
-                    $data = $model->getResult();
+                if ( $model->doFilterValue() ) {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
             }
-            $this->result = $data;
         }
-        echo json_encode( $this->result );
+    }
 
+    /**
+     * Расчёт расхода электроэнергии для заданного счётчика
+     * @throws InputException
+     */
+    public function ajaxCalculationCounter() {
+        $model = new CalculationCounterModel();
+        if ( Request::isGet() ) {
+            if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
+                if ( $model->doCalculationCounter() ) {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                } else {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
     }
 
 }

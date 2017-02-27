@@ -211,7 +211,7 @@ let json_get_table = ( objTarget, cmd_arr ) => {
 }
 
 let json_get_t_calc = ( objTarget, cmd_arr ) => {
-	$.ajax({dataType: 'json', type: 'get', url: 'models/json/accounting.php',  data: cmd_arr})
+	$.ajax({dataType: 'json', type: 'get', url: 'ajax/calculation_counter/',  data: cmd_arr})
 	 .done(( result ) => {
 		if (result.success) {
 			var data = result.data;

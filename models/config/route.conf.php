@@ -107,6 +107,10 @@ return [
                 'unregistration'       => 'ajaxUnregistration',             // Выход пользователя с системы
                 'lastvalue_counter'    => 'ajaxLastValueCounter',           // последнее значение введенное для данного счётчика
                 'filterValue'          => 'ajaxFilterValue',                // Результаты по работе фильтров
+                'calculation_counter'  => 'ajaxCalculationCounter',         // Расчёт расхода электроэнергии для заданного счётчика
+                'calculation_Group'    => 'ajaxCalculationGroup',           // Расчёт расхода электроэнергии для заданной группы
+                'calculation_chart'    => 'ajaxCalculationChart',           // Расчёт расхода электроэнергии для заданной группы для графиков
+
             ]
         ],
     ]
