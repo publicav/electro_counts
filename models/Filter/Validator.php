@@ -46,13 +46,15 @@ class Validator {
     }
 
     protected function aboveZerroInt( $field ) {
-        if ( !preg_match('/^\+?\d+$/', $this->_data[ $field ]) ) {
+        if ( empty( $this->_data[ $field ] ) ) return;
+        if ( !preg_match( '/^\+?\d+$/', $this->_data[ $field ] ) ) {
             $this->addError( $field, 'Число не является положительным и не равно нулю' );
         }
 
     }
 
     protected function DateDMY( $field ) {
+        if ( empty( $this->_data[ $field ] ) ) return;
         $date = \DateTime::createFromFormat( 'd-m-Y', $this->_data[ $field ] );
         if ( !$date ) {
             $this->addError( $field, 'Date format error!' );

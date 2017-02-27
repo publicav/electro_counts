@@ -17,6 +17,7 @@ use Models\ActionFormUserModel;
 use Models\ActionFromValueModel;
 use Models\CounterFilterModel;
 use Models\CounterModel;
+use Models\FilterValueModel;
 use Models\LastValueCounterModel;
 use Models\LoadFormPrivelegeModel;
 use Models\LoadFormUserModel;
@@ -358,7 +359,7 @@ class ControllerAjax {
     }
 
     /**
-     * Возвращает массив данных для построения левого меню проекта
+     * Возвращает  последнее значение введенное для данного счётчика
      * @throws InputException
      */
     public function ajaxLastValueCounter() {
@@ -366,6 +367,25 @@ class ControllerAjax {
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
                 if ( $model->doLastValueCounter() )
+                    $data = $model->getResult();
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+            $this->result = $data;
+        }
+        echo json_encode( $this->result );
+
+    }
+
+    /**
+     * Возвращает  последнее значение введенное для данного счётчика
+     * @throws InputException
+     */
+    public function ajaxFilterValue() {
+        $model = new FilterValueModel();
+        if ( Request::isGet() ) {
+            if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
+                if ( $model->doFilterValue() )
                     $data = $model->getResult();
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );

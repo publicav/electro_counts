@@ -196,7 +196,7 @@ let print_menu = ( menu ) => {
 }
 
 let json_get_table = ( objTarget, cmd_arr ) => {
-	$.ajax({dataType: 'json', type: 'get', url: 'models/json/filter_value.php',  data: cmd_arr})
+	$.ajax({dataType: 'json', type: 'get', url: 'ajax/filterValue/',  data: cmd_arr})
 	 .done(( result ) => {
 		if (result.success) {
 			var data = result.data;
