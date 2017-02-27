@@ -21,8 +21,7 @@ try {
     echo Exception\JsonError::exitError( false, 1, $e->getMessage() );
 } catch ( Exception $e ) {
     header( "HTTP/1.1 400 Bad Request", true, 400 );
-
-    //    echo Exception\JsonError::exitError( false, 1, $e->getMessage() );
+    echo Exception\JsonError::exitError( false, 1, $e->getMessage() );
     echo $e->getMessage();
 }
 

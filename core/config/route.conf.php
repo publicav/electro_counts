@@ -7,8 +7,8 @@
  */
 return [
     'model'              => 'models',
-    'view'               => 'views/template',
-    'layout'             => 'views/layout',
+    'view'               => 'core/views/template',
+    'layout'             => 'core/views/layout',
     'layoutExtension'    => 'php',
     'jsonExtension'      => 'json',
     'json'               => 'json',
