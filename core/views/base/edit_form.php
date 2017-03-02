@@ -1,7 +1,7 @@
 <div id="edit_counter" style="display:none;">
     <form id="edit_value_counts_form" name="add_value_form" method="post" action="ajax/actionform_value/">     
 		<input id="edit_id1"  type="hidden"  name="edit_id"/>
-		<div class="p_input"><div class="label_p"><label for="lot_edit">Участок</label></div><?php include_once("views/base/lot_edit.php"); ?></div>
+		<div class="p_input"><div class="label_p"><label for="lot_edit">Участок</label></div><?php include_once("core/views/base/lot_edit.php"); ?></div>
 		<div class="p_input"><div class="label_p"><label for="substation_edit">Подстанция</label></div><select id="substation_edit" class="input_selected"></select></div>
 		<div class="p_input"><div class="label_p"><label for="counter_edit">Ячейка</label></div><select id="counter_edit" class="input_selected"></select></div>
         
