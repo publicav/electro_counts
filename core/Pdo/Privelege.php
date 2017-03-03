@@ -24,20 +24,29 @@ class Privelege {
      * @throws \Exception
      */
     function getMenuLeft() {
-        $sq = "SELECT m.id_a AS id_a, m.id_menu AS id_menu,  m.name AS name, m.url AS url,m.iconCls as icon 
+        $sq = "SELECT m.id_a AS id_a, m.id_menu AS id_menu,  m.name AS name, m.url AS url, m.iconCls as icon,
+                      m.li_id, parent, submenu
                 FROM menu_left AS m 
                 WHERE (visibility = 1);";
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute() ) {
-            throw new \Exception( $this->_pdo->errorInfo()[2] );        }
+            throw new \Exception( $this->_pdo->errorInfo()[2] );
+        }
         while ( $row = $res->fetch() ) {
             for ( $i = 0; $i < SizeOf( $this->priv ); $i++ ) {
                 if ( ( $row['id_menu'] == $this->priv[ $i ]['id_menu'] ) AND ( $this->priv[ $i ]['visibly'] == 1 ) ) {
-                    $this->menu_left[] = $row;
+                    $parent = $row['parent'];
+                    if ( $parent == 0 ) {
+                        $this->menu_left[][] = $row;
+                    } else {
+                        $this->menu_left[ $parent - 1 ][] = $row;
+                    }
                     break;
                 }
             }
         }
+        //        var_dump( $this->menu_left );
+        //        exit();
 
         return $this->menu_left;
     }

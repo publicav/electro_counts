@@ -187,9 +187,13 @@ let print_t_calc = ( data )  => {
 
 
 let print_menu = ( menu ) => {
-	var st = '';
+	var st = '', li_id;
+
 	for(let i = 0; i < menu.length; i++)
-		st += `	<li class="menu_childs1">
+        if (  $leftMenu[ i ].li_id === null  )
+            var li_id = "id=" . $leftMenu[ i ].li_id;
+        else li_id = '';
+		st += `	<li ${li_id}>
 					<a id="${menu[i].id_a}" href="${menu[i].id_a}">${menu[i].name}</a>
 				</li>`;
 	return st;
@@ -461,7 +465,7 @@ let registration = ( form ) => {
 		$.ajax({ dataType: 'json', type: 'post', url: 'ajax/menuleft/' })
 		.done((result_menu) => {
 			var menu =  result_menu;
-			$( '#left' ).html( `<div id="menu_left" class="left-box"><ol>${print_menu( menu )}</ol></div>` );
+			$( '#left' ).html( `<nav id="navbar"><ul id="left-menu">${print_menu( menu )}</ul></nav>` );
 		})
 		.fail(( result ) => {
 			console.log(result);

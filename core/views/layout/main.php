@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/cb.css"/>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <script src="js/ui/minified/jquery-ui.min.js"></script>
-    <script src="js/left-menu.js"></script>
+<!--    <script src="js/left-menu.js"></script>-->
     <script src="js/login.js"></script>
 
     <?= $this->getCSSHTML() ?>

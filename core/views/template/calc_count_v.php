@@ -15,11 +15,10 @@
 	include(__DIR__ . "/../base/edit_form.php");
 ?>
 <div id="left">
-	<?php 	include(__DIR__ . "/../base/menu_left.php");
-				include(__DIR__ . "/../base/filtr_calc.php"); ?>
-		
+<?php 	include(__DIR__ . "/../base/menu_left.php");
+	include(__DIR__ . "/../base/filtr_calc.php"); 
+?>
 </div>
-
 <div id="right"> 
 
 </div>

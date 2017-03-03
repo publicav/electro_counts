@@ -1,18 +1,11 @@
 function menuInit() {
-	var dropdown = document.getElementById("dropdown-item");
-	var submenu = document.getElementById("submenu");
+    var dropdown = $( "dropdown-item" );
+    var submenu = $( "submenu" );
 
-	dropdown.onmouseover = popOutMenu;
-	dropdown.onmouseout = hideDropdown;
-
-	submenu.onmouseover = popOutMenu;
-	submenu.onmouseout = hideDropdown;
-}
-
-function popOutMenu () {
-	submenu.className = "show-submenu";
-}
-
-function hideDropdown () {
-	submenu.className = "hide-submenu";
+    dropdown.mouseover( function () {
+        $( "#submenu" ).addClass( "show-submenu" ).removeClass( "hide-submenu" )
+    } )
+    submenu.mouseover( function () {
+        $( "#submenu" ).addClass( "show-submenu" ).removeClass( "hide-submenu" )
+    } )
 }

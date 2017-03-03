@@ -19,7 +19,6 @@
 	include(__DIR__ . "/../base/menu_left.php");
 	include(__DIR__ . "/../base/filtr_lot.php");
 ?>
-		
 </div>
 
 <div id="right"> 
