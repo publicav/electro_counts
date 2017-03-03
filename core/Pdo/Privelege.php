@@ -24,7 +24,9 @@ class Privelege {
      * @throws \Exception
      */
     function getMenuLeft() {
-        $sq = "SELECT m.id_a AS id_a, m.id_menu AS id_menu,  m.name AS name, m.url AS url FROM menu_left AS m WHERE (visibility = 1);";
+        $sq = "SELECT m.id_a AS id_a, m.id_menu AS id_menu,  m.name AS name, m.url AS url,m.iconCls as icon 
+                FROM menu_left AS m 
+                WHERE (visibility = 1);";
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute() ) {
             throw new \Exception( $this->_pdo->errorInfo()[2] );        }

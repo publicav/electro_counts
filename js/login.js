@@ -1,4 +1,5 @@
 $(function(){
+    menuInit();
 	$( '#loginform' ).submit(function( event ){
 		event.preventDefault();
 		console.log(this);
