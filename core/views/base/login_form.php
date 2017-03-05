@@ -1,4 +1,4 @@
-﻿  <div id="loginmodal" style="display:none;">
+  <div id="loginmodal" style="display:none;">
     <form id="loginform" name="loginform" method="post" action="ajax/registration/">
       <label for="username">Логин:</label>
       <input type="text" name="username" id="username" class="txtfield" tabindex="1">

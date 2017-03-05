@@ -1,11 +1,14 @@
-function menuInit() {
-    var dropdown = $( "dropdown-item" );
-    var submenu = $( "submenu" );
-
-    dropdown.mouseover( function () {
-        $( "#submenu" ).addClass( "show-submenu" ).removeClass( "hide-submenu" )
+function menuLeftInit() {
+    $( "#left" ).on( 'mouseover', ".dropdown-item", function () {
+        $( this ).next().addClass( "show-submenu" ).removeClass( "hide-submenu" );
     } )
-    submenu.mouseover( function () {
-        $( "#submenu" ).addClass( "show-submenu" ).removeClass( "hide-submenu" )
+    $( "#left" ).on( 'mouseout', ".dropdown-item", function () {
+        $( this ).next().addClass( "hide-submenu" ).removeClass( "show-submenu" );
+    } )
+    $( "#left" ).on( 'mouseover', ".submenu", function () {
+        $( this ).addClass( "show-submenu" ).removeClass( "hide-submenu" );
+    } )
+    $( "#left" ).on( 'mouseout', ".submenu", function () {
+        $( this ).addClass( "hide-submenu" ).removeClass( "show-submenu" );
     } )
 }

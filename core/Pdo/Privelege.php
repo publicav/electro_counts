@@ -24,6 +24,8 @@ class Privelege {
      * @throws \Exception
      */
     function getMenuLeft() {
+        $menu_left = [];
+        $mlKey = [];
         $sq = "SELECT m.id_a AS id_a, m.id_menu AS id_menu,  m.name AS name, m.url AS url, m.iconCls as icon,
                       m.li_id, parent, submenu
                 FROM menu_left AS m 
@@ -37,14 +39,17 @@ class Privelege {
                 if ( ( $row['id_menu'] == $this->priv[ $i ]['id_menu'] ) AND ( $this->priv[ $i ]['visibly'] == 1 ) ) {
                     $parent = $row['parent'];
                     if ( $parent == 0 ) {
-                        $this->menu_left[][] = $row;
+                        $mlKey[] = $row['id_menu'];
+                        $menu_left[][] = $row;
                     } else {
-                        $this->menu_left[ $parent - 1 ][] = $row;
+                        $key = array_search( $parent, $mlKey );
+                        if ( $key ) $menu_left[ $key ][] = $row;
                     }
                     break;
                 }
             }
         }
+        $this->menu_left = $menu_left;
         //        var_dump( $this->menu_left );
         //        exit();
 

@@ -8,7 +8,7 @@
 <div id="top"> 
 </div>
 <div id="menu"> 
-<?php 	include(__DIR__ . "/../base/menu.php"); ?>
+<?php include(__DIR__ . "/../base/menu.php"); ?>
 </div>
 <?php 	
 	include(__DIR__ . "/../base/login_form.php"); // loginform
