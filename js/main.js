@@ -215,32 +215,6 @@ let json_get_t_calc = ( objTarget, cmd_arr ) => {
 }
 
 /**
- * Возвращает отформатированую таблицу всех пользователей.
- *
- * @param {object} user_all  массив объектов.
- * @return {string} st возвращает отформатированую таблицу всех пользователей.
- */
-let print_table_user = ( user_all ) => {
-	var count = 0, class_e;
-	var st = `<div class="title_table_user">
-				<div class="title_user">Пользователь</div>
-				<div class="title_family">Фамилия</div>
-				<div class="title_name">Имя</div>
-			  </div>`;
-	for (let key in user_all) {
-		if (count % 2 != 0)  class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
-		st += `<div id="id_${user_all[key].id}" class="${class_e}"  title="Редактировать параметры пользователя">
-				<div class="col_user">${user_all[key].users}</div>
-				<div class="col_family">${user_all[key].family}</div>
-				<div class="col_name">${user_all[key].name}</div>
-			   </div>`;
-		count++;
-
-	}
-	return st;
-}
-
-/**
  * Возвращает отформатированую строку введенных данных.
  * данные передаются ввиде одного объекта.
  * @param {string} name_lot строка содержащая участок ввода.
@@ -266,24 +240,6 @@ let print_add_record = ( {name_lot, name_substation, name_counter, date, time, v
 	return row_add;
 }
 
-let json_get_user = ( objTarget ) => {
-	$.ajax({dataType: 'json', type: 'get', url: 'ajax/getuser_all/'})
-	 .done(( result ) => {
-			var data = result.data;
-			$( objTarget ).html( print_table_user( data ) );
-			$( objTarget ).prepend( add_user_btn() );
-	})
-	.fail(( result, b, c ) => alert( result.responseJSON.error ));
-
-	function add_user_btn() {
-		let st = `	<div id="add_user_btn">
-						<div class="btn-ico"><img src="img/web/add_user.png" width="32" height="32" alt="add_user"></div>
-						<div class="btn-text">Добавить пользователя</div>
-					</div>`;
-		return st;
-	}
-}
-
 let l_form_edit_value = ( {objLot, objSubstation, objCounter, objDate, objTime, objValEdit,
 							 objId, url_substation, url_counter, param} ) => {
 	$.ajax({dataType: 'json', type: 'post', url: 'ajax/loadform_value/', data: param })
@@ -298,21 +254,6 @@ let l_form_edit_value = ( {objLot, objSubstation, objCounter, objDate, objTime, 
 		objId.val(data.id);
 	})
 	.fail((result) => alert(result.error));
-}
-
-let l_form_edit_user = ( {objUser, objPassword, objConfirmPassword, objUserFamily, objUserName, objId, param } ) => {
-	$.ajax({dataType: 'json', type: 'post', url: 'ajax/loadform_user/', data: param})
-	 .done((result) => {
-		var data = result.data;
-		if( data == null) return;
-		objUser.val(data.users);
-		objPassword.val('');
-		objConfirmPassword.val('');
-		objUserFamily.val(data.family);
-		objUserName.val(data.name);
-		objId.val(data.id);
-	})
-	.fail(() => alert( result.responseJSON.error ));
 }
 
 let edit_form_actions = ( obj_form ) => {
@@ -386,75 +327,5 @@ let add_form_actions = ( {form, objLot, objSubstation, objCounter, objBtnOk, obj
 			objListRec.find('li:nth-child(' + ( index + 1 ) + ')').html( row_edit );
 	}
 
-}
-
-let user_form_actions = ( obj_form ) => {
-	var form, workForm, actions;
-	if ( obj_form.actionsCmd == ADD_USER_ACTIONS ) {
-		form = obj_form.view.user_form_add_submit;
-		workForm = obj_form.view.user_form_add;
-		actions = '&actions=add';
-	}
-	if ( obj_form.actionsCmd == EDIT_USER_ACTIONS) {
-		form = obj_form.view.user_form_edit_submit;
-		workForm = obj_form.view.user_form_edit;
-		actions = '&actions=edit';
-	}
-	var m_method = $(form).attr('method');
-	var m_action = $(form).attr('action');
-	var m_data = $(form).serialize(); // input1=value1&input2=value2..., только input=text
-	m_data += actions;
-
-	$.ajax({dataType: 'json', type: m_method, url: m_action, data: m_data })
-	.done((result) => {
-		if (result.success == true) {
-			var data = result;
-			workForm.dialog( "close" );
-			json_get_user( obj_form.objTarget );
-		} else  alert(result.error);
-	})
-	.fail((result) => alert( result.responseJSON.error ));
-}
-
-let edit_privilege = () => {
-	var m_data = { 'id_user': $('#edit_user_id').val() }
-	$.ajax({ dataType: 'json', type: 'post', data: m_data, url: 'ajax/loadform_privelege/' })
-	.done(( result_menu ) => {
-			var menu_v =  result_menu;
-			var mainfile = '<ol>';
-			for( let i = 0; i < menu_v.length; i++ )
-				mainfile += `<li>${menu_v[i].name}
-								<input id="check_${menu_v[i].id_a}" class="privilege_checkbox" type="checkbox" ${menu_v[i].checked}/>
-							</li>`;
-			mainfile += '</ol>';
-			$( '#user_form_privelege' ).html( mainfile );
-
-	})
-	.fail(( result ) => alert( result.error ));
-}
-
-let privilege_user_form_actions = ( obj_form ) => {
-	var sList = '';
-	var form = obj_form.view.user_form_privilege_submit;
-	var workForm = obj_form.view.user_form_privilege;
-	var m_method = $(form).attr('method'); //берем из формы метод передачи данных
-	var m_action = $(form).attr('action'); //получаем адрес скрипта на сервере, куда нужно отправить форму
-
-	var m_checkbox = form.find('input[type=checkbox]');	// запомнить !!!
-
-	$(m_checkbox).each(function () {
-		var sThisVal = (this.checked ? "1" : "0");
-		sList += (sList=="" ? sThisVal : "," + sThisVal);
-	});
-
-	var m_data = {
-		data: sList,
-		id_user: $('#edit_user_id').val()
-	};
-	$.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
-	.done((result) => {
-	})
-	.fail((result) => alert(result.error));
-	workForm.dialog( "close" );
 }
 

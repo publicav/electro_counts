@@ -13,6 +13,7 @@ use Base\Conroller;
 use Pdo\Privelege;
 
 class ControllerMain extends Conroller {
+
     public function actionIndex() {
         // TODO: Implement actionIndex() method.
         $this->_view->setFileMainMenu( $this->_route->getMainMenu() );
@@ -76,5 +77,12 @@ class ControllerMain extends Conroller {
         $this->_view->render( $this->_route->getViewPath(), '' );
     }
 
+    public function actionAddGroup() {
+        // TODO: Implement actionIndex() method.
+        $this->_view->setFileMainMenu( $this->_route->getMainMenu() );
+        $menuLeft = new Privelege( $this->_auth );
+        $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
+        $this->_view->render( $this->_route->getViewPath(), '' );
+    }
 
 }

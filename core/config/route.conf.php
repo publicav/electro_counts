@@ -74,6 +74,13 @@ return [
                 'nonAuth' => 'actionBlank'
             ]
         ],
+        'add_group' => [
+            'controllerName' => 'controllers\ControllerMain',
+            'actions'        => [
+                'auth'    => 'actionAddGroup',
+                'nonAuth' => 'actionBlank'
+            ]
+        ],
         'add_value' => [
             'controllerName' => 'controllers\ControllerAdd',
             'actions'        => [

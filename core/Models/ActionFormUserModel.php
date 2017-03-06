@@ -26,7 +26,7 @@ class ActionFormUserModel extends BaseModel {
         // TODO: Implement getRules() method.
         return [
             'actions'          => [ 'required', ],
-            'user_edit'        => [ 'required', 'rangeLogin', 'uniqueLogin', ],
+            'user_edit'        => [ 'required', 'rangeLogin',  ],
             'pass_edit'        => [ 'required', 'confirmPassword', 'minPassword' ],
             'pass_repeat_edit' => [ 'required', ],
             'family_edit'      => [ 'required', ],
