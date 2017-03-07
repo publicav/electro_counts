@@ -1,5 +1,5 @@
 $( function () {
-    var objEditUser = {
+    const objEditUser = {
         objUser: $( '#user_edit' ),
         objPassword: $( '#pass_edit' ),
         objConfirmPassword: $( '#pass_repeat_edit' ),
@@ -8,145 +8,145 @@ $( function () {
         objId: $( '#edit_user_id' )
     };
 
-    const jsonData = {
+    const ReqestData = {
+        render: {},
+        data: '',
         url: '',
-        resultJson: {},
-        init: function ( url ) {
+        type: '',
+        init: function ( render, url, param = '', type = 'post' ) {
+            this.data = param;
+            this.render = render;
             this.url = url;
+            this.type = type;
         },
         reqest: function () {
-            var me = this;
-            $.ajax( { dataType: 'json', type: 'get', url: me.url } )
+            let me = this;
+            //noinspection JSUnresolvedVariable
+            $.ajax( { dataType: 'json', type: me.type, url: me.url, data: me.data } )
                 .done( ( result ) => {
-                    me.resultJson.data = result.data;
+                    console.log( result );
+                    this.render.doRun( result.data );
+                    this.render.render();
                 } )
-                .fail( ( result, b, c ) => alert( result.responseJSON.error ) );
+                .fail( ( result ) => alert( result.responseJSON.error ) );
 
-        },
-        getDataAll: function () {
-            return this.resultJson;
         },
     };
-    jsonData.init( 'ajax/getuser_all/' );
-    jsonData.reqest();
-    let rrr =  jsonData.getDataAll();
-    console.log( jsonData.resultJson );
-    // console.log('data' in )
+    const userRender = {
+        dest: {},
+        html: '',
+        init: function ( dest ) {
+            this.dest = dest;
+        },
+        doRun: function ( data ) {
+            let count = 0, class_e, st;
+            st = this.doUserBtnAdd();
+            st += `<div class="title_table_user">
+                        <div class="title_user">Пользователь</div>
+                        <div class="title_family">Фамилия</div>
+                        <div class="title_name">Имя</div>
+                   </div>`;
+            for ( let key in data ) {
+                if ( count % 2 != 0 ) class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
+                //noinspection JSUnresolvedVariable
+                st += `
+                <div id="id_${data[ key ].id}" class="${class_e}"  title="Редактировать параметры пользователя">
+                    <div class="col_user">${data[ key ].users}</div>
+                    <div class="col_family">${data[ key ].family}</div>
+                    <div class="col_name">${data[ key ].name}</div>
+               </div>`;
+                count ++;
+            }
+            this.html = st;
+        },
+        doUserBtnAdd: function () {
+            return `
+            	<div id="add_user_btn">
+                    <div class="btn-ico"><img src="img/web/add_user.png" width="32" height="32" alt="add_user"></div>
+                    <div class="btn-text">Добавить пользователя</div>
+                </div>`;
 
-    // const user_render = {
-    //     data: {},
-    //     init: function ( data ) {
-    //         this.data = data;
-    //     },
-    //     reqest: function () {
-    //         this.data.reqest();
-    //     },
-    //     render: function () {
-    //         var count = 0, class_e;
-    //         var st = `<div class="title_table_user">
-    // 		<div class="title_user">Пользователь</div>
-    // 		<div class="title_family">Фамилия</div>
-    // 		<div class="title_name">Имя</div>
-    // 	  </div>`;
-    //         let data1 = this.data.getDataAll();
-    //         for (let key in this.data.getDataAll()){
-    //             console.log('rrrrr',key);
-    //         }
-    //         //data1 = data1.data;
-    //         console.log(  data1 );
-    //         for ( let key in data1 ) {
-    //             if ( count % 2 != 0 ) class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
-    //             st += `<div id="id_${data1[ key ].id}" class="${class_e}"  title="Редактировать параметры пользователя">
-    // 		<div class="col_user">${data1[ key ].users}</div>
-    // 		<div class="col_family">${data1[ key ].family}</div>
-    // 		<div class="col_name">${data1[ key ].name}</div>
-    // 	   </div>`;
-    //             count ++;
-    //
-    //         }
-    //         return st;
-    //
-    //     }
-    // };
-
-    // user_render.init( jsonData );
-    // user_render.reqest();
-    // console.log( user_render.render() );
-
-    // console.log( jsonData.getDataAll() );
-
-    /**
-     * Возвращает отформатированую таблицу всех пользователей.
-     *
-     * @param {object} data  массив объектов.
-     * @return {string} st возвращает отформатированую таблицу всех пользователей.
-     */
-    const print_table_user = ( data ) => {
-        var count = 0, class_e;
-        var st = `<div class="title_table_user">
-				<div class="title_user">Пользователь</div>
-				<div class="title_family">Фамилия</div>
-				<div class="title_name">Имя</div>
-			  </div>`;
-        for ( let key in data ) {
-            if ( count % 2 != 0 ) class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
-            st += `<div id="id_${data[ key ].id}" class="${class_e}"  title="Редактировать параметры пользователя">
-				<div class="col_user">${data[ key ].users}</div>
-				<div class="col_family">${data[ key ].family}</div>
-				<div class="col_name">${data[ key ].name}</div>
-			   </div>`;
-            count ++;
-
+        },
+        render: function () {
+            this.dest.html( this.html );
         }
-        return st;
-    }
-
-    const json_get_user = ( objTarget ) => {
-        $.ajax( { dataType: 'json', type: 'get', url: 'ajax/getuser_all/' } )
-            .done( ( result ) => {
-                var data = result.data;
-                $( objTarget ).html( print_table_user( data ) );
-                $( objTarget ).prepend( add_user_btn() );
-            } )
-            .fail( ( result, b, c ) => alert( result.responseJSON.error ) );
-
-        function add_user_btn() {
-            let st = `	<div id="add_user_btn">
-						<div class="btn-ico"><img src="img/web/add_user.png" width="32" height="32" alt="add_user"></div>
-						<div class="btn-text">Добавить пользователя</div>
-					</div>`;
-            return st;
+    };
+    const loadFormUser = {
+        dest: {},
+        init: function ( dest ) {
+            this.dest = dest;
+        },
+        doRun: function ( data ) {
+            //noinspection JSUnresolvedVariable
+            this.dest.objUser.val( data.users );
+            this.dest.objPassword.val( '' );
+            this.dest.objConfirmPassword.val( '' );
+            //noinspection JSUnresolvedVariable
+            this.dest.objUserFamily.val( data.family );
+            this.dest.objUserName.val( data.name );
+            this.dest.objId.val( data.id );
+        },
+        render: function () {
         }
-    }
+    };
+    const loadFormPrivege = {
+        dest: {},
+        html: '',
+        init: function ( dest ) {
+            this.dest = dest;
+        },
+        doRun: function ( data ) {
+            console.log( data );
+            let st = '<ol>';
+            for ( let i = 0; i < data.length; i ++ ) {
+                //noinspection JSUnresolvedVariable
+                st += `<li>${data[ i ].name}
+								    <input id="check_${data[ i ].id_a}" class="privilege_checkbox" type="checkbox" ${data[ i ].checked}/>
+							    </li>`;
+            }
+            st += '</ol>';
+            this.html = st;
 
-    // json_get_user( $( '#right' ) );
-
-    const user_form_actions = ( obj_form ) => {
-        var form, workForm, actions;
-        if ( obj_form.actionsCmd == ADD_USER_ACTIONS ) {
-            form = obj_form.view.user_form_add_submit;
-            workForm = obj_form.view.user_form_add;
-            actions = '&actions=add';
+        },
+        render: function () {
+            this.dest.html( this.html );
         }
-        if ( obj_form.actionsCmd == EDIT_USER_ACTIONS ) {
-            form = obj_form.view.user_form_edit_submit;
-            workForm = obj_form.view.user_form_edit;
-            actions = '&actions=edit';
-        }
-        var m_method = $( form ).attr( 'method' );
-        var m_action = $( form ).attr( 'action' );
-        var m_data = $( form ).serialize(); // input1=value1&input2=value2..., только input=text
-        m_data += actions;
+    };
 
+    userRender.init( $( '#right' ) );
+    ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
+    ReqestData.reqest();
+
+
+    const user_form_actions = ( form ) => {
+        let m_method = $( form ).attr( 'method' );
+        let m_action = $( form ).attr( 'action' );
+        let m_data = $( form ).serialize(); // input1=value1&input2=value2..., только input=text
+        //noinspection JSUnresolvedVariable
         $.ajax( { dataType: 'json', type: m_method, url: m_action, data: m_data } )
             .done( ( result ) => {
                 if ( result.success == true ) {
-                    var data = result;
-                    workForm.dialog( "close" );
-                    json_get_user( obj_form.objTarget );
+                    let data = result;
                 } else  alert( result.error );
             } )
             .fail( ( result ) => alert( result.responseJSON.error ) );
+    }
+
+    const edit_privilege = () => {
+        var m_data = { 'id_user': $( '#edit_user_id' ).val() }
+        $.ajax( { dataType: 'json', type: 'post', data: m_data, url: 'ajax/loadform_privelege/' } )
+            .done( ( result_menu ) => {
+                var menu_v = result_menu.data;
+                var mainfile = '<ol>';
+                for ( let i = 0; i < menu_v.length; i ++ )
+                    mainfile += `<li>${menu_v[ i ].name}
+    						    <input id="check_${menu_v[ i ].id_a}" class="privilege_checkbox" type="checkbox" ${menu_v[ i ].checked}/>
+    					    </li>`;
+                mainfile += '</ol>';
+                $( '#user_form_privelege' ).html( mainfile );
+
+            } )
+            .fail( ( result ) => alert( result.error ) );
     }
 
 
@@ -175,23 +175,25 @@ $( function () {
         workForm.dialog( "close" );
     }
 
-    const user_form_add = $( "#user_div_add" ).dialog( {
+    const user_form_add = $( "#user_form_add" ).dialog( {
         title: "Добавление пользователя",
         autoOpen: false,
         resizable: false,
         modal: true,
         height: 430,
         width: 500,
+        close: function () {
+        },
         buttons: {
             "Ok": {
                 text: 'Ok',
-                click: function ( obj_form ) {
-                    var obj = {
-                        objTarget: $( '#right' ),
-                        actionsCmd: ADD_USER_ACTIONS,
-                        __proto__: obj_form
-                    };
-                    user_form_actions( obj );
+                click: function ( event ) {
+                    user_form_actions( this );
+                    userRender.init( $( '#right' ) );
+                    ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
+                    ReqestData.reqest();
+                    user_form_add.dialog( "close" );
+
                 }
             },
             Cancel: function () {
@@ -200,11 +202,16 @@ $( function () {
         }
     } );
 
-    user_form_add_submit = user_form_add.find( "form" ).on( "submit", function ( event ) {
+    $( document ).on( "submit", '#user_form_add', function ( event ) {
         event.preventDefault();
+        user_form_actions( this );
+        userRender.init( $( '#right' ) );
+        ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
+        ReqestData.reqest();
+        user_form_add.dialog( "close" );
     } );
 
-    const user_form_edit = $( "#user_div_edit" ).dialog( {
+    const user_form_edit = $( "#user_form_edit" ).dialog( {
         title: "Редактирование пользователя",
         autoOpen: false,
         resizable: false,
@@ -216,6 +223,10 @@ $( function () {
                 class: 'ui-button-left',
                 text: 'Привелегии...',
                 click: function () {
+                    // let param = { 'id_user': $( '#edit_user_id' ).val() };
+                    // loadFormPrivege.init( $( '#user_form_privelege' ) );
+                    // ReqestData.init( loadFormPrivege, 'ajax/loadform_privelege/', param );
+                    // ReqestData.reqest();
                     edit_privilege();
                     user_form_edit.dialog( "close" );
                     user_form_privilege.dialog( "open" );
@@ -223,13 +234,12 @@ $( function () {
             },
             "Ok": {
                 text: 'Ok',
-                click: function ( obj_form ) {
-                    var obj = {
-                        objTarget: $( '#right' ),
-                        actionsCmd: EDIT_USER_ACTIONS,
-                        __proto__: obj_form
-                    };
-                    user_form_actions( obj );
+                click: function ( event ) {
+                    user_form_actions( this );
+                    userRender.init( $( '#right' ) );
+                    ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
+                    ReqestData.reqest();
+                    user_form_edit.dialog( "close" );
                 }
             },
             Cancel: function () {
@@ -238,11 +248,16 @@ $( function () {
         }
     } );
 
-    user_form_edit_submit = user_form_edit.find( "form" ).on( "submit", function ( event ) {
+    $( document ).on( "submit", '#user_form_edit', function ( event ) {
         event.preventDefault();
+        user_form_actions( this );
+        userRender.init( $( '#right' ) );
+        ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
+        ReqestData.reqest();
+        user_form_edit.dialog( "close" );
     } );
 
-    const user_form_privilege = $( "#user_div_privelege" ).dialog( {
+    const user_form_privilege = $( "#user_form_privelege" ).dialog( {
         title: "Редактирование привелегий",
         autoOpen: false,
         resizable: false,
@@ -257,7 +272,7 @@ $( function () {
         }
     } );
 
-    user_form_privilege_submit = user_form_privilege.find( "form" ).on( "submit", function ( event ) {
+    const user_form_privilege_submit = user_form_privilege.find( "form" ).on( "submit", function ( event ) {
         event.preventDefault();
     } );
 
@@ -274,53 +289,16 @@ $( function () {
         event.preventDefault();
     } );
 
-    $( '#right' ).on( 'click', '.counter_str_even', function ( event ) {
+    $( '#right' ).on( 'click', '.counter_str_even, .counter_str_odd', function () {
         var edit_user_id = $( this ).attr( 'id' );
-        objEditUser.param = { 'id': edit_user_id.slice( 3 ) };
-        l_form_edit_user( objEditUser )
+        let param = { 'id': edit_user_id.slice( 3 ) };
+
+        loadFormUser.init( objEditUser );
+        ReqestData.init( loadFormUser, 'ajax/loadform_user/', param );
+        ReqestData.reqest();
+
         user_form_edit.dialog( "open" );
     } );
-
-    $( '#right' ).on( 'click', '.counter_str_odd', function ( event ) {
-        var edit_user_id = $( this ).attr( 'id' );
-        objEditUser.param = { 'id': edit_user_id.slice( 3 ) };
-        l_form_edit_user( objEditUser )
-        user_form_edit.dialog( "open" );
-    } );
-
-
-    const edit_privilege = () => {
-        var m_data = { 'id_user': $( '#edit_user_id' ).val() }
-        $.ajax( { dataType: 'json', type: 'post', data: m_data, url: 'ajax/loadform_privelege/' } )
-            .done( ( result_menu ) => {
-                var menu_v = result_menu;
-                var mainfile = '<ol>';
-                for ( let i = 0; i < menu_v.length; i ++ )
-                    mainfile += `<li>${menu_v[ i ].name}
-								<input id="check_${menu_v[ i ].id_a}" class="privilege_checkbox" type="checkbox" ${menu_v[ i ].checked}/>
-							</li>`;
-                mainfile += '</ol>';
-                $( '#user_form_privelege' ).html( mainfile );
-
-            } )
-            .fail( ( result ) => alert( result.error ) );
-    }
-
-
-    const l_form_edit_user = ( { objUser, objPassword, objConfirmPassword, objUserFamily, objUserName, objId, param } ) => {
-        $.ajax( { dataType: 'json', type: 'post', url: 'ajax/loadform_user/', data: param } )
-            .done( ( result ) => {
-                var data = result.data;
-                if ( data == null ) return;
-                objUser.val( data.users );
-                objPassword.val( '' );
-                objConfirmPassword.val( '' );
-                objUserFamily.val( data.family );
-                objUserName.val( data.name );
-                objId.val( data.id );
-            } )
-            .fail( () => alert( result.responseJSON.error ) );
-    }
 
 
     $( document ).tooltip();

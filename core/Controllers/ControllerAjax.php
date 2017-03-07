@@ -244,7 +244,6 @@ class ControllerAjax {
         }
     }
 
-
     /**
      * Запись данных в форму привелегии
      * @throws InputException

@@ -49,7 +49,6 @@ class LastValueCounterModel extends BaseModel {
         if ( !empty( $value1 ) ) $retVal = $value1[0]; else  $retVal = '';
         $result = [
             'success'  => true,
-            'error'    => 'Ok',
             'id_error' => 0,
             'data'     => $retVal
         ];

@@ -11,7 +11,6 @@ let getUrlVars = () => {
 }
 
 const SELECTED_ACTIONS = 1, EDIT_ACTIONS = 2;
-const ADD_USER_ACTIONS = 1, EDIT_USER_ACTIONS = 2;
 const ADD_COUNTER_BTN_NAME = 'ok_f', EDIT_COUNTER_BTN_NAME = 'edit_f';
 const parseBASENAME = window.location.pathname.slice( 1 ).split( '/' );
 const BASENAME = parseBASENAME[parseBASENAME.length-1];
