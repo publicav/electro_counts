@@ -7,7 +7,6 @@ $( function () {
         objUserName: $( '#name_edit' ),
         objId: $( '#edit_user_id' )
     };
-
     const ReqestData = {
         render: {},
         data: '',
@@ -117,7 +116,6 @@ $( function () {
     ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
     ReqestData.reqest();
 
-
     const user_form_actions = ( form ) => {
         let m_method = $( form ).attr( 'method' );
         let m_action = $( form ).attr( 'action' );
@@ -131,33 +129,12 @@ $( function () {
             } )
             .fail( ( result ) => alert( result.responseJSON.error ) );
     }
-
-    const edit_privilege = () => {
-        var m_data = { 'id_user': $( '#edit_user_id' ).val() }
-        $.ajax( { dataType: 'json', type: 'post', data: m_data, url: 'ajax/loadform_privelege/' } )
-            .done( ( result_menu ) => {
-                var menu_v = result_menu.data;
-                var mainfile = '<ol>';
-                for ( let i = 0; i < menu_v.length; i ++ )
-                    mainfile += `<li>${menu_v[ i ].name}
-    						    <input id="check_${menu_v[ i ].id_a}" class="privilege_checkbox" type="checkbox" ${menu_v[ i ].checked}/>
-    					    </li>`;
-                mainfile += '</ol>';
-                $( '#user_form_privelege' ).html( mainfile );
-
-            } )
-            .fail( ( result ) => alert( result.error ) );
-    }
-
-
-    const privilege_user_form_actions = ( obj_form ) => {
+    const privilege_user_form_actions = ( form ) => {
         var sList = '';
-        var form = obj_form.view.user_form_privilege_submit;
-        var workForm = obj_form.view.user_form_privilege;
         var m_method = $( form ).attr( 'method' ); //берем из формы метод передачи данных
         var m_action = $( form ).attr( 'action' ); //получаем адрес скрипта на сервере, куда нужно отправить форму
 
-        var m_checkbox = form.find( 'input[type=checkbox]' );	// запомнить !!!
+        var m_checkbox = $( form ).find( 'input[type=checkbox]' );	// запомнить !!!
 
         $( m_checkbox ).each( function () {
             var sThisVal = (this.checked ? "1" : "0");
@@ -172,7 +149,6 @@ $( function () {
             .done( ( result ) => {
             } )
             .fail( ( result ) => alert( result.error ) );
-        workForm.dialog( "close" );
     }
 
     const user_form_add = $( "#user_form_add" ).dialog( {
@@ -201,16 +177,6 @@ $( function () {
             }
         }
     } );
-
-    $( document ).on( "submit", '#user_form_add', function ( event ) {
-        event.preventDefault();
-        user_form_actions( this );
-        userRender.init( $( '#right' ) );
-        ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
-        ReqestData.reqest();
-        user_form_add.dialog( "close" );
-    } );
-
     const user_form_edit = $( "#user_form_edit" ).dialog( {
         title: "Редактирование пользователя",
         autoOpen: false,
@@ -223,11 +189,11 @@ $( function () {
                 class: 'ui-button-left',
                 text: 'Привелегии...',
                 click: function () {
-                    // let param = { 'id_user': $( '#edit_user_id' ).val() };
-                    // loadFormPrivege.init( $( '#user_form_privelege' ) );
-                    // ReqestData.init( loadFormPrivege, 'ajax/loadform_privelege/', param );
-                    // ReqestData.reqest();
-                    edit_privilege();
+                    let param = { 'id_user': $( '#edit_user_id' ).val() };
+                    loadFormPrivege.init( $( '#user_form_privelege' ) );
+                    ReqestData.init( loadFormPrivege, 'ajax/loadform_privelege/', param );
+                    ReqestData.reqest();
+                    // edit_privilege();
                     user_form_edit.dialog( "close" );
                     user_form_privilege.dialog( "open" );
                 }
@@ -247,16 +213,6 @@ $( function () {
             }
         }
     } );
-
-    $( document ).on( "submit", '#user_form_edit', function ( event ) {
-        event.preventDefault();
-        user_form_actions( this );
-        userRender.init( $( '#right' ) );
-        ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
-        ReqestData.reqest();
-        user_form_edit.dialog( "close" );
-    } );
-
     const user_form_privilege = $( "#user_form_privelege" ).dialog( {
         title: "Редактирование привелегий",
         autoOpen: false,
@@ -265,18 +221,41 @@ $( function () {
         height: 350,
         width: 350,
         buttons: {
-            "Ok": privilege_user_form_actions,
+            "Ok": {
+                text: 'Ok',
+                click: function ( event ) {
+                    privilege_user_form_actions( this );
+                    user_form_privilege.dialog( "close" );
+                }
+            },
             Cancel: function () {
                 user_form_privilege.dialog( "close" );
             }
         }
     } );
 
-    const user_form_privilege_submit = user_form_privilege.find( "form" ).on( "submit", function ( event ) {
+    $( document ).on( "submit", '#user_form_add', function ( event ) {
         event.preventDefault();
+        user_form_actions( this );
+        userRender.init( $( '#right' ) );
+        ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
+        ReqestData.reqest();
+        user_form_add.dialog( "close" );
     } );
+    $( document ).on( "submit", '#user_form_edit', function ( event ) {
+        event.preventDefault();
+        user_form_actions( this );
+        userRender.init( $( '#right' ) );
+        ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
+        ReqestData.reqest();
+        user_form_edit.dialog( "close" );
+    } );
+    $( document ).on( "submit", '#user_form_privelege', function ( event ) {
+        event.preventDefault();
+        privilege_user_form_actions( this );
+        user_form_privilege.dialog( "close" );
 
-
+    } );
     $( '#right' ).on( 'click', '#add_user_btn', function ( event ) {
         $( '#user_add' ).val( '' );
         $( '#pass_add' ).val( '' );
@@ -288,9 +267,8 @@ $( function () {
         user_form_add.dialog( "open" );
         event.preventDefault();
     } );
-
     $( '#right' ).on( 'click', '.counter_str_even, .counter_str_odd', function () {
-        var edit_user_id = $( this ).attr( 'id' );
+        let edit_user_id = $( this ).attr( 'id' );
         let param = { 'id': edit_user_id.slice( 3 ) };
 
         loadFormUser.init( objEditUser );
