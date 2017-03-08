@@ -166,6 +166,5 @@ $( function () {
         e.preventDefault();
     } );
 
-    menuLeftInit();
     Auth.init( menu, $( "#left" ) );
 } );
