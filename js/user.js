@@ -196,6 +196,7 @@ $( function () {
 
                     $( this ).dialog( "close" );
                     user_form_privilege.dialog( "open" );
+                    user_form_privilege.focus();
                 }
             },
             "Ok": {
