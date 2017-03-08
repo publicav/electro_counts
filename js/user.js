@@ -1,4 +1,5 @@
 $( function () {
+    const RIGTH = $( '#right' );
     const objEditUser = {
         objUser: $( '#user_edit' ),
         objPassword: $( '#pass_edit' ),
@@ -111,37 +112,34 @@ $( function () {
             this.dest.html( this.html );
         }
     };
-
-    userRender.init( $( '#right' ) );
-    ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
-    ReqestData.reqest();
-
     const user_form_actions = ( form ) => {
-        let m_method = $( form ).attr( 'method' );
-        let m_action = $( form ).attr( 'action' );
-        let m_data = $( form ).serialize(); // input1=value1&input2=value2..., только input=text
+        let formActions = $( form );
+        let m_method = formActions.attr( 'method' );
+        let m_action = formActions.attr( 'action' );
+        let m_data = formActions.serialize(); // input1=value1&input2=value2..., только input=text
         //noinspection JSUnresolvedVariable
         $.ajax( { dataType: 'json', type: m_method, url: m_action, data: m_data } )
             .done( ( result ) => {
                 if ( result.success == true ) {
-                    let data = result;
+                    // let data = result;
                 } else  alert( result.error );
             } )
             .fail( ( result ) => alert( result.responseJSON.error ) );
-    }
+    };
     const privilege_user_form_actions = ( form ) => {
-        var sList = '';
-        var m_method = $( form ).attr( 'method' ); //берем из формы метод передачи данных
-        var m_action = $( form ).attr( 'action' ); //получаем адрес скрипта на сервере, куда нужно отправить форму
+        let formActions = $( form );
+        let sList = '';
+        let m_method = formActions.attr( 'method' ); //берем из формы метод передачи данных
+        let m_action = formActions.attr( 'action' ); //получаем адрес скрипта на сервере, куда нужно отправить форму
 
-        var m_checkbox = $( form ).find( 'input[type=checkbox]' );	// запомнить !!!
+        let m_checkbox = formActions.find( 'input[type=checkbox]' );	// запомнить !!!
 
         $( m_checkbox ).each( function () {
-            var sThisVal = (this.checked ? "1" : "0");
+            let sThisVal = (this.checked ? "1" : "0");
             sList += (sList == "" ? sThisVal : "," + sThisVal);
         } );
 
-        var m_data = {
+        let m_data = {
             data: sList,
             id_user: $( '#edit_user_id' ).val()
         };
@@ -149,8 +147,7 @@ $( function () {
             .done( ( result ) => {
             } )
             .fail( ( result ) => alert( result.error ) );
-    }
-
+    };
     const user_form_add = $( "#user_form_add" ).dialog( {
         title: "Добавление пользователя",
         autoOpen: false,
@@ -159,21 +156,21 @@ $( function () {
         height: 430,
         width: 500,
         close: function () {
+            $( this )[ 0 ].reset();
         },
         buttons: {
             "Ok": {
                 text: 'Ok',
-                click: function ( event ) {
+                click: function () {
                     user_form_actions( this );
                     userRender.init( $( '#right' ) );
                     ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
                     ReqestData.reqest();
-                    user_form_add.dialog( "close" );
-
+                    $( this ).dialog( "close" );
                 }
             },
             Cancel: function () {
-                user_form_add.dialog( "close" );
+                $( this ).dialog( "close" );
             }
         }
     } );
@@ -184,6 +181,9 @@ $( function () {
         modal: true,
         height: 430,
         width: 500,
+        close: function () {
+            $( this )[ 0 ].reset();
+        },
         buttons: {
             "edit_privilege_btn": {
                 class: 'ui-button-left',
@@ -193,23 +193,23 @@ $( function () {
                     loadFormPrivege.init( $( '#user_form_privelege' ) );
                     ReqestData.init( loadFormPrivege, 'ajax/loadform_privelege/', param );
                     ReqestData.reqest();
-                    // edit_privilege();
-                    user_form_edit.dialog( "close" );
+
+                    $( this ).dialog( "close" );
                     user_form_privilege.dialog( "open" );
                 }
             },
             "Ok": {
                 text: 'Ok',
-                click: function ( event ) {
+                click: function () {
                     user_form_actions( this );
                     userRender.init( $( '#right' ) );
                     ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
                     ReqestData.reqest();
-                    user_form_edit.dialog( "close" );
+                    $( this ).dialog( "close" );
                 }
             },
             Cancel: function () {
-                user_form_edit.dialog( "close" );
+                $( this ).dialog( "close" );
             }
         }
     } );
@@ -220,20 +220,24 @@ $( function () {
         modal: true,
         height: 350,
         width: 350,
+        close: function () {
+            $( this )[ 0 ].reset();
+        },
         buttons: {
             "Ok": {
                 text: 'Ok',
-                click: function ( event ) {
+                click: function () {
                     privilege_user_form_actions( this );
-                    user_form_privilege.dialog( "close" );
+                    $( this ).dialog( "close" );
                 }
             },
             Cancel: function () {
-                user_form_privilege.dialog( "close" );
+                $( this ).dialog( "close" );
             }
         }
     } );
 
+    $( document ).tooltip();
     $( document ).on( "submit", '#user_form_add', function ( event ) {
         event.preventDefault();
         user_form_actions( this );
@@ -256,33 +260,23 @@ $( function () {
         user_form_privilege.dialog( "close" );
 
     } );
-    $( '#right' ).on( 'click', '#add_user_btn', function ( event ) {
-        $( '#user_add' ).val( '' );
-        $( '#pass_add' ).val( '' );
-        $( '#pass_repeat_add' ).val( '' );
-        $( '#family_add' ).val( '' );
-        $( '#name_add' ).val( '' );
-        $( '#edit_user_id' ).val( '' );
-
+    RIGTH.on( 'click', '#add_user_btn', function ( event ) {
         user_form_add.dialog( "open" );
         event.preventDefault();
     } );
-    $( '#right' ).on( 'click', '.counter_str_even, .counter_str_odd', function () {
+    RIGTH.on( 'click', '.counter_str_even, .counter_str_odd', function ( event ) {
         let edit_user_id = $( this ).attr( 'id' );
         let param = { 'id': edit_user_id.slice( 3 ) };
 
         loadFormUser.init( objEditUser );
         ReqestData.init( loadFormUser, 'ajax/loadform_user/', param );
         ReqestData.reqest();
-
         user_form_edit.dialog( "open" );
+        event.preventDefault();
     } );
 
+    userRender.init( RIGTH );
+    ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
+    ReqestData.reqest();
 
-    $( document ).tooltip();
-    $( "#right button" )
-        .button()
-        .click( function ( event ) {
-            event.preventDefault();
-        } );
 } );
