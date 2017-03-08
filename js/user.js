@@ -126,7 +126,7 @@ $( function () {
             } )
             .fail( ( result ) => alert( result.responseJSON.error ) );
     };
-    const privilege_user_form_actions = ( form ) => {
+    const privilege_form_actions = ( form ) => {
         let formActions = $( form );
         let sList = '';
         let m_method = formActions.attr( 'method' ); //берем из формы метод передачи данных
@@ -227,7 +227,7 @@ $( function () {
             "Ok": {
                 text: 'Ok',
                 click: function () {
-                    privilege_user_form_actions( this );
+                    privilege_form_actions( this );
                     $( this ).dialog( "close" );
                 }
             },
@@ -256,7 +256,7 @@ $( function () {
     } );
     $( document ).on( "submit", '#user_form_privelege', function ( event ) {
         event.preventDefault();
-        privilege_user_form_actions( this );
+        privilege_form_actions( this );
         user_form_privilege.dialog( "close" );
 
     } );

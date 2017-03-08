@@ -1,5 +1,5 @@
 $( function () {
-    menuLeftInit();
+    const menu = $( '#menu' );
     const ReqestData = {
         render: {},
         data: '',
@@ -14,9 +14,9 @@ $( function () {
         reqest: function () {
             let me = this;
             //noinspection JSUnresolvedVariable
-            $.ajax( { dataType: 'json', type: me.type, url: me.url, data: me.data } )
+            $.ajax( { async: 'false', dataType: 'json', type: me.type, url: me.url, data: me.data } )
                 .done( ( result ) => {
-                    console.log( result );
+                    // console.log( result );
                     this.render.doRun( result.data );
                     this.render.render();
                 } )
@@ -24,6 +24,7 @@ $( function () {
 
         },
     };
+    const ReqestLeftMenu = Object.assign( {}, ReqestData );
     const MainMenu = {
         dest: {},
         html: '',
@@ -55,11 +56,16 @@ $( function () {
         doRun: function ( data ) {
             let st = '';
             let li_id = '';
+            let subLm;
+            let lm;
             st += '<nav id="navbar"><ul id="left-menu">';
             for ( let i = 0; i < data.length; i ++ ) {
-                let lm = data[ i ][ 0 ];
+                lm = data[ i ][ 0 ];
                 //noinspection JSUnresolvedVariable
-                if ( lm.li_id !== null ) li_id = " class=" + lm.li_id; else li_id = '';
+                if ( lm.li_id !== null ) { //noinspection JSUnresolvedVariable
+                    li_id = " class=" + lm.li_id;
+                } else li_id = '';
+
                 //noinspection JSUnresolvedVariable
                 st += `	<li${li_id}>
     			<a id="${lm.id_a}" href="${lm.id_a}">
@@ -71,7 +77,8 @@ $( function () {
                     let j = 1;
                     st += `<ul class="submenu hide-submenu">`;
                     while ( j < data[ i ].length ) {
-                        var subLm = data[ i ][ j ];
+                        subLm = data[ i ][ j ];
+                        //noinspection JSUnresolvedVariable
                         st +=
                             `<li>
                             <a  id="${subLm.id_a}" href="${subLm.id_a}">
@@ -100,56 +107,65 @@ $( function () {
         height: 250,
         width: 400
     } );
-    const unregistration = () => {
-        $.ajax( { dataType: 'json', type: 'post', url: 'ajax/unregistration/' } )
-            .done( () => {
-                MainMenu.init( $( '#menu' ) );
-                ReqestData.init( MainMenu, 'json/menu.json' );
-                ReqestData.reqest();
+    const Auth = {
+        mMenuTarget: '',
+        lMenuTarget: '',
+        init: function ( mMenuTarget, lMenuTarget ) {
+            this.mMenuTarget = mMenuTarget;
+            this.lMenuTarget = lMenuTarget;
+        },
+        logout: function () {
+            $.ajax( { dataType: 'json', type: 'post', url: 'ajax/unregistration/' } )
+                .done( () => {
+                    MainMenu.init( this.mMenuTarget );
+                    ReqestData.init( MainMenu, 'json/menu.json' );
+                    ReqestData.reqest();
 
-                $( '#left' ).html( '' );
-                $( '#right' ).html( '' );
-            } )
-            .fail( () => alert( 'Error' ) );
-    }
-    const registration = ( form ) => {
-        var m_method = $( form ).attr( 'method' );
-        var m_action = $( form ).attr( 'action' );
-        var m_data = $( form ).serialize();
+                    this.lMenuTarget.html( '' );
+                    $( '#right' ).html( '' );
+                } )
+                .fail( () => alert( 'Error' ) );
+        },
+        login: function ( form ) {
+            let m_method = $( form ).attr( 'method' );
+            let m_action = $( form ).attr( 'action' );
+            let m_data = $( form ).serialize();
 
-        //noinspection JSUnresolvedVariable
-        $.ajax( { dataType: 'json', type: m_method, url: m_action, data: m_data } )
-            .done( ( result ) => {
-                let userName = '';
-                MainMenu.init( $( '#menu' ) );
-                ReqestData.init( MainMenu, 'json/menu_registration.json' );
-                ReqestData.reqest();
+            //noinspection JSUnresolvedVariable
+            $.ajax( { dataType: 'json', type: m_method, url: m_action, data: m_data } )
+                .done( ( result ) => {
+                    let userName = '';
+                    MainMenu.init( this.mMenuTarget );
+                    ReqestData.init( MainMenu, 'json/menu_registration.json' );
+                    ReqestData.reqest();
 
-                LeftMenu.init( $( "#left" ) );
-                ReqestData.init( LeftMenu, 'ajax/menuleft/' );
-                ReqestData.reqest();
+                    LeftMenu.init( this.lMenuTarget );
+                    ReqestLeftMenu.init( LeftMenu, 'ajax/menuleft/' );
+                    ReqestLeftMenu.reqest();
 
-                if ( result.id != 0 )
-                    userName = `<div class="user"><div class="title_user">Вы зашли как:</div>${result.name} ${result.family}</div>`;
-                $( '#menu' ).find( 'ul' ).append( userName );
+                    if ( result.id != 0 ) { //noinspection JSUnresolvedVariable
+                        userName = `<div class="user"><div class="title_user">Вы зашли как:</div>${result.name} ${result.family}</div>`;
+                    }
+                    this.mMenuTarget.find( 'ul' ).append( userName );
 
-            } )
-            .fail( ( result ) => alert( result.responseJSON.error ) );
-    }
-
+                } )
+                .fail( ( result ) => alert( result.responseJSON.error ) );
+        }
+    };
     $( '#loginform' ).submit( function ( e ) {
         e.preventDefault();
-        registration( this );
+        Auth.login( this );
         login_form.dialog( "close" );
     } );
-    $( '#menu' ).on( 'click', '#login', function ( e ) {
+    menu.on( 'click', '#logout', function ( e ) {
+        Auth.logout();
+        e.preventDefault();
+    } );
+    menu.on( 'click', '#login', function ( e ) {
         login_form.dialog( "open" );
         e.preventDefault();
     } );
-    $( '#menu' ).on( 'click', '#logout', function ( e ) {
-        unregistration();
-        e.preventDefault();
-    } );
 
-
+    menuLeftInit();
+    Auth.init( menu, $( "#left" ) );
 } );
