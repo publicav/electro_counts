@@ -74,14 +74,14 @@ return [
                 'nonAuth' => 'actionBlank'
             ]
         ],
-        'add_group' => [
+        'add_group'  => [
             'controllerName' => 'controllers\ControllerMain',
             'actions'        => [
                 'auth'    => 'actionAddGroup',
                 'nonAuth' => 'actionBlank'
             ]
         ],
-        'add_value' => [
+        'add_value'  => [
             'controllerName' => 'controllers\ControllerAdd',
             'actions'        => [
                 'auth'    => 'actionIndex',
@@ -125,6 +125,7 @@ return [
                 'calculation_counter'  => 'ajaxCalculationCounter',         // Расчёт расхода электроэнергии для заданного счётчика
                 'calculation_group'    => 'ajaxCalculationGroup',           // Расчёт расхода электроэнергии для заданной группы
                 'calculation_chart'    => 'ajaxCalculationChart',           // Расчёт расхода электроэнергии для заданной группы для графиков
+                'getgroup_all'         => 'ajaxGetGroupAll',                // Возвращает все группы счётчиков
 
             ]
         ],

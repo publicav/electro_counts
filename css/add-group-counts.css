@@ -1,0 +1,26 @@
+#group-counter {
+    margin-left: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+ul.ui-group-counter {
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 16px;
+
+    list-style: none;
+    display: block;
+    cursor: pointer;
+    width: 650px;
+}
+
+ul.ui-group-counter li.group-counter-list {
+    color: #034c7f;
+    margin: 3px 0 3px 0;
+    padding-left: 30px;
+    padding-top: 10px;
+    background: #FFF8DC;
+    height: 30px;
+    list-style: none;
+    border-bottom: 1px #000000;
+}

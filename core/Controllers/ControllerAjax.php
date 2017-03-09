@@ -21,6 +21,7 @@ use Models\CalculationGroupModel;
 use Models\CounterFilterModel;
 use Models\CounterModel;
 use Models\FilterValueModel;
+use Models\GetGroupAllModel;
 use Models\LastValueCounterModel;
 use Models\LoadFormPrivelegeModel;
 use Models\LoadFormUserModel;
@@ -451,6 +452,24 @@ class ControllerAjax {
                     $this->result = $model->getResult();
                     echo json_encode( $this->result );
                 } else {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+
+    /**
+     * Возвращает все группы счётчиков
+     * @throws InputException
+     */
+    public function ajaxGetGroupAll() {
+        $model = new GetGroupAllModel();
+        if ( Request::isGet() ) {
+            if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
+                if ( $model->doGetGroupAll() ) {
                     $this->result = $model->getResult();
                     echo json_encode( $this->result );
                 }
