@@ -27,7 +27,7 @@ $( function () {
 
         },
     };
-    const GroupRender = {
+    const GroupCountRender = {
         dest: {},
         html: '',
         init: function ( dest ) {
@@ -38,21 +38,35 @@ $( function () {
             st += '<ul class="ui-group-counter">';
             for ( let i = 0; i < data.length; i ++ ) {
                 let grp = data[ i ];
-                st += `<li id="g"${grp.id} class="group-counter-list">${grp.name}</li>`
+                st += `<li id="g-${grp.id}" class="group-counter-list">${grp.name}</li>`
             }
             st += '</ul>'
             st += '</div>';
             this.html = st;
         },
         render: function () {
-            this.dest.html( this.html );
+            this.dest.append( this.html );
             $( "ul.ui-group-counter" ).sortable( {
                 connectWith: "ul"
             } );
 
         }
     };
-    GroupRender.init( RIGTH );
-    ReqestData.init( GroupRender, 'ajax/getgroup_all/', '', 'get' );
+    $( RIGTH ).append(
+        `<div id="btn-action-group" class="widget">
+            <button id="add-group"><i class="fa fa-plus"></i>Добавить группу</button>
+            <button id="sorting-group"><i class="fa fa-save"></i></i>Сохранить сортировку</button>
+            
+        </div>`
+    )
+
+    GroupCountRender.init( RIGTH );
+    ReqestData.init( GroupCountRender, 'ajax/getgroup_all/', '', 'get' );
     ReqestData.reqest();
+
+    $( ".widget button" ).button();
+    $("#add-group").click(function ( e ) {
+        console.log('Add group');
+        e.preventDefault();
+    })
 } )
