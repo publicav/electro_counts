@@ -52,6 +52,32 @@ $( function () {
 
         }
     };
+    const groupNameForm = $( "#group-counter-name-form" ).dialog( {
+        title: "Добавление группы",
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        height: 170,
+        width: 600,
+        close: function () {
+            $( this )[ 0 ].reset();
+        },
+        buttons: {
+            "Ok": {
+                text: 'Ok',
+                click: function () {
+                    // user_form_actions( this );
+                    // userRender.init( $( '#right' ) );
+                    // ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
+                    // ReqestData.reqest();
+                    $( this ).dialog( "close" );
+                }
+            },
+            Cancel: function () {
+                $( this ).dialog( "close" );
+            }
+        }
+    } );
     $( RIGTH ).append(
         `<div id="btn-action-group" class="widget">
             <button id="add-group"><i class="fa fa-plus"></i>Добавить группу</button>
@@ -63,10 +89,15 @@ $( function () {
     GroupCountRender.init( RIGTH );
     ReqestData.init( GroupCountRender, 'ajax/getgroup_all/', '', 'get' );
     ReqestData.reqest();
+    $( "#add-group" ).click( function ( e ) {
+        console.log( 'Add group' );
+        groupNameForm.dialog( "open" );
+        e.preventDefault();
+    } )
+    $( "#sorting-group" ).click( function ( e ) {
+        console.log( 'Sorting group' );
+        e.preventDefault();
+    } )
 
     $( ".widget button" ).button();
-    $("#add-group").click(function ( e ) {
-        console.log('Add group');
-        e.preventDefault();
-    })
 } )

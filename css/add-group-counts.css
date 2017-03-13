@@ -42,3 +42,14 @@ ul.ui-group-counter li.group-counter-list {
     padding-left: 2px;
     font-size: 1.3em;
 }
+.label-group-name-form {
+    font: 16px verdana, sans-serif;
+    display: inline-table;
+    width: 140px;
+
+}
+.input-group-name-form {
+    font: 16px verdana, sans-serif;
+    padding: 5px 0 5px 0;
+    width: 370px;
+}
