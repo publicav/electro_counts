@@ -11,6 +11,7 @@ namespace Controllers;
 use Base\Auth;
 use Base\Request;
 use Exception\InputException;
+use Models\ActionFormGroupNameModel;
 use Models\ActionFormPrivelegeModel;
 use Models\ActionFormUserAddModel;
 use Models\ActionFormUserModel;
@@ -472,6 +473,23 @@ class ControllerAjax {
                 if ( $model->doGetGroupAll() ) {
                     $this->result = $model->getResult();
                     echo json_encode( $this->result );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+
+    /**
+     * Запись данных в форму привелегии
+     * @throws InputException
+     */
+    public function ajaxActionFormGroupName() {
+        $model = new ActionFormGroupNameModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doActionFormGroupName() ) {
+                    echo json_encode( $model->getResult() );
                 }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );

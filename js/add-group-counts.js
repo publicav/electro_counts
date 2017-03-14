@@ -45,6 +45,7 @@ $( function () {
             this.html = st;
         },
         render: function () {
+            this.dest.find("#group-counter").remove()
             this.dest.append( this.html );
             $( "ul.ui-group-counter" ).sortable( {
                 connectWith: "ul"
@@ -66,10 +67,12 @@ $( function () {
             "Ok": {
                 text: 'Ok',
                 click: function () {
-                    // user_form_actions( this );
-                    // userRender.init( $( '#right' ) );
-                    // ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
-                    // ReqestData.reqest();
+                    ActionFormGroupName.doGroupName( this );
+
+                    GroupCountRender.init( RIGTH );
+                    ReqestData.init( GroupCountRender, 'ajax/getgroup_all/', '', 'get' );
+                    ReqestData.reqest();
+
                     $( this ).dialog( "close" );
                 }
             },
@@ -78,6 +81,20 @@ $( function () {
             }
         }
     } );
+    const ActionFormGroupName = {
+        doGroupName: function ( form ) {
+            let m_method = $( form ).attr( 'method' );
+            let m_action = $( form ).attr( 'action' );
+            let m_data = $( form ).serialize();
+
+            //noinspection JSUnresolvedVariable
+            $.ajax( { dataType: 'json', type: m_method, url: m_action, data: m_data } )
+                .done( ( result ) => {
+                } )
+                .fail( ( result ) => alert( result.responseJSON.error ) );
+
+        }
+    };
     $( RIGTH ).append(
         `<div id="btn-action-group" class="widget">
             <button id="add-group"><i class="fa fa-plus"></i>Добавить группу</button>
