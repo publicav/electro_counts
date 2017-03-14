@@ -8,7 +8,10 @@
 <div id="menu"> 
 <?php 	include(__DIR__ . "/../base/menu.php"); ?>
 </div>
-<?php 	include(__DIR__ . "/../base/login_form.php"); // loginform ?>
+<?php
+    include(__DIR__ . "/../base/login_form.php"); // loginform
+    include(__DIR__ . "/../base/group-counter-name-form.php");
+?>
 
 <div id="left">
         <?php  if ( !is_null ($this->_auth) )	include(__DIR__ . "/../base/menu_left.php"); ?>

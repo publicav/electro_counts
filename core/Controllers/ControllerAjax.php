@@ -11,6 +11,8 @@ namespace Controllers;
 use Base\Auth;
 use Base\Request;
 use Exception\InputException;
+use Models\ActionBtnSortingNameModel;
+use Models\ActionFormGroupNameModel;
 use Models\ActionFormPrivelegeModel;
 use Models\ActionFormUserAddModel;
 use Models\ActionFormUserModel;
@@ -21,6 +23,7 @@ use Models\CalculationGroupModel;
 use Models\CounterFilterModel;
 use Models\CounterModel;
 use Models\FilterValueModel;
+use Models\GetGroupAllModel;
 use Models\LastValueCounterModel;
 use Models\LoadFormPrivelegeModel;
 use Models\LoadFormUserModel;
@@ -453,6 +456,58 @@ class ControllerAjax {
                 } else {
                     $this->result = $model->getResult();
                     echo json_encode( $this->result );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+
+    /**
+     * Возвращает все группы счётчиков
+     * @throws InputException
+     */
+    public function ajaxGetGroupAll() {
+        $model = new GetGroupAllModel();
+        if ( Request::isGet() ) {
+            if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
+                if ( $model->doGetGroupAll() ) {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+
+    /**
+     * Запись данных в форму привелегии
+     * @throws InputException
+     */
+    public function ajaxActionFormGroupName() {
+        $model = new ActionFormGroupNameModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doActionFormGroupName() ) {
+                    echo json_encode( $model->getResult() );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+
+    /**
+     *  Запись данных сортировки групп счётчиков
+     * @throws InputException
+     */
+    public function ajaxActionBtnSortingName() {
+        $model = new ActionBtnSortingNameModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doActionBtnSortingName() ) {
+                    echo json_encode( $model->getResult() );
                 }
             } else {
                 throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );

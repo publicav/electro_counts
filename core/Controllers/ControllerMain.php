@@ -82,6 +82,12 @@ class ControllerMain extends Conroller {
         $this->_view->setFileMainMenu( $this->_route->getMainMenu() );
         $menuLeft = new Privelege( $this->_auth );
         $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
+        $this->_view->setJs( [
+            'js/add-group-counts.js',
+        ] );
+        $this->_view->setCss( [
+            'css/add-group-counts.css',
+        ] );
         $this->_view->render( $this->_route->getViewPath(), '' );
     }
 
