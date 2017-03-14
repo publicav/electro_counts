@@ -45,7 +45,7 @@ $( function () {
             this.html = st;
         },
         render: function () {
-            this.dest.find("#group-counter").remove()
+            this.dest.find( "#group-counter" ).remove()
             this.dest.append( this.html );
             $( "ul.ui-group-counter" ).sortable( {
                 connectWith: "ul"
@@ -95,6 +95,24 @@ $( function () {
 
         }
     };
+    const ActionBtnSortingGroup = {
+        sorting: '',
+        init: function ( src_obj_data ) {
+            let sorting = '';
+            $( "#group-counter li" ).each( function ( index, element ) {
+                if ( index != 0 ) sorting += ',';
+                sorting += $( element ).attr( "id" ).substring( 2 );
+            } )
+            this.sorting = sorting;
+        },
+        doSorting: function () {
+            $.ajax( { dataType: 'json', type: 'post', url: 'ajax/actionbtn_sorting_group/', data: { 'sort': this.sorting } } )
+                .done( ( result ) => {
+                } )
+                .fail( ( result ) => alert( result.responseJSON.error ) );
+
+        }
+    }
     $( RIGTH ).append(
         `<div id="btn-action-group" class="widget">
             <button id="add-group"><i class="fa fa-plus"></i>Добавить группу</button>
@@ -113,6 +131,8 @@ $( function () {
     } )
     $( "#sorting-group" ).click( function ( e ) {
         console.log( 'Sorting group' );
+        ActionBtnSortingGroup.init( $( "#group-counter li" ) );
+        ActionBtnSortingGroup.doSorting();
         e.preventDefault();
     } )
 
