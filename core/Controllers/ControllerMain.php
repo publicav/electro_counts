@@ -90,5 +90,23 @@ class ControllerMain extends Conroller {
         ] );
         $this->_view->render( $this->_route->getViewPath(), '' );
     }
+    public function actionDelGroup() {
+        // TODO: Implement actionIndex() method.
+        $this->_view->setFileMainMenu( $this->_route->getMainMenu() );
+        $menuLeft = new Privelege( $this->_auth );
+        $this->_view->setLeftMenu( $menuLeft->getMenuLeft() );
+        $this->_view->setJs( [
+            'js/select2/js/select2.min.js',
+//            'js/bootstrap-select/js/bootstrap-select.min.js',
+            'js/del-group-counts.js',
+
+        ] );
+        $this->_view->setCss( [
+            'js/select2/css/select2.min.css',
+//            'js/bootstrap-select/css/bootstrap-select.min.css',
+            'css/del-group-counts.css',
+        ] );
+        $this->_view->render( $this->_route->getViewPath(), '' );
+    }
 
 }

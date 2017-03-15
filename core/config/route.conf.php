@@ -81,6 +81,13 @@ return [
                 'nonAuth' => 'actionBlank'
             ]
         ],
+        'del_group'  => [
+            'controllerName' => 'controllers\ControllerMain',
+            'actions'        => [
+                'auth'    => 'actionDelGroup',
+                'nonAuth' => 'actionBlank'
+            ]
+        ],
         'add_value'  => [
             'controllerName' => 'controllers\ControllerAdd',
             'actions'        => [
@@ -128,6 +135,7 @@ return [
                 'getgroup_all'            => 'ajaxGetGroupAll',                // Возвращает все группы счётчиков
                 'actionform_group_name'   => 'ajaxActionFormGroupName',        // Запись данных в таблицу название группы счётчиков
                 'actionbtn_sorting_group' => 'ajaxActionBtnSortingName',       // Запись данных сортировки групп счётчиков
+                'actionbtn_delete_group'  => 'ajaxActionBtnDeletegName',       // Удаление группы счётчиков
 
             ]
         ],
