@@ -81,6 +81,13 @@ return [
                 'nonAuth' => 'actionBlank'
             ]
         ],
+        'del_group'  => [
+            'controllerName' => 'controllers\ControllerMain',
+            'actions'        => [
+                'auth'    => 'actionDelGroup',
+                'nonAuth' => 'actionBlank'
+            ]
+        ],
         'add_value'  => [
             'controllerName' => 'controllers\ControllerAdd',
             'actions'        => [
