@@ -35,32 +35,34 @@ $( function () {
         },
         doRun : function ( data ) {
             let st = '<div id="group-counter" class="widget">';
-            st += '<label for="group">Выбор группы счётчиков</label>'
+            st += '<label for="group">Выбор группы счётчиков</label>';
             st += '<select id="group" name="group" class="ui-group-counter">';
             for ( let i = 0; i < data.length; i ++ ) {
                 let grp = data[ i ];
                 st += `<option value="${grp.id}" class="group-counter-list">${grp.name}</option>`
             }
-            st += '</select>'
+            st += '</select>';
             st += '</div>';
 
             this.html = st;
         },
         render: function () {
-            this.dest.find( "#group-counter" ).remove()
+            this.dest.find( "#group-counter" ).remove();
+            this.dest.find( "#btn-action-group" ).remove();
             this.dest.append( this.html );
             this.dest.append(
                 `<div id="btn-action-group" class="widget">
                     <button id="del-group"><i class="fa fa-trash-o"></i>Удалить группу</button>
                 </div>`
             );
+
             $( "#btn-action-group" ).click( function ( e ) {
                 console.log( 'Delete Group' );
                 let idGroup = $( "#group" ).val();
                 console.log( idGroup );
                 ActionBtnDeleteGroup.init( { del_group: idGroup } );
                 ActionBtnDeleteGroup.doDeleteGroup();
-                
+
                 e.preventDefault();
             } );
 
@@ -76,10 +78,15 @@ $( function () {
             $.ajax( {
                 dataType: 'json',
                 type    : 'post',
-                url     : 'ajax/test/',
+                url     : 'ajax/actionbtn_delete_group/',
                 data    : this.params
             } )
                 .done( ( result ) => {
+
+                    GroupCountRender.init( RIGTH );
+                    ReqestData.init( GroupCountRender, 'ajax/getgroup_all/', '', 'get' );
+                    ReqestData.reqest();
+
                 } )
                 .fail( ( result ) => alert( result.responseJSON.error ) );
 
@@ -92,4 +99,4 @@ $( function () {
 
 
     $( ".widget button" ).button();
-} )
+} );

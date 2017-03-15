@@ -103,6 +103,35 @@ class Validator {
         if ( !empty( $gId ) ) {
             $this->addError( $field, 'Такой пользователь существует' );
         }
+    }
+    protected function GroupCounterEmpty( $field ) {
+        $pdo = \DB::getLink()->getDb();
+        $id = $this->_data[ $field ];
+        $sq = "SELECT id FROM group_counters WHERE id_group = :id";
+        $param = [ 'id' => $id ];
+        $res = $pdo->prepare( $sq );
+        if ( !$res->execute( $param ) ) {
+            throw new \Exception( $pdo->errorInfo()[2] );
+        }
+        $gId = $res->fetchAll();
+        if ( !empty( $gId ) ) {
+            $this->addError( $field, 'Группа не пустая, удалить нельзя' );
+        }
+
+    }
+    protected function GroupCounterExists( $field ) {
+        $pdo = \DB::getLink()->getDb();
+        $id = $this->_data[ $field ];
+        $sq = "SELECT id FROM name_group_counters WHERE id = :id";
+        $param = [ 'id' => $id ];
+        $res = $pdo->prepare( $sq );
+        if ( !$res->execute( $param ) ) {
+            throw new \Exception( $pdo->errorInfo()[2] );
+        }
+        $gId = $res->fetchAll();
+        if ( empty( $gId ) ) {
+            $this->addError( $field, 'Группа не cуществует' );
+        }
 
     }
 

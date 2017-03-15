@@ -11,6 +11,7 @@ namespace Controllers;
 use Base\Auth;
 use Base\Request;
 use Exception\InputException;
+use Models\ActionBtnDeletegNameModel;
 use Models\ActionBtnSortingNameModel;
 use Models\ActionFormGroupNameModel;
 use Models\ActionFormPrivelegeModel;
@@ -507,6 +508,22 @@ class ControllerAjax {
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
                 if ( $model->doActionBtnSortingName() ) {
+                    echo json_encode( $model->getResult() );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+    /**
+     *  Запись данных сортировки групп счётчиков
+     * @throws InputException
+     */
+    public function ajaxActionBtnDeletegName() {
+        $model = new ActionBtnDeletegNameModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doActionBtnDeletegName() ) {
                     echo json_encode( $model->getResult() );
                 }
             } else {
