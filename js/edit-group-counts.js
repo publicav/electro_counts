@@ -40,7 +40,7 @@ $( function () {
             st += '<select id="group" name="group" class="ui-group-counter">';
             for ( let i = 0; i < data.length; i ++ ) {
                 let grp = data[ i ];
-                st += `<option value="${grp.id}" class="group-counter-list">${grp.name}</option>`
+                st += `<option value="${grp.id}">${grp.name}</option>`
             }
             st += '</select>';
             st += '</div>';
