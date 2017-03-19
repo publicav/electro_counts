@@ -5,10 +5,10 @@ $( function () {
     const RIGTH = $( '#right' );
     const ReqestData = {
         render: {},
-        data: '',
-        url: '',
-        type: '',
-        init: function ( render, url, param = '', type = 'post' ) {
+        data  : '',
+        url   : '',
+        type  : '',
+        init  : function ( render, url, param = '', type = 'post' ) {
             this.data = param;
             this.render = render;
             this.url = url;
@@ -29,12 +29,12 @@ $( function () {
     };
     const ReqestCount = Object.assign( {}, ReqestData );
     const GroupCountRender = {
-        dest: {},
-        html: '',
-        init: function ( dest ) {
+        dest  : {},
+        html  : '',
+        init  : function ( dest ) {
             this.dest = dest;
         },
-        doRun: function ( data ) {
+        doRun : function ( data ) {
             let st = '<div id="group-counter" class="widget">';
             st += '<label for="group">Выбор группы счётчиков</label>';
             st += '<select id="group" name="group" class="ui-group-counter">';
@@ -74,43 +74,53 @@ $( function () {
         }
     };
     const CountRender = {
-        dest: {},
-        html: '',
-        init: function ( dest ) {
+        dest  : {},
+        html  : '',
+        init  : function ( dest ) {
             this.dest = dest;
         },
-        doRun: function ( data ) {
-            let st = '<div id="counter">';
-            st += '<ul class="ui-counter">';
+        doRun : function ( data ) {
+            let st = ` <div class="title-counter"><div class="title-all">Ячейки</div><div class="title-plus">Ячейки расход</div><div class="title-minus">Ячейки транзит</div></div>
+                    <div id="counter">
+                        <ul class="ui-counter">`;
             for ( let i = 0; i < data.length; i ++ ) {
                 let grp = data[ i ];
-                st += `<li id="g-${grp.id}" class="counter-list">${grp.name}</li>`
+                st += `<li id="g-${grp.id}" class="counter-list"><span>${grp.name}</span></li>`
             }
-            st += '</ul>'
-            st += '</div>';
+            st += `    </ul>
+                    </div>
+                    <div id="counter-plus">
+                        <ul class="ui-counter"></ul>
+                    </div>
+                    <div id="counter-minus">
+                        <ul class="ui-counter"></ul>
+                    </div>`;
             this.html = st;
         },
         render: function () {
+            let heght = 50;
             this.dest.find( "#counter" ).remove()
             this.dest.append( this.html );
             $( "ul.ui-counter" ).sortable( {
                 connectWith: "ul"
             } );
+            //$( "#counter-plus" ).height( heght );
+            //$( "#counter-minus" ).height( heght );
 
         }
     };
 
     const ActionBtnDeleteGroup = {
-        params: {},
-        init: function ( params ) {
+        params       : {},
+        init         : function ( params ) {
             this.params = params;
         },
         doDeleteGroup: function () {
             $.ajax( {
                 dataType: 'json',
-                type: 'post',
-                url: 'ajax/actionbtn_delete_group/',
-                data: this.params
+                type    : 'post',
+                url     : 'ajax/actionbtn_delete_group/',
+                data    : this.params
             } )
                 .done( ( result ) => {
 

@@ -1,2 +1,116 @@
-The compress option has been deprecated. We recommend you use a dedicated css minifier, for instance see less-plugin-clean-css.
-#group-counter{font-family:Tahoma,Arial,sans-serif;margin-left:40px;margin-bottom:20px;margin-top:20px}#group-counter label{font-size:1.2em;display:block;margin:7px 0 10px 20px}#group-counter .ui-group-counter{width:650px;font-size:1.2em;margin:10px 0 5px 10px;padding:6px 10px}#group-counter .ui-group-counter option{font-size:1.1em;padding-left:5px}#counter{margin-left:40px;margin-bottom:10px;margin-top:20px}#counter ul.ui-counter{font-family:Tahoma,Arial,sans-serif;font-size:16px;list-style:none;display:block;cursor:pointer;width:200px;text-align:center}#counter ul.ui-counter li{color:#034c7f;width:200px;margin:3px 0 3px 0;background:#FFF8DC;height:40px;list-style:none;border-bottom:1px #000000;display:inline-block}#btn-action-group{margin-left:40px;margin-top:15px;margin-bottom:10px}#btn-action-group button{display:block;margin:0 5px;padding:5px 7px;font-size:1em}#btn-action-group button i{padding-right:10px;padding-left:2px;font-size:1.1em}
+#group-counter {
+  font-family: Tahoma, Arial, sans-serif;
+  margin-left: 40px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+#group-counter label {
+  font-size: 1.2em;
+  display: block;
+  margin: 7px 0 10px 20px;
+}
+#group-counter .ui-group-counter {
+  width: 650px;
+  font-size: 1.2em;
+  margin: 10px 0 5px 10px;
+  padding: 6px 10px;
+}
+#group-counter .ui-group-counter option {
+  font-size: 1.1em;
+  padding-left: 5px;
+}
+#counter,
+#counter-plus,
+#counter-minus {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+#counter ul.ui-counter,
+#counter-plus ul.ui-counter,
+#counter-minus ul.ui-counter {
+  margin-right: 9px;
+  padding: 5px;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 16px;
+  list-style: none;
+  display: block;
+  cursor: pointer;
+  width: 212px;
+  text-align: center;
+  background-color: #d2d283;
+  height: inherit;
+  float: left;
+}
+#counter ul.ui-counter li,
+#counter-plus ul.ui-counter li,
+#counter-minus ul.ui-counter li {
+  color: #034c7f;
+  width: 200px;
+  margin: 3px 3px 3px 5px;
+  background: #FFF8DC;
+  height: 40px;
+  list-style: none;
+  border-bottom: 1px #000000;
+  display: flex;
+}
+#counter ul.ui-counter li span,
+#counter-plus ul.ui-counter li span,
+#counter-minus ul.ui-counter li span {
+  display: block;
+  margin: auto 0;
+  padding-left: 10px;
+}
+#btn-action-group {
+  margin-left: 40px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+#btn-action-group button {
+  display: block;
+  margin: 0 5px;
+  padding: 5px 7px;
+  font-size: 1em;
+}
+#btn-action-group button i {
+  padding-right: 10px;
+  padding-left: 2px;
+  font-size: 1.1em;
+}
+.title-counter {
+  margin: 2px 0 4px 20px;
+  display: flex;
+  height: 35px;
+  float: left;
+  color: #000;
+  background-image: url(../img/web/table-header-2.png);
+  width: 685px;
+  font: 18px Tahoma;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-top-right-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-topright: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.title-counter .title-all {
+  width: 230px;
+  display: block;
+  margin: auto 0;
+  float: left;
+  text-align: center;
+}
+.title-counter .title-plus {
+  width: 230px;
+  display: block;
+  margin: auto 0;
+  float: left;
+  text-align: center;
+}
+.title-counter .title-minus {
+  width: 230px;
+  display: block;
+  margin: auto 0;
+  float: left;
+  text-align: center;
+}
