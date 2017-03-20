@@ -5,10 +5,10 @@ $( function () {
     const RIGTH = $( '#right' );
     const ReqestData = {
         render: {},
-        data  : '',
-        url   : '',
-        type  : '',
-        init  : function ( render, url, param = '', type = 'post' ) {
+        data: '',
+        url: '',
+        type: '',
+        init: function ( render, url, param = '', type = 'post' ) {
             this.data = param;
             this.render = render;
             this.url = url;
@@ -29,12 +29,12 @@ $( function () {
     };
     const ReqestCount = Object.assign( {}, ReqestData );
     const GroupCountRender = {
-        dest  : {},
-        html  : '',
-        init  : function ( dest ) {
+        dest: {},
+        html: '',
+        init: function ( dest ) {
             this.dest = dest;
         },
-        doRun : function ( data ) {
+        doRun: function ( data ) {
             let st = '<div id="group-counter" class="widget">';
             st += '<label for="group">Выбор группы счётчиков</label>';
             st += '<select id="group" name="group" class="ui-group-counter">';
@@ -66,20 +66,24 @@ $( function () {
             //
             //     e.preventDefault();
             // } );
+            let param = {
+                id_group: $( "#group" ).val(),
+            };
+
             CountRender.init( RIGTH );
-            ReqestCount.init( CountRender, 'ajax/getcounter_all/', '', 'get' );
+            ReqestCount.init( CountRender, 'ajax/getcounter_all/', param, 'get' );
             ReqestCount.reqest();
 
             $( "#group" ).select2();
         }
     };
     const CountRender = {
-        dest  : {},
-        html  : '',
-        init  : function ( dest ) {
+        dest: {},
+        html: '',
+        init: function ( dest ) {
             this.dest = dest;
         },
-        doRun : function ( data ) {
+        doRun: function ( data ) {
             let st = ` <div class="title-counter"><div class="title-all">Ячейки</div><div class="title-plus">Ячейки расход</div><div class="title-minus">Ячейки транзит</div></div>
                     <div id="counter">
                         <ul class="ui-counter">`;
@@ -111,16 +115,16 @@ $( function () {
     };
 
     const ActionBtnDeleteGroup = {
-        params       : {},
-        init         : function ( params ) {
+        params: {},
+        init: function ( params ) {
             this.params = params;
         },
         doDeleteGroup: function () {
             $.ajax( {
                 dataType: 'json',
-                type    : 'post',
-                url     : 'ajax/actionbtn_delete_group/',
-                data    : this.params
+                type: 'post',
+                url: 'ajax/actionbtn_delete_group/',
+                data: this.params
             } )
                 .done( ( result ) => {
 
