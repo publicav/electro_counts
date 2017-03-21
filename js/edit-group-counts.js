@@ -51,28 +51,51 @@ $( function () {
             this.dest.find( "#group-counter" ).remove();
             this.dest.find( "#btn-action-group" ).remove();
             this.dest.append( this.html );
-            // this.dest.append(
-            //     `<div id="btn-action-group" class="widget">
-            //         <button id="del-group"><i class="fa fa-trash-o"></i>Удалить группу</button>
-            //     </div>`
-            // );
+            this.dest.append(
+                `<div id="btn-action-create-group" class="widget">
+                    <button id="create-count-group"><i class="fa fa-object-group"></i>Сформирвать группу</button>
+                </div>`
+            );
 
-            // $( "#btn-action-group" ).click( function ( e ) {
-            //     console.log( 'Delete Group' );
-            //     let idGroup = $( "#group" ).val();
-            //     console.log( idGroup );
-            //     ActionBtnDeleteGroup.init( { del_group: idGroup } );
-            //     ActionBtnDeleteGroup.doDeleteGroup();
-            //
-            //     e.preventDefault();
-            // } );
+            $( "#create-count-group" ).click( function ( e ) {
+                console.log( 'Create count group' );
+                let param = {};
+                param.id_group = $("#group").val();
+                let groupPlus = '';
+                $( "#counter-plus li" ).each( function ( index, element ) {
+                    if ( index != 0 ) groupPlus += ',';
+                    groupPlus += $( element ).attr( "id" ).substring( 2 );
+                } )
+                param.group_plus = groupPlus;
+                $( "#counter-minus li" ).each( function ( index, element ) {
+                    if ( index != 0 ) groupPlus += ',';
+                    groupPlus += $( element ).attr( "id" ).substring( 2 );
+                } )
+                param.group_minus = groupPlus;
+
+                console.log( param );
+                ActionBtnCreateGroup.init(param);
+                ActionBtnCreateGroup.doCreateGroup();
+                e.preventDefault();
+            } );
             let param = {
                 id_group: $( "#group" ).val(),
             };
-
             CountRender.init( RIGTH );
             ReqestCount.init( CountRender, 'ajax/getcounter_all/', param, 'get' );
             ReqestCount.reqest();
+
+            $( "#group-counter" ).change( function ( e ) {
+                let param = {
+                    id_group: $( "#group" ).val(),
+                };
+                CountRender.init( RIGTH );
+                ReqestCount.init( CountRender, 'ajax/getcounter_all/', param, 'get' );
+                ReqestCount.reqest();
+
+                e.preventDefault();
+            } )
+
 
             $( "#group" ).select2();
         }
@@ -84,27 +107,50 @@ $( function () {
             this.dest = dest;
         },
         doRun: function ( data ) {
-            let st = ` <div class="title-counter"><div class="title-all">Ячейки</div><div class="title-plus">Ячейки расход</div><div class="title-minus">Ячейки транзит</div></div>
-                    <div id="counter">
-                        <ul class="ui-counter">`;
-            for ( let i = 0; i < data.length; i ++ ) {
-                let grp = data[ i ];
+            //noinspection JSUnresolvedVariable
+            let counter_free = data.counter_free;
+            //noinspection JSUnresolvedVariable
+            let counter_plus = data.counter_plus;
+            //noinspection JSUnresolvedVariable
+            let counter_minus = data.counter_minus;
+            let st = ` <div id="list-counter">
+                        <div class="title-counter"><div class="title-all">Ячейки</div><div class="title-plus">Ячейки расход</div><div class="title-minus">Ячейки транзит</div></div>
+                            <div id="counter">
+                                <ul class="ui-counter">`;
+            for ( let i = 0; i < counter_free.length; i ++ ) {
+                let grp = counter_free[ i ];
                 st += `<li id="g-${grp.id}" class="counter-list"><span>${grp.name}</span></li>`
             }
             st += `    </ul>
                     </div>
+                    
                     <div id="counter-plus">
-                        <ul class="ui-counter"></ul>
+                        <ul class="ui-counter">`;
+            for ( let i = 0; i < counter_plus.length; i ++ ) {
+                let grp = counter_plus[ i ];
+                st += `<li id="g-${grp.id}" class="counter-list"><span>${grp.name}</span></li>`
+            }
+            st += `</ul>
                     </div>
+                    
                     <div id="counter-minus">
-                        <ul class="ui-counter"></ul>
-                    </div>`;
+                        <ul class="ui-counter">`;
+            for ( let i = 0; i < counter_minus.length; i ++ ) {
+                let grp = counter_minus[ i ];
+                st += `<li id="g-${grp.id}" class="counter-list"><span>${grp.name}</span></li>`
+            }
+
+            st += `       </ul>
+                        </div>
+                    </div>
+                    `;
             this.html = st;
         },
         render: function () {
             let heght = 50;
-            this.dest.find( "#counter" ).remove()
+            this.dest.find( "#list-counter" ).remove()
             this.dest.append( this.html );
+
             $( "ul.ui-counter" ).sortable( {
                 connectWith: "ul"
             } );
@@ -114,24 +160,19 @@ $( function () {
         }
     };
 
-    const ActionBtnDeleteGroup = {
+    const ActionBtnCreateGroup = {
         params: {},
         init: function ( params ) {
             this.params = params;
         },
-        doDeleteGroup: function () {
+        doCreateGroup: function () {
             $.ajax( {
                 dataType: 'json',
                 type: 'post',
-                url: 'ajax/actionbtn_delete_group/',
+                url: 'ajax/test/',
                 data: this.params
             } )
                 .done( ( result ) => {
-
-                    GroupCountRender.init( RIGTH );
-                    ReqestData.init( GroupCountRender, 'ajax/getgroup_all/', '', 'get' );
-                    ReqestData.reqest();
-
                 } )
                 .fail( ( result ) => alert( result.responseJSON.error ) );
 

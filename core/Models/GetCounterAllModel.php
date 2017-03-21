@@ -36,7 +36,9 @@ class GetCounterAllModel extends BaseModel {
         $param = [
             'id_group' => $this->id_group,
         ];
-        $sq = "SELECT   id_counter AS 'id', coefficient  FROM group_counters WHERE id_group = :id_group;";
+        $sq = "SELECT   id_counter AS 'id', coefficient AS coeff, c.name  
+               FROM group_counters, count AS c
+               WHERE id_group = :id_group AND c.id = id_counter;";
         $res = $this->_pdo->prepare( $sq );
         if ( !$res->execute( $param ) ) {
             throw new \Exception( $this->_pdo->errorInfo()[2] );
@@ -45,22 +47,26 @@ class GetCounterAllModel extends BaseModel {
 
         if ( empty( $counterGroup ) ) $counterGroup = [];
         $result = Arr_udiff::init( $counterAll, $counterGroup )->doRun()->getResult();
+        $lengthCountGroup = count( $counterGroup );
+        $counter_plus = [];
+        $counter_minus = [];
+        for ( $i = 0; $i < $lengthCountGroup; $i++ ) {
+            if ( $counterGroup[ $i ]['coeff'] == 1 ) {
+                $counter_plus[] = $counterGroup[ $i ];
+            } else {
+                $counter_minus[] = $counterGroup[ $i ];
+            }
 
-        //        $result = array_udiff( $counterAll, $counterGroup,
-        //            function ( $all, $count ) {
-        //                var_dump( $all );
-        //                var_dump( $count );
-        //                $idAll = $all['id'];
-        //                $idCount = $count['id'];
-        //                return $idAll - $idCount;
-        //            }
-        //        );
+        }
+
         $this->result = [
-            'success'       => true,
-            'id_error'      => 0,
-            'data'          => $counterAll,
-            'group_counter' => $counterGroup,
-            'diff'          => $result,
+            'success'  => true,
+            'id_error' => 0,
+            'data'     => [
+                'counter_free'  => $result,
+                'counter_plus'  => $counter_plus,
+                'counter_minus' => $counter_minus,
+            ],
         ];
         return true;
 

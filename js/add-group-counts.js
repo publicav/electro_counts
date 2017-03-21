@@ -99,7 +99,7 @@ $( function () {
         sorting: '',
         init: function ( src_obj_data ) {
             let sorting = '';
-            $( "#group-counter li" ).each( function ( index, element ) {
+            src_obj_data.each( function ( index, element ) {
                 if ( index != 0 ) sorting += ',';
                 sorting += $( element ).attr( "id" ).substring( 2 );
             } )

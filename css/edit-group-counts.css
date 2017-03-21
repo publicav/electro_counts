@@ -61,18 +61,18 @@
   margin: auto 0;
   padding-left: 10px;
 }
-#btn-action-group {
+#btn-action-create-group {
   margin-left: 40px;
   margin-top: 15px;
   margin-bottom: 10px;
 }
-#btn-action-group button {
+#btn-action-create-group button {
   display: block;
   margin: 0 5px;
   padding: 5px 7px;
   font-size: 1em;
 }
-#btn-action-group button i {
+#btn-action-create-group button i {
   padding-right: 10px;
   padding-left: 2px;
   font-size: 1.1em;
