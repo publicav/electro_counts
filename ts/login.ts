@@ -1,5 +1,6 @@
 $( () => {
     const menu = $( '#menu' );
+    
     const ReqestData = {
         render: {},
         data: '',

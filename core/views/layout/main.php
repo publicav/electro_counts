@@ -10,14 +10,14 @@
     <meta name="description" content="<?= $this->_MetaD ?>">
     <meta name="keywords" content="<?= $this->_MetaK ?>">
     <title><?= $this->_title ?></title>
-    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/jquery-3.2.0.min.js"></script>
     <script charset="utf-8" src="js/main.js"></script>
     <script src="js/jquery.colorbox-min.js"></script>
     <link rel="stylesheet" href="css/cb.css"/>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <script src="js/ui/minified/jquery-ui.min.js"></script>
     <script src="js/left-menu.js"></script>
-    <script src="js/login.js"></script>
+    <script src="js/min/login.min.js"></script>
 
     <?= $this->getCSSHTML() ?>
     <?= $this->getJsHTML() ?>
