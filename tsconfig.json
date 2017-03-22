@@ -1,6 +1,10 @@
 
 {
     "compilerOptions": {
+        "typeRoots" : [
+        	"js/typings"
+        ],
+        "outDir":"js/",
         "module": "commonjs",
         "noImplicitAny": false,
         "allowJs": true,
@@ -8,9 +12,11 @@
         "removeComments": true,
         "jsx": "react"
     },
+    "include": [
+        "ts/*"
+    ],                   
     "exclude": [
         "node_modules",
-        "styles",
-        "test"
+        "css"
     ]
 }
