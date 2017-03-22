@@ -53,28 +53,29 @@ $( function () {
             this.dest.append( this.html );
             this.dest.append(
                 `<div id="btn-action-create-group" class="widget">
-                    <button id="create-count-group"><i class="fa fa-object-group"></i>Сформирвать группу</button>
+                    <button id="create-count-group"><i class="fa fa-object-group"></i>Сформировать группу</button>
                 </div>`
             );
 
             $( "#create-count-group" ).click( function ( e ) {
                 console.log( 'Create count group' );
                 let param = {};
-                param.id_group = $("#group").val();
+                param.id_group = $( "#group" ).val();
                 let groupPlus = '';
                 $( "#counter-plus li" ).each( function ( index, element ) {
                     if ( index != 0 ) groupPlus += ',';
                     groupPlus += $( element ).attr( "id" ).substring( 2 );
                 } )
                 param.group_plus = groupPlus;
+                let groupMinus = '';
                 $( "#counter-minus li" ).each( function ( index, element ) {
-                    if ( index != 0 ) groupPlus += ',';
-                    groupPlus += $( element ).attr( "id" ).substring( 2 );
+                    if ( index != 0 ) groupMinus += ',';
+                    groupMinus += $( element ).attr( "id" ).substring( 2 );
                 } )
-                param.group_minus = groupPlus;
+                param.group_minus = groupMinus;
 
                 console.log( param );
-                ActionBtnCreateGroup.init(param);
+                ActionBtnCreateGroup.init( param );
                 ActionBtnCreateGroup.doCreateGroup();
                 e.preventDefault();
             } );
@@ -169,7 +170,7 @@ $( function () {
             $.ajax( {
                 dataType: 'json',
                 type: 'post',
-                url: 'ajax/test/',
+                url: 'ajax/actionbtn_groupcount_create/',
                 data: this.params
             } )
                 .done( ( result ) => {

@@ -12,6 +12,7 @@ use Base\Auth;
 use Base\Request;
 use Exception\InputException;
 use Models\ActionBtnDeletegNameModel;
+use Models\ActionBtnGroupCountCreateModel;
 use Models\ActionBtnSortingNameModel;
 use Models\ActionFormGroupNameModel;
 use Models\ActionFormPrivelegeModel;
@@ -543,6 +544,23 @@ class ControllerAjax {
         if ( Request::isGet() ) {
             if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
                 if ( $model->doGetCounterAll() ) {
+                    echo json_encode( $model->getResult() );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+
+    /**
+     *  Наполняет группу счётчиками
+     * @throws InputException
+     */
+    public function ajaxActionBtnGroupCountCreate() {
+        $model = new ActionBtnGroupCountCreateModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doActionBtnGroupCountCreate() ) {
                     echo json_encode( $model->getResult() );
                 }
             } else {
