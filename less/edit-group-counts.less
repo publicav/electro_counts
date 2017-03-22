@@ -1,0 +1,118 @@
+@font-main: Tahoma, Arial, sans-serif;
+
+#group-counter {
+    font-family: @font-main;
+    margin-left: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    label {
+        font-size: 1.2em;
+        display: block;
+        margin: 7px 0 10px 20px;
+    }
+    .ui-group-counter {
+        width: 650px;
+        font-size: 1.2em;
+        margin: 10px 0 5px 10px;
+        padding: 6px 10px;
+        option {
+            font-size: 1.1em;
+            padding-left: 5px;
+        }
+    }
+}
+
+#counter, #counter-plus, #counter-minus {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    ul.ui-counter {
+        margin-right: 9px;
+        padding: 5px;
+        font-family: @font-main;
+        font-size: 16px;
+        list-style: none;
+        display: block;
+        cursor: pointer;
+        width: 212px;
+        text-align: center;
+        background-color: #d2d283;
+        height: inherit;
+        float: left;
+        li {
+            //padding: 5px;
+            color: #034c7f;
+            width: 200px;
+            margin: 3px 3px 3px 5px;
+            background: #FFF8DC;
+            height: 40px;
+            list-style: none;
+            border-bottom: 1px #000000;
+            display: flex;
+            span {
+                display: block;
+                margin: auto 0;
+                padding-left: 10px;
+
+            }
+        }
+    }
+    //&:after{
+    //    content: '';
+    //    display: block;
+    //    clear: both;
+    //}
+}
+
+#btn-action-create-group {
+    margin-left: 40px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    button {
+        display: block;
+        margin: 0 5px;
+        padding: 5px 7px;
+        font-size: 1em;
+        i {
+            padding-right: 10px;
+            padding-left: 2px;
+            font-size: 1.1em;
+        }
+    }
+}
+
+.title-counter {
+    margin: 2px 0 4px 20px;
+    display: flex;
+    height: 35px;
+    float: left;
+    color: #000;
+    background-image: url(../img/web/table-header-2.png);
+    width: 685px;
+    font: 18px Tahoma;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
+    .title_count(@width) {
+        width: @width;
+        display: block;
+        margin: auto 0;
+        float: left;
+        text-align: center;
+        //padding: 7px 0 0 10px;
+    }
+    .title-all {
+        .title_count(230px);
+    }
+    .title-plus {
+        .title_count(230px);
+    }
+    .title-minus {
+        .title_count(230px);
+    }
+}
+

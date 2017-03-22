@@ -88,6 +88,13 @@ return [
                 'nonAuth' => 'actionBlank'
             ]
         ],
+        'edit_group' => [
+            'controllerName' => 'controllers\ControllerMain',
+            'actions'        => [
+                'auth'    => 'actionEditGroup',
+                'nonAuth' => 'actionBlank'
+            ]
+        ],
         'add_value'  => [
             'controllerName' => 'controllers\ControllerAdd',
             'actions'        => [
@@ -111,31 +118,33 @@ return [
         'ajax'       => [
             'controllerName' => 'controllers\ControllerAjax',
             'actions'        => [
-                'default'                 => 'ajaxBlank',                      // запрос по умолчанию или при любом не правильно сформированом запросе
-                'subst_filter'            => 'ajaxSubstationFilter',           // Возвращает массив значений подстанций для фильтра
-                'subst'                   => 'ajaxSubstation',                 // Возвращает массив значений подстанций для формы
-                'counter_filter'          => 'ajaxCounterFilter',              // Возвращает массив значений счётчиков для фильтра
-                'counter'                 => 'ajaxCounter',                    // Возвращает массив значений счётчиков для формы
-                'getuser_all'             => 'ajaxGetUserAll',                 // Возвращает всех пользоватлей проекта
-                'loadform_user'           => 'ajaxLoadFormUser',               // Загрузка данных в форму user
-                'loadform_privelege'      => 'ajaxLoadFormPrivelege',          // Загрузка данных в форму привелегии
-                'loadform_value'          => 'ajaxLoadFormValueCounter',       // Загрузка данных в форму редактирование счётчика
-                'actionform_user'         => 'ajaxActionFormUser',             // Запись данных в таблицу пользователя. редактирование
-                'actionform_privelege'    => 'ajaxActionFormPrivelege',        // Запись данных в таблицу привелегии
-                'actionform_value'        => 'ajaxActionFormValueCounter',     // Запись данных в главную таблицу счётчика
-                'actionform_user_add'     => 'ajaxActionFormUserAdd',          // Запись данных в таблицу  пользоваталея. Добавление
-                'menuleft'                => 'ajaxMenuLeft',                   // Возвращает массив данных для построения левого меню проекта
-                'registration'            => 'ajaxRegistration',               // Регистрация пользователя  данные POST
-                'unregistration'          => 'ajaxUnregistration',             // Выход пользователя с системы
-                'lastvalue_counter'       => 'ajaxLastValueCounter',           // последнее значение введенное для данного счётчика
-                'filterValue'             => 'ajaxFilterValue',                // Результаты по работе фильтров
-                'calculation_counter'     => 'ajaxCalculationCounter',         // Расчёт расхода электроэнергии для заданного счётчика
-                'calculation_group'       => 'ajaxCalculationGroup',           // Расчёт расхода электроэнергии для заданной группы
-                'calculation_chart'       => 'ajaxCalculationChart',           // Расчёт расхода электроэнергии для заданной группы для графиков
-                'getgroup_all'            => 'ajaxGetGroupAll',                // Возвращает все группы счётчиков
-                'actionform_group_name'   => 'ajaxActionFormGroupName',        // Запись данных в таблицу название группы счётчиков
-                'actionbtn_sorting_group' => 'ajaxActionBtnSortingName',       // Запись данных сортировки групп счётчиков
-                'actionbtn_delete_group'  => 'ajaxActionBtnDeletegName',       // Удаление группы счётчиков
+                'default'                     => 'ajaxBlank',                      // запрос по умолчанию или при любом не правильно сформированом запросе
+                'subst_filter'                => 'ajaxSubstationFilter',           // Возвращает массив значений подстанций для фильтра
+                'subst'                       => 'ajaxSubstation',                 // Возвращает массив значений подстанций для формы
+                'counter_filter'              => 'ajaxCounterFilter',              // Возвращает массив значений счётчиков для фильтра
+                'counter'                     => 'ajaxCounter',                    // Возвращает массив значений счётчиков для формы
+                'getuser_all'                 => 'ajaxGetUserAll',                 // Возвращает всех пользоватлей проекта
+                'loadform_user'               => 'ajaxLoadFormUser',               // Загрузка данных в форму user
+                'loadform_privelege'          => 'ajaxLoadFormPrivelege',          // Загрузка данных в форму привелегии
+                'loadform_value'              => 'ajaxLoadFormValueCounter',       // Загрузка данных в форму редактирование счётчика
+                'actionform_user'             => 'ajaxActionFormUser',             // Запись данных в таблицу пользователя. редактирование
+                'actionform_privelege'        => 'ajaxActionFormPrivelege',        // Запись данных в таблицу привелегии
+                'actionform_value'            => 'ajaxActionFormValueCounter',     // Запись данных в главную таблицу счётчика
+                'actionform_user_add'         => 'ajaxActionFormUserAdd',          // Запись данных в таблицу  пользоваталея. Добавление
+                'menuleft'                    => 'ajaxMenuLeft',                   // Возвращает массив данных для построения левого меню проекта
+                'registration'                => 'ajaxRegistration',               // Регистрация пользователя  данные POST
+                'unregistration'              => 'ajaxUnregistration',             // Выход пользователя с системы
+                'lastvalue_counter'           => 'ajaxLastValueCounter',           // последнее значение введенное для данного счётчика
+                'filterValue'                 => 'ajaxFilterValue',                // Результаты по работе фильтров
+                'calculation_counter'         => 'ajaxCalculationCounter',         // Расчёт расхода электроэнергии для заданного счётчика
+                'calculation_group'           => 'ajaxCalculationGroup',           // Расчёт расхода электроэнергии для заданной группы
+                'calculation_chart'           => 'ajaxCalculationChart',           // Расчёт расхода электроэнергии для заданной группы для графиков
+                'getgroup_all'                => 'ajaxGetGroupAll',                // Возвращает все группы счётчиков
+                'actionform_group_name'       => 'ajaxActionFormGroupName',        // Запись данных в таблицу название группы счётчиков
+                'actionbtn_sorting_group'     => 'ajaxActionBtnSortingName',       // Запись данных сортировки групп счётчиков
+                'actionbtn_delete_group'      => 'ajaxActionBtnDeletegName',       // Удаление группы счётчиков
+                'getcounter_all'              => 'ajaxGetCounterAll',              // Возвращает массив значений всех счётчиков
+                'actionbtn_groupcount_create' => 'ajaxActionBtnGroupCountCreate',  // Наполняет группу счётчиками
 
             ]
         ],

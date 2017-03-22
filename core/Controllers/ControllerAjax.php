@@ -12,6 +12,7 @@ use Base\Auth;
 use Base\Request;
 use Exception\InputException;
 use Models\ActionBtnDeletegNameModel;
+use Models\ActionBtnGroupCountCreateModel;
 use Models\ActionBtnSortingNameModel;
 use Models\ActionFormGroupNameModel;
 use Models\ActionFormPrivelegeModel;
@@ -24,6 +25,7 @@ use Models\CalculationGroupModel;
 use Models\CounterFilterModel;
 use Models\CounterModel;
 use Models\FilterValueModel;
+use Models\GetCounterAllModel;
 use Models\GetGroupAllModel;
 use Models\LastValueCounterModel;
 use Models\LoadFormPrivelegeModel;
@@ -515,6 +517,7 @@ class ControllerAjax {
             }
         }
     }
+
     /**
      *  Запись данных сортировки групп счётчиков
      * @throws InputException
@@ -524,6 +527,40 @@ class ControllerAjax {
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
                 if ( $model->doActionBtnDeletegName() ) {
+                    echo json_encode( $model->getResult() );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+
+    /**
+     * Возвращает массив значений Счётчиков для формы
+     * @throws InputException
+     */
+    public function ajaxGetCounterAll() {
+        $model = new GetCounterAllModel();
+        if ( Request::isGet() ) {
+            if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
+                if ( $model->doGetCounterAll() ) {
+                    echo json_encode( $model->getResult() );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+
+    /**
+     *  Наполняет группу счётчиками
+     * @throws InputException
+     */
+    public function ajaxActionBtnGroupCountCreate() {
+        $model = new ActionBtnGroupCountCreateModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doActionBtnGroupCountCreate() ) {
                     echo json_encode( $model->getResult() );
                 }
             } else {
