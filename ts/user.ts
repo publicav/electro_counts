@@ -144,7 +144,7 @@ $( function () {
             id_user: $( '#edit_user_id' ).val()
         };
         $.ajax( { dataType: 'json', type: m_method, url: m_action, data: m_data } )
-            .done( ( result ) => {
+            .done( () => {
             } )
             .fail( ( result ) => alert( result.error ) );
     };
@@ -156,7 +156,8 @@ $( function () {
         height: 430,
         width: 500,
         close: function () {
-            $( this )[ 0 ].reset();
+            let formRes: any = $( this )[ 0 ];
+            formRes.reset();
         },
         buttons: [
             {
@@ -185,7 +186,8 @@ $( function () {
         height: 430,
         width: 500,
         close: function () {
-            $( this )[ 0 ].reset();
+            let formRes: any = $( this )[ 0 ];
+            formRes.reset();
         },
         buttons: [
             {
@@ -229,7 +231,8 @@ $( function () {
         height: 350,
         width: 350,
         close: function () {
-            $( this )[ 0 ].reset();
+            let formRes: any = $( this )[ 0 ];
+            formRes.reset();
         },
         buttons: [
             {
