@@ -23,7 +23,7 @@ $(function () {
                 _this.render.render();
             })
                 .fail(function (result) { return alert(result.responseJSON.error); });
-        }
+        },
     };
     var ReqestCount = Object.create(ReqestData);
     var GroupCountRender = {
@@ -73,14 +73,14 @@ $(function () {
                 e.preventDefault();
             });
             var param = {
-                id_group: $("#group").val()
+                id_group: $("#group").val(),
             };
             CountRender.init(RIGTH);
             ReqestCount.init(CountRender, 'ajax/getcounter_all/', param, 'get');
             ReqestCount.reqest();
             $("#group-counter").change(function (e) {
                 var param = {
-                    id_group: $("#group").val()
+                    id_group: $("#group").val(),
                 };
                 CountRender.init(RIGTH);
                 ReqestCount.init(CountRender, 'ajax/getcounter_all/', param, 'get');

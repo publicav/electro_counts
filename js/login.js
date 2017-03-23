@@ -27,7 +27,7 @@ $(function () {
                 _this.render.render();
             })
                 .fail(function (result) { return alert(result.responseJSON.error); });
-        }
+        },
     };
     var ReqestLeftMenu = Object.create(ReqestData);
     var MainMenu = {

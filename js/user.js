@@ -31,7 +31,7 @@ $(function () {
                 _this.render.render();
             })
                 .fail(function (result) { return alert(result.responseJSON.error); });
-        }
+        },
     };
     var userRender = {
         dest: {},
@@ -102,7 +102,7 @@ $(function () {
         var m_data = formActions.serialize();
         $.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
             .done(function (result) {
-            if (result.success == true) {
+            if (result.success) {
             }
             else
                 alert(result.error);
@@ -171,7 +171,7 @@ $(function () {
         },
         buttons: [
             {
-                "class": 'ui-button-left',
+                class: 'ui-button-left',
                 text: 'Привелегии...',
                 click: function () {
                     var param = { 'id_user': $('#edit_user_id').val() };

@@ -8,7 +8,7 @@
         "module": "commonjs",
         "noImplicitAny": false,
         "allowJs": true,
-        "target": "es3",
+        "target": "es5",
         "removeComments": true,
         "jsx": "react"
     },

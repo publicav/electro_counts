@@ -1,19 +1,19 @@
 $( function () {
     const RIGTH = $( '#right' );
     const objEditUser = {
-        objUser: $( '#user_edit' ),
-        objPassword: $( '#pass_edit' ),
+        objUser           : $( '#user_edit' ),
+        objPassword       : $( '#pass_edit' ),
         objConfirmPassword: $( '#pass_repeat_edit' ),
-        objUserFamily: $( '#family_edit' ),
-        objUserName: $( '#name_edit' ),
-        objId: $( '#edit_user_id' )
+        objUserFamily     : $( '#family_edit' ),
+        objUserName       : $( '#name_edit' ),
+        objId             : $( '#edit_user_id' )
     };
     const ReqestData = {
         render: {},
-        data: '',
-        url: '',
-        type: '',
-        init: function ( render, url, param = {}, type = 'post' ) {
+        data  : '',
+        url   : '',
+        type  : '',
+        init  : function ( render, url, param = {}, type = 'post' ) {
             this.data = param;
             this.render = render;
             this.url = url;
@@ -33,12 +33,12 @@ $( function () {
         },
     };
     const userRender = {
-        dest: {},
-        html: '',
-        init: function ( dest ) {
+        dest        : {},
+        html        : '',
+        init        : function ( dest ) {
             this.dest = dest;
         },
-        doRun: function ( data ) {
+        doRun       : function ( data ) {
             let count = 0, class_e, st;
             st = this.doUserBtnAdd();
             st += `<div class="title_table_user">
@@ -67,16 +67,16 @@ $( function () {
                 </div>`;
 
         },
-        render: function () {
+        render      : function () {
             this.dest.html( this.html );
         }
     };
     const loadFormUser = {
-        dest: {},
-        init: function ( dest ) {
+        dest  : {},
+        init  : function ( dest ) {
             this.dest = dest;
         },
-        doRun: function ( data ) {
+        doRun : function ( data ) {
             //noinspection JSUnresolvedVariable
             this.dest.objUser.val( data.users );
             this.dest.objPassword.val( '' );
@@ -89,13 +89,14 @@ $( function () {
         render: function () {
         }
     };
+
     const loadFormPrivege = {
-        dest: {},
-        html: '',
-        init: function ( dest ) {
+        dest  : {},
+        html  : '',
+        init  : function ( dest ) {
             this.dest = dest;
         },
-        doRun: function ( data ) {
+        doRun : function ( data ) {
             console.log( data );
             let st = '<ol>';
             for ( let i = 0; i < data.length; i++ ) {
@@ -120,7 +121,7 @@ $( function () {
         //noinspection JSUnresolvedVariable
         $.ajax( { dataType: 'json', type: m_method, url: m_action, data: m_data } )
             .done( ( result ) => {
-                if ( result.success == true ) {
+                if ( result.success ) {
                     // let data = result;
                 } else  alert( result.error );
             } )
@@ -140,7 +141,7 @@ $( function () {
         } );
 
         let m_data = {
-            data: sList,
+            data   : sList,
             id_user: $( '#edit_user_id' ).val()
         };
         $.ajax( { dataType: 'json', type: m_method, url: m_action, data: m_data } )
@@ -149,19 +150,19 @@ $( function () {
             .fail( ( result ) => alert( result.error ) );
     };
     const user_form_add = $( "#user_form_add" ).dialog( {
-        title: "Добавление пользователя",
-        autoOpen: false,
+        title    : "Добавление пользователя",
+        autoOpen : false,
         resizable: false,
-        modal: true,
-        height: 430,
-        width: 500,
-        close: function () {
+        modal    : true,
+        height   : 430,
+        width    : 500,
+        close    : function () {
             let formRes: any = $( this )[ 0 ];
             formRes.reset();
         },
-        buttons: [
+        buttons  : [
             {
-                text: 'Ok',
+                text : 'Ok',
                 click: function () {
                     user_form_actions( this );
                     userRender.init( $( '#right' ) );
@@ -171,7 +172,7 @@ $( function () {
                 }
             },
             {
-                text: 'Cancel',
+                text : 'Cancel',
                 click: function () {
                     $( this ).dialog( "close" );
                 }
@@ -179,20 +180,20 @@ $( function () {
         ]
     } );
     const user_form_edit = $( "#user_form_edit" ).dialog( {
-        title: "Редактирование пользователя",
-        autoOpen: false,
+        title    : "Редактирование пользователя",
+        autoOpen : false,
         resizable: false,
-        modal: true,
-        height: 430,
-        width: 500,
-        close: function () {
+        modal    : true,
+        height   : 430,
+        width    : 500,
+        close    : function () {
             let formRes: any = $( this )[ 0 ];
             formRes.reset();
         },
-        buttons: [
+        buttons  : [
             {
                 class: 'ui-button-left',
-                text: 'Привелегии...',
+                text : 'Привелегии...',
                 click: function () {
                     let param = { 'id_user': $( '#edit_user_id' ).val() };
                     loadFormPrivege.init( $( '#user_form_privelege' ) );
@@ -205,7 +206,7 @@ $( function () {
                 }
             },
             {
-                text: 'Ok',
+                text : 'Ok',
                 click: function () {
                     user_form_actions( this );
                     userRender.init( $( '#right' ) );
@@ -215,7 +216,7 @@ $( function () {
                 }
             },
             {
-                text: 'Cancel',
+                text : 'Cancel',
                 click: function () {
                     $( this ).dialog( "close" );
                 }
@@ -224,26 +225,26 @@ $( function () {
         ]
     } );
     const user_form_privilege = $( "#user_form_privelege" ).dialog( {
-        title: "Редактирование привелегий",
-        autoOpen: false,
+        title    : "Редактирование привелегий",
+        autoOpen : false,
         resizable: false,
-        modal: true,
-        height: 350,
-        width: 350,
-        close: function () {
+        modal    : true,
+        height   : 350,
+        width    : 350,
+        close    : function () {
             let formRes: any = $( this )[ 0 ];
             formRes.reset();
         },
-        buttons: [
+        buttons  : [
             {
-                text: 'Ok',
+                text : 'Ok',
                 click: function () {
                     privilege_form_actions( this );
                     $( this ).dialog( "close" );
                 }
             },
             {
-                text: 'Cancel',
+                text : 'Cancel',
                 click: function () {
                     $( this ).dialog( "close" );
                 }
@@ -293,5 +294,4 @@ $( function () {
     userRender.init( RIGTH );
     ReqestData.init( userRender, 'ajax/getuser_all/', '', 'get' );
     ReqestData.reqest();
-
 } );

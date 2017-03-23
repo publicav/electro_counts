@@ -23,7 +23,7 @@ $(function () {
                 _this.render.render();
             })
                 .fail(function (result) { return alert(result.responseJSON.error); });
-        }
+        },
     };
     var GroupCountRender = {
         dest: {},
