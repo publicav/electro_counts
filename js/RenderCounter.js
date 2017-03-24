@@ -8,7 +8,7 @@ var RenderCounter = (function () {
     RenderCounter.prototype.doRun = function (data) {
         var options = '';
         $(data).each(function () {
-            options += '<option value="' + $(this).attr('Ref') + '">' + $(this).attr('DescriptionRu') + '</option>';
+            options += '<option value="' + $(this).attr('id') + '">' + $(this).attr('name') + '</option>';
         });
         this.html = options;
     };

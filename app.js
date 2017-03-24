@@ -20,7 +20,6 @@ var RenderCounter = (function () {
     return RenderCounter;
 }());
 exports.RenderCounter = RenderCounter;
-
 },{}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -155,5 +154,5 @@ $(function () {
         event.preventDefault();
     });
 });
+},{"./RenderCounter":1}]},{},[2])
 
-},{"./RenderCounter":1}]},{},[2]);

@@ -107,12 +107,10 @@ $( () => {
     // $.mask.definitions[ 'M' ] = '[012345]';
     // $.mask.definitions[ 'F' ] = '[0-9.]+';
     $( '#time_airing_begin_edit' ).mask( 'H9:M9' );
-
     LOT_EDIT.change( function () {
         let lot = $( this ).val();
         get_substation( objSelected, lot );
     } );
-
     SUBSTATION_EDIT.change( function () {
         let substation = $( this ).val();
         ReqestData.init( renderCounter, 'ajax/counter/', { data: substation }, 'get' );
@@ -120,7 +118,6 @@ $( () => {
 
         // get_counter( objSelected, substation );
     } );
-
 
     const edit_form = $( "#edit_value_counts_form" ).dialog( {
         title: "Редактирование значения счётчика",

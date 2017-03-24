@@ -4,6 +4,7 @@
   "description": "Electro counts",
   "main": "ts/index.js",
   "scripts": {
+    "gulp": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,9 +23,11 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
-
   "bugs": {
     "url": "https://github.com/publicav/electro_counts/issues"
   },
-  "homepage": "https://github.com/publicav/electro_counts#readme"
+  "homepage": "https://github.com/publicav/electro_counts#readme",
+  "devDependencies": {
+    "gulp-plumber": "^1.1.0"
+  }
 }
