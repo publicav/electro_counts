@@ -18,6 +18,7 @@ use Models\ActionFormGroupNameModel;
 use Models\ActionFormPrivelegeModel;
 use Models\ActionFormUserAddModel;
 use Models\ActionFormUserModel;
+use Models\ActionFromValueEditModel;
 use Models\ActionFromValueModel;
 use Models\CalculationChartModel;
 use Models\CalculationCounterModel;
@@ -301,6 +302,28 @@ class ControllerAjax {
      */
     public function ajaxActionFormValueCounter() {
         $model = new ActionFromValueModel();
+        if ( Request::isPost() ) {
+            if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
+                if ( $model->doActionFromValue() )
+                    $data = $model->getResult();
+                else $data = null;
+                $this->result = [
+                    'id_error' => 0,
+                    'success'  => true,
+                    'data'     => $data,
+                ];
+                echo json_encode( $this->result );
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+/**
+     * Запись данных в главную таблицу значение счётчика
+     * @throws InputException
+     */
+    public function ajaxActionFormValueEditCounter() {
+        $model = new ActionFromValueEditModel();
         if ( Request::isPost() ) {
             if ( $model->load( Request::getPost() ) and ( $model->validate() ) ) {
                 if ( $model->doActionFromValue() )

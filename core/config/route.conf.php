@@ -130,6 +130,7 @@ return [
                 'actionform_user'             => 'ajaxActionFormUser',             // Запись данных в таблицу пользователя. редактирование
                 'actionform_privelege'        => 'ajaxActionFormPrivelege',        // Запись данных в таблицу привелегии
                 'actionform_value'            => 'ajaxActionFormValueCounter',     // Запись данных в главную таблицу счётчика
+                'actionform_edit_value'       => 'ajaxActionFormValueEditCounter', // Запись данных в главную таблицу счётчика
                 'actionform_user_add'         => 'ajaxActionFormUserAdd',          // Запись данных в таблицу  пользоваталея. Добавление
                 'menuleft'                    => 'ajaxMenuLeft',                   // Возвращает массив данных для построения левого меню проекта
                 'registration'                => 'ajaxRegistration',               // Регистрация пользователя  данные POST
