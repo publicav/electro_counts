@@ -10,7 +10,7 @@
     <meta name="description" content="<?= $this->_MetaD ?>">
     <meta name="keywords" content="<?= $this->_MetaK ?>">
     <title><?= $this->_title ?></title>
-    <script src="js/jquery-3.2.0.min.js"></script>
+    <script src="js/main/jquery-3.2.0.min.js"></script>
     <script charset="utf-8" src="js/main.js"></script>
     <script src="js/jquery.colorbox-min.js"></script>
     <link rel="stylesheet" href="css/cb.css"/>

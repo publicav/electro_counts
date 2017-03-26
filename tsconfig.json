@@ -7,8 +7,9 @@
         "outDir":"js/",
         "module": "commonjs",
         "noImplicitAny": false,
-        "allowJs": true,
+        "allowJs": false,
         "target": "es5",
+        "noEmitOnError":false,
         "removeComments": true,
         "jsx": "react"
     },
@@ -17,6 +18,8 @@
     ],                   
     "exclude": [
         "node_modules",
+        "js",
         "css"
+
     ]
 }

@@ -8,7 +8,7 @@
     <meta name="description" content="<?= $this->_MetaD ?>">
     <meta name="keywords" content="<?= $this->_MetaK ?>">
     <title><?= $this->_title ?></title>
-    <script src="js/jquery-2.2.4.min.js"></script>
+    <script src="js/main/jquery-2.2.4.min.js"></script>
     <?= $this->getCSSHTML() ?>
     <?= $this->getJsHTML() ?>
 </head>

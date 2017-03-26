@@ -1,44 +1,47 @@
-var gulp = require('gulp');
-var plumber = require('gulp-plumber');
-var browserify = require('browserify');
-var tsify = require("tsify");
-var source = require('vinyl-source-stream');
-//var buffer = require('vinyl-buffer');
+var plumber = require( 'gulp-plumber' );
+var gulp = require( 'gulp' );
+var browserify = require( 'browserify' );
+var tsify = require( "tsify" );
+var source = require( 'vinyl-source-stream' );
+var gutil = require( "gulp-util" );
+var uglify = require( 'gulp-uglify' );
 
-var vendors = [
-];
+var buffer = require( 'vinyl-buffer' );
 
-gulp.task('build:app', () => {
-	
-    browserify({
-        entries: ['./ts/edit_counts.ts'],
-        extensions: ['.ts', '.tsx'],
-        debug: false
-    })
-    .external(vendors)
-    .plugin(tsify, {
-        typescript: require('typescript')
-    })
-    .bundle()
-	//.pipe(plumber)
-    .pipe(source('./js/edit_counts.js'))
-    .pipe(gulp.dest('./'));
-});
+var vendors = [];
+
+gulp.task( 'build:edit_counts', () => {
+
+    browserify( {
+        entries   : [ './ts/edit_counts.ts' ],
+        extensions: [ '.ts', '.tsx' ],
+        debug     : false
+    } )
+    //.external(vendors)
+        .plugin( tsify, {
+            typescript: require( 'typescript' )
+        } )
+        .bundle()
+        .on( 'error', onerror )
+        .pipe( plumber() )
+        .pipe( source( './js/edit_counts.js' ) )
+        .pipe( buffer() )
+        //.pipe( uglify() )
+        .pipe( gulp.dest( './' ) );
+} );
 
 gulp
-    .watch('./ts/**/*.{ts,tsx,json}', ['build:app'])
-    .on('change', onchange)
-    .on('error', onerror);
+    .watch( './ts/**/*.{ts,tsx,json}', [ 'build:edit_counts' ] )
+    .on( 'change', onchange )
+    .on( 'error', onerror );
 
-gulp.task('default', ['build:app']);
+gulp.task( 'default', [ 'build:edit_counts' ] );
 
-function onchange(event) {
-    console.log('File ' + event.path + ' was ' + event.type);
+function onchange( event ) {
+    console.log( 'File ' + event.path + ' was ' + event.type );
 }
 
-function onerror(error) {
-    console.error(
-        error.toString()
-    );
-	this.emit('end');
+function onerror( error ) {
+    gutil.log( error.message );
+    this.emit( 'end' );
 }
