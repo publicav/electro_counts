@@ -1,13 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var RenderCounter_1 = require("./libs/RenderCounter");
-var RenderSubstation_1 = require("./libs/RenderSubstation");
 var ReqestData_1 = require("./libs/ReqestData");
 var LoadFormValue_1 = require("./libs/LoadFormValue");
 var ActionForm_1 = require("./libs/ActionForm");
 var FormSelectValueField_1 = require("./libs/FormSelectValueField");
 var MySelect_1 = require("./libs/MySelect");
+var ReqestSelect_1 = require("./libs/ReqestSelect");
 $(function () {
     var RIGTH = $('#right');
     var LOT_EDIT = $('#lot_edit');
@@ -15,41 +14,45 @@ $(function () {
     var COUNTER_EDIT = $('#counter_edit');
     var DATE_AIRING_BEGIN_EDIT = $('#date_airing_begin_edit');
     var TIME_AIRING_BEGIN_EDIT = $('#time_airing_begin_edit');
-    var data = [
-        { name: 'test1', id: '10' },
-        { name: 'test2', id: '20' },
-    ];
-    var data1 = [
-        { name: 'test3', id: '10' },
-        { name: 'test4', id: '20' },
-    ];
-    var selectSubst = new MySelect_1.default('substation_edit12');
-    var SubstationEl = selectSubst.render();
-    var my_div = document.getElementById("edit_value_counts_form");
-    my_div.appendChild(SubstationEl);
-    selectSubst.setData(data);
-    selectSubst.setData(data1);
-    SubstationEl.addEventListener('change', function (ev) {
-        console.log('change new substation');
-    });
-    var renderCounter = new RenderCounter_1.RenderCounter(COUNTER_EDIT);
-    var renderSubststion = new RenderSubstation_1.RenderSubstation(SUBSTATION_EDIT, renderCounter);
     var objEditForm = new FormSelectValueField_1.FormSelectValueField(LOT_EDIT, SUBSTATION_EDIT, COUNTER_EDIT, DATE_AIRING_BEGIN_EDIT, TIME_AIRING_BEGIN_EDIT, $('#counter_val_edit'), $('#edit_id1'));
+    var selectLot = new MySelect_1.default('lot_edit');
+    selectLot.classHTML = 'input_selected';
+    var selectSubs = new MySelect_1.default('substation_edit');
+    selectSubs.classHTML = 'input_selected';
+    var selectCount = new MySelect_1.default('counter_edit');
+    selectCount.classHTML = 'input_selected';
+    selectLot.render();
+    selectSubs.render();
+    selectCount.render();
     DATE_AIRING_BEGIN_EDIT.datepicker({ changeYear: true, dateFormat: 'dd-mm-yy' });
     $.mask.definitions['H'] = '[012]';
     $.mask.definitions['M'] = '[012345]';
     $.mask.definitions['F'] = '[0-9.]+';
     TIME_AIRING_BEGIN_EDIT.mask('H9:M9');
-    LOT_EDIT.change(function () {
-        var lot = $(this).val();
-        renderSubststion.Value1 = 0;
-        var ReqestLot = new ReqestData_1.ReqestData(renderSubststion, 'ajax/subst/', { data: lot }, 'get');
-        ReqestLot.reqest();
+    $(document).on("change", '#lot_edit', function (e) {
+        console.log('change lots');
+        var me = e.target;
+        console.log($(me).val());
+        var val = $(me).val();
+        var primaer = [
+            { url: 'ajax/subst', 'render': selectSubs },
+            { url: 'ajax/counter', 'render': selectCount },
+        ];
+        var req = new ReqestSelect_1.default(primaer);
+        req.data = val;
+        req.reqest();
     });
-    SUBSTATION_EDIT.change(function () {
-        var substation = $(this).val();
-        var ReqestSubstation = new ReqestData_1.ReqestData(renderCounter, 'ajax/counter/', { data: substation }, 'get');
-        ReqestSubstation.reqest();
+    $(document).on("change", '#substation_edit', function (e) {
+        console.log('change subs');
+        var me = e.target;
+        var val = $(me).val();
+        console.log(val);
+        var primaer = [
+            { url: 'ajax/counter', 'render': selectCount },
+        ];
+        var req = new ReqestSelect_1.default(primaer);
+        req.data = val;
+        req.reqest();
     });
     var edit_form = $("#edit_value_counts_form").dialog({
         title: "Редактирование значения счётчика",
@@ -88,7 +91,13 @@ $(function () {
     RIGTH.on('click', '.counter_str_even, .counter_str_odd', function (event) {
         var edit_id = $(this).attr('id');
         var param = { 'id': edit_id.slice(3) };
-        var loadFormVal = new LoadFormValue_1.LoadFormValue(renderSubststion, objEditForm);
+        var primaer = [
+            { url: 'ajax/lots', 'render': selectLot },
+            { url: 'ajax/subst', 'render': selectSubs },
+            { url: 'ajax/counter', 'render': selectCount },
+        ];
+        var req = new ReqestSelect_1.default(primaer, 1);
+        var loadFormVal = new LoadFormValue_1.LoadFormValue(req, objEditForm);
         var reqestLoadForm = new ReqestData_1.ReqestData(loadFormVal, 'ajax/loadform_value/', param);
         reqestLoadForm.reqest();
         edit_form.dialog("open");
@@ -96,7 +105,7 @@ $(function () {
     });
 });
 
-},{"./libs/ActionForm":2,"./libs/FormSelectValueField":3,"./libs/LoadFormValue":4,"./libs/MySelect":5,"./libs/RenderCounter":6,"./libs/RenderSubstation":7,"./libs/ReqestData":8}],2:[function(require,module,exports){
+},{"./libs/ActionForm":2,"./libs/FormSelectValueField":3,"./libs/LoadFormValue":4,"./libs/MySelect":5,"./libs/ReqestData":6,"./libs/ReqestSelect":7}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ActionForm = (function () {
@@ -141,10 +150,9 @@ exports.FormSelectValueField = FormSelectValueField;
 },{}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ReqestData_1 = require("./ReqestData");
 var LoadFormValue = (function () {
-    function LoadFormValue(renderSubstation, dest) {
-        this.renderSubstation = renderSubstation;
+    function LoadFormValue(renderSel, dest) {
+        this.renderSel = renderSel;
         this.dest = dest;
     }
     ;
@@ -153,29 +161,24 @@ var LoadFormValue = (function () {
     LoadFormValue.prototype.after = function () {
     };
     LoadFormValue.prototype.doRun = function (data) {
-        this.data = data;
-        this.dest.objLot.find('[value="' + data.lot_id + '"]').prop("selected", true);
+        this._data = data;
         this.dest.objDate.val(data.date1);
         this.dest.objTime.val(data.time1);
         this.dest.objValEdit.val(data.value);
         this.dest.objId.val(data.id);
     };
     LoadFormValue.prototype.render = function () {
-        var value = this.data.lot_id;
-        if (value != 0) {
-            this.renderSubstation.Value1 = this.data.sub_id;
-            this.renderSubstation.valuecounter = this.data.counter_id;
-        }
-        console.log('Test subst = ', this.renderSubstation.Value);
-        console.log("Lot = ", value, "Substation = ", this.data.sub_id);
-        var ReqestSubstation = new ReqestData_1.ReqestData(this.renderSubstation, 'ajax/subst/', { data: value }, 'get');
-        ReqestSubstation.reqest();
+        var lf = this._data;
+        console.log(lf);
+        var param = [{ setparam: lf.lot_id }, { setparam: lf.sub_id }, { setparam: lf.counter_id }];
+        this.renderSel.param = param;
+        this.renderSel.reqest();
     };
     return LoadFormValue;
 }());
 exports.LoadFormValue = LoadFormValue;
 
-},{"./ReqestData":8}],5:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Select = (function () {
@@ -186,6 +189,13 @@ var Select = (function () {
         this.elSetup = document.getElementById(idEl);
         this.el = this.elSetup;
     }
+    Object.defineProperty(Select.prototype, "classHTML", {
+        set: function (value) {
+            this._class = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Select.prototype.setData = function (data) {
         this.data = data;
         this.render();
@@ -204,6 +214,7 @@ var Select = (function () {
         var select = document.createElement('select');
         select.setAttribute("id", this.idEl);
         select.setAttribute('name', this.idEl);
+        select.setAttribute('class', this._class);
         this.data.forEach(function (item) {
             select.options.add(new Option(item.name, item.id));
         });
@@ -218,119 +229,6 @@ var Select = (function () {
 exports.default = Select;
 
 },{}],6:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var RenderCounter = (function () {
-    function RenderCounter(dest, value) {
-        if (value === void 0) { value = 0; }
-        this._value = 0;
-        this.dest = dest;
-        this._value = value;
-    }
-    ;
-    Object.defineProperty(RenderCounter.prototype, "Value", {
-        set: function (value) {
-            this._value = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    RenderCounter.prototype.before = function () {
-        this.dest.prop('disabled', true);
-        this.dest.html('<option>загрузка...</option>');
-    };
-    RenderCounter.prototype.after = function () {
-        this.dest.prop('disabled', false);
-    };
-    RenderCounter.prototype.doRun = function (data) {
-        var options = '';
-        $(data).each(function () {
-            options += '<option value="' + $(this).attr('id') + '">' + $(this).attr('name') + '</option>';
-        });
-        this.html = options;
-    };
-    RenderCounter.prototype.render = function () {
-        var out = this.dest;
-        var value = this._value;
-        out.html(this.html);
-        if (value != 0)
-            out.find('[value="' + value + '"]').prop("selected", true);
-    };
-    return RenderCounter;
-}());
-exports.RenderCounter = RenderCounter;
-
-},{}],7:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var ReqestData_1 = require("./ReqestData");
-var RenderSubstation = (function () {
-    function RenderSubstation(dest, renderCounter, value) {
-        if (value === void 0) { value = 0; }
-        this._valuecounter = 0;
-        this.dest = dest;
-        this.renderCounter = renderCounter;
-        this._value = value;
-    }
-    ;
-    Object.defineProperty(RenderSubstation.prototype, "Value1", {
-        set: function (value) {
-            this._value = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(RenderSubstation.prototype, "valuecounter", {
-        set: function (value) {
-            this._valuecounter = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(RenderSubstation.prototype, "Value", {
-        get: function () {
-            return this._value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    RenderSubstation.prototype.before = function () {
-        this.dest.prop('disabled', true);
-        this.dest.html('<option>загрузка...</option>');
-    };
-    RenderSubstation.prototype.after = function () {
-        this.dest.prop('disabled', false);
-    };
-    RenderSubstation.prototype.doRun = function (data) {
-        this.data = data;
-        var options = '';
-        $(data).each(function () {
-            options += '<option value="' + $(this).attr('id') + '">' + $(this).attr('name') + '</option>';
-        });
-        this.html = options;
-    };
-    RenderSubstation.prototype.render = function () {
-        var out = this.dest;
-        var value = this._value;
-        out.html(this.html);
-        if (value != 0) {
-            out.prop('disabled', true);
-            out.find('[value="' + value + '"]').prop("selected", true);
-            this.renderCounter.Value = this._valuecounter;
-        }
-        else {
-            this.renderCounter.Value = 0;
-            value = this.data[0].id;
-        }
-        console.log('Substation = ', this._value);
-        var ReqestCount = new ReqestData_1.ReqestData(this.renderCounter, 'ajax/counter/', { data: value }, 'get');
-        ReqestCount.reqest();
-    };
-    return RenderSubstation;
-}());
-exports.RenderSubstation = RenderSubstation;
-
-},{"./ReqestData":8}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ReqestData = (function () {
@@ -360,5 +258,56 @@ var ReqestData = (function () {
     return ReqestData;
 }());
 exports.ReqestData = ReqestData;
+
+},{}],7:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var ReqestSelect = (function () {
+    function ReqestSelect(reqRender, loadForm) {
+        if (loadForm === void 0) { loadForm = 0; }
+        this._param = [];
+        this.reqRender = reqRender;
+        this.loadForm = loadForm;
+        this._data = 0;
+    }
+    Object.defineProperty(ReqestSelect.prototype, "data", {
+        set: function (value) {
+            this._data = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ReqestSelect.prototype, "param", {
+        set: function (value) {
+            this._param = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ReqestSelect.prototype.reqest = function () {
+        var _this = this;
+        if (this.reqRender.length) {
+            var me_1 = this.reqRender.shift();
+            var param_1 = this._param.shift();
+            console.log(param_1);
+            $.ajax({ dataType: 'json', type: 'get', url: me_1.url, data: { 'data': this._data } })
+                .done(function (result) {
+                me_1.render.setData(result.data);
+                if (_this.loadForm) {
+                    me_1.render.selectByValue(param_1.setparam.toLocaleString());
+                    _this._data = param_1.setparam;
+                }
+                else {
+                    _this._data = result.data[0].id;
+                }
+                _this.reqest();
+            })
+                .fail(function (result) { return alert('error'); });
+        }
+    };
+    return ReqestSelect;
+}());
+exports.ReqestSelect = ReqestSelect;
+exports.default = ReqestSelect;
 
 },{}]},{},[1]);

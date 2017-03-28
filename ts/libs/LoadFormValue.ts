@@ -1,19 +1,18 @@
 import { Render } from "./Render";
-import { RenderSubstation } from "./RenderSubstation";
-import { ReqestData } from "./ReqestData";
-
+import ReqestSelect from "./ReqestSelect";
 /**
  * Created by valik on 25.03.2017.
  */
 class LoadFormValue implements Render {
+
     protected dest: any;
-    protected renderSubstation: RenderSubstation;
+    protected renderSel: ReqestSelect;
     protected html: string;
     protected _value: number;
-    protected data: any;
+    public _data: any;
 
-    constructor( renderSubstation: RenderSubstation, dest: any ) {
-        this.renderSubstation = renderSubstation;
+    constructor( renderSel: ReqestSelect, dest: any ) {
+        this.renderSel = renderSel;
         this.dest = dest;
     };
 
@@ -25,8 +24,8 @@ class LoadFormValue implements Render {
     }
 
     public doRun( data ) {
-        this.data = data;
-        this.dest.objLot.find( '[value="' + data.lot_id + '"]' ).prop( "selected", true );
+        this._data = data;
+        // this.dest.objLot.find( '[value="' + data.lot_id + '"]' ).prop( "selected", true );
 
 //            get_substation( obj, data.lot_id, 2, data.sub_id, data.counter_id );
         this.dest.objDate.val( data.date1 );
@@ -35,17 +34,13 @@ class LoadFormValue implements Render {
         this.dest.objId.val( data.id );
     }
 
-    public render() {
-        let value: number = this.data.lot_id;
-        if ( value != 0 ) {
-            this.renderSubstation.Value1 = this.data.sub_id;
-            this.renderSubstation.valuecounter = this.data.counter_id;
-        }
-        console.log( 'Test subst = ', this.renderSubstation.Value );
-        console.log( "Lot = ", value, "Substation = ", this.data.sub_id );
-        const ReqestSubstation: ReqestData = new ReqestData( this.renderSubstation, 'ajax/subst/', { data: value }, 'get' );
-        ReqestSubstation.reqest();
 
+    public render() {
+        let lf = this._data;
+        console.log( lf )
+        const param = [ { setparam: lf.lot_id }, { setparam: lf.sub_id }, { setparam: lf.counter_id } ];
+        this.renderSel.param = param;
+        this.renderSel.reqest();
     }
 }
 export { LoadFormValue };

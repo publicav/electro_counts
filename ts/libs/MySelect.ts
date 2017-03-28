@@ -4,10 +4,14 @@ interface OptionData {
 }
 
 export default class Select {
+    set classHTML( value: string ) {
+        this._class = value;
+    }
     private onChange: Function;
     private el: HTMLSelectElement;
     private data: OptionData[];
     private idEl: string;
+    private _class: string;
     private elSetup: any;
 
     constructor( idEl: string ) {
@@ -40,6 +44,7 @@ export default class Select {
         const select = document.createElement( 'select' );
         select.setAttribute( "id", this.idEl );
         select.setAttribute( 'name', this.idEl );
+        select.setAttribute( 'class', this._class );
 
         this.data.forEach( ( item ) => {
             select.options.add( new Option( item.name, item.id ) );

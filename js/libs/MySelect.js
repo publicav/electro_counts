@@ -4,14 +4,15 @@ var Select = (function () {
     function Select(idEl) {
         this.onChange = null;
         this.data = [];
-        this.el = null;
         this.idEl = idEl;
+        this.elSetup = document.getElementById(idEl);
+        this.el = this.elSetup;
     }
     Select.prototype.setData = function (data) {
         this.data = data;
         this.render();
     };
-    Select.prototype.selectById = function (id) {
+    Select.prototype.selectByValue = function (id) {
         var _this = this;
         return !!this.el && this.data.some(function (item, index) {
             if (item.id === id) {
@@ -24,6 +25,7 @@ var Select = (function () {
     Select.prototype.render = function () {
         var select = document.createElement('select');
         select.setAttribute("id", this.idEl);
+        select.setAttribute('name', this.idEl);
         this.data.forEach(function (item) {
             select.options.add(new Option(item.name, item.id));
         });

@@ -13,6 +13,8 @@ use Base\BaseModel;
 use Pdo\Lots;
 
 class LotsModel extends BaseModel {
+    public $data;
+
     public $result;
 
     function getRules() {

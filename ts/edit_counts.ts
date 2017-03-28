@@ -1,13 +1,13 @@
-import { RenderCounter } from "./libs/RenderCounter";
-import { RenderSubstation } from "./libs/RenderSubstation";
 import { ReqestData } from "./libs/ReqestData";
 import { LoadFormValue } from "./libs/LoadFormValue";
 import { ActionForm } from "./libs/ActionForm";
 import { FormSelectValueField } from "./libs/FormSelectValueField";
 import Select from "./libs/MySelect";
+import ReqestSelect from "./libs/ReqestSelect";
 
 
 $( () => {
+    // const form = $( 'edit_counter' );
     const RIGTH = $( '#right' );
     const LOT_EDIT = $( '#lot_edit' );
     const SUBSTATION_EDIT = $( '#substation_edit' );
@@ -15,34 +15,6 @@ $( () => {
     const DATE_AIRING_BEGIN_EDIT = $( '#date_airing_begin_edit' );
     const TIME_AIRING_BEGIN_EDIT = $( '#time_airing_begin_edit' );
 
-
-    const data = [
-        { name: 'test1', id: '10' },
-        { name: 'test2', id: '20' },
-
-    ];
-    const data1 = [
-        { name: 'test3', id: '10' },
-        { name: 'test4', id: '20' },
-
-    ];
-
-    const selectSubst = new Select( 'substation_edit12' );
-    const SubstationEl = selectSubst.render();
-
-    let my_div = document.getElementById( "edit_value_counts_form" );
-
-    my_div.appendChild( SubstationEl );
-    selectSubst.setData( data );
-    selectSubst.setData( data1 );
-
-    SubstationEl.addEventListener( 'change', ( ev ) => {
-        console.log('change new substation');
-        // console.log( ev.target );
-    } );
-
-    const renderCounter: RenderCounter = new RenderCounter( COUNTER_EDIT );
-    const renderSubststion: RenderSubstation = new RenderSubstation( SUBSTATION_EDIT, renderCounter );
     const objEditForm: FormSelectValueField =
         new FormSelectValueField(
             LOT_EDIT,
@@ -53,7 +25,15 @@ $( () => {
             $( '#counter_val_edit' ),
             $( '#edit_id1' )
         );
-
+    const selectLot = new Select( 'lot_edit' );
+    selectLot.classHTML = 'input_selected';
+    const selectSubs = new Select( 'substation_edit' );
+    selectSubs.classHTML = 'input_selected';
+    const selectCount = new Select( 'counter_edit' );
+    selectCount.classHTML = 'input_selected';
+    selectLot.render();
+    selectSubs.render();
+    selectCount.render();
     DATE_AIRING_BEGIN_EDIT.datepicker( { changeYear: true, dateFormat: 'dd-mm-yy' } );
 
     $.mask.definitions[ 'H' ] = '[012]';
@@ -62,32 +42,49 @@ $( () => {
 
     TIME_AIRING_BEGIN_EDIT.mask( 'H9:M9' );
 
-    LOT_EDIT.change( function () {
-        let lot = $( this ).val();
-        renderSubststion.Value1 = 0;
-        const ReqestLot: ReqestData = new ReqestData( renderSubststion, 'ajax/subst/', { data: lot }, 'get' );
-        ReqestLot.reqest();
+    $( document ).on( "change", '#lot_edit', function ( e ) {
+        console.log( 'change lots' );
+        let me = e.target;
+        console.log( $( me ).val() );
+        let val = $( me ).val();
+        const primaer = [
+            { url: 'ajax/subst', 'render': selectSubs },
+            { url: 'ajax/counter', 'render': selectCount },
+        ];
+        const req = new ReqestSelect( primaer );
+        req.data = val;
+        req.reqest();
+
     } );
 
-    SUBSTATION_EDIT.change( function () {
-        let substation = $( this ).val();
-        const ReqestSubstation: ReqestData = new ReqestData( renderCounter, 'ajax/counter/', { data: substation }, 'get' );
-        ReqestSubstation.reqest();
+    $( document ).on( "change", '#substation_edit', function ( e ) {
+        console.log( 'change subs' );
+        let me = e.target;
+        let val = $( me ).val();
+        console.log( val );
+        const primaer = [
+            { url: 'ajax/counter', 'render': selectCount },
+        ];
+        const req = new ReqestSelect( primaer );
+        req.data = val;
+        req.reqest();
     } );
+
+
     const edit_form = $( "#edit_value_counts_form" ).dialog( {
-        title    : "Редактирование значения счётчика",
-        autoOpen : false,
+        title: "Редактирование значения счётчика",
+        autoOpen: false,
         resizable: false,
-        height   : 350,
-        width    : 620,
-        modal    : true,
-        close    : function () {
+        height: 350,
+        width: 620,
+        modal: true,
+        close: function () {
             let formRes: any = $( this )[ 0 ];
             formRes.reset();
         },
-        buttons  : [
+        buttons: [
             {
-                text : 'Ok',
+                text: 'Ok',
                 click: function () {
                     const editFormActions: ActionForm = new ActionForm( this );
                     editFormActions.doActions();
@@ -96,7 +93,7 @@ $( () => {
                 }
             },
             {
-                text : 'Cancel',
+                text: 'Cancel',
                 click: function () {
                     $( this ).dialog( "close" );
                 }
@@ -113,23 +110,25 @@ $( () => {
         edit_form.dialog( "close" );
     } );
 
+
     RIGTH.on( 'click', '.counter_str_even, .counter_str_odd', function ( event ) {
         let edit_id = $( this ).attr( 'id' );
         let param = { 'id': edit_id.slice( 3 ) };
+        const primaer = [
+            { url: 'ajax/lots', 'render': selectLot },
+            { url: 'ajax/subst', 'render': selectSubs },
+            { url: 'ajax/counter', 'render': selectCount },
+        ];
+        const req = new ReqestSelect( primaer, 1 );
 
-
-        const loadFormVal: LoadFormValue = new LoadFormValue( renderSubststion, objEditForm );
+        const loadFormVal: LoadFormValue = new LoadFormValue( req, objEditForm );
         const reqestLoadForm: ReqestData = new ReqestData( loadFormVal, 'ajax/loadform_value/', param );
         reqestLoadForm.reqest();
-        // let my_div = document.getElementById( "edit_value_counts_form" );
-        //
-        // my_div.appendChild( SubstationEl );
-        // selectSubst.setData( data );
-
+        // console.log( loadFormVal );
 
         edit_form.dialog( "open" );
-
         event.preventDefault();
+
     } );
 
 } );
