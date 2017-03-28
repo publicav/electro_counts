@@ -3,14 +3,9 @@
  */
 class ActionForm {
     protected _form: any;
-    protected _modeAction: string = '';
 
     constructor( form ) {
         this._form = form;
-    }
-
-    set setModeAction( action: string ) {
-        this._modeAction = action;
     }
 
     public doActions() {
@@ -19,7 +14,6 @@ class ActionForm {
         let m_method = formActions.attr( 'method' );
         let m_action = formActions.attr( 'action' );
         let m_data = formActions.serialize();
-        if ( this._modeAction != '' ) m_data += `&actions=${this._modeAction}`;
 
         $.ajax( { dataType: 'json', type: m_method, url: m_action, data: m_data } )
             .done( ( result ) => {

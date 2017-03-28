@@ -44,6 +44,20 @@ class Lots {
     }
 
     /**
+     * @return array
+     */
+    public function getLots() {
+        return $this->_lots;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLotsFilter() {
+        return $this->_lotsFilter;
+    }
+
+    /**
      *
      */
     public function render() {

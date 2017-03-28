@@ -13,9 +13,9 @@ var vendors = [];
 gulp.task( 'build:edit_counts', () => {
 
     browserify( {
-        entries   : [ './ts/edit_counts.ts' ],
+        entries: [ './ts/edit_counts.ts' ],
         extensions: [ '.ts', '.tsx' ],
-        debug     : false
+        debug: false
     } )
     //.external(vendors)
         .plugin( tsify, {
@@ -30,12 +30,32 @@ gulp.task( 'build:edit_counts', () => {
         .pipe( gulp.dest( './' ) );
 } );
 
+gulp.task( 'build:test', () => {
+
+    browserify( {
+        entries: [ './ts/test.ts' ],
+        extensions: [ '.ts', '.tsx' ],
+        debug: false
+    } )
+    //.external(vendors)
+        .plugin( tsify, {
+            typescript: require( 'typescript' )
+        } )
+        .bundle()
+        .on( 'error', onerror )
+        .pipe( plumber() )
+        .pipe( source( './js/test.js' ) )
+        .pipe( buffer() )
+        //.pipe( uglify() )
+        .pipe( gulp.dest( './' ) );
+} );
+
 gulp
-    .watch( './ts/**/*.{ts,tsx,json}', [ 'build:edit_counts' ] )
+    .watch( './ts/**/*.{ts,tsx,json}', [ 'build:edit_counts', 'build:test' ] )
     .on( 'change', onchange )
     .on( 'error', onerror );
 
-gulp.task( 'default', [ 'build:edit_counts' ] );
+gulp.task( 'default', [ 'build:edit_counts', 'build:test' ] );
 
 function onchange( event ) {
     console.log( 'File ' + event.path + ' was ' + event.type );

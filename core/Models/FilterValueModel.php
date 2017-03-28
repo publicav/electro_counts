@@ -121,8 +121,9 @@ class FilterValueModel extends BaseModel {
 
         $counter = [];
         while ( $row = $res->fetch() ) {
-            $keyId = 'c' . $row['id'];
-            $counter[ $keyId ] = $row;
+            $keyId = '' . $row['id'];
+//            $counter[ $keyId ] = $row;
+            $counter[] = $row;
         }
         $navigationData = NavigationFilterData::init( $position_in, $total, $filter )->
                           setColumPage( 35 )->setNavigatorPage( 5 )->doNavigation();

@@ -150,6 +150,7 @@ let create_cmd = ( base_link, params ) => {
 };
 
 const print_table = ( counter ) => {
+    console.log( counter );
     let count = 0, class_e;
     let st = `	<div class="title_table_counter">
 					<div class="title_lots">Участок</div>
@@ -159,14 +160,15 @@ const print_table = ( counter ) => {
 					<div class="title_date">Значение</div>
 				</div>`;
 
-    for ( let key in counter ) {
+    // for ( let key in counter ) {
+    for ( let i = 0; i < counter.length; i ++ ) {
         if ( count % 2 != 0 ) class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
-        st += `	<div id="id_${counter[ key ].id}" class="${class_e}" title="Ввод - <b>${counter[ key ].name_user}</b>">
-				<div class="col_lots">${counter[ key ].lot}</div>
-				<div class="col_substation">${counter[ key ].substation}</div>
-				<div class="col_counts">${counter[ key ].counter}</div>
-				<div class="col_date">${counter[ key ].date1}</div>
-				<div class="col_value">${counter[ key ].value}</div>
+        st += `	<div id="id_${counter[ i ].id}" class="${class_e}" title="Ввод - <b>${counter[ i ].name_user}</b>">
+				<div class="col_lots">${counter[ i ].lot}</div>
+				<div class="col_substation">${counter[ i ].substation}</div>
+				<div class="col_counts">${counter[ i ].counter}</div>
+				<div class="col_date">${counter[ i ].date1}</div>
+				<div class="col_value">${counter[ i ].value}</div>
 				</div>`;
         count ++;
     }
@@ -218,7 +220,6 @@ let json_get_table = ( objTarget, cmd_arr ) => {
                 objTarget.html( print_table( data ) );
                 let navigationD = navigation( result.navigationData );
                 objTarget.append( '<div class="navigator">' + navigationD + '</div>' );
-                // objTarget.append( result.navigator );
                 history.pushState( null, '', create_cmd( '', cmd_arr ) );
             } else  alert( result.error );
         } )
@@ -262,24 +263,6 @@ let print_add_record = ( { name_lot, name_substation, name_counter, date, time, 
 			<a id="${id}">Правка</a>	
 			`;
     return row_add;
-};
-
-let l_form_edit_value = ( {
-    objLot, objSubstation, objCounter, objDate, objTime, objValEdit,
-    objId, url_substation, url_counter, param
-} ) => {
-    $.ajax( { dataType: 'json', type: 'post', url: 'ajax/loadform_value/', data: param } )
-        .done( ( result ) => {
-            let data = result.data;
-            let obj = { objSubstation, objCounter, url_substation, url_counter };
-            objLot.find( '[value="' + data.lot_id + '"]' ).prop( "selected", true );
-            get_substation( obj, data.lot_id, 2, data.sub_id, data.counter_id );
-            objDate.val( data.date1 );
-            objTime.val( data.time1 );
-            objValEdit.val( data.value );
-            objId.val( data.id );
-        } )
-        .fail( ( result ) => alert( result.error ) );
 };
 
 let edit_form_actions = ( obj_form ) => {

@@ -7,37 +7,45 @@ export default class Select {
     private onChange: Function;
     private el: HTMLSelectElement;
     private data: OptionData[];
+    private idEl: string;
+    private elSetup: any;
 
-    constructor() {
+    constructor( idEl: string ) {
         this.onChange = null;
         this.data = [];
-        this.el = null;
+        this.idEl = idEl;
+        this.elSetup = document.getElementById( idEl );
+        this.el = this.elSetup;
     }
 
-    public setData(data: OptionData[]) {
+    public setData( data: OptionData[] ) {
         this.data = data;
         this.render();
     }
 
-    public selectById(id): boolean {
-        return !!this.el && this.data.some((item, index) => {
-            if (item.id === id) {
-                this.el.selectedIndex = index;
-                return true;
-            }
+    public selectByValue( id ): boolean {
 
-            return false;
-        });
+        return !!this.el && this.data.some( ( item, index ) => {
+                if ( item.id === id ) {
+                    this.el.selectedIndex = index;
+                    return true;
+                }
+
+                return false;
+            } );
     }
 
     public render() {
-        const select = document.createElement('select');
 
-        this.data.forEach((item) => {
-            select.options.add(new Option(item.name, item.id));
-        });
+        const select = document.createElement( 'select' );
+        select.setAttribute( "id", this.idEl );
+        select.setAttribute( 'name', this.idEl );
 
-        if (this.el && this.el.parentNode) {
+        this.data.forEach( ( item ) => {
+            select.options.add( new Option( item.name, item.id ) );
+        } );
+
+        if ( this.el && this.el.parentNode ) {
             this.el.parentNode.replaceChild( select, this.el );
         }
 
@@ -47,24 +55,25 @@ export default class Select {
     }
 }
 
-const one = new Select();
-const two = new Select();
-
-const oneEl = one.render();
-const twoEl = two.render();
-
-const data = [
-    {name: 'test', id: '10'}
-]
-
-one.selectById('10');
-
-oneEl.addEventListener('change', (ev) => {
-    // ev.target.value
-    setTimeout(() => {
-        two.setData([]);
-    });
-});
-
-document.body.appendChild(oneEl);
-document.body.appendChild(twoEl);
+// const one = new Select( 'one' );
+// const two = new Select( 'two' );
+//
+// const oneEl = one.render();
+// const twoEl = two.render();
+//
+// const data = [
+//     { name: 'test', id: '10' }
+// ]
+//
+// one.selectById( '10' );
+//
+// oneEl.addEventListener( 'change', ( ev ) => {
+//     // ev.target.value
+//     console.log( ev.target );
+//     setTimeout( () => {
+//         // two.setData( [] );
+//     } );
+// } );
+//
+// document.body.appendChild( oneEl );
+// document.body.appendChild( twoEl );

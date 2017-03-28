@@ -4,7 +4,7 @@ var ReqestData_1 = require("./ReqestData");
 var RenderSubstation = (function () {
     function RenderSubstation(dest, renderCounter, value) {
         if (value === void 0) { value = 0; }
-        this._value = 0;
+        this._valuecounter = 0;
         this.dest = dest;
         this.renderCounter = renderCounter;
         this._value = value;
@@ -13,7 +13,20 @@ var RenderSubstation = (function () {
     Object.defineProperty(RenderSubstation.prototype, "Value1", {
         set: function (value) {
             this._value = value;
-            console.log('Set metod', this._value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RenderSubstation.prototype, "valuecounter", {
+        set: function (value) {
+            this._valuecounter = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RenderSubstation.prototype, "Value", {
+        get: function () {
+            return this._value;
         },
         enumerable: true,
         configurable: true
@@ -37,11 +50,18 @@ var RenderSubstation = (function () {
         var out = this.dest;
         var value = this._value;
         out.html(this.html);
-        if (!value) {
+        if (value != 0) {
+            out.prop('disabled', true);
             out.find('[value="' + value + '"]').prop("selected", true);
+            this.renderCounter.Value = this._valuecounter;
         }
-        console.log('Substation = ', value);
+        else {
+            this.renderCounter.Value = 0;
+            value = this.data[0].id;
+        }
+        console.log('Substation = ', this._value);
         var ReqestCount = new ReqestData_1.ReqestData(this.renderCounter, 'ajax/counter/', { data: value }, 'get');
+        ReqestCount.reqest();
     };
     return RenderSubstation;
 }());

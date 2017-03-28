@@ -1,10 +1,10 @@
-import { RenderCounter }  from "./libs/RenderCounter";
-import { RenderSubstation } from "./libs/RenderSubstation"
+import { RenderCounter } from "./libs/RenderCounter";
+import { RenderSubstation } from "./libs/RenderSubstation";
 import { ReqestData } from "./libs/ReqestData";
 import { LoadFormValue } from "./libs/LoadFormValue";
 import { ActionForm } from "./libs/ActionForm";
 import { FormSelectValueField } from "./libs/FormSelectValueField";
-//import Select from './libs/MySelect';
+import Select from "./libs/MySelect";
 
 
 $( () => {
@@ -14,6 +14,32 @@ $( () => {
     const COUNTER_EDIT = $( '#counter_edit' );
     const DATE_AIRING_BEGIN_EDIT = $( '#date_airing_begin_edit' );
     const TIME_AIRING_BEGIN_EDIT = $( '#time_airing_begin_edit' );
+
+
+    const data = [
+        { name: 'test1', id: '10' },
+        { name: 'test2', id: '20' },
+
+    ];
+    const data1 = [
+        { name: 'test3', id: '10' },
+        { name: 'test4', id: '20' },
+
+    ];
+
+    const selectSubst = new Select( 'substation_edit12' );
+    const SubstationEl = selectSubst.render();
+
+    let my_div = document.getElementById( "edit_value_counts_form" );
+
+    my_div.appendChild( SubstationEl );
+    selectSubst.setData( data );
+    selectSubst.setData( data1 );
+
+    SubstationEl.addEventListener( 'change', ( ev ) => {
+        console.log('change new substation');
+        // console.log( ev.target );
+    } );
 
     const renderCounter: RenderCounter = new RenderCounter( COUNTER_EDIT );
     const renderSubststion: RenderSubstation = new RenderSubstation( SUBSTATION_EDIT, renderCounter );
@@ -49,29 +75,28 @@ $( () => {
         ReqestSubstation.reqest();
     } );
     const edit_form = $( "#edit_value_counts_form" ).dialog( {
-        title: "Редактирование значения счётчика",
-        autoOpen: false,
+        title    : "Редактирование значения счётчика",
+        autoOpen : false,
         resizable: false,
-        height: 350,
-        width: 620,
-        modal: true,
-        close: function () {
+        height   : 350,
+        width    : 620,
+        modal    : true,
+        close    : function () {
             let formRes: any = $( this )[ 0 ];
             formRes.reset();
         },
-        buttons: [
+        buttons  : [
             {
-                text: 'Ok',
+                text : 'Ok',
                 click: function () {
                     const editFormActions: ActionForm = new ActionForm( this );
-                    editFormActions.setModeAction = 'edit';
                     editFormActions.doActions();
                     // json_get_table( RIGTH, cmd_arr );
                     $( this ).dialog( "close" );
                 }
             },
             {
-                text: 'Cancel',
+                text : 'Cancel',
                 click: function () {
                     $( this ).dialog( "close" );
                 }
@@ -82,7 +107,7 @@ $( () => {
     $( document ).on( "submit", '#edit_value_counts_form', function ( event ) {
         event.preventDefault();
         const editFormActions: ActionForm = new ActionForm( this );
-        editFormActions.setModeAction = 'edit';
+
         editFormActions.doActions();
         // json_get_table( RIGTH, cmd_arr );
         edit_form.dialog( "close" );
@@ -96,8 +121,14 @@ $( () => {
         const loadFormVal: LoadFormValue = new LoadFormValue( renderSubststion, objEditForm );
         const reqestLoadForm: ReqestData = new ReqestData( loadFormVal, 'ajax/loadform_value/', param );
         reqestLoadForm.reqest();
+        // let my_div = document.getElementById( "edit_value_counts_form" );
+        //
+        // my_div.appendChild( SubstationEl );
+        // selectSubst.setData( data );
+
 
         edit_form.dialog( "open" );
+
         event.preventDefault();
     } );
 

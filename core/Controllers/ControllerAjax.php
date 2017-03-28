@@ -32,6 +32,8 @@ use Models\LastValueCounterModel;
 use Models\LoadFormPrivelegeModel;
 use Models\LoadFormUserModel;
 use Models\LoadFormValueModel;
+use Models\LotsFilterModel;
+use Models\LotsModel;
 use Models\MenuLeftModel;
 use Models\RegistrationModel;
 use Models\SubstFilterModel;
@@ -45,6 +47,42 @@ class ControllerAjax {
     public function ajaxBlank() {
         $result = [ 'ajax' => 'done' ];
         echo json_encode( $result );
+    }
+
+    /**
+     * Возвращает массив значений участков для фильтра
+     * @throws InputException
+     */
+    public function ajaxLotsFilter() {
+        $model = new LotsFilterModel();
+        if ( Request::isGet() ) {
+            if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
+                if ( $model->doLotsFilter() ) {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
+    }
+
+    /**
+     * Возвращает массив значений участков для формы
+     * @throws InputException
+     */
+    public function ajaxLots() {
+        $model = new LotsModel();
+        if ( Request::isGet() ) {
+            if ( $model->load( Request::getGet() ) and ( $model->validate() ) ) {
+                if ( $model->doLots() ) {
+                    $this->result = $model->getResult();
+                    echo json_encode( $this->result );
+                }
+            } else {
+                throw new InputException( 'Ошибка данных - ' . $model->getFirstError()['error'][1] );
+            }
+        }
     }
 
     /**
@@ -318,7 +356,8 @@ class ControllerAjax {
             }
         }
     }
-/**
+
+    /**
      * Запись данных в главную таблицу значение счётчика
      * @throws InputException
      */

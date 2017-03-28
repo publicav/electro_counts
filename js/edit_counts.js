@@ -7,6 +7,7 @@ var ReqestData_1 = require("./libs/ReqestData");
 var LoadFormValue_1 = require("./libs/LoadFormValue");
 var ActionForm_1 = require("./libs/ActionForm");
 var FormSelectValueField_1 = require("./libs/FormSelectValueField");
+var MySelect_1 = require("./libs/MySelect");
 $(function () {
     var RIGTH = $('#right');
     var LOT_EDIT = $('#lot_edit');
@@ -14,6 +15,23 @@ $(function () {
     var COUNTER_EDIT = $('#counter_edit');
     var DATE_AIRING_BEGIN_EDIT = $('#date_airing_begin_edit');
     var TIME_AIRING_BEGIN_EDIT = $('#time_airing_begin_edit');
+    var data = [
+        { name: 'test1', id: '10' },
+        { name: 'test2', id: '20' },
+    ];
+    var data1 = [
+        { name: 'test3', id: '10' },
+        { name: 'test4', id: '20' },
+    ];
+    var selectSubst = new MySelect_1.default('substation_edit12');
+    var SubstationEl = selectSubst.render();
+    var my_div = document.getElementById("edit_value_counts_form");
+    my_div.appendChild(SubstationEl);
+    selectSubst.setData(data);
+    selectSubst.setData(data1);
+    SubstationEl.addEventListener('change', function (ev) {
+        console.log('change new substation');
+    });
     var renderCounter = new RenderCounter_1.RenderCounter(COUNTER_EDIT);
     var renderSubststion = new RenderSubstation_1.RenderSubstation(SUBSTATION_EDIT, renderCounter);
     var objEditForm = new FormSelectValueField_1.FormSelectValueField(LOT_EDIT, SUBSTATION_EDIT, COUNTER_EDIT, DATE_AIRING_BEGIN_EDIT, TIME_AIRING_BEGIN_EDIT, $('#counter_val_edit'), $('#edit_id1'));
@@ -49,7 +67,6 @@ $(function () {
                 text: 'Ok',
                 click: function () {
                     var editFormActions = new ActionForm_1.ActionForm(this);
-                    editFormActions.setModeAction = 'edit';
                     editFormActions.doActions();
                     $(this).dialog("close");
                 }
@@ -65,7 +82,6 @@ $(function () {
     $(document).on("submit", '#edit_value_counts_form', function (event) {
         event.preventDefault();
         var editFormActions = new ActionForm_1.ActionForm(this);
-        editFormActions.setModeAction = 'edit';
         editFormActions.doActions();
         edit_form.dialog("close");
     });
@@ -80,28 +96,18 @@ $(function () {
     });
 });
 
-},{"./libs/ActionForm":2,"./libs/FormSelectValueField":3,"./libs/LoadFormValue":4,"./libs/RenderCounter":5,"./libs/RenderSubstation":6,"./libs/ReqestData":7}],2:[function(require,module,exports){
+},{"./libs/ActionForm":2,"./libs/FormSelectValueField":3,"./libs/LoadFormValue":4,"./libs/MySelect":5,"./libs/RenderCounter":6,"./libs/RenderSubstation":7,"./libs/ReqestData":8}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ActionForm = (function () {
     function ActionForm(form) {
-        this._modeAction = '';
         this._form = form;
     }
-    Object.defineProperty(ActionForm.prototype, "setModeAction", {
-        set: function (action) {
-            this._modeAction = action;
-        },
-        enumerable: true,
-        configurable: true
-    });
     ActionForm.prototype.doActions = function () {
         var formActions = $(this._form);
         var m_method = formActions.attr('method');
         var m_action = formActions.attr('action');
         var m_data = formActions.serialize();
-        if (this._modeAction != '')
-            m_data += "&actions=" + this._modeAction;
         $.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
             .done(function (result) {
             if (result.success) {
@@ -169,7 +175,49 @@ var LoadFormValue = (function () {
 }());
 exports.LoadFormValue = LoadFormValue;
 
-},{"./ReqestData":7}],5:[function(require,module,exports){
+},{"./ReqestData":8}],5:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Select = (function () {
+    function Select(idEl) {
+        this.onChange = null;
+        this.data = [];
+        this.idEl = idEl;
+        this.elSetup = document.getElementById(idEl);
+        this.el = this.elSetup;
+    }
+    Select.prototype.setData = function (data) {
+        this.data = data;
+        this.render();
+    };
+    Select.prototype.selectByValue = function (id) {
+        var _this = this;
+        return !!this.el && this.data.some(function (item, index) {
+            if (item.id === id) {
+                _this.el.selectedIndex = index;
+                return true;
+            }
+            return false;
+        });
+    };
+    Select.prototype.render = function () {
+        var select = document.createElement('select');
+        select.setAttribute("id", this.idEl);
+        select.setAttribute('name', this.idEl);
+        this.data.forEach(function (item) {
+            select.options.add(new Option(item.name, item.id));
+        });
+        if (this.el && this.el.parentNode) {
+            this.el.parentNode.replaceChild(select, this.el);
+        }
+        this.el = select;
+        return this.el;
+    };
+    return Select;
+}());
+exports.default = Select;
+
+},{}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var RenderCounter = (function () {
@@ -212,7 +260,7 @@ var RenderCounter = (function () {
 }());
 exports.RenderCounter = RenderCounter;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ReqestData_1 = require("./ReqestData");
@@ -282,7 +330,7 @@ var RenderSubstation = (function () {
 }());
 exports.RenderSubstation = RenderSubstation;
 
-},{"./ReqestData":7}],7:[function(require,module,exports){
+},{"./ReqestData":8}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ReqestData = (function () {

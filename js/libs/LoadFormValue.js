@@ -7,13 +7,6 @@ var LoadFormValue = (function () {
         this.dest = dest;
     }
     ;
-    Object.defineProperty(LoadFormValue.prototype, "Value1", {
-        set: function (value) {
-            this._value = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     LoadFormValue.prototype.before = function () {
     };
     LoadFormValue.prototype.after = function () {
@@ -28,11 +21,12 @@ var LoadFormValue = (function () {
     };
     LoadFormValue.prototype.render = function () {
         var value = this.data.lot_id;
-        if (!value) {
+        if (value != 0) {
             this.renderSubstation.Value1 = this.data.sub_id;
+            this.renderSubstation.valuecounter = this.data.counter_id;
         }
-        console.log('Test subst = ', this.renderSubstation.Value1);
-        console.log(value, this.data.sub_id);
+        console.log('Test subst = ', this.renderSubstation.Value);
+        console.log("Lot = ", value, "Substation = ", this.data.sub_id);
         var ReqestSubstation = new ReqestData_1.ReqestData(this.renderSubstation, 'ajax/subst/', { data: value }, 'get');
         ReqestSubstation.reqest();
     };

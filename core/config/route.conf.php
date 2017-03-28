@@ -119,6 +119,8 @@ return [
             'controllerName' => 'controllers\ControllerAjax',
             'actions'        => [
                 'default'                     => 'ajaxBlank',                      // запрос по умолчанию или при любом не правильно сформированом запросе
+                'lots'                        => 'ajaxLots',                       // Возвращает массив значений участков для формы
+                'lots_filter'                 => 'ajaxLotsFilter',                 // Возвращает массив значений участков для фильтра
                 'subst_filter'                => 'ajaxSubstationFilter',           // Возвращает массив значений подстанций для фильтра
                 'subst'                       => 'ajaxSubstation',                 // Возвращает массив значений подстанций для формы
                 'counter_filter'              => 'ajaxCounterFilter',              // Возвращает массив значений счётчиков для фильтра

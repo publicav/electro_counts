@@ -20,9 +20,9 @@ var ReqestData = (function () {
             console.log(result);
             me.render.doRun(result.data);
             me.render.render();
+            me.render.after();
         })
             .fail(function (result) { return alert('error'); });
-        me.render.after();
     };
     return ReqestData;
 }());

@@ -8,7 +8,7 @@ var RenderCounter = (function () {
         this._value = value;
     }
     ;
-    Object.defineProperty(RenderCounter.prototype, "Value1", {
+    Object.defineProperty(RenderCounter.prototype, "Value", {
         set: function (value) {
             this._value = value;
         },
@@ -33,7 +33,7 @@ var RenderCounter = (function () {
         var out = this.dest;
         var value = this._value;
         out.html(this.html);
-        if (!value)
+        if (value != 0)
             out.find('[value="' + value + '"]').prop("selected", true);
     };
     return RenderCounter;
