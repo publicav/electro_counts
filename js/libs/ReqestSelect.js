@@ -32,14 +32,12 @@ var ReqestSelect = (function () {
                 .done(function (result) {
                 me_1.render.setData(result.data);
                 if (_this.loadForm) {
-                    console.log(param_1);
                     me_1.render.selectByValue(param_1.setparam.toLocaleString());
                     _this._data = param_1.setparam;
                 }
                 else {
                     _this._data = result.data[0].id;
                 }
-                console.log(result);
                 _this.reqest();
             })
                 .fail(function (result) { return alert('error'); });

@@ -8,6 +8,13 @@ var Select = (function () {
         this.elSetup = document.getElementById(idEl);
         this.el = this.elSetup;
     }
+    Object.defineProperty(Select.prototype, "classHTML", {
+        set: function (value) {
+            this._class = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Select.prototype.setData = function (data) {
         this.data = data;
         this.render();
@@ -26,6 +33,7 @@ var Select = (function () {
         var select = document.createElement('select');
         select.setAttribute("id", this.idEl);
         select.setAttribute('name', this.idEl);
+        select.setAttribute('class', this._class);
         this.data.forEach(function (item) {
             select.options.add(new Option(item.name, item.id));
         });

@@ -19,13 +19,6 @@ var cmd_arr = {};
 cmd_arr = getUrlVars();
 console.log( cmd_arr );
 
-/**
- * Возвращает индекс массива объектов.
- *
- * @param {array} arr массив объектов.
- * @param {number} find_id Значение id объекта по которому  осуществляется поиск.
- * @return {number} Возвращает index когда arr[..].id = find_id.
- */
 const find_arr_id = ( arr, find_id ) => {
     let ret = - 1;
     for ( let i = 0; i < arr.length; i ++ ) if ( arr[ i ].id == find_id ) {
@@ -263,28 +256,6 @@ let print_add_record = ( { name_lot, name_substation, name_counter, date, time, 
 			<a id="${id}">Правка</a>	
 			`;
     return row_add;
-};
-
-let edit_form_actions = ( obj_form ) => {
-    let form = obj_form.view.edit_form_submit;
-    let workForm = obj_form.view.edit_form;
-    let lot = obj_form.objLot.val();
-    let substation = obj_form.objSubstation.val();
-    let counts = obj_form.objCounter.val();
-    let m_method = $( form ).attr( 'method' );
-    let m_action = $( form ).attr( 'action' );
-    let m_data = $( form ).serialize(); // input1=value1&input2=value2..., только input=text
-    m_data += `&lot=${lot}&substation=${substation}&counter=${counts}&actions=edit`;
-
-    $.ajax( { dataType: 'json', type: m_method, url: m_action, data: m_data } )
-        .done( ( result ) => {
-            if ( result.success ) {
-                // let data = result.data;
-                workForm.dialog( "close" );
-                json_get_table( obj_form.objTarget, obj_form.cmd );
-            } else  alert( result.error );
-        } )
-        .fail( ( result ) => alert( result.responseJSON.error ) );
 };
 
 let add_form_actions = ( { form, objLot, objSubstation, objCounter, objBtnOk, objBtnEdit, objListRec, btnPress, gl_add_counts, edit_arr } ) => {

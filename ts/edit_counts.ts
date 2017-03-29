@@ -5,10 +5,9 @@ import { FormSelectValueField } from "./libs/FormSelectValueField";
 import Select from "./libs/MySelect";
 import ReqestSelect from "./libs/ReqestSelect";
 
-
 $( () => {
     // const form = $( 'edit_counter' );
-    const RIGTH = $( '#right' );
+    const RIGHT = $( '#right' );
     const LOT_EDIT = $( '#lot_edit' );
     const SUBSTATION_EDIT = $( '#substation_edit' );
     const COUNTER_EDIT = $( '#counter_edit' );
@@ -111,7 +110,7 @@ $( () => {
     } );
 
 
-    RIGTH.on( 'click', '.counter_str_even, .counter_str_odd', function ( event ) {
+    RIGHT.on( 'click', '.counter_str_even, .counter_str_odd', function ( event ) {
         let edit_id = $( this ).attr( 'id' );
         let param = { 'id': edit_id.slice( 3 ) };
         const primaer = [

@@ -2,8 +2,6 @@ var plumber = require( 'gulp-plumber' );
 var gulp = require( 'gulp' );
 var browserify = require( 'browserify' );
 var tsify = require( "tsify" );
-var source = require( 'vinyl-source-stream' );
-//var buffer = require('vinyl-buffer');
 
 var sourcemaps = require( 'gulp-sourcemaps' );
 var gutil = require( "gulp-util" );
