@@ -84,8 +84,8 @@ class FilterValueModel extends BaseModel {
                 $paramNrange = [ 'id_counter' => $id_counter ];
                 $param['id_counter'] = $id_counter;
                 $filter = [
-                    'id_lot' => $id_lot,
-                    'id_sub' => $id_sub,
+                    'id_lot'     => $id_lot,
+                    'id_sub'     => $id_sub,
                     'id_counter' => $id_counter
                 ];
                 break;
@@ -122,17 +122,20 @@ class FilterValueModel extends BaseModel {
         $counter = [];
         while ( $row = $res->fetch() ) {
             $keyId = '' . $row['id'];
-//            $counter[ $keyId ] = $row;
+            //            $counter[ $keyId ] = $row;
             $counter[] = $row;
         }
         $navigationData = NavigationFilterData::init( $position_in, $total, $filter )->
-                          setColumPage( 35 )->setNavigatorPage( 5 )->doNavigation();
+        setColumPage( 35 )->setNavigatorPage( 5 )->doNavigation();
+        $data = [
+            'counter'        => $counter,
+            'navigationData' => $navigationData,
+        ];
 
         $this->result = [
-            'success'        => true,
-            'id_error'       => 0,
-            'data'           => $counter,
-            'navigationData' => $navigationData,
+            'success'  => true,
+            'id_error' => 0,
+            'data'     => $data,
         ];
         return true;
 

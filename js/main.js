@@ -59,7 +59,7 @@ let get_last_val = ( { objCounterLastVal, param } ) => {
 
 
 let get_counter = ( { objCounter, objCounterLastVal = {}, url_counter, actions = SELECTED_ACTIONS, couner_value = 0, editCounter = 0 }, data = 1, last_val = () => {
-} ) => {
+                    } ) => {
     objCounter.prop( 'disabled', true );
     objCounter.html( '<option>загрузка...</option>' );
     $.getJSON( url_counter, { data: data } )
@@ -81,9 +81,9 @@ let get_counter = ( { objCounter, objCounterLastVal = {}, url_counter, actions =
                     if ( actions == EDIT_ACTIONS )    if ( couner_value == 0 ) counter = result.data[ 0 ].id; else counter = couner_value;
                     $.ajax( {
                         dataType: 'json',
-                        type: 'post',
-                        url: 'ajax/lastvalue_counter/',
-                        data: { 'counter': counter }
+                        type    : 'post',
+                        url     : 'ajax/lastvalue_counter/',
+                        data    : { 'counter': counter }
                     } )
                         .done( ( result ) => {
                             let data = result.data;
@@ -98,7 +98,7 @@ let get_counter = ( { objCounter, objCounterLastVal = {}, url_counter, actions =
 };
 
 let get_substation = ( { objSubstation, objCounter, objCounterLastVal = {}, url_substation, url_counter, editCounter = 0 },
-    data = 1, actions = SELECTED_ACTIONS, value = 0, couner_value = 0 ) => {
+                       data = 1, actions = SELECTED_ACTIONS, value = 0, couner_value = 0 ) => {
     objSubstation.prop( 'disabled', true );
     objSubstation.html( '<option>загрузка...</option>' );
     $.getJSON( url_substation, { data: data } )
@@ -210,8 +210,8 @@ let json_get_table = ( objTarget, cmd_arr ) => {
         .done( ( result ) => {
             if ( result.success ) {
                 let data = result.data;
-                objTarget.html( print_table( data ) );
-                let navigationD = navigation( result.navigationData );
+                objTarget.html( print_table( data.counter ) );
+                let navigationD = navigation( data.navigationData );
                 objTarget.append( '<div class="navigator">' + navigationD + '</div>' );
                 history.pushState( null, '', create_cmd( '', cmd_arr ) );
             } else  alert( result.error );

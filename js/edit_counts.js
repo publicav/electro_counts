@@ -1,4 +1,27 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports=﻿[
+  {
+    "class": "title_lots",
+    "name": "Участок"
+  },
+  {
+    "class": "title_substation",
+    "name": "Подстанция"
+  },
+  {
+    "class": "title_counts",
+    "name": "Ячейка"
+  },
+  {
+    "class": "title_date",
+    "name": "Дата"
+  },
+  {
+    "class": "title_value",
+    "name": "Значение"
+  }
+]
+},{}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ReqestData_1 = require("./libs/ReqestData");
@@ -7,8 +30,10 @@ var ActionForm_1 = require("./libs/ActionForm");
 var FormSelectValueField_1 = require("./libs/FormSelectValueField");
 var MySelect_1 = require("./libs/MySelect");
 var ReqestSelect_1 = require("./libs/ReqestSelect");
+var RenderTablValCounter_1 = require("./libs/RenderTablValCounter");
+var GeturlVar_1 = require("./libs/GeturlVar");
 $(function () {
-    var RIGTH = $('#right');
+    var RIGHT = $('#right');
     var LOT_EDIT = $('#lot_edit');
     var SUBSTATION_EDIT = $('#substation_edit');
     var COUNTER_EDIT = $('#counter_edit');
@@ -71,6 +96,15 @@ $(function () {
                 click: function () {
                     var editFormActions = new ActionForm_1.ActionForm(this);
                     editFormActions.doActions();
+                    var right = document.getElementById('right');
+                    right.innerHTML = '';
+                    var table = new RenderTablValCounter_1.default();
+                    table.render();
+                    right.appendChild(table.elTitle);
+                    right.appendChild(table.elTable);
+                    right.appendChild(table.elnavigator);
+                    var requstTable = new ReqestData_1.ReqestData(table, 'ajax/filterValue/', GeturlVar_1.getUrlVars1(), 'get');
+                    requstTable.reqest();
                     $(this).dialog("close");
                 }
             },
@@ -86,9 +120,18 @@ $(function () {
         event.preventDefault();
         var editFormActions = new ActionForm_1.ActionForm(this);
         editFormActions.doActions();
+        var right = document.getElementById('right');
+        right.innerHTML = '';
+        var table = new RenderTablValCounter_1.default();
+        table.render();
+        right.appendChild(table.elTitle);
+        right.appendChild(table.elTable);
+        right.appendChild(table.elnavigator);
+        var requstTable = new ReqestData_1.ReqestData(table, 'ajax/filterValue/', GeturlVar_1.getUrlVars1(), 'get');
+        requstTable.reqest();
         edit_form.dialog("close");
     });
-    RIGTH.on('click', '.counter_str_even, .counter_str_odd', function (event) {
+    RIGHT.on('click', '.counter_str_even, .counter_str_odd', function (event) {
         var edit_id = $(this).attr('id');
         var param = { 'id': edit_id.slice(3) };
         var primaer = [
@@ -100,12 +143,13 @@ $(function () {
         var loadFormVal = new LoadFormValue_1.LoadFormValue(req, objEditForm);
         var reqestLoadForm = new ReqestData_1.ReqestData(loadFormVal, 'ajax/loadform_value/', param);
         reqestLoadForm.reqest();
+        console.log('Param = ', GeturlVar_1.getUrlVars1());
         edit_form.dialog("open");
         event.preventDefault();
     });
 });
 
-},{"./libs/ActionForm":2,"./libs/FormSelectValueField":3,"./libs/LoadFormValue":4,"./libs/MySelect":5,"./libs/ReqestData":6,"./libs/ReqestSelect":7}],2:[function(require,module,exports){
+},{"./libs/ActionForm":3,"./libs/FormSelectValueField":4,"./libs/GeturlVar":5,"./libs/LoadFormValue":6,"./libs/MySelect":7,"./libs/RenderTablValCounter":8,"./libs/ReqestData":9,"./libs/ReqestSelect":10}],3:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ActionForm = (function () {
@@ -130,7 +174,7 @@ var ActionForm = (function () {
 }());
 exports.ActionForm = ActionForm;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var FormSelectValueField = (function () {
@@ -147,7 +191,23 @@ var FormSelectValueField = (function () {
 }());
 exports.FormSelectValueField = FormSelectValueField;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var getUrlVars1 = function () {
+    var vars = {}, hash;
+    if (location.search) {
+        var hashes = (location.search.substr(1)).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars[hash[0]] = hash[1];
+        }
+    }
+    return vars;
+};
+exports.getUrlVars1 = getUrlVars1;
+
+},{}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var LoadFormValue = (function () {
@@ -178,7 +238,7 @@ var LoadFormValue = (function () {
 }());
 exports.LoadFormValue = LoadFormValue;
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Select = (function () {
@@ -228,7 +288,124 @@ var Select = (function () {
 }());
 exports.default = Select;
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var RenderTablValCounter = (function () {
+    function RenderTablValCounter() {
+        this._elTitle = null;
+        this._elTable = null;
+        this._elnavigator = null;
+        console.log('RenderTablValCounter');
+        this.title = require('./../../json/title-tabl-counter.json');
+    }
+    Object.defineProperty(RenderTablValCounter.prototype, "elnavigator", {
+        get: function () {
+            return this._elnavigator;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RenderTablValCounter.prototype, "elTable", {
+        get: function () {
+            return this._elTable;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RenderTablValCounter.prototype, "elTitle", {
+        get: function () {
+            return this._elTitle;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    RenderTablValCounter.prototype.titleRender = function () {
+        var divMain = document.createElement('div');
+        divMain.setAttribute('class', 'title_table_counter');
+        for (var _i = 0, _a = this.title; _i < _a.length; _i++) {
+            var row = _a[_i];
+            var div = document.createElement('div');
+            div.setAttribute('class', row.class);
+            div.innerHTML = row.name;
+            divMain.appendChild(div);
+        }
+        if (this._elTitle && this._elTitle.parentNode) {
+            this._elTitle.parentNode.replaceChild(divMain, this._elTitle);
+        }
+        this._elTitle = divMain;
+    };
+    RenderTablValCounter.prototype.navigationRender = function () {
+        var divNavig = document.createElement('div');
+        divNavig.setAttribute('class', 'navigator');
+        if (this._elnavigator != null) {
+            var nav = this.navigator;
+            var page = nav.page;
+            var span = '';
+            var pNavig = document.createElement('p');
+            for (var _i = 0, page_1 = page; _i < page_1.length; _i++) {
+                var row = page_1[_i];
+                if (row.st == null) {
+                    span = "<span class=\"pagecurrent\">" + row.text + "</span>";
+                }
+                else {
+                    span = "<span class=\"pagelink\"><a href=\"" + nav.file + "?st=" + row.st + nav.paramUrl + "\" title=\"" + row.title + "\">" + row.text + "</a></span>";
+                }
+                pNavig.innerHTML += span;
+            }
+            divNavig.appendChild(pNavig);
+        }
+        if (this._elnavigator && this._elnavigator.parentNode) {
+            this._elnavigator.parentNode.replaceChild(divNavig, this._elnavigator);
+        }
+        this._elnavigator = divNavig;
+    };
+    RenderTablValCounter.prototype.after = function () {
+    };
+    RenderTablValCounter.prototype.before = function () {
+    };
+    RenderTablValCounter.prototype.doRun = function (data) {
+        this.navigator = data.navigationData;
+        this.table = data.counter;
+    };
+    RenderTablValCounter.prototype.tableRender = function () {
+        var divMain = document.createElement('div');
+        if (this._elTable != null) {
+            var tabl = this.table;
+            var count = 0;
+            var class_e = void 0;
+            var st = void 0;
+            for (var _i = 0, tabl_1 = tabl; _i < tabl_1.length; _i++) {
+                var row = tabl_1[_i];
+                if (count % 2 != 0)
+                    class_e = 'counter_str_odd';
+                else
+                    class_e = 'counter_str_even';
+                var divRow = document.createElement('div');
+                divRow.setAttribute('class', class_e);
+                divRow.setAttribute('id', "id_" + row.id);
+                divRow.setAttribute('title', "\u0412\u0432\u043E\u0434 - <b>" + row.name_user + "</b>");
+                st = "<div class=\"col_lots\">" + row.lot + "</div>\n\t\t\t\t   <div class=\"col_substation\">" + row.substation + "</div>\n\t\t\t\t   <div class=\"col_counts\">" + row.counter + "</div>\n                   <div class=\"col_date\">" + row.date1 + "</div>\n                   <div class=\"col_value\">" + row.value + "</div>\n\t\t\t    ";
+                divRow.innerHTML = st;
+                count++;
+                divMain.appendChild(divRow);
+            }
+        }
+        if (this._elTable && this._elTable.parentNode) {
+            this._elTable.parentNode.replaceChild(divMain, this._elTable);
+        }
+        this._elTable = divMain;
+    };
+    RenderTablValCounter.prototype.render = function () {
+        this.titleRender();
+        this.tableRender();
+        this.navigationRender();
+    };
+    return RenderTablValCounter;
+}());
+exports.default = RenderTablValCounter;
+
+},{"./../../json/title-tabl-counter.json":1}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ReqestData = (function () {
@@ -259,7 +436,7 @@ var ReqestData = (function () {
 }());
 exports.ReqestData = ReqestData;
 
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ReqestSelect = (function () {
@@ -310,4 +487,4 @@ var ReqestSelect = (function () {
 exports.ReqestSelect = ReqestSelect;
 exports.default = ReqestSelect;
 
-},{}]},{},[1]);
+},{}]},{},[2]);

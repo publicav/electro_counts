@@ -4,6 +4,8 @@ import { ActionForm } from "./libs/ActionForm";
 import { FormSelectValueField } from "./libs/FormSelectValueField";
 import Select from "./libs/MySelect";
 import ReqestSelect from "./libs/ReqestSelect";
+import RenderTablValCounter from "./libs/RenderTablValCounter";
+import { getUrlVars1 } from "./libs/GeturlVar";
 
 $( () => {
     // const form = $( 'edit_counter' );
@@ -87,6 +89,19 @@ $( () => {
                 click: function () {
                     const editFormActions: ActionForm = new ActionForm( this );
                     editFormActions.doActions();
+
+                    let right = document.getElementById( 'right' );
+                    right.innerHTML = '';
+
+                    let table = new RenderTablValCounter();
+                    table.render();
+                    right.appendChild( table.elTitle );
+                    right.appendChild( table.elTable );
+                    right.appendChild( table.elnavigator );
+
+                    const requstTable: ReqestData = new ReqestData( table, 'ajax/filterValue/', getUrlVars1(), 'get' );
+                    requstTable.reqest();
+
                     // json_get_table( RIGTH, cmd_arr );
                     $( this ).dialog( "close" );
                 }
@@ -105,6 +120,18 @@ $( () => {
         const editFormActions: ActionForm = new ActionForm( this );
 
         editFormActions.doActions();
+
+        let right = document.getElementById( 'right' );
+        right.innerHTML = '';
+        let table = new RenderTablValCounter();
+        table.render();
+        right.appendChild( table.elTitle );
+        right.appendChild( table.elTable );
+        right.appendChild( table.elnavigator );
+
+        const requstTable: ReqestData = new ReqestData( table, 'ajax/filterValue/', getUrlVars1(), 'get' );
+        requstTable.reqest();
+
         // json_get_table( RIGTH, cmd_arr );
         edit_form.dialog( "close" );
     } );
@@ -123,7 +150,7 @@ $( () => {
         const loadFormVal: LoadFormValue = new LoadFormValue( req, objEditForm );
         const reqestLoadForm: ReqestData = new ReqestData( loadFormVal, 'ajax/loadform_value/', param );
         reqestLoadForm.reqest();
-        // console.log( loadFormVal );
+        console.log( 'Param = ', getUrlVars1() );
 
         edit_form.dialog( "open" );
         event.preventDefault();

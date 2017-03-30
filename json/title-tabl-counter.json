@@ -1,0 +1,22 @@
+﻿[
+  {
+    "class": "title_lots",
+    "name": "Участок"
+  },
+  {
+    "class": "title_substation",
+    "name": "Подстанция"
+  },
+  {
+    "class": "title_counts",
+    "name": "Ячейка"
+  },
+  {
+    "class": "title_date",
+    "name": "Дата"
+  },
+  {
+    "class": "title_value",
+    "name": "Значение"
+  }
+]
