@@ -8,7 +8,7 @@ import RenderTablValCounter from "./libs/RenderTablValCounter";
 import { getUrlVars1 } from "./libs/GeturlVar";
 
 $( () => {
-    // const form = $( 'edit_counter' );
+    const form = $( '#edit_value_counts_form' );
     const RIGHT = $( '#right' );
     const LOT_EDIT = $( '#lot_edit' );
     const SUBSTATION_EDIT = $( '#substation_edit' );
@@ -27,14 +27,14 @@ $( () => {
             $( '#edit_id1' )
         );
     const selectLot = new Select( 'lot_edit' );
-    selectLot.classHTML = 'input_selected';
+    // selectLot.classHTML = 'input_selected';
     const selectSubs = new Select( 'substation_edit' );
-    selectSubs.classHTML = 'input_selected';
+    // selectSubs.classHTML = 'input_selected';
     const selectCount = new Select( 'counter_edit' );
-    selectCount.classHTML = 'input_selected';
-    selectLot.render();
-    selectSubs.render();
-    selectCount.render();
+    // selectCount.classHTML = 'input_selected';
+    // selectLot.render();
+    // selectSubs.render();
+    // selectCount.render();
     DATE_AIRING_BEGIN_EDIT.datepicker( { changeYear: true, dateFormat: 'dd-mm-yy' } );
 
     $.mask.definitions[ 'H' ] = '[012]';
@@ -42,6 +42,10 @@ $( () => {
     $.mask.definitions[ 'F' ] = '[0-9.]+';
 
     TIME_AIRING_BEGIN_EDIT.mask( 'H9:M9' );
+    // $( 'select' ).select2();
+
+
+    $.fn.select2.defaults.set("theme", "classic");
 
     $( document ).on( "change", '#lot_edit', function ( e ) {
         console.log( 'change lots' );
@@ -52,9 +56,9 @@ $( () => {
             { url: 'ajax/subst', 'render': selectSubs },
             { url: 'ajax/counter', 'render': selectCount },
         ];
-        const req = new ReqestSelect( primaer );
-        req.data = val;
-        req.reqest();
+        // const req = new ReqestSelect( primaer );
+        // req.data = val;
+        // req.reqest();
 
     } );
 
@@ -66,11 +70,10 @@ $( () => {
         const primaer = [
             { url: 'ajax/counter', 'render': selectCount },
         ];
-        const req = new ReqestSelect( primaer );
-        req.data = val;
-        req.reqest();
+        // const req = new ReqestSelect( primaer );
+        // req.data = val;
+        // req.reqest();
     } );
-
 
     const edit_form = $( "#edit_value_counts_form" ).dialog( {
         title: "Редактирование значения счётчика",

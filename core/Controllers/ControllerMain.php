@@ -61,9 +61,14 @@ class ControllerMain extends Conroller {
         $this->_view->setJs( [
             'js/ui/minified/jquery.ui.datepicker-ru.min.js',
             'js/jquery.maskedinput.min.js',
+            'js/select2/js/select2.min.js',
             'js/filters.js',
             'js/edit_counts.js'
         ] );
+        $this->_view->setCss( [
+            'js/select2/css/select2.min.css',
+        ] );
+
         $this->_view->render( $this->_route->getViewPath(), '' );
     }
 

@@ -33,6 +33,7 @@ var ReqestSelect_1 = require("./libs/ReqestSelect");
 var RenderTablValCounter_1 = require("./libs/RenderTablValCounter");
 var GeturlVar_1 = require("./libs/GeturlVar");
 $(function () {
+    var form = $('#edit_value_counts_form');
     var RIGHT = $('#right');
     var LOT_EDIT = $('#lot_edit');
     var SUBSTATION_EDIT = $('#substation_edit');
@@ -41,19 +42,14 @@ $(function () {
     var TIME_AIRING_BEGIN_EDIT = $('#time_airing_begin_edit');
     var objEditForm = new FormSelectValueField_1.FormSelectValueField(LOT_EDIT, SUBSTATION_EDIT, COUNTER_EDIT, DATE_AIRING_BEGIN_EDIT, TIME_AIRING_BEGIN_EDIT, $('#counter_val_edit'), $('#edit_id1'));
     var selectLot = new MySelect_1.default('lot_edit');
-    selectLot.classHTML = 'input_selected';
     var selectSubs = new MySelect_1.default('substation_edit');
-    selectSubs.classHTML = 'input_selected';
     var selectCount = new MySelect_1.default('counter_edit');
-    selectCount.classHTML = 'input_selected';
-    selectLot.render();
-    selectSubs.render();
-    selectCount.render();
     DATE_AIRING_BEGIN_EDIT.datepicker({ changeYear: true, dateFormat: 'dd-mm-yy' });
     $.mask.definitions['H'] = '[012]';
     $.mask.definitions['M'] = '[012345]';
     $.mask.definitions['F'] = '[0-9.]+';
     TIME_AIRING_BEGIN_EDIT.mask('H9:M9');
+    $.fn.select2.defaults.set("theme", "classic");
     $(document).on("change", '#lot_edit', function (e) {
         console.log('change lots');
         var me = e.target;
@@ -63,9 +59,6 @@ $(function () {
             { url: 'ajax/subst', 'render': selectSubs },
             { url: 'ajax/counter', 'render': selectCount },
         ];
-        var req = new ReqestSelect_1.default(primaer);
-        req.data = val;
-        req.reqest();
     });
     $(document).on("change", '#substation_edit', function (e) {
         console.log('change subs');
@@ -75,9 +68,6 @@ $(function () {
         var primaer = [
             { url: 'ajax/counter', 'render': selectCount },
         ];
-        var req = new ReqestSelect_1.default(primaer);
-        req.data = val;
-        req.reqest();
     });
     var edit_form = $("#edit_value_counts_form").dialog({
         title: "Редактирование значения счётчика",
@@ -247,7 +237,11 @@ var Select = (function () {
         this.data = [];
         this.idEl = idEl;
         this.elSetup = document.getElementById(idEl);
-        this.el = this.elSetup;
+        this.elSelect2 = $(this.elSetup);
+        this.elSelect2.select2({
+            MinimumResultsForSearch: Infinity
+        });
+        this.oneRun = null;
     }
     Object.defineProperty(Select.prototype, "classHTML", {
         set: function (value) {
@@ -257,32 +251,24 @@ var Select = (function () {
         configurable: true
     });
     Select.prototype.setData = function (data) {
+        var dataSrc = [];
+        for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+            var row = data_1[_i];
+            dataSrc.push({
+                id: row.id,
+                text: row.name
+            });
+        }
         this.data = data;
+        this.elSelect2.select2({
+            data: dataSrc
+        });
         this.render();
     };
     Select.prototype.selectByValue = function (id) {
-        var _this = this;
-        return !!this.el && this.data.some(function (item, index) {
-            if (item.id === id) {
-                _this.el.selectedIndex = index;
-                return true;
-            }
-            return false;
-        });
+        this.elSelect2.select2('val', id);
     };
     Select.prototype.render = function () {
-        var select = document.createElement('select');
-        select.setAttribute("id", this.idEl);
-        select.setAttribute('name', this.idEl);
-        select.setAttribute('class', this._class);
-        this.data.forEach(function (item) {
-            select.options.add(new Option(item.name, item.id));
-        });
-        if (this.el && this.el.parentNode) {
-            this.el.parentNode.replaceChild(select, this.el);
-        }
-        this.el = select;
-        return this.el;
     };
     return Select;
 }());
@@ -466,7 +452,6 @@ var ReqestSelect = (function () {
         if (this.reqRender.length) {
             var me_1 = this.reqRender.shift();
             var param_1 = this._param.shift();
-            console.log(param_1);
             $.ajax({ dataType: 'json', type: 'get', url: me_1.url, data: { 'data': this._data } })
                 .done(function (result) {
                 me_1.render.setData(result.data);
@@ -477,6 +462,7 @@ var ReqestSelect = (function () {
                 else {
                     _this._data = result.data[0].id;
                 }
+                console.log('Count = ', _this._counter);
                 _this.reqest();
             })
                 .fail(function (result) { return alert('error'); });

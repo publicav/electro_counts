@@ -30,6 +30,7 @@
   "homepage": "https://github.com/publicav/electro_counts#readme",
   "devDependencies": {
     "@types/node": "^7.0.12",
+    "@types/select2": "^4.0.34",
     "gulp-plumber": "^1.1.0",
     "gulp-uglify": "^2.1.2"
   }

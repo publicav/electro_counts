@@ -121,7 +121,7 @@ class FilterValueModel extends BaseModel {
 
         $counter = [];
         while ( $row = $res->fetch() ) {
-            $keyId = '' . $row['id'];
+            //            $keyId = '' . $row['id'];
             //            $counter[ $keyId ] = $row;
             $counter[] = $row;
         }
@@ -136,6 +136,7 @@ class FilterValueModel extends BaseModel {
             'success'  => true,
             'id_error' => 0,
             'data'     => $data,
+            'sql'      => $sq,
         ];
         return true;
 

@@ -13,6 +13,7 @@ export default class ReqestSelect {
     set data( value: number ) {
         this._data = value;
     }
+
     set param( value: isetParam1[] ) {
         this._param = value;
     }
@@ -21,6 +22,7 @@ export default class ReqestSelect {
     private loadForm: number;
     private _data: number;
     private _param: isetParam1[] = [];
+    private _counter: number;
 
     constructor( reqRender: iReqestRender[], loadForm: number = 0 ) {
         this.reqRender = reqRender;
@@ -33,7 +35,7 @@ export default class ReqestSelect {
         if ( this.reqRender.length ) {
             let me = this.reqRender.shift();
             let param = this._param.shift();
-            console.log( param );
+            // console.log( param );
             $.ajax( { dataType: 'json', type: 'get', url: me.url, data: { 'data': this._data } } )
                 .done( ( result ) => {
                     me.render.setData( result.data );
@@ -45,6 +47,7 @@ export default class ReqestSelect {
                         this._data = result.data[ 0 ].id;
                     }
                     // console.log( result );
+                    console.log( 'Count = ', this._counter )
                     this.reqest();
                 } )
                 .fail( ( result ) => alert( 'error' ) );
