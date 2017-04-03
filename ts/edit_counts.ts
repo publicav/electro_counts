@@ -140,12 +140,12 @@ $( () => {
     RIGHT.on( 'click', '.counter_str_even, .counter_str_odd', function ( event ) {
         let edit_id = $( this ).attr( 'id' );
         let param = { 'id': edit_id.slice( 3 ) };
-        const primaer = [
+        const dependentFilters = [
             { url: 'ajax/lots', 'render': selectLot },
             { url: 'ajax/subst', 'render': selectSubs },
             { url: 'ajax/counter', 'render': selectCount },
         ];
-        const req = new ReqestSelect( primaer, 1 );
+        const req = new ReqestSelect( dependentFilters, 1 );
 
         const loadFormVal: LoadFormValue = new LoadFormValue( req, objEditForm );
         const reqestLoadForm: ReqestData = new ReqestData( loadFormVal, 'ajax/loadform_value/', param );

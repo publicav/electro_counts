@@ -18,6 +18,10 @@ var LoadFormValue = (function () {
         this.dest.objId.val(data.id);
     };
     LoadFormValue.prototype.render = function () {
+        var lf = this._data;
+        console.log(lf);
+        var param = [{ setparam: lf.lot_id }, { setparam: lf.sub_id }, { setparam: lf.counter_id }];
+        this.renderSel.param = param;
         this.renderSel.reqest();
     };
     return LoadFormValue;

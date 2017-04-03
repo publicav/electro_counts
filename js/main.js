@@ -213,7 +213,8 @@ let json_get_table = ( objTarget, cmd_arr ) => {
                 objTarget.html( print_table( data.counter ) );
                 let navigationD = navigation( data.navigationData );
                 objTarget.append( '<div class="navigator">' + navigationD + '</div>' );
-                history.pushState( null, '', create_cmd( '', cmd_arr ) );
+                history.replaceState( cmd_arr, '', BASENAME + '?' + $.param( cmd_arr ) );
+                // history.pushState( null, '', create_cmd( '', cmd_arr ) );
             } else  alert( result.error );
         } )
         .fail( () => alert( result.responseJSON.error ) );
