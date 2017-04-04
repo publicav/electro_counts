@@ -1,55 +1,88 @@
-import { getUrlVars1 } from "./libs/GeturlVar";
+import { ReqestData } from "./libs/ReqestData";
+import { getUrlVars1, nameUrl } from "./libs/GeturlVar";
 import { iCMD_Line } from "./libs/CMD_Line";
 import Select from "./libs/MySelect";
-import ReqestSelect from "./libs/ReqestSelect";
+import { isetParam1, ReqestSelect } from "./libs/ReqestSelect";
+import RenderTablValCounter from "./libs/RenderTablValCounter";
+
 
 $( () => {
+
     const RIGHT = $( '#right' );
+    const COUNTER = $( '#counter' );
     const SELECTED_ACTIONS = 1, EDIT_ACTIONS = 2;
     const parseBASENAME = window.location.pathname.slice( 1 ).split( '/' );
-    const BASENAME = parseBASENAME[ parseBASENAME.length - 1 ];
+    // const BASENAME = parseBASENAME[ parseBASENAME.length - 1 ];
+    const BASENAME = nameUrl( window.location.pathname );
     const base_link = BASENAME;
     const objFiltred = {
-        objSubstation : $( '#substation' ),
-        objCounter    : $( '#counter' ),
+        objSubstation: $( '#substation' ),
+        objCounter: COUNTER,
         url_substation: 'ajax/subst_filter/',
-        url_counter   : 'ajax/counter_filter/'
+        url_counter: 'ajax/counter_filter/'
+    };
+    let cmd_line: iCMD_Line = getUrlVars1();
+
+    let json_get_table = ( objTarget, cmd_line ) => {
+        let right = document.getElementById( 'right' );
+        let table = new RenderTablValCounter();
+        right.innerHTML = '';
+        table.render();
+        right.appendChild( table.elTitle );
+        right.appendChild( table.elTable );
+        right.appendChild( table.elnavigator );
+
+        const requstTable: ReqestData = new ReqestData( table, 'ajax/filterValue/', cmd_line, 'get' );
+        requstTable.reqest();
+        history.replaceState( cmd_line, '', BASENAME + '?' + $.param( cmd_line ) );
+
     };
 
-    const selectLot = new Select( 'lot_edit' );
+    const selectLot = new Select( 'lot' );
     selectLot.classHTML = 'filtred_selected';
-    const selectSubs = new Select( 'substation_edit' );
+    const selectSubs = new Select( 'substation' );
     selectSubs.classHTML = 'filtred_selected';
-    const selectCount = new Select( 'counter_edit' );
+    const selectCount = new Select( 'counter' );
     selectCount.classHTML = 'filtred_selected';
     selectLot.render();
     selectSubs.render();
     selectCount.render();
 
-    let cmd_line: iCMD_Line = getUrlVars1();
-    json_get_table( $( '#right' ), cmd_line );
+    let filter: isetParam1[] = [];
+    let zero: number = 0;
+    json_get_table( RIGHT, cmd_line );
 
     $.datepicker.setDefaults(
         $.extend( $.datepicker.regional[ "ru" ] )
     );
 
-    // Востанавливаем значения фильтров если была перезагрузка страницы через F5 или обновить
-    if ( ('id_lot' in cmd_line) && ('id_sub' in cmd_line) && ('id_counter' in cmd_line) ) {
-        // $( '#lot [value="' + cmd_line.id_lot + '"]' ).prop( "selected", true );
 
-        get_substation( objFiltred, cmd_line.id_lot, EDIT_ACTIONS, cmd_line.id_sub, cmd_line.id_counter );
-
+    if ( 'id_lot' in cmd_line ) {
+        filter.push( { setparam: cmd_line.id_lot } );
     } else {
-        if ( ('id_lot' in cmd_line) && ('id_sub' in cmd_line) ) {
-            // $( '#lot [value="' + cmd_line.id_lot + '"]' ).prop( "selected", true );
-            get_substation( objFiltred, cmd_line.id_lot, EDIT_ACTIONS, cmd_line.id_sub );
-        } else {
-            if ( 'id_lot' in cmd_line ) {
-                // $( '#lot [value="' + cmd_line.id_lot + '"]' ).prop( "selected", true );
-                get_substation( objFiltred, cmd_line.id_lot );
-            }
-        }
+        filter.push( { setparam: zero } );
     }
+    if ( 'id_sub' in cmd_line ) {
+        filter.push( { setparam: cmd_line.id_sub } );
+    } else {
+        filter.push( { setparam: zero } );
+    }
+    if ( 'id_counter' in cmd_line ) {
+        filter.push( { setparam: cmd_line.id_counter } );
+    } else {
+        filter.push( { setparam: zero } );
+    }
+
+    const dependentFilters = [
+        { url: 'ajax/lots_filter', 'render': selectLot },
+        { url: 'ajax/subst_filter', 'render': selectSubs },
+        { url: 'ajax/counter_filter', 'render': selectCount },
+    ];
+    console.log( filter, dependentFilters );
+    const req = new ReqestSelect( dependentFilters, 1 );
+    req.param = filter;
+    req.reqest();
+
 
     if ( 'date_b' in cmd_line ) {
         $( "#dt1_en" ).attr( "checked", "checked" );
@@ -63,11 +96,14 @@ $( () => {
         console.log( 'date_e in cmd_line' );
     }
 
-    $( '#lot' ).change( function () {
-        let lot = $( this ).val();
-        cmd_line.id_lot = lot;
-        console.log( cmd_line );
-        if ( lot == 0 ) {
+
+    $( document ).on( "change", '#lot', function ( e ) {
+        console.log( 'change lots' );
+        let me = e.target;
+        console.log( $( me ).val() );
+        let val = $( me ).val();
+        cmd_line.id_lot = val;
+        if ( val == 0 ) {
             delete cmd_line.id_lot;
             delete cmd_line.id_sub;
             delete cmd_line.id_counter;
@@ -79,19 +115,29 @@ $( () => {
             $( '#substation' ).prop( 'disabled', false );
         }
         console.log( cmd_line );
+        const primaer = [
+            { url: 'ajax/subst_filter', 'render': selectSubs },
+            { url: 'ajax/counter_filter', 'render': selectCount },
+        ];
+        const req = new ReqestSelect( primaer );
+        req.data = val;
+        req.reqest();
 
-        get_substation( objFiltred, lot );
+        json_get_table( RIGHT, cmd_line );
 
-        json_get_table( $( '#right' ), cmd_line );
     } );
-// Изменение подстанции фильр выбора		
-    $( '#substation' ).change( function () {
-        let lot = $( '#lot' ).val();
-        let substation = $( this ).val();
-        cmd_line.id_lot = lot;
-        cmd_line.id_sub = substation;
 
-        if ( substation == 0 ) {
+    $( document ).on( "change", '#substation', function ( e ) {
+        console.log( 'change subs' );
+        let me = e.target;
+        let val = $( me ).val();
+        let lot = $( '#lot' ).val();
+        console.log( val );
+
+        cmd_line.id_lot = lot;
+        cmd_line.id_sub = val;
+
+        if ( val == 0 ) {
             delete cmd_line.id_sub;
             delete cmd_line.id_counter;
             delete cmd_line.st;
@@ -100,18 +146,30 @@ $( () => {
             delete cmd_line.st;
             delete cmd_line.id_counter;
         }
-        get_counter( objFiltred, substation );
-        json_get_table( $( '#right' ), cmd_line );
+
+        const primaer = [
+            { url: 'ajax/counter_filter', 'render': selectCount },
+        ];
+        const req = new ReqestSelect( primaer );
+        req.data = val;
+        req.reqest();
+
+        json_get_table( RIGHT, cmd_line );
     } );
-// Изменение ячейки фильр выбора		
-    $( '#counter' ).change( function () {
+
+    $( document ).on( "change", '#counter', function ( e ) {
+        console.log( 'change counter' );
         cmd_line.id_lot = $( '#lot' ).val();
         cmd_line.id_sub = $( '#substation' ).val();
-        cmd_line.id_counter = $( this ).val();
+        let me = e.target;
+        let val = $( me ).val();
+        cmd_line.id_counter = val;
+        console.log( val );
         if ( cmd_line.id_counter == 0 ) {
             delete cmd_line.id_counter;
         }
-        json_get_table( $( '#right' ), cmd_line );
+        json_get_table( RIGHT, cmd_line );
+
     } );
 
     $( '.filtred_checkbox' ).on( 'click', function ( e ) {
@@ -126,7 +184,7 @@ $( () => {
 
                 $( "#dt1" ).datepicker( 'enable' );
                 cmd_line.date_b = $( "#dt1" ).datepicker().val();
-                json_get_table( $( '#right' ), cmd_line );
+                json_get_table( RIGHT, cmd_line );
             } else {
                 delete cmd_line.date_b;
                 delete cmd_line.st;
@@ -139,7 +197,7 @@ $( () => {
                 $( "#dt1" ).datepicker( 'disable' );
                 $( "#dt2" ).datepicker( 'disable' );
 
-                json_get_table( $( '#right' ), cmd_line );
+                json_get_table( RIGHT, cmd_line );
             }
 
         if ( (checkbox_id == 'dt2_en') )
@@ -148,29 +206,29 @@ $( () => {
 
                 $( "#dt2" ).datepicker( 'enable' );
                 cmd_line.date_e = $( "#dt2" ).datepicker().val();
-                json_get_table( $( '#right' ), cmd_line );
+                json_get_table( RIGHT, cmd_line );
             } else {
                 delete cmd_line.date_e;
                 delete cmd_line.st;
 
                 $( "#dt2" ).datepicker( 'disable' );
-                json_get_table( $( '#right' ), cmd_line );
+                json_get_table( RIGHT, cmd_line );
             }
     } );
 
     $( "#dt1" ).datepicker( {
         changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
-        onSelect  : function ( dateText, inst ) {
+        onSelect: function ( dateText, inst ) {
             cmd_line.date_b = dateText;
-            json_get_table( $( '#right' ), cmd_line );
+            json_get_table( RIGHT, cmd_line );
         }
     } );
 
     $( "#dt2" ).datepicker( {
         changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
-        onSelect  : function ( dateText, inst ) {
+        onSelect: function ( dateText, inst ) {
             cmd_line.date_e = dateText;
-            json_get_table( $( '#right' ), cmd_line );
+            json_get_table( RIGHT, cmd_line );
         }
     } );
 
@@ -179,8 +237,12 @@ $( () => {
 
     RIGHT.on( 'click', 'a', function ( event ) {
         event.preventDefault();
-        // console.log(event.target.search);
-        let param = event.target.search;
+        let param;
+        let paramStr = event.target;
+        param = $( paramStr ).attr( 'href' );
+        console.log( $( paramStr ).attr( 'href' ) );
+
+
         if ( param != '' ) {
             let stArr = (param.substr( 1 )).split( '&' );
             for ( let i = 0; i < stArr.length; i++ ) {
@@ -191,11 +253,13 @@ $( () => {
             }
         }
         console.log( cmd_line );
-        json_get_table( $( '#right' ), cmd_line );
+        json_get_table( RIGHT, cmd_line );
     } );
     $( document ).tooltip( {
         content: function () {
             return this.getAttribute( "title" )
         }
     } );
+
+
 } );
