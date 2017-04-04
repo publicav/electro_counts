@@ -4,7 +4,7 @@ var ActionForm = (function () {
     function ActionForm(form) {
         this._form = form;
     }
-    ActionForm.prototype.doActions = function () {
+    ActionForm.prototype.doActions = function (requstTable) {
         var formActions = $(this._form);
         var m_method = formActions.attr('method');
         var m_action = formActions.attr('action');
@@ -12,6 +12,7 @@ var ActionForm = (function () {
         $.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
             .done(function (result) {
             if (result.success) {
+                requstTable.reqest();
             }
             else
                 alert(result.error);

@@ -12,4 +12,9 @@ const getUrlVars1 = () => {
     }
     return vars;
 };
-export { getUrlVars1 };
+function nameUrl( path ) {
+    path = path.substring( path.lastIndexOf( "/" ) + 1 );
+    return (path.match( /[^.]+(\.[^?#]+)?/ ) || [])[ 0 ];
+}
+
+export { getUrlVars1,nameUrl };

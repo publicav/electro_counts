@@ -35,7 +35,7 @@ class ActionFromValueEditModel extends BaseModel {
             'counter_val'     => [ 'required', 'notEmpty', ],
             'date_begin'      => [ 'required', 'DateDMY', ],
             'time_begin'      => [ 'required', 'TimeSet', ],
-            'edit_id'        => [ 'required', 'isPositive', ]
+            'edit_id'         => [ 'required', 'isPositive', ]
         ];
     }
 
@@ -86,9 +86,9 @@ class ActionFromValueEditModel extends BaseModel {
         $id_add = $this->edit_id;
 
         $data = [ "id"              => $id_add,
-                  "lot"             => $this->lot,
-                  "substation"      => $this->substation,
-                  "counter"         => $this->counter,
+                  "lot"             => $this->lot_edit,
+                  "substation"      => $this->substation_edit,
+                  "counter"         => $this->counter_edit,
                   "name_lot"        => $name_lot,
                   "name_substation" => $name_substation,
                   "name_counter"    => $name_count,

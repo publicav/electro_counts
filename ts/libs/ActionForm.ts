@@ -8,7 +8,7 @@ class ActionForm {
         this._form = form;
     }
 
-    public doActions() {
+    public doActions( requstTable ) {
         let formActions = $( this._form );
 
         let m_method = formActions.attr( 'method' );
@@ -18,9 +18,10 @@ class ActionForm {
         $.ajax( { dataType: 'json', type: m_method, url: m_action, data: m_data } )
             .done( ( result ) => {
                 if ( result.success ) {
+                    requstTable.reqest();
                 } else  alert( result.error );
             } )
-            .fail( ( result ) => alert( result.responseJSON.error ) );
+            .fail( ( result ) => alert( 'error' ) );
 
     }
 }

@@ -142,44 +142,6 @@ let create_cmd = ( base_link, params ) => {
     return cmd;
 };
 
-const print_table = ( counter ) => {
-    console.log( counter );
-    let count = 0, class_e;
-    let st = `	<div class="title_table_counter">
-					<div class="title_lots">Участок</div>
-					<div class="title_substation">Подстанция</div>
-					<div class="title_counts">Ячейка</div>
-					<div class="title_date">Дата</div>
-					<div class="title_date">Значение</div>
-				</div>`;
-
-    // for ( let key in counter ) {
-    for ( let i = 0; i < counter.length; i ++ ) {
-        if ( count % 2 != 0 ) class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
-        st += `	<div id="id_${counter[ i ].id}" class="${class_e}" title="Ввод - <b>${counter[ i ].name_user}</b>">
-				<div class="col_lots">${counter[ i ].lot}</div>
-				<div class="col_substation">${counter[ i ].substation}</div>
-				<div class="col_counts">${counter[ i ].counter}</div>
-				<div class="col_date">${counter[ i ].date1}</div>
-				<div class="col_value">${counter[ i ].value}</div>
-				</div>`;
-        count ++;
-    }
-    return st;
-};
-
-const navigation = ( data ) => {
-    let page = data.page;
-    let span = '';
-    for ( let i = 0; i < page.length; i ++ ) {
-        if ( page[ i ].st == null ) {
-            span += `<span class="pagecurrent">${page[ i ].text}</span>`;
-        } else {
-            span += `<span class="pagelink"><a href="${data.file}?st=${page[ i ].st}${data.paramUrl}" title="${page[ i ].title}">${page[ i ].text}</a></span>`;
-        }
-    }
-    return `<p>${span}<p>`;
-};
 
 let print_t_calc = ( data ) => {
     let count = 0, class_e;
@@ -202,21 +164,6 @@ let print_t_calc = ( data ) => {
         count ++;
     }
     return st;
-};
-
-
-let json_get_table = ( objTarget, cmd_arr ) => {
-    $.ajax( { dataType: 'json', type: 'get', url: 'ajax/filterValue/', data: cmd_arr } )
-        .done( ( result ) => {
-            if ( result.success ) {
-                let data = result.data;
-                objTarget.html( print_table( data.counter ) );
-                let navigationD = navigation( data.navigationData );
-                objTarget.append( '<div class="navigator">' + navigationD + '</div>' );
-                history.pushState( null, '', create_cmd( '', cmd_arr ) );
-            } else  alert( result.error );
-        } )
-        .fail( () => alert( result.responseJSON.error ) );
 };
 
 let json_get_t_calc = ( objTarget, cmd_arr ) => {
