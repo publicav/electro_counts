@@ -9,18 +9,11 @@ import RenderTablValCounter from "./libs/RenderTablValCounter";
 $( () => {
 
     const RIGHT = $( '#right' );
-    const COUNTER = $( '#counter' );
-    const SELECTED_ACTIONS = 1, EDIT_ACTIONS = 2;
-    const parseBASENAME = window.location.pathname.slice( 1 ).split( '/' );
-    // const BASENAME = parseBASENAME[ parseBASENAME.length - 1 ];
+    const dt1 = $( "#dt1" );
+    const dt2 = $( "#dt2" );
+    const dt1_en = $( "#dt1_en" );
+    const dt2_en = $( "#dt2_en" );
     const BASENAME = nameUrl( window.location.pathname );
-    const base_link = BASENAME;
-    const objFiltred = {
-        objSubstation: $( '#substation' ),
-        objCounter: COUNTER,
-        url_substation: 'ajax/subst_filter/',
-        url_counter: 'ajax/counter_filter/'
-    };
     let cmd_line: iCMD_Line = getUrlVars1();
 
     let json_get_table = ( objTarget, cmd_line ) => {
@@ -85,14 +78,14 @@ $( () => {
 
 
     if ( 'date_b' in cmd_line ) {
-        $( "#dt1_en" ).attr( "checked", "checked" );
-        $( '#dt2_en' ).prop( 'disabled', false );
-        $( "#dt1" ).datepicker( 'enable' );
+        dt1_en.attr( "checked", "checked" );
+        dt2_en.prop( 'disabled', false );
+        dt1.datepicker( 'enable' );
         console.log( 'date_b in cmd_line' );
     }
     if ( 'date_e' in cmd_line ) {
-        $( "#dt2_en" ).attr( "checked", "checked" );
-        $( "#dt2" ).datepicker( 'enable' );
+        dt2_en.attr( "checked", "checked" );
+        dt2.datepicker( 'enable' );
         console.log( 'date_e in cmd_line' );
     }
 
@@ -172,30 +165,30 @@ $( () => {
 
     } );
 
-    $( '.filtred_checkbox' ).on( 'click', function ( e ) {
+    $( '.filtred_checkbox' ).on( 'click', function () {
         let checkbox_id = $( this ).attr( 'id' );
         let lot = $( '#lot' ).val();
 
         if ( (checkbox_id == 'dt1_en') )
-            if ( $( '#dt1_en' ).prop( 'checked' ) ) {
+            if ( dt1_en.prop( 'checked' ) ) {
                 delete cmd_line.st;
 
-                $( '#dt2_en' ).prop( 'disabled', false );
+                dt2_en.prop( 'disabled', false );
 
-                $( "#dt1" ).datepicker( 'enable' );
-                cmd_line.date_b = $( "#dt1" ).datepicker().val();
+                dt1.datepicker( 'enable' );
+                cmd_line.date_b = dt1.datepicker().val();
                 json_get_table( RIGHT, cmd_line );
             } else {
                 delete cmd_line.date_b;
                 delete cmd_line.st;
                 delete cmd_line.date_e;
 
-                $( '#dt2_en' ).prop( 'disabled', true );
-                $( '#dt2_en' ).prop( 'checked', false );
+                dt2_en.prop( 'disabled', true );
+                dt2_en.prop( 'checked', false );
 
 
-                $( "#dt1" ).datepicker( 'disable' );
-                $( "#dt2" ).datepicker( 'disable' );
+                dt1.datepicker( 'disable' );
+                dt2.datepicker( 'disable' );
 
                 json_get_table( RIGHT, cmd_line );
             }
@@ -204,36 +197,36 @@ $( () => {
             if ( $( '#dt2_en' ).prop( 'checked' ) ) {
                 delete cmd_line.st;
 
-                $( "#dt2" ).datepicker( 'enable' );
+                dt2.datepicker( 'enable' );
                 cmd_line.date_e = $( "#dt2" ).datepicker().val();
                 json_get_table( RIGHT, cmd_line );
             } else {
                 delete cmd_line.date_e;
                 delete cmd_line.st;
 
-                $( "#dt2" ).datepicker( 'disable' );
+                dt2.datepicker( 'disable' );
                 json_get_table( RIGHT, cmd_line );
             }
     } );
 
-    $( "#dt1" ).datepicker( {
+    dt1.datepicker( {
         changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
-        onSelect: function ( dateText, inst ) {
+        onSelect: function ( dateText ) {
             cmd_line.date_b = dateText;
             json_get_table( RIGHT, cmd_line );
         }
     } );
 
-    $( "#dt2" ).datepicker( {
+    dt2.datepicker( {
         changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
-        onSelect: function ( dateText, inst ) {
+        onSelect: function ( dateText ) {
             cmd_line.date_e = dateText;
             json_get_table( RIGHT, cmd_line );
         }
     } );
 
-    if ( !$( '#dt1_en' ).prop( 'checked' ) ) $( "#dt1" ).datepicker( 'disable' );
-    if ( !$( '#dt2_en' ).prop( 'checked' ) ) $( "#dt2" ).datepicker( 'disable' );
+    if ( !dt1_en.prop( 'checked' ) ) dt1.datepicker( 'disable' );
+    if ( !dt2_en.prop( 'checked' ) ) dt2.datepicker( 'disable' );
 
     RIGHT.on( 'click', 'a', function ( event ) {
         event.preventDefault();

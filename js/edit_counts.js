@@ -95,7 +95,6 @@ $(function () {
                 text: 'Ok',
                 click: function () {
                     var editFormActions = new ActionForm_1.ActionForm(this);
-                    editFormActions.doActions();
                     var right = document.getElementById('right');
                     right.innerHTML = '';
                     var table = new RenderTablValCounter_1.default();
@@ -104,7 +103,7 @@ $(function () {
                     right.appendChild(table.elTable);
                     right.appendChild(table.elnavigator);
                     var requstTable = new ReqestData_1.ReqestData(table, 'ajax/filterValue/', GeturlVar_1.getUrlVars1(), 'get');
-                    requstTable.reqest();
+                    editFormActions.doActions(requstTable);
                     $(this).dialog("close");
                 }
             },
@@ -119,7 +118,6 @@ $(function () {
     $(document).on("submit", '#edit_value_counts_form', function (event) {
         event.preventDefault();
         var editFormActions = new ActionForm_1.ActionForm(this);
-        editFormActions.doActions();
         var right = document.getElementById('right');
         right.innerHTML = '';
         var table = new RenderTablValCounter_1.default();
@@ -128,7 +126,7 @@ $(function () {
         right.appendChild(table.elTable);
         right.appendChild(table.elnavigator);
         var requstTable = new ReqestData_1.ReqestData(table, 'ajax/filterValue/', GeturlVar_1.getUrlVars1(), 'get');
-        requstTable.reqest();
+        editFormActions.doActions(requstTable);
         edit_form.dialog("close");
     });
     RIGHT.on('click', '.counter_str_even, .counter_str_odd', function (event) {
@@ -156,7 +154,7 @@ var ActionForm = (function () {
     function ActionForm(form) {
         this._form = form;
     }
-    ActionForm.prototype.doActions = function () {
+    ActionForm.prototype.doActions = function (requstTable) {
         var formActions = $(this._form);
         var m_method = formActions.attr('method');
         var m_action = formActions.attr('action');
@@ -164,11 +162,12 @@ var ActionForm = (function () {
         $.ajax({ dataType: 'json', type: m_method, url: m_action, data: m_data })
             .done(function (result) {
             if (result.success) {
+                requstTable.reqest();
             }
             else
                 alert(result.error);
         })
-            .fail(function (result) { return alert(result.responseJSON.error); });
+            .fail(function (result) { return alert('error'); });
     };
     return ActionForm;
 }());

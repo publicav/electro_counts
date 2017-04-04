@@ -88,7 +88,7 @@ $( () => {
                 text: 'Ok',
                 click: function () {
                     const editFormActions: ActionForm = new ActionForm( this );
-                    editFormActions.doActions();
+
 
                     let right = document.getElementById( 'right' );
                     right.innerHTML = '';
@@ -100,8 +100,8 @@ $( () => {
                     right.appendChild( table.elnavigator );
 
                     const requstTable: ReqestData = new ReqestData( table, 'ajax/filterValue/', getUrlVars1(), 'get' );
-                    requstTable.reqest();
-
+                    // requstTable.reqest();
+                    editFormActions.doActions( requstTable );
                     // json_get_table( RIGTH, cmd_arr );
                     $( this ).dialog( "close" );
                 }
@@ -119,7 +119,6 @@ $( () => {
         event.preventDefault();
         const editFormActions: ActionForm = new ActionForm( this );
 
-        editFormActions.doActions();
 
         let right = document.getElementById( 'right' );
         right.innerHTML = '';
@@ -130,8 +129,8 @@ $( () => {
         right.appendChild( table.elnavigator );
 
         const requstTable: ReqestData = new ReqestData( table, 'ajax/filterValue/', getUrlVars1(), 'get' );
-        requstTable.reqest();
-
+        // requstTable.reqest();
+        editFormActions.doActions( requstTable );
         // json_get_table( RIGTH, cmd_arr );
         edit_form.dialog( "close" );
     } );
