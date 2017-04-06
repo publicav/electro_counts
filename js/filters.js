@@ -39,12 +39,8 @@ $(function () {
     var cmd_line = GeturlVar_1.getUrlVars1();
     var json_get_table = function (objTarget, cmd_line) {
         var right = document.getElementById('right');
-        var table = new RenderTablValCounter_1.default();
-        right.innerHTML = '';
+        var table = new RenderTablValCounter_1.default('right');
         table.render();
-        right.appendChild(table.elTitle);
-        right.appendChild(table.elTable);
-        right.appendChild(table.elnavigator);
         var requstTable = new ReqestData_1.ReqestData(table, 'ajax/filterValue/', cmd_line, 'get');
         requstTable.reqest();
         history.replaceState(cmd_line, '', BASENAME + '?' + $.param(cmd_line));
@@ -322,10 +318,11 @@ exports.default = Select;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var RenderTablValCounter = (function () {
-    function RenderTablValCounter() {
+    function RenderTablValCounter(idEl) {
         this._elTitle = null;
         this._elTable = null;
         this._elnavigator = null;
+        this.elSetup = $(document.getElementById(idEl));
         console.log('RenderTablValCounter');
         this.title = require('./../../json/title-tabl-counter.json');
     }
@@ -360,10 +357,8 @@ var RenderTablValCounter = (function () {
             div.innerHTML = row.name;
             divMain.appendChild(div);
         }
-        if (this._elTitle && this._elTitle.parentNode) {
-            this._elTitle.parentNode.replaceChild(divMain, this._elTitle);
-        }
         this._elTitle = divMain;
+        return this._elTitle;
     };
     RenderTablValCounter.prototype.navigationRender = function () {
         var divNavig = document.createElement('div');
@@ -384,9 +379,6 @@ var RenderTablValCounter = (function () {
                 pNavig.innerHTML += span;
             }
             divNavig.appendChild(pNavig);
-        }
-        if (this._elnavigator && this._elnavigator.parentNode) {
-            this._elnavigator.parentNode.replaceChild(divNavig, this._elnavigator);
         }
         this._elnavigator = divNavig;
     };
@@ -421,15 +413,15 @@ var RenderTablValCounter = (function () {
                 divMain.appendChild(divRow);
             }
         }
-        if (this._elTable && this._elTable.parentNode) {
-            this._elTable.parentNode.replaceChild(divMain, this._elTable);
-        }
         this._elTable = divMain;
     };
     RenderTablValCounter.prototype.render = function () {
         this.titleRender();
         this.tableRender();
         this.navigationRender();
+        this.elSetup.html(this.elTitle);
+        this.elSetup.append(this.elTable);
+        this.elSetup.append(this.elnavigator);
     };
     return RenderTablValCounter;
 }());

@@ -1,11 +1,7 @@
-///<reference path="../js/typings/jqueryui/index.d.ts"/>
-import { ReqestData } from "./libs/ReqestData";
 import { getUrlVars1, nameUrl } from "./libs/GeturlVar";
 import { iCMD_Line } from "./libs/CMD_Line";
 import Select from "./libs/MySelect";
 import { isetParam1, ReqestSelect } from "./libs/ReqestSelect";
-import RenderTablValCounter from "./libs/RenderTablValCounter";
-
 
 $( () => {
 
@@ -17,19 +13,40 @@ $( () => {
     const BASENAME = nameUrl( window.location.pathname );
     let cmd_line: iCMD_Line = getUrlVars1();
 
-    let json_get_table = ( objTarget, cmd_line ) => {
-        let right = document.getElementById( 'right' );
-        let table = new RenderTablValCounter( 'right' );
-        // right.innerHTML = '';
-        table.render();
-        // right.appendChild( table.elTitle );
-        // right.appendChild( table.elTable );
-        // right.appendChild( table.elnavigator );
+    let print_t_calc = ( data ) => {
+        let count = 0, class_e;
+        let title = data.title;
+        let counter = data.Data;
+        let st = `	<div class="title_table_counter">
+					<div class="title_calc_counter">Ячейка</div>
+					<div class="title_calc_date">Дата</div>
+					<div class="title_calc_value">Значение</div>
+				</div>`;
 
-        const requstTable: ReqestData = new ReqestData( table, 'ajax/filterValue/', cmd_line, 'get' );
-        requstTable.reqest();
-        history.replaceState( cmd_line, '', BASENAME + '?' + $.param( cmd_line ) );
+        for ( let key in counter ) {
+            if ( count % 2 != 0 ) class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
+            if ( counter[ key ].rare < 0 ) class_e = 'counter_str_err';
+            st += `	<div class="${class_e}" title="Расчёт">
+					<div class="colum_calc_counter">${title}</div>
+					<div class="colum_calc_date">${counter[ key ][ 0 ]}</div>
+					<div class="colum_calc_value">${counter[ key ][ 1 ]}</div>
+				</div>`;
+            count++;
+        }
+        return st;
+    };
 
+    let json_get_t_calc = ( objTarget, cmd_line ) => {
+        $.ajax( { dataType: 'json', type: 'get', url: 'ajax/calculation_counter/', data: cmd_line } )
+            .done( ( result ) => {
+                if ( result.success ) {
+                    // let data = result.data;
+                    objTarget.html( print_t_calc( result ) );
+                    objTarget.append( result.navigator );
+                    history.replaceState( cmd_line, '', BASENAME + '?' + $.param( cmd_line ) );
+                } else  alert( result.error );
+            } )
+            .fail( ( result ) => alert( 'Error' ) );
     };
 
     const selectLot = new Select( 'lot' );
@@ -44,12 +61,13 @@ $( () => {
 
     let filter: isetParam1[] = [];
     let zero: number = 0;
-    json_get_table( RIGHT, cmd_line );
+
+
+    json_get_t_calc( RIGHT, cmd_line );
 
     $.datepicker.setDefaults(
         $.extend( $.datepicker.regional[ "ru" ] )
     );
-
 
     if ( 'id_lot' in cmd_line ) {
         filter.push( { setparam: cmd_line.id_lot } );
@@ -77,20 +95,6 @@ $( () => {
     req.param = filter;
     req.reqest();
 
-
-    if ( 'date_b' in cmd_line ) {
-        dt1_en.attr( "checked", "checked" );
-        dt2_en.prop( 'disabled', false );
-        dt1.datepicker( 'enable' );
-        console.log( 'date_b in cmd_line' );
-    }
-    if ( 'date_e' in cmd_line ) {
-        dt2_en.attr( "checked", "checked" );
-        dt2.datepicker( 'enable' );
-        console.log( 'date_e in cmd_line' );
-    }
-
-
     $( document ).on( "change", '#lot', function ( e ) {
         console.log( 'change lots' );
         let me = e.target;
@@ -101,9 +105,9 @@ $( () => {
             delete cmd_line.id_lot;
             delete cmd_line.id_sub;
             delete cmd_line.id_counter;
-            delete cmd_line.st;
+            delete cmd_line.date_b;
         } else {
-            delete cmd_line.st;
+            delete cmd_line.date_b;
             delete cmd_line.id_sub;
             delete cmd_line.id_counter;
             $( '#substation' ).prop( 'disabled', false );
@@ -117,7 +121,7 @@ $( () => {
         req.data = val;
         req.reqest();
 
-        json_get_table( RIGHT, cmd_line );
+        json_get_t_calc( RIGHT, cmd_line );
 
     } );
 
@@ -134,10 +138,9 @@ $( () => {
         if ( val == 0 ) {
             delete cmd_line.id_sub;
             delete cmd_line.id_counter;
-            delete cmd_line.st;
-
+            delete cmd_line.date_b;
         } else {
-            delete cmd_line.st;
+            delete cmd_line.date_b;
             delete cmd_line.id_counter;
         }
 
@@ -148,7 +151,7 @@ $( () => {
         req.data = val;
         req.reqest();
 
-        json_get_table( RIGHT, cmd_line );
+        json_get_t_calc( RIGHT, cmd_line );
     } );
 
     $( document ).on( "change", '#counter', function ( e ) {
@@ -162,98 +165,54 @@ $( () => {
         if ( cmd_line.id_counter == 0 ) {
             delete cmd_line.id_counter;
         }
-        json_get_table( RIGHT, cmd_line );
+        json_get_t_calc( RIGHT, cmd_line );
 
     } );
-
-    $( '.filtred_checkbox' ).on( 'click', function () {
-        let checkbox_id = $( this ).attr( 'id' );
-        let lot = $( '#lot' ).val();
-
-        if ( (checkbox_id == 'dt1_en') )
-            if ( dt1_en.prop( 'checked' ) ) {
-                delete cmd_line.st;
-
-                dt2_en.prop( 'disabled', false );
-
-                dt1.datepicker( 'enable' );
-                cmd_line.date_b = dt1.datepicker().val();
-                json_get_table( RIGHT, cmd_line );
-            } else {
-                delete cmd_line.date_b;
-                delete cmd_line.st;
-                delete cmd_line.date_e;
-
-                dt2_en.prop( 'disabled', true );
-                dt2_en.prop( 'checked', false );
-
-
-                dt1.datepicker( 'disable' );
-                dt2.datepicker( 'disable' );
-
-                json_get_table( RIGHT, cmd_line );
-            }
-
-        if ( (checkbox_id == 'dt2_en') )
-            if ( $( '#dt2_en' ).prop( 'checked' ) ) {
-                delete cmd_line.st;
-
-                dt2.datepicker( 'enable' );
-                cmd_line.date_e = $( "#dt2" ).datepicker().val();
-                json_get_table( RIGHT, cmd_line );
-            } else {
-                delete cmd_line.date_e;
-                delete cmd_line.st;
-
-                dt2.datepicker( 'disable' );
-                json_get_table( RIGHT, cmd_line );
-            }
-    } );
-
-    dt1.datepicker( {
-        changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
-        onSelect  : function ( dateText ) {
-            cmd_line.date_b = dateText;
-            json_get_table( RIGHT, cmd_line );
-        }
-    } );
-
-    dt2.datepicker( {
-        changeYear: true, changeMonth: true, minDate: '2016-01-01', maxDate: '0', dateFormat: 'yy-mm-dd',
-        onSelect  : function ( dateText ) {
-            cmd_line.date_e = dateText;
-            json_get_table( RIGHT, cmd_line );
-        }
-    } );
-
-    if ( !dt1_en.prop( 'checked' ) ) dt1.datepicker( 'disable' );
-    if ( !dt2_en.prop( 'checked' ) ) dt2.datepicker( 'disable' );
 
     RIGHT.on( 'click', 'a', function ( event ) {
         event.preventDefault();
-        let param;
+        let paramAll, param;
         let paramStr = event.target;
-        param = $( paramStr ).attr( 'href' );
-        console.log( $( paramStr ).attr( 'href' ) );
-
-
+        paramAll = $( paramStr ).attr( 'href' );
+        paramAll = paramAll.split( '?' );
+        param = '?' + paramAll[ 1 ];
+        console.log( param );
         if ( param != '' ) {
             let stArr = (param.substr( 1 )).split( '&' );
+            console.log( stArr );
             for ( let i = 0; i < stArr.length; i++ ) {
                 let st = stArr[ i ].split( '=' );       // массив param будет содержать
-                if ( st[ 0 ] == 'st' ) {
-                    if ( st[ 1 ] != 0 ) cmd_line.st = st[ 1 ]; else delete cmd_line.st;
+                if ( st[ 0 ] == 'date_b' ) {
+                    console.log( st[ 0 ] );
+                    if ( st[ 1 ] != 0 ) cmd_line.date_b = st[ 1 ]; else delete cmd_line.date_b;
+                    break;
                 }
             }
         }
+
         console.log( cmd_line );
-        json_get_table( RIGHT, cmd_line );
+        json_get_t_calc( RIGHT, cmd_line );
     } );
+
+    // Переход со страницы расход на страницу редактирования
+    $( '#edit_count' ).on( 'click', function ( e ) {
+        const mount = [ '31', '28', '31', '30', '31', '30', '31', '31', '30', '31', '30', '31' ];
+        const param = cmd_line;
+        if ( 'date_b' in cmd_line ) {
+            let dtBg = cmd_line.date_b;
+            let dtArr = dtBg.split( '-' );
+            if ( !(Number( dtArr[ 0 ] ) % 4) ) mount[ 1 ] = '29';
+            param.date_e = dtArr[ 0 ] + '-' + dtArr[ 1 ] + '-' + mount[ Number( dtArr[ 1 ] ) - 1 ];
+            param.date_b = dtArr[ 0 ] + '-' + dtArr[ 1 ] + '-' + '01';
+            console.log( param );
+        }
+        window.location.href = $( '#edit_count' ).attr( 'href' ) + '?' + $.param( param );
+        e.preventDefault();
+    } );
+
     $( document ).tooltip( {
         content: function () {
             return this.getAttribute( "title" )
         }
     } );
-
-
 } );

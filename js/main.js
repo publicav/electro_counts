@@ -142,43 +142,6 @@ let create_cmd = ( base_link, params ) => {
     return cmd;
 };
 
-
-let print_t_calc = ( data ) => {
-    let count = 0, class_e;
-    let title = data.title;
-    let counter = data.Data;
-    let st = `	<div class="title_table_counter">
-					<div class="title_calc_counter">Ячейка</div>
-					<div class="title_calc_date">Дата</div>
-					<div class="title_calc_value">Значение</div>
-				</div>`;
-
-    for ( let key in counter ) {
-        if ( count % 2 != 0 ) class_e = 'counter_str_odd'; else class_e = 'counter_str_even';
-        if ( counter[ key ].rare < 0 ) class_e = 'counter_str_err';
-        st += `	<div class="${class_e}" title="Расчёт">
-					<div class="colum_calc_counter">${title}</div>
-					<div class="colum_calc_date">${counter[ key ][ 0 ]}</div>
-					<div class="colum_calc_value">${counter[ key ][ 1 ]}</div>
-				</div>`;
-        count ++;
-    }
-    return st;
-};
-
-let json_get_t_calc = ( objTarget, cmd_arr ) => {
-    $.ajax( { dataType: 'json', type: 'get', url: 'ajax/calculation_counter/', data: cmd_arr } )
-        .done( ( result ) => {
-            if ( result.success ) {
-                // let data = result.data;
-                objTarget.html( print_t_calc( result ) );
-                objTarget.append( result.navigator );
-                history.pushState( null, '', create_cmd( '', cmd_arr ) );
-            } else  alert( result.error );
-        } )
-        .fail( ( result ) => alert( result.responseJSON.error ) );
-};
-
 /**
  * Возвращает отформатированую строку введенных данных.
  * данные передаются ввиде одного объекта.

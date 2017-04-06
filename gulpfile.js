@@ -69,13 +69,38 @@ gulp.task( 'build:filters', () => {
         //.pipe( uglify() )
         .pipe( gulp.dest( './' ) );
 } );
+gulp.task( 'bld:filters-calc', () => {
+
+    browserify( {
+        entries: [ './ts/filters-calc.ts' ],
+        extensions: [ '.ts', '.tsx' ],
+        debug: false
+    } )
+    //.external(vendors)
+        .plugin( tsify, {
+            typescript: require( 'typescript' )
+        } )
+        .bundle()
+        .on( 'error', onerror )
+        .pipe( plumber() )
+        .pipe( source( './js/filters-calc.js' ) )
+        .pipe( buffer() )
+        //.pipe( uglify() )
+        .pipe( gulp.dest( './' ) );
+} );
 
 gulp
-    .watch( './ts/**/*.{ts,tsx,json}', [ 'build:edit_counts', 'build:test','build:filters' ] )
+    .watch( './ts/**/*.{ts,tsx,json}',
+        [
+            'build:edit_counts',
+            'build:test',
+            'build:filters',
+            'bld:filters-calc'
+        ] )
     .on( 'change', onchange )
     .on( 'error', onerror );
 
-gulp.task( 'default', [ 'build:edit_counts', 'build:test','build:filters' ] );
+gulp.task( 'default', [ 'build:edit_counts', 'build:test', 'build:filters', 'bld:filters-calc' ] );
 
 function onchange( event ) {
     console.log( 'File ' + event.path + ' was ' + event.type );

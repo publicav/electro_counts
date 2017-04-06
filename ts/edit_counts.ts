@@ -1,3 +1,4 @@
+///<reference path="../js/typings/jquery/index.d.ts"/>
 import { ReqestData } from "./libs/ReqestData";
 import { LoadFormValue } from "./libs/LoadFormValue";
 import { ActionForm } from "./libs/ActionForm";
@@ -73,19 +74,19 @@ $( () => {
 
 
     const edit_form = $( "#edit_value_counts_form" ).dialog( {
-        title: "Редактирование значения счётчика",
-        autoOpen: false,
+        title    : "Редактирование значения счётчика",
+        autoOpen : false,
         resizable: false,
-        height: 350,
-        width: 620,
-        modal: true,
-        close: function () {
+        height   : 350,
+        width    : 620,
+        modal    : true,
+        close    : function () {
             let formRes: any = $( this )[ 0 ];
             formRes.reset();
         },
-        buttons: [
+        buttons  : [
             {
-                text: 'Ok',
+                text : 'Ok',
                 click: function () {
                     const editFormActions: ActionForm = new ActionForm( this );
 
@@ -93,11 +94,11 @@ $( () => {
                     let right = document.getElementById( 'right' );
                     right.innerHTML = '';
 
-                    let table = new RenderTablValCounter();
+                    let table = new RenderTablValCounter( 'right' );
                     table.render();
-                    right.appendChild( table.elTitle );
-                    right.appendChild( table.elTable );
-                    right.appendChild( table.elnavigator );
+                    // right.appendChild( table.elTitle );
+                    // right.appendChild( table.elTable );
+                    // right.appendChild( table.elnavigator );
 
                     const requstTable: ReqestData = new ReqestData( table, 'ajax/filterValue/', getUrlVars1(), 'get' );
                     // requstTable.reqest();
@@ -107,7 +108,7 @@ $( () => {
                 }
             },
             {
-                text: 'Cancel',
+                text : 'Cancel',
                 click: function () {
                     $( this ).dialog( "close" );
                 }
@@ -121,12 +122,12 @@ $( () => {
 
 
         let right = document.getElementById( 'right' );
-        right.innerHTML = '';
-        let table = new RenderTablValCounter();
+        // right.innerHTML = '';
+        let table = new RenderTablValCounter('right');
         table.render();
-        right.appendChild( table.elTitle );
-        right.appendChild( table.elTable );
-        right.appendChild( table.elnavigator );
+        // right.appendChild( table.elTitle );
+        // right.appendChild( table.elTable );
+        // right.appendChild( table.elnavigator );
 
         const requstTable: ReqestData = new ReqestData( table, 'ajax/filterValue/', getUrlVars1(), 'get' );
         // requstTable.reqest();

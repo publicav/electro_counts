@@ -10,6 +10,7 @@ interface iTitle {
     "name": string;
 }
 export default class RenderTablValCounter implements Render {
+
     get elnavigator(): HTMLDivElement {
         return this._elnavigator;
     }
@@ -28,11 +29,13 @@ export default class RenderTablValCounter implements Render {
     private _elnavigator: HTMLDivElement;
     protected navigator: any;
     protected table: any;
+    protected elSetup;
 
-    constructor() {
+    constructor( idEl: string ) {
         this._elTitle = null;
         this._elTable = null;
         this._elnavigator = null;
+        this.elSetup = $( document.getElementById( idEl ) );
         console.log( 'RenderTablValCounter' );
         this.title = require( './../../json/title-tabl-counter.json' );
     }
@@ -46,11 +49,11 @@ export default class RenderTablValCounter implements Render {
             div.innerHTML = row.name;
             divMain.appendChild( div );
         }
-        if ( this._elTitle && this._elTitle.parentNode ) {
-            this._elTitle.parentNode.replaceChild( divMain, this._elTitle );
-        }
+        // if ( this._elTitle && this._elTitle.parentNode ) {
+        //     this._elTitle.parentNode.replaceChild( divMain, this._elTitle );
+        // }
         this._elTitle = divMain;
-        // return this._elTitle;
+        return this._elTitle;
         // console.log( divMain );
     }
 
@@ -72,10 +75,10 @@ export default class RenderTablValCounter implements Render {
             }
             divNavig.appendChild( pNavig );
         }
-        if ( this._elnavigator && this._elnavigator.parentNode ) {
-            this._elnavigator.parentNode.replaceChild( divNavig, this._elnavigator );
-        }
         this._elnavigator = divNavig;
+        // if ( this._elnavigator && this._elnavigator.parentNode ) {
+        //     this._elnavigator.parentNode.replaceChild( divNavig, this._elnavigator );
+        // }
     }
 
     public after() {
@@ -118,9 +121,9 @@ export default class RenderTablValCounter implements Render {
 
             }
         }
-        if ( this._elTable && this._elTable.parentNode ) {
-            this._elTable.parentNode.replaceChild( divMain, this._elTable );
-        }
+        // if ( this._elTable && this._elTable.parentNode ) {
+        //     this._elTable.parentNode.replaceChild( divMain, this._elTable );
+        // }
         this._elTable = divMain;
 
         // right.appendChild( divMain );
@@ -130,6 +133,9 @@ export default class RenderTablValCounter implements Render {
         this.titleRender();
         this.tableRender();
         this.navigationRender();
+        this.elSetup.html( this.elTitle );
+        this.elSetup.append( this.elTable );
+        this.elSetup.append( this.elnavigator );
     }
 
 }
