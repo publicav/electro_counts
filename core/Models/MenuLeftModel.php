@@ -22,7 +22,7 @@ class MenuLeftModel extends BaseModel {
 
     public function doMenuLeft() {
         $id_users = $this->_route->getAuthorization();
-
+//        var_dump($id_users);
         if ( $id_users > 0 ) {
             $menuLeft = new Privelege( $id_users );
             $menu_left_m = $menuLeft->getMenuLeft();

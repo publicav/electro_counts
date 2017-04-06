@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="css/adm.css">
@@ -11,20 +11,20 @@
     <meta name="keywords" content="<?= $this->_MetaK ?>">
     <title><?= $this->_title ?></title>
     <script src="js/main/jquery-3.2.0.min.js"></script>
-    <script charset="utf-8" src="js/main.js"></script>
+<!--    <script charset="utf-8" src="js/main.js"></script>-->
     <script src="js/jquery.colorbox-min.js"></script>
     <link rel="stylesheet" href="css/cb.css"/>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <script src="js/ui/minified/jquery-ui.min.js"></script>
     <script src="js/left-menu.js"></script>
-    <script src="js/min/login.min.js"></script>
+    <script src="js/login.js"></script>
 
     <?= $this->getCSSHTML() ?>
     <?= $this->getJsHTML() ?>
-</head>
 <script type="text/javascript">
     <?php  include __DIR__ . "/../base/jquery_exec.php"; ?>
 </script>
+</head>
 
 
 <body>

@@ -26,7 +26,7 @@ $(function () {
                 _this.render.doRun(result.data);
                 _this.render.render();
             })
-                .fail(function (result) { return alert(result.responseJSON.error); });
+                .fail(function (result) { return alert('Error'); });
         },
     };
     var ReqestLeftMenu = Object.create(ReqestData);
@@ -137,7 +137,7 @@ $(function () {
                 ReqestLeftMenu.init(LeftMenu, 'ajax/menuleft/');
                 ReqestLeftMenu.reqest();
             })
-                .fail(function (result) { return alert(result.responseJSON.error); });
+                .fail(function (result) { return alert('Error'); });
         }
     };
     $('#loginform').submit(function (e) {

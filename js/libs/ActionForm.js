@@ -17,7 +17,7 @@ var ActionForm = (function () {
             else
                 alert(result.error);
         })
-            .fail(function (result) { return alert(result.responseJSON.error); });
+            .fail(function (result) { return alert('error'); });
     };
     return ActionForm;
 }());

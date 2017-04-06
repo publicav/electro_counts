@@ -2,10 +2,10 @@ $( () => {
     const menu = $( '#menu' );
     const ReqestData = {
         render: {},
-        data: '',
-        url: '',
-        type: '',
-        init: function ( render, url, param = '', type = 'post' ) {
+        data  : '',
+        url   : '',
+        type  : '',
+        init  : function ( render, url, param = '', type = 'post' ) {
             this.data = param;
             this.render = render;
             this.url = url;
@@ -15,28 +15,28 @@ $( () => {
             let me = this;
             $.ajax( {
                 dataType: 'json',
-                type: me.type,
-                url: me.url,
-                data: me.data
+                type    : me.type,
+                url     : me.url,
+                data    : me.data
             } )
                 .done( ( result ) => {
                     this.render.doRun( result.data );
                     this.render.render();
                 } )
-                .fail( ( result ) => alert( result.responseJSON.error ) );
+                .fail( ( result ) => alert( 'Error' ) );
         },
     };
     const ReqestLeftMenu = Object.create( ReqestData );
     // const ReqestLeftMenu = Object.assign( {}, ReqestData );
     const MainMenu = {
-        dest: {},
-        user: {},
-        html: '',
-        init: function ( dest, user = {} ) {
+        dest  : {},
+        user  : {},
+        html  : '',
+        init  : function ( dest, user = {} ) {
             this.dest = dest;
             this.user = user;
         },
-        doRun: function ( data ) {
+        doRun : function ( data ) {
             let st = '';
             st += '<ul>';
             for ( let i = 0; i < data.length; i++ ) { //noinspection JSUnresolvedVariable
@@ -59,12 +59,12 @@ $( () => {
         }
     };
     const LeftMenu = {
-        dest: {},
-        html: '',
-        init: function ( dest ) {
+        dest  : {},
+        html  : '',
+        init  : function ( dest ) {
             this.dest = dest;
         },
-        doRun: function ( data ) {
+        doRun : function ( data ) {
             let st = '';
             let li_id = '';
             let subLm;
@@ -111,21 +111,21 @@ $( () => {
         }
     };
     const login_form = $( '#loginmodal' ).dialog( {
-        title: "Регистрация пользователя",
-        autoOpen: false,
+        title    : "Регистрация пользователя",
+        autoOpen : false,
         resizable: false,
-        modal: true,
-        height: 250,
-        width: 400
+        modal    : true,
+        height   : 250,
+        width    : 400
     } );
     const Auth = {
         mMenuTarget: '',
         lMenuTarget: '',
-        init: function ( mMenuTarget, lMenuTarget ) {
+        init       : function ( mMenuTarget, lMenuTarget ) {
             this.mMenuTarget = mMenuTarget;
             this.lMenuTarget = lMenuTarget;
         },
-        logout: function () {
+        logout     : function () {
             $.ajax( { dataType: 'json', type: 'post', url: 'ajax/unregistration/' } )
                 .done( () => {
                     MainMenu.init( this.mMenuTarget );
@@ -137,7 +137,7 @@ $( () => {
                 } )
                 .fail( () => alert( 'Error' ) );
         },
-        login: function ( form ) {
+        login      : function ( form ) {
             let m_method = $( form ).attr( 'method' );
             let m_action = $( form ).attr( 'action' );
             let m_data = $( form ).serialize();
@@ -151,7 +151,8 @@ $( () => {
                     ReqestLeftMenu.init( LeftMenu, 'ajax/menuleft/' );
                     ReqestLeftMenu.reqest();
                 } )
-                .fail( ( result ) => alert( result.responseJSON.error ) );
+                // .fail( ( result ) => alert( result.responseJSON.error ) );
+                .fail( ( result ) => alert( 'Error' ) );
         }
     };
     $( '#loginform' ).submit( function ( e ) {
