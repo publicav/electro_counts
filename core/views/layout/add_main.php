@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="css/adm.css">
     <title><?=$this->_title?></title>
     <script type="text/javascript" src="js/main/jquery-3.2.0.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+<!--    <script type="text/javascript" charset="utf-8" src="js/main.js"></script>-->
     <script src="js/ui/minified/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <link rel="stylesheet" href="css/adm.css">

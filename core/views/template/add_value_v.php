@@ -2,7 +2,9 @@
     <form id="add_value_counts_form" name="add_value_form" method="post" action="ajax/actionform_value/">
         <input id="edit_id" type="hidden" name="edit_id"/>
         <div class="p_input">
-            <div class="label_p"><label for="lot">Участок</label></div><?php include_once 'core/views/base/lot.php' ?>
+            <div class="label_p"><label for="lot">Участок</label></div>
+            <select id="lot" class="input_selected"></select>
+            <?php //include_once 'core/views/base/lot.php' ?>
         </div>
         <div class="p_input">
             <div class="label_p"><label for="substation">Подстанция</label></div>

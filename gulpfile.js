@@ -88,6 +88,25 @@ gulp.task( 'bld:filters-calc', () => {
         //.pipe( uglify() )
         .pipe( gulp.dest( './' ) );
 } );
+gulp.task( 'bld:add_counts', () => {
+
+    browserify( {
+        entries: [ './ts/add_counts.ts' ],
+        extensions: [ '.ts', '.tsx' ],
+        debug: false
+    } )
+    //.external(vendors)
+        .plugin( tsify, {
+            typescript: require( 'typescript' )
+        } )
+        .bundle()
+        .on( 'error', onerror )
+        .pipe( plumber() )
+        .pipe( source( './js/add_counts.js' ) )
+        .pipe( buffer() )
+        //.pipe( uglify() )
+        .pipe( gulp.dest( './' ) );
+} );
 
 gulp
     .watch( './ts/**/*.{ts,tsx,json}',
@@ -95,12 +114,20 @@ gulp
             'build:edit_counts',
             'build:test',
             'build:filters',
-            'bld:filters-calc'
+            'bld:filters-calc',
+            'bld:add_counts'
         ] )
     .on( 'change', onchange )
     .on( 'error', onerror );
 
-gulp.task( 'default', [ 'build:edit_counts', 'build:test', 'build:filters', 'bld:filters-calc' ] );
+gulp.task( 'default',
+    [
+        'build:edit_counts',
+        'build:test',
+        'build:filters',
+        'bld:filters-calc',
+        'bld:add_counts'
+    ] );
 
 function onchange( event ) {
     console.log( 'File ' + event.path + ' was ' + event.type );
