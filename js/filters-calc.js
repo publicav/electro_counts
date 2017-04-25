@@ -279,6 +279,9 @@ var ReqestSelect = (function () {
         this._data = 0;
     }
     Object.defineProperty(ReqestSelect.prototype, "data", {
+        get: function () {
+            return this._data;
+        },
         set: function (value) {
             this._data = value;
         },

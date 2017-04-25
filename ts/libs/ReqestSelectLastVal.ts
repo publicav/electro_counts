@@ -1,6 +1,8 @@
+import ReqestSelect from "./ReqestSelect";
 import Select from "./MySelect";
+
 /**
- * Created by valik on 28.03.2017.
+ * Created by valik on 24.04.2017.
  */
 interface iReqestRender {
     render: Select;
@@ -9,30 +11,25 @@ interface iReqestRender {
 interface isetParam1 {
     setparam: number;
 }
-export default class ReqestSelect {
-    get data(): number {
-        return this._data;
-    }
-    set data( value: number ) {
-        this._data = value;
-    }
-    set param( value: isetParam1[] ) {
-        this._param = value;
-    }
-
-    protected reqRender: iReqestRender[];
-    protected loadForm: number;
-    protected _data: number;
-    protected _param: isetParam1[] = [];
-
-    constructor( reqRender: iReqestRender[], loadForm: number = 0 ) {
-        this.reqRender = reqRender;
-        this.loadForm = loadForm;
-        this._data = 0;
-    }
 
 
-    public reqest() {
+export default class ReqestSelectLastVal extends ReqestSelect {
+    set lastEl( value: JQuery ) {
+        this._lastEl = value;
+    }
+
+    private _lastEl: JQuery;
+
+    protected get_last_val() {
+        $.ajax( { dataType: 'json', type: 'post', url: 'ajax/lastvalue_counter/', data: { 'counter': this.data } } )
+            .done( ( result ) => {
+                let data = result.data;
+                this._lastEl.val( data.value );
+            } )
+            .fail( ( result ) => alert( 'Error' ) );
+    };
+
+    public reqestMod() {
         if ( this.reqRender.length ) {
             let me = this.reqRender.shift();
             let param = this._param.shift();
@@ -47,11 +44,15 @@ export default class ReqestSelect {
                     } else {
                         this._data = result.data[ 0 ].id;
                     }
-                    // console.log( result );
-                    this.reqest();
+                    if ( this.reqRender.length == 1 ) this.get_last_val();
+                    console.log( 'размер массива', this.reqRender.length );
+                    this.reqestMod();
+
                 } )
                 .fail( ( result ) => alert( 'error' ) );
         }
+//        this.get_last_val();
     }
+
 }
-export { iReqestRender, isetParam1, ReqestSelect }
+export { iReqestRender, isetParam1, ReqestSelectLastVal }

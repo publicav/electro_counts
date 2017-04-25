@@ -1,19 +1,19 @@
 import { getUrlVars1, nameUrl } from "./libs/GeturlVar";
 import { iCMD_Line } from "./libs/CMD_Line";
 import Select from "./libs/MySelect";
-import { isetParam1, ReqestSelect } from "./libs/ReqestSelect";
+import { isetParam1, ReqestSelectLastVal } from "./libs/ReqestSelectLastVal";
 $( () => {
 
     let gl_add_counts = 0, buttonpressed;
-    let edit_arr  = [];
+    let edit_arr = [];
     let objSelected = {
-        objLot           : $( '#lot' ),
-        objSubstation    : $( '#substation' ),
-        objCounter       : $( '#counter' ),
+        objLot: $( '#lot' ),
+        objSubstation: $( '#substation' ),
+        objCounter: $( '#counter' ),
         objCounterLastVal: $( '#counter_last_val' ),
-        url_substation   : 'ajax/subst/',
-        url_counter      : 'ajax/counter/',
-        editCounter      : 0
+        url_substation: 'ajax/subst/',
+        url_counter: 'ajax/counter/',
+        editCounter: 0
     };
 
     // const BASENAME = nameUrl( window.location.pathname );
@@ -23,10 +23,11 @@ $( () => {
 
     const find_arr_id = ( arr, find_id ) => {
         let ret = -1;
-        for ( let i = 0; i < arr.length; i++ ) if ( arr[ i ].id == find_id ) {
-            ret = i;
-            break;
-        }
+        for ( let i = 0; i < arr.length; i++ )
+            if ( arr[ i ].id == find_id ) {
+                ret = i;
+                break;
+            }
         return ret;
     };
 
@@ -36,7 +37,7 @@ $( () => {
                 let data = result.data;
                 objCounterLastVal.val( data.value );
             } )
-            .fail( ( result ) => alert( result.responseJSON.error ) );
+            .fail( ( result ) => alert( 'Error' ) );
     };
 
     /**
@@ -150,16 +151,15 @@ $( () => {
     selectSubs.render();
     selectCount.render();
 
-
     const dependentFilters = [
         { url: 'ajax/lots', 'render': selectLot },
         { url: 'ajax/subst', 'render': selectSubs },
         { url: 'ajax/counter', 'render': selectCount },
     ];
-    const req = new ReqestSelect( dependentFilters, 1 );
+    const req = new ReqestSelectLastVal( dependentFilters, 1 );
+    req.lastEl = $( '#counter_last_val' );
     req.param = filter;
-    req.reqest();
-
+    req.reqestMod();
     console.log( 'Param = ', getUrlVars1() );
 
     $( '#date_airing_begin' ).datepicker( { changeYear: true, dateFormat: 'dd-mm-yy' } );
@@ -180,9 +180,10 @@ $( () => {
             { url: 'ajax/subst', 'render': selectSubs },
             { url: 'ajax/counter', 'render': selectCount },
         ];
-        const req = new ReqestSelect( primaer );
+        const req = new ReqestSelectLastVal( primaer );
+        req.lastEl = $( '#counter_last_val' );
         req.data = val;
-        req.reqest();
+        req.reqestMod();
         let counter = objSelected.objCounter.val();
     } );
     $( document ).on( "change", '#substation', function ( e ) {
@@ -193,9 +194,10 @@ $( () => {
         const primaer = [
             { url: 'ajax/counter', 'render': selectCount },
         ];
-        const req = new ReqestSelect( primaer );
+        const req = new ReqestSelectLastVal( primaer );
+        req.lastEl = $( '#counter_last_val' );
         req.data = val;
-        req.reqest();
+        req.reqestMod();
         $( '#counter_val' ).val( '' );
     } );
     $( document ).on( "change", '#counter', function ( e ) {
@@ -278,14 +280,14 @@ $( () => {
         const btn = { id: buttonpressed };
         buttonpressed = '';
         const obj = {
-            form      : me,
-            objBtnOk  : $( '#ok_f' ),
+            form: me,
+            objBtnOk: $( '#ok_f' ),
             objBtnEdit: $( '#edit_f' ),
-            btnPress  : btn,
+            btnPress: btn,
             objListRec: $( '#list_counts' ),
             gl_add_counts,
             edit_arr,
-            __proto__ : objSelected
+            __proto__: objSelected
         }
 
         // add_form_actions( obj );

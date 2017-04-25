@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var GeturlVar_1 = require("./libs/GeturlVar");
 var MySelect_1 = require("./libs/MySelect");
-var ReqestSelect_1 = require("./libs/ReqestSelect");
+var ReqestSelectLastVal_1 = require("./libs/ReqestSelectLastVal");
 $(function () {
     var gl_add_counts = 0, buttonpressed;
     var edit_arr = [];
@@ -34,7 +34,7 @@ $(function () {
             var data = result.data;
             objCounterLastVal.val(data.value);
         })
-            .fail(function (result) { return alert(result.responseJSON.error); });
+            .fail(function (result) { return alert('Error'); });
     };
     var print_add_record = function (_a) {
         var name_lot = _a.name_lot, name_substation = _a.name_substation, name_counter = _a.name_counter, date = _a.date, time = _a.time, value = _a.value, id = _a.id;
@@ -125,9 +125,10 @@ $(function () {
         { url: 'ajax/subst', 'render': selectSubs },
         { url: 'ajax/counter', 'render': selectCount },
     ];
-    var req = new ReqestSelect_1.ReqestSelect(dependentFilters, 1);
+    var req = new ReqestSelectLastVal_1.ReqestSelectLastVal(dependentFilters, 1);
+    req.lastEl = $('#counter_last_val');
     req.param = filter;
-    req.reqest();
+    req.reqestMod();
     console.log('Param = ', GeturlVar_1.getUrlVars1());
     $('#date_airing_begin').datepicker({ changeYear: true, dateFormat: 'dd-mm-yy' });
     $.mask.definitions['H'] = '[012]';
@@ -144,9 +145,10 @@ $(function () {
             { url: 'ajax/subst', 'render': selectSubs },
             { url: 'ajax/counter', 'render': selectCount },
         ];
-        var req = new ReqestSelect_1.ReqestSelect(primaer);
+        var req = new ReqestSelectLastVal_1.ReqestSelectLastVal(primaer);
+        req.lastEl = $('#counter_last_val');
         req.data = val;
-        req.reqest();
+        req.reqestMod();
         var counter = objSelected.objCounter.val();
     });
     $(document).on("change", '#substation', function (e) {
@@ -157,9 +159,10 @@ $(function () {
         var primaer = [
             { url: 'ajax/counter', 'render': selectCount },
         ];
-        var req = new ReqestSelect_1.ReqestSelect(primaer);
+        var req = new ReqestSelectLastVal_1.ReqestSelectLastVal(primaer);
+        req.lastEl = $('#counter_last_val');
         req.data = val;
-        req.reqest();
+        req.reqestMod();
         $('#counter_val').val('');
     });
     $(document).on("change", '#counter', function (e) {
@@ -239,7 +242,7 @@ $(function () {
     });
 });
 
-},{"./libs/GeturlVar":2,"./libs/MySelect":3,"./libs/ReqestSelect":4}],2:[function(require,module,exports){
+},{"./libs/GeturlVar":2,"./libs/MySelect":3,"./libs/ReqestSelectLastVal":5}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var getUrlVars1 = function () {
@@ -322,6 +325,9 @@ var ReqestSelect = (function () {
         this._data = 0;
     }
     Object.defineProperty(ReqestSelect.prototype, "data", {
+        get: function () {
+            return this._data;
+        },
         set: function (value) {
             this._data = value;
         },
@@ -361,4 +367,69 @@ var ReqestSelect = (function () {
 exports.ReqestSelect = ReqestSelect;
 exports.default = ReqestSelect;
 
-},{}]},{},[1]);
+},{}],5:[function(require,module,exports){
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ReqestSelect_1 = require("./ReqestSelect");
+var ReqestSelectLastVal = (function (_super) {
+    __extends(ReqestSelectLastVal, _super);
+    function ReqestSelectLastVal() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Object.defineProperty(ReqestSelectLastVal.prototype, "lastEl", {
+        set: function (value) {
+            this._lastEl = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ReqestSelectLastVal.prototype.get_last_val = function () {
+        var _this = this;
+        $.ajax({ dataType: 'json', type: 'post', url: 'ajax/lastvalue_counter/', data: { 'counter': this.data } })
+            .done(function (result) {
+            var data = result.data;
+            _this._lastEl.val(data.value);
+        })
+            .fail(function (result) { return alert('Error'); });
+    };
+    ;
+    ReqestSelectLastVal.prototype.reqestMod = function () {
+        var _this = this;
+        if (this.reqRender.length) {
+            var me_1 = this.reqRender.shift();
+            var param_1 = this._param.shift();
+            console.log(param_1);
+            $.ajax({ dataType: 'json', type: 'get', url: me_1.url, data: { 'data': this._data } })
+                .done(function (result) {
+                me_1.render.setData(result.data);
+                if (_this.loadForm) {
+                    me_1.render.selectByValue(param_1.setparam.toLocaleString());
+                    _this._data = param_1.setparam;
+                }
+                else {
+                    _this._data = result.data[0].id;
+                }
+                if (_this.reqRender.length == 1)
+                    _this.get_last_val();
+                console.log('размер массива', _this.reqRender.length);
+                _this.reqestMod();
+            })
+                .fail(function (result) { return alert('error'); });
+        }
+    };
+    return ReqestSelectLastVal;
+}(ReqestSelect_1.default));
+exports.ReqestSelectLastVal = ReqestSelectLastVal;
+exports.default = ReqestSelectLastVal;
+
+},{"./ReqestSelect":4}]},{},[1]);
